@@ -42,26 +42,17 @@
   /* ---------- markup + styles ---------- */
   const css = `
   .fun-buddy{display:none!important}
-  .jg{position:fixed;left:0;top:0;z-index:205;width:120px;height:200px;pointer-events:none;will-change:transform;transform-origin:0 0}
+  .jg{position:fixed;left:0;top:0;z-index:205;width:156px;height:200px;pointer-events:none;will-change:transform;transform-origin:0 0}
   .jg-fig{position:absolute;inset:0;transform-origin:50% 55%;pointer-events:auto;cursor:pointer;rotate:var(--lean,0deg);transition:filter .3s}
-  .jg-fig:hover{filter:drop-shadow(0 0 14px rgba(255,190,90,.55))}
-  .jg-bob{position:absolute;inset:0;animation:jgHover 2.4s ease-in-out infinite}
+  .jg-fig:hover{filter:drop-shadow(0 0 16px rgba(255,190,90,.5))}
+  .jg-bob{position:absolute;inset:0;animation:jgHover 2.6s ease-in-out infinite}
   .jg.fly .jg-bob{animation:none}
-  @keyframes jgHover{50%{transform:translateY(-7px)}}
-  .jg-body{position:absolute;left:0;top:0;width:120px;height:200px;overflow:visible}
-  .jg.flip .jg-body{transform:scaleX(-1)}
-  .jg-head{position:absolute;left:33px;top:2px;width:54px;z-index:2;filter:drop-shadow(0 3px 4px rgba(0,0,0,.35));transform-origin:50% 90%;rotate:var(--hrot,0deg);transition:rotate .4s;user-select:none;-webkit-user-drag:none}
-  .jg-body g{transform-box:fill-box}
-  .jg-body .cape{transform-origin:50% 0%;animation:jgCape 3.2s ease-in-out infinite}
-  .jg-body .tail{transform-origin:0% 10%;animation:jgTail 2.6s ease-in-out infinite}
-  .jg-body .pose{display:none}.jg .jg-body .hip{display:inline}.jg.fly .jg-body .hip,.jg.point .jg-body .hip{display:none}.jg.fly .jg-body .flyA{display:inline}.jg.point:not(.fly) .jg-body .pointA{display:inline}
-  .jg-body .lgL,.jg-body .lgR{transform-origin:50% 0%;transition:transform .45s}
-  @keyframes jgCape{0%,100%{transform:skewX(-3deg) scaleX(1)}50%{transform:skewX(4deg) scaleX(1.07)}}
-  @keyframes jgTail{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(9deg)}}
-  .jg.fly .cape{animation:jgCapeF .34s ease-in-out infinite}
-  .jg.fly .tail{animation:jgTail .5s ease-in-out infinite}
-  @keyframes jgCapeF{0%,100%{transform:skewX(-8deg) scaleX(1.12) scaleY(1.05)}50%{transform:skewX(6deg) scaleX(1.02) scaleY(1.1)}}
-  .jg.fly .lgL{transform:rotate(4deg)}.jg.fly .lgR{transform:rotate(-6deg) translateY(-2px)}
+  @keyframes jgHover{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-8px) rotate(-1.2deg)}}
+  .jg-img{position:absolute;user-select:none;-webkit-user-drag:none;transition:opacity .16s;filter:drop-shadow(0 18px 18px rgba(0,0,0,.28))}
+  .jg-hov{left:0;top:0;width:156px;height:200px;object-fit:contain}
+  .jg-flyimg{left:-56px;top:44px;width:268px;opacity:0}
+  .jg.fly .jg-hov{opacity:0}.jg.fly .jg-flyimg{opacity:1}
+  .jg.flip .jg-img{transform:scaleX(-1)}
   .jg-say{position:fixed;z-index:206;max-width:min(300px,78vw);padding:12px 14px 10px;border-radius:14px;background:rgba(16,14,13,.9);color:#f6efe4;font:500 14px/1.45 Inter,system-ui,sans-serif;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14);box-shadow:0 20px 44px -16px rgba(0,0,0,.6);opacity:0;transform:translateY(6px);transform-origin:var(--ox,20px) 100%;transition:opacity .3s,transform .4s cubic-bezier(.2,.9,.3,1);pointer-events:none}
   .jg-say.on{opacity:1;transform:none;pointer-events:auto}
   .jg-say::after{content:'';position:absolute;left:var(--ox,20px);bottom:-6px;width:12px;height:12px;margin-left:-6px;background:rgba(16,14,13,.9);transform:rotate(45deg);border-right:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14)}
@@ -76,29 +67,9 @@
   .jg-hl{outline:2px solid rgba(255,182,72,.7)!important;outline-offset:8px;border-radius:12px;transition:outline-color .5s}`;
   const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
-  // drawn in a 120x200 box; the photo head sits on top at the neck
-  const BODY = `<svg class="jg-body" viewBox="0 0 120 200" aria-hidden="true">
-    <defs>
-      <linearGradient id="jgCapeG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4161f"/><stop offset=".6" stop-color="#a50f18"/><stop offset="1" stop-color="#6b0910"/></linearGradient>
-      <linearGradient id="jgCapeIn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a0a0e"/><stop offset="1" stop-color="#2a0507"/></linearGradient>
-      <linearGradient id="jgTailG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3b24a"/><stop offset=".55" stop-color="#d9822c"/><stop offset="1" stop-color="#a95a1c"/></linearGradient>
-      <linearGradient id="jgJeans" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3550"/><stop offset="1" stop-color="#18203a"/></linearGradient>
-      <linearGradient id="jgShirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1c1c1e"/><stop offset=".5" stop-color="#101012"/><stop offset="1" stop-color="#1c1c1e"/></linearGradient>
-    </defs>
-    <g class="cape"><path d="M31 86Q60 77 89 86L111 182Q92 172 78 189Q68 178 60 195Q52 178 42 189Q28 172 9 182Z" fill="url(#jgCapeG)"/><path d="M37 88Q60 81 83 88L88 114Q60 105 32 114Z" fill="url(#jgCapeIn)" opacity=".6"/><path d="M31 86L9 182M89 86L111 182" stroke="#f0c25a" stroke-width="1.3" opacity=".6"/></g>
-    <g class="tail"><path d="M70 140C92 131 112 142 116 163C119 180 106 194 90 192C101 181 98 166 86 160C78 156 72 149 70 140Z" fill="url(#jgTailG)"/><path d="M108 178C112 188 102 195 90 192C99 189 104 184 108 178Z" fill="#fbf4e8"/><path d="M82 146C95 146 106 155 108 168" stroke="#f7c96e" stroke-width="1.4" fill="none" opacity=".6"/></g>
-    <g class="lgL"><path d="M46 138H59L58 184H47Z" fill="url(#jgJeans)"/><path d="M44 181H59V189Q59 193 55 193H41Q39 193 39 190Q39 185 44 184Z" fill="#141210"/></g>
-    <g class="lgR"><path d="M61 138H74L73 184H62Z" fill="url(#jgJeans)"/><path d="M61 181H76V184Q81 185 81 190Q81 193 79 193H65Q61 193 61 189Z" fill="#141210"/></g>
-    <rect x="54" y="72" width="12" height="16" rx="4" fill="#d6a082"/>
-    <path d="M32 89Q60 80 88 89L81 140Q60 146 39 140Z" fill="url(#jgShirt)"/>
-    <path d="M52 86L60 116L68 86Z" fill="#cf9677"/><path d="M55 95q5 3 10 0M56 103q4 2 8 0" stroke="#8a5e48" stroke-width="1" fill="none" opacity=".55"/>
-    <path d="M51 85L60 116L69 85" stroke="#2e2e31" stroke-width="2.2" fill="none"/><path d="M36 92Q48 98 52 112M84 92Q72 98 68 112" stroke="#26262a" stroke-width="1.2" fill="none" opacity=".8"/>
-    <path d="M39 133Q60 139 81 133L81 140Q60 146 39 140Z" fill="#3b2a1d"/><rect x="56" y="134.5" width="8" height="5" rx="1.2" fill="#d9a441"/>
-    <g class="pose hip" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M35 93L22 116L40 133" stroke="#161618" stroke-width="12"/><path d="M85 93L98 116L80 133" stroke="#161618" stroke-width="12"/><circle cx="41" cy="133" r="5.6" fill="#d6a082"/><circle cx="79" cy="133" r="5.6" fill="#d6a082"/></g>
-    <g class="pose flyA" fill="none" stroke-linecap="round"><path d="M36 93L30 136" stroke="#161618" stroke-width="12"/><circle cx="29" cy="139" r="5.6" fill="#d6a082"/><path d="M84 93L92 40" stroke="#161618" stroke-width="12"/><circle cx="92.5" cy="34" r="6.4" fill="#d6a082"/></g>
-    <g class="pose pointA" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M35 93L22 116L40 133" stroke="#161618" stroke-width="12"/><circle cx="41" cy="133" r="5.6" fill="#d6a082"/><path d="M85 93L116 78" stroke="#161618" stroke-width="12"/><circle cx="120" cy="76" r="5.6" fill="#d6a082"/></g>  </svg>`;
+  // two AI-rendered poses of Justin (cape, fox tail, his cap): hovering upright and flying
   const jg = document.createElement('div'); jg.className = 'jg'; jg.setAttribute('aria-hidden', 'true');
-  jg.innerHTML = `<div class="jg-fig" title="Justin — click for a tour"><div class="jg-bob">${BODY}<img class="jg-head" src="${root}assets/img/justin-head.webp" alt="" draggable="false"></div></div>`;
+  jg.innerHTML = `<div class="jg-fig" title="Justin — click for a tour"><div class="jg-bob"><img class="jg-img jg-hov" src="${root}assets/img/justin-hover.webp" alt="" draggable="false"><img class="jg-img jg-flyimg" src="${root}assets/img/justin-fly.webp" alt="" draggable="false"></div></div>`;
   const say = document.createElement('div'); say.className = 'jg-say'; say.setAttribute('role', 'dialog'); say.setAttribute('aria-live', 'polite');
   const mount = () => { document.body.appendChild(jg); document.body.appendChild(say) };
   document.body ? mount() : addEventListener('DOMContentLoaded', mount);
@@ -106,7 +77,7 @@
 
   /* ---------- state + positioning ---------- */
   let x = 0, y = 0, flip = false, stand = null, idx = -1, touring = false, busy = false;
-  const S = () => innerWidth < 700 ? .56 : .82, W = () => 120 * S(), Hh = () => 200 * S();
+  const S = () => innerWidth < 700 ? .58 : .9, W = () => 156 * S(), Hh = () => 200 * S();
   const home = () => ({ x: innerWidth < 700 ? 4 : 14, y: innerHeight - Hh() - (innerWidth < 700 ? 10 : 16) });
   function place() { jg.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) scale(${S()})`; jg.classList.toggle('flip', flip) }
   const lean = d => fig.style.setProperty('--lean', d.toFixed(1) + 'deg');
@@ -136,7 +107,7 @@
         const k = clamp((now - t0) / dur, 0, 1), e = ease(k), u = 1 - e;
         x = u * u * x0 + 2 * u * e * cx + e * e * tx; y = u * u * y0 + 2 * u * e * cy + e * e * ty; place();
         const vx = x - lx, vy = y - ly; lx = x; ly = y;
-        const sp = Math.hypot(vx, vy), want = sp > .4 ? clamp(Math.atan2(vy, Math.abs(vx)) * 57.3 * .35 + 62, 20, 80) * (vx < 0 ? -1 : 1) : 0;
+        const sp = Math.hypot(vx, vy), want = sp > .4 ? clamp(Math.atan2(vy, Math.abs(vx)) * 57.3 * .45, -22, 22) * (vx < 0 ? -1 : 1) : 0;
         lean(want * Math.sin(Math.PI * Math.min(1, k * 1.15)));
         if (++n % 2 === 0 && sp > 1) trail(x + W() / 2 - (vx > 0 ? 1 : -1) * W() * .35, y + Hh() * .62);
         if (k < 1) requestAnimationFrame(f); else { jg.classList.remove('fly'); lean(0); res() }
