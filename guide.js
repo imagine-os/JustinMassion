@@ -1,21 +1,21 @@
-/* guide.js — Justin himself as a tiny platformer-hero tour guide.
-   He waits at the bottom-left; press "Tour" and he runs while the page scrolls, then jumps onto the next
-   section's heading like a platform, lands with sparkles and tells you about it. On one-screen concepts he
-   hops between objects. Arrow keys ← → step through the tour, Esc ends it.
-   Include: <script src="[../]guide.js?v=1" data-root="[../]" data-page="a"></script> (after the page's own scripts).
+/* guide.js — Justin as a flying tour guide: red cape, fox tail, his own cap.
+   He hovers at the bottom-left; press "Tour" and he flies the page section to section, hovering over each
+   section's heading to tell you about it. On one-screen concepts he flies between objects.
+   Arrow keys ← → step through the tour, Esc ends it.
+   Include: <script src="[../]guide.js?v=2" data-root="[../]" data-page="a"></script> (after the page's own scripts).
    Tour stops live in TOURS below: [selector, what Justin says, optional perch selector inside it]. */
 (() => {
   if (window.JMGuide) return;
   const me = document.currentScript, root = (me && me.dataset.root) || '', page = (me && me.dataset.page) || 'b';
   const TOURS = {
-    b: [['#hero', "Hey, I'm Justin! Hop on — I'll show you around my worlds.", 'h1'], ['#journal', 'My journal: seven worlds. Scroll and the pages really turn.'], ['#explorer', 'Step inside a world — pick one, it opens like a ride door.'], ['#build', 'Watch a world build itself: pencil first, then the magic.'], ['#academy', 'The Academy — the books that taught me everything.'], ['#contact', 'Last stop! Tell me about the world you want to build.']],
-    a: [['#hero', "Hey, I'm Justin! Let me give you the director's tour.", 'h1'], ['#worlds', 'Every world I build starts here — imagineered, then shipped.'], ['#cyl', 'Stand in the middle of the work. Drag the room around!'], ['#archive', 'The archive: every world in orbit. Twist the knobs.'], ['#wall', 'My studio wall. Give a frame a flick.'], ['#academy', 'The Academy shelf — pick up a book.'], ['#contact', "That's the tour. Let's build a world together!"]],
+    b: [['#hero', "Hey, I'm Justin! Let me fly you around my worlds.", 'h1'], ['#journal', 'My journal: seven worlds. Scroll and the pages really turn.'], ['#explorer', 'Step inside a world — pick one, it opens like a ride door.'], ['#build', 'Watch a world build itself: pencil first, then the magic.'], ['#academy', 'The Academy — the books that taught me everything.'], ['#contact', 'Last stop! Tell me about the world you want to build.']],
+    a: [['#hero', "Hey, I'm Justin! Let me fly you through the director's cut.", 'h1'], ['#worlds', 'Every world I build starts here — imagineered, then shipped.'], ['#cyl', 'Stand in the middle of the work. Drag the room around!'], ['#archive', 'The archive: every world in orbit. Twist the knobs.'], ['#wall', 'My studio wall. Give a frame a flick.'], ['#academy', 'The Academy shelf — pick up a book.'], ['#contact', "That's the tour. Let's build a world together!"]],
     c: [['#hero', "Hey! I'm Justin — this is my studio pass.", 'h1'], ['#featured', 'Now streaming: one world per episode.', 'h2'], ['#worlds', 'The worlds library — hover a slice.', 'h2'], ['#tour', 'Fly with me: LA → Orlando → Guatapé.', '.thead'], ['#about', 'Scroll fast here — the desk pile explodes!', '.abHead'], ['#footer', 'Think. Sketch. Build. Ship. Repeat.', '.mantra']],
     d: [['#hero', "Hey, I'm Justin — your pilot today. Pick a world!", '#choose'], ['#fly', 'Fasten your seatbelt — we fly over the work.', '#flyH'], ['#meet', 'Where the pencil meets the pixels.', '#mh'], ['#stats', 'The numbers, counted by hand.', '.srow'], ['#tomorrow', 'Hover the cards — they fan out.', 'h2'], ['#contact', 'Book a trip — you even get a boarding pass!', 'h2']],
     e: [['#story', "Hey, I'm Justin! Scroll and I'll sketch a world for you.", '.st.on h1, .st.on h2'], ['#worlds', 'Six worlds, one pencil. Stamp your passport!', 'h2'], ['#pour', 'Imagineering is a pour — watch the glass fill.', 'h2'], ['#line', 'My plates, drying on the line.', 'h2'], ['#pad', 'Your turn! Draw something — I will help pour it.', 'h2'], ['#academy', 'The Academy: the art of learning anything.', 'h2'], ['#contact', "Let's sketch your world next.", 'h2']],
     f: [['#hero', "Hey, I'm Justin — and those are my glasses up there.", '.hcol.l1'], ['#visor', 'Watch — they come off and land in my hand.', '.vtop'], ['#work', 'Field notes. The glass clears when you look.', 'h2'], ['#contact', 'Start a world with me — the frames swing!', '.mail']],
     g: [['#o-window', "Welcome to my studio in Guatapé! That's the real view, right now."], ['#o-about', "That's me. Click the frame to say hi."], ['#o-table', 'My desk — every sketch here is a world.'], ['#o-books', 'The Academy shelf: nine books, one habit.'], ['#o-easel', 'Pixel posed for this one. He is very vain.'], ['#o-phone', 'Pick up the phone — it rings me.'], ['#o-record', 'Put a record on and stay a while.']],
-    h: [['#top', "Hey, I'm Justin. Bold, red, and only slightly serious.", '.hero-word, h1'], ['#fly', 'Sketch. Build. Ship. Here they come!'], ['#about', 'An Imagineer who treats wonder as infrastructure.', 'h2'], ['#work', 'JAM Studios — the featured world.', 'h2'], ['#worlds', 'Other worlds. Load more, I dare you.', 'h2'], ['#skills', 'Skill {set} — tap the keyboard, pills jump.', 'h2'], ['#process', 'How a world gets made, row by row.', 'h2'], ['#academy', 'The Academy reading list.', 'h2'], ['#contact', "Let's build a world.", 'h2']],
+    h: [['#top', "Hey, I'm Justin. Bold, red, and flying.", '.hero-word, h1'], ['#fly', 'Sketch. Build. Ship. Here they come!'], ['#about', 'An Imagineer who treats wonder as infrastructure.', 'h2'], ['#work', 'JAM Studios — the featured world.', 'h2'], ['#worlds', 'Other worlds. Load more, I dare you.', 'h2'], ['#skills', 'Skill {set} — tap the keyboard, pills jump.', 'h2'], ['#process', 'How a world gets made, row by row.', 'h2'], ['#academy', 'The Academy reading list.', 'h2'], ['#contact', "Let's build a world.", 'h2']],
     i: [['#top', "Hey, I'm Justin. That's not the moon — those are my three cities.", '.hero-name, h1'], ['#works', 'The wall: every world I have worked on.', 'h2'], ['#about', 'What I do, and where I do it.', 'h2'], ['#services', 'Four ways we can work together.'], ['#contact', 'Book a call — or ask me anything down there.']],
     j: [['.hero', "Hi! I'm Justin — click the colourful words!", '#headline, h1'], ['#worlds', 'Featured worlds — every folder opens.', 'h2'], ['#numbers', 'Peel the sticker. Go on.', 'h2'], ['#people', 'What people say (placeholders, for now).', 'h2'], ['#about', 'Making boring stuff exciting since day one.', 'h2'], ['.outside', 'Outside work: Guatapé, 740 steps up.', 'h2'], ['#playground', 'Grab a bubble and flick it!', 'h2'], ['#contact', "Let's build a world together!", 'h2']],
     k: [['#profile', "Hey, I'm Justin! This is my playground."], ['#worlds', 'Hover a world — it finds its tile.'], ['#play', 'The big panel scrolls. Go explore!'], ['#pContact', 'Say hola when you are ready.']],
@@ -25,138 +25,134 @@
   };
   const stops = TOURS[page] || [];
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const clamp = (v, a, b) => Math.max(a, Math.min(b, v)), ease = t => t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+  const clamp = (v, a, b) => Math.max(a, Math.min(b, v)), ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
   const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-  /* ---------- sound (original synth blips, follows the site-wide sound toggle) ---------- */
+  /* ---------- sound: one soft whoosh per flight (follows the site-wide sound toggle) ---------- */
   let ac = null; const soundOn = () => window.JM ? window.JM.sound : localStorage.getItem('jm-sound') !== 'off';
-  function blip(type) {
+  function whoosh(dur = .5) {
     if (!soundOn()) return; try { ac = ac || new (window.AudioContext || window.webkitAudioContext)(); if (ac.state === 'suspended') ac.resume() } catch (e) { return }
-    const t = ac.currentTime, o = ac.createOscillator(), g = ac.createGain(); o.connect(g); g.connect(ac.destination);
-    if (type === 'jump') { o.type = 'square'; o.frequency.setValueAtTime(260, t); o.frequency.exponentialRampToValueAtTime(720, t + .16); g.gain.setValueAtTime(.05, t); g.gain.exponentialRampToValueAtTime(.0001, t + .2); o.start(t); o.stop(t + .21) }
-    else if (type === 'land') { o.type = 'triangle'; o.frequency.setValueAtTime(180, t); o.frequency.exponentialRampToValueAtTime(90, t + .1); g.gain.setValueAtTime(.12, t); g.gain.exponentialRampToValueAtTime(.0001, t + .12); o.start(t); o.stop(t + .13) }
-    else { o.type = 'sine'; [880, 1320, 1760].forEach((f, i) => o.frequency.setValueAtTime(f, t + i * .06)); g.gain.setValueAtTime(.06, t); g.gain.exponentialRampToValueAtTime(.0001, t + .26); o.start(t); o.stop(t + .27) }
+    const t = ac.currentTime, n = ac.createBufferSource(), buf = ac.createBuffer(1, ac.sampleRate * dur, ac.sampleRate), d = buf.getChannelData(0);
+    for (let i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    n.buffer = buf; const f = ac.createBiquadFilter(); f.type = 'bandpass'; f.Q.value = .8; f.frequency.setValueAtTime(350, t); f.frequency.exponentialRampToValueAtTime(1500, t + dur * .55); f.frequency.exponentialRampToValueAtTime(500, t + dur);
+    const g = ac.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(.07, t + dur * .4); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    n.connect(f); f.connect(g); g.connect(ac.destination); n.start(t); n.stop(t + dur);
   }
 
   /* ---------- markup + styles ---------- */
   const css = `
   .fun-buddy{display:none!important}
-  .jg{position:fixed;left:0;top:0;z-index:205;width:92px;height:172px;pointer-events:none;will-change:transform;transform-origin:0 0}
-  .jg-fig{position:absolute;inset:0;transform-origin:50% 100%;pointer-events:auto;cursor:pointer;transition:filter .3s}
-  .jg-fig:hover{filter:drop-shadow(0 0 10px rgba(255,220,120,.7))}
-  .jg-face{position:absolute;inset:0;transform-origin:50% 100%}
-  .jg.flip .jg-body{transform:scaleX(-1)}.jg.flip .jg-head{rotate:-4deg}.jg:not(.flip) .jg-head{rotate:3deg}
-  .jg-head{position:absolute;left:7px;top:0;width:78px;z-index:2;filter:drop-shadow(0 4px 4px rgba(0,0,0,.28));transform-origin:50% 92%;animation:jgNod 2.6s ease-in-out infinite;user-select:none;-webkit-user-drag:none}
-  .jg-body{position:absolute;left:0;top:104px;width:92px;height:66px;overflow:visible;z-index:1}
-  .jg-body .lg,.jg-body .ar{transform-box:fill-box}
-  .jg-body .lgL{transform-origin:50% 8%}.jg-body .lgR{transform-origin:50% 8%}
-  .jg-body .arL{transform-origin:80% 10%}.jg-body .arR{transform-origin:20% 10%}
-  .jg-sh{position:absolute;left:50%;bottom:-6px;width:56px;height:10px;margin-left:-28px;border-radius:50%;background:rgba(0,0,0,.28);filter:blur(2px);transform-origin:50% 50%}
-  @keyframes jgNod{50%{transform:rotate(-2.5deg) translateY(1px)}}
-  .jg.run .lgL{animation:jgLeg .32s ease-in-out infinite}.jg.run .lgR{animation:jgLeg .32s ease-in-out infinite reverse}
-  .jg.run .arL{animation:jgArm .32s ease-in-out infinite}.jg.run .arR{animation:jgArm .32s ease-in-out infinite reverse}
-  .jg.run .jg-face{animation:jgBob .16s ease-in-out infinite alternate}
-  
-  @keyframes jgLeg{0%{transform:rotate(30deg)}50%{transform:rotate(-30deg)}100%{transform:rotate(30deg)}}
-  @keyframes jgArm{0%{transform:rotate(-40deg)}50%{transform:rotate(40deg)}100%{transform:rotate(-40deg)}}
-  @keyframes jgBob{to{transform:translateY(-4px)}}
-  .jg-body .sc{transform-box:fill-box;transform-origin:100% 20%;animation:jgScarf 1.4s ease-in-out infinite}.jg.run .sc,.jg.jump .sc{animation-duration:.22s}
-  @keyframes jgScarf{0%,100%{transform:rotate(-6deg) scaleX(1)}50%{transform:rotate(8deg) scaleX(1.15)}}
-  .jg.jump .arL{transform:rotate(150deg)}.jg.jump .arR{transform:rotate(-150deg)}
-  .jg.jump .lgL{transform:rotate(-22deg) translateY(-3px)}.jg.jump .lgR{transform:rotate(26deg)}
-  .jg.wave .arR{animation:jgWave .5s ease-in-out 3}
-  @keyframes jgWave{0%,100%{transform:rotate(-150deg)}50%{transform:rotate(-115deg)}}
-  .jg-say{position:fixed;z-index:206;max-width:min(300px,78vw);padding:12px 14px 10px;border-radius:16px;background:#fffdf7;color:#17120e;font:500 14px/1.4 Inter,system-ui,sans-serif;box-shadow:0 18px 40px -14px rgba(0,0,0,.55),0 0 0 2px #17120e;opacity:0;transform:translateY(8px) scale(.9);transform-origin:var(--ox,20px) 100%;transition:opacity .25s,transform .35s cubic-bezier(.3,1.5,.5,1);pointer-events:none}
+  .jg{position:fixed;left:0;top:0;z-index:205;width:120px;height:200px;pointer-events:none;will-change:transform;transform-origin:0 0}
+  .jg-fig{position:absolute;inset:0;transform-origin:50% 55%;pointer-events:auto;cursor:pointer;rotate:var(--lean,0deg);transition:filter .3s}
+  .jg-fig:hover{filter:drop-shadow(0 0 14px rgba(255,190,90,.55))}
+  .jg-bob{position:absolute;inset:0;animation:jgHover 2.4s ease-in-out infinite}
+  .jg.fly .jg-bob{animation:none}
+  @keyframes jgHover{50%{transform:translateY(-7px)}}
+  .jg-body{position:absolute;left:0;top:0;width:120px;height:200px;overflow:visible}
+  .jg.flip .jg-body{transform:scaleX(-1)}
+  .jg-head{position:absolute;left:33px;top:2px;width:54px;z-index:2;filter:drop-shadow(0 3px 4px rgba(0,0,0,.35));transform-origin:50% 90%;rotate:var(--hrot,0deg);transition:rotate .4s;user-select:none;-webkit-user-drag:none}
+  .jg-body g{transform-box:fill-box}
+  .jg-body .cape{transform-origin:50% 0%;animation:jgCape 3.2s ease-in-out infinite}
+  .jg-body .tail{transform-origin:0% 10%;animation:jgTail 2.6s ease-in-out infinite}
+  .jg-body .pose{display:none}.jg .jg-body .hip{display:inline}.jg.fly .jg-body .hip,.jg.point .jg-body .hip{display:none}.jg.fly .jg-body .flyA{display:inline}.jg.point:not(.fly) .jg-body .pointA{display:inline}
+  .jg-body .lgL,.jg-body .lgR{transform-origin:50% 0%;transition:transform .45s}
+  @keyframes jgCape{0%,100%{transform:skewX(-3deg) scaleX(1)}50%{transform:skewX(4deg) scaleX(1.07)}}
+  @keyframes jgTail{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(9deg)}}
+  .jg.fly .cape{animation:jgCapeF .34s ease-in-out infinite}
+  .jg.fly .tail{animation:jgTail .5s ease-in-out infinite}
+  @keyframes jgCapeF{0%,100%{transform:skewX(-8deg) scaleX(1.12) scaleY(1.05)}50%{transform:skewX(6deg) scaleX(1.02) scaleY(1.1)}}
+  .jg.fly .lgL{transform:rotate(4deg)}.jg.fly .lgR{transform:rotate(-6deg) translateY(-2px)}
+  .jg-say{position:fixed;z-index:206;max-width:min(300px,78vw);padding:12px 14px 10px;border-radius:14px;background:rgba(16,14,13,.9);color:#f6efe4;font:500 14px/1.45 Inter,system-ui,sans-serif;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.14);box-shadow:0 20px 44px -16px rgba(0,0,0,.6);opacity:0;transform:translateY(6px);transform-origin:var(--ox,20px) 100%;transition:opacity .3s,transform .4s cubic-bezier(.2,.9,.3,1);pointer-events:none}
   .jg-say.on{opacity:1;transform:none;pointer-events:auto}
-  .jg-say::after{content:'';position:absolute;left:var(--ox,20px);bottom:-9px;width:16px;height:16px;margin-left:-8px;background:#fffdf7;transform:rotate(45deg);box-shadow:2px 2px 0 0 #17120e}
-  .jg-say.below::after{bottom:auto;top:-9px;box-shadow:-2px -2px 0 0 #17120e}
-  .jg-say b{font-weight:700}
+  .jg-say::after{content:'';position:absolute;left:var(--ox,20px);bottom:-6px;width:12px;height:12px;margin-left:-6px;background:rgba(16,14,13,.9);transform:rotate(45deg);border-right:1px solid rgba(255,255,255,.14);border-bottom:1px solid rgba(255,255,255,.14)}
+  .jg-say.below::after{bottom:auto;top:-6px;border:0;border-left:1px solid rgba(255,255,255,.14);border-top:1px solid rgba(255,255,255,.14)}
+  .jg-say b{font-weight:700;color:#ffb648}
   .jg-row{display:flex;align-items:center;gap:6px;margin-top:10px}
-  .jg-row .n{margin-right:auto;font:600 11px ui-monospace,monospace;opacity:.55}
-  .jg-btn{appearance:none;border:0;border-radius:99px;padding:7px 12px;font:700 12px Inter,system-ui,sans-serif;cursor:pointer;background:#17120e;color:#fff;box-shadow:0 3px 0 #000;transition:translate .08s,box-shadow .08s}
-  .jg-btn:active{translate:0 3px;box-shadow:0 0 0 #000}
-  .jg-btn.ghost{background:#efe9dd;color:#17120e;box-shadow:0 3px 0 #c9bfae}
-  .jg-btn.go{background:#e3342f;box-shadow:0 3px 0 #8f1a17}
-  .jg-spark{position:fixed;z-index:204;pointer-events:none;font:700 16px/1 system-ui;color:#ffd84d;text-shadow:0 1px 0 #b8860b,0 0 8px rgba(255,216,77,.8)}
-  .jg-plus{position:fixed;z-index:204;pointer-events:none;font:800 13px Inter,system-ui,sans-serif;color:#fff;background:#e3342f;padding:3px 8px;border-radius:99px;box-shadow:0 2px 0 #8f1a17}
-  .jg-hl{outline:3px dashed rgba(255,216,77,.9)!important;outline-offset:6px;border-radius:10px;transition:outline-color .4s}
-`;
+  .jg-row .n{margin-right:auto;font:600 11px ui-monospace,monospace;opacity:.5;letter-spacing:.06em}
+  .jg-btn{appearance:none;border:1px solid rgba(255,255,255,.16);border-radius:99px;padding:7px 13px;font:600 12px Inter,system-ui,sans-serif;cursor:pointer;background:rgba(255,255,255,.08);color:#f6efe4;transition:background .2s}
+  .jg-btn:hover{background:rgba(255,255,255,.16)}
+  .jg-btn.go{background:#d7262f;border-color:#d7262f;color:#fff}.jg-btn.go:hover{background:#ee3a42}
+  .jg-trail{position:fixed;z-index:204;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;pointer-events:none;background:radial-gradient(circle,#fff 0,#ffd27a 40%,rgba(255,140,60,0) 72%)}
+  .jg-hl{outline:2px solid rgba(255,182,72,.7)!important;outline-offset:8px;border-radius:12px;transition:outline-color .5s}`;
   const st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
 
-  const BODY = `<svg class="jg-body" viewBox="0 0 84 60" aria-hidden="true">
-    <g class="lg lgL"><rect x="27" y="22" width="12" height="25" rx="5" fill="#2b3a55"/><path d="M24 47h16a4 4 0 0 1 4 4v1H24a3 3 0 0 1-3-3 2 2 0 0 1 3-2z" fill="#e3342f"/><rect x="21" y="51" width="23" height="3" rx="1.5" fill="#fff"/></g>
-    <g class="lg lgR"><rect x="45" y="22" width="12" height="25" rx="5" fill="#26334c"/><path d="M44 47h16a3 3 0 0 1 3 2 3 3 0 0 1-3 3H40v-1a4 4 0 0 1 4-4z" fill="#e3342f"/><rect x="40" y="51" width="23" height="3" rx="1.5" fill="#fff"/></g>
-    <g class="ar arL"><rect x="9" y="4" width="13" height="22" rx="6.5" fill="#161616" transform="rotate(14 15 6)"/><circle cx="11" cy="27" r="5.4" fill="#e2a786"/></g>
-    <g class="ar arR"><rect x="62" y="4" width="13" height="22" rx="6.5" fill="#161616" transform="rotate(-14 69 6)"/><circle cx="73" cy="27" r="5.4" fill="#e2a786"/></g>
-    <path class="sc" d="M38 3c-8-2-20 1-30 8 6 1 10 4 12 9 3-6 10-9 18-9z" fill="#e3342f"/><path class="sc" d="M26 9c-6 1-11 5-14 10 4-1 8 0 10 3 1-5 3-9 4-13z" fill="#b8231f"/><path d="M17 10Q19 1 42 1T67 10L63 29Q42 33 21 29Z" fill="#161616"/><path d="M22 12q20 6 40 0" stroke="#2c2c2c" stroke-width="1.4" fill="none"/>
-    <path d="M35 1L42 17L49 1Z" fill="#c98f70"/><path d="M38 6q4 3 8 0" stroke="#7a5a48" stroke-width="1.2" fill="none" opacity=".6"/>
-    <path d="M35 1L42 17M49 1L42 17" stroke="#2a2a2a" stroke-width="1.6" fill="none"/>
-    <rect x="36" y="25" width="12" height="5" rx="1.5" fill="#f2c14e"/><text x="42" y="29.2" text-anchor="middle" font-size="4" font-weight="800" fill="#17120e" font-family="Inter,system-ui">JAM</text>
-  </svg>`;
+  // drawn in a 120x200 box; the photo head sits on top at the neck
+  const BODY = `<svg class="jg-body" viewBox="0 0 120 200" aria-hidden="true">
+    <defs>
+      <linearGradient id="jgCapeG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#d4161f"/><stop offset=".6" stop-color="#a50f18"/><stop offset="1" stop-color="#6b0910"/></linearGradient>
+      <linearGradient id="jgCapeIn" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5a0a0e"/><stop offset="1" stop-color="#2a0507"/></linearGradient>
+      <linearGradient id="jgTailG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f3b24a"/><stop offset=".55" stop-color="#d9822c"/><stop offset="1" stop-color="#a95a1c"/></linearGradient>
+      <linearGradient id="jgJeans" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a3550"/><stop offset="1" stop-color="#18203a"/></linearGradient>
+      <linearGradient id="jgShirt" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#1c1c1e"/><stop offset=".5" stop-color="#101012"/><stop offset="1" stop-color="#1c1c1e"/></linearGradient>
+    </defs>
+    <g class="cape"><path d="M31 86Q60 77 89 86L111 182Q92 172 78 189Q68 178 60 195Q52 178 42 189Q28 172 9 182Z" fill="url(#jgCapeG)"/><path d="M37 88Q60 81 83 88L88 114Q60 105 32 114Z" fill="url(#jgCapeIn)" opacity=".6"/><path d="M31 86L9 182M89 86L111 182" stroke="#f0c25a" stroke-width="1.3" opacity=".6"/></g>
+    <g class="tail"><path d="M70 140C92 131 112 142 116 163C119 180 106 194 90 192C101 181 98 166 86 160C78 156 72 149 70 140Z" fill="url(#jgTailG)"/><path d="M108 178C112 188 102 195 90 192C99 189 104 184 108 178Z" fill="#fbf4e8"/><path d="M82 146C95 146 106 155 108 168" stroke="#f7c96e" stroke-width="1.4" fill="none" opacity=".6"/></g>
+    <g class="lgL"><path d="M46 138H59L58 184H47Z" fill="url(#jgJeans)"/><path d="M44 181H59V189Q59 193 55 193H41Q39 193 39 190Q39 185 44 184Z" fill="#141210"/></g>
+    <g class="lgR"><path d="M61 138H74L73 184H62Z" fill="url(#jgJeans)"/><path d="M61 181H76V184Q81 185 81 190Q81 193 79 193H65Q61 193 61 189Z" fill="#141210"/></g>
+    <rect x="54" y="72" width="12" height="16" rx="4" fill="#d6a082"/>
+    <path d="M32 89Q60 80 88 89L81 140Q60 146 39 140Z" fill="url(#jgShirt)"/>
+    <path d="M52 86L60 116L68 86Z" fill="#cf9677"/><path d="M55 95q5 3 10 0M56 103q4 2 8 0" stroke="#8a5e48" stroke-width="1" fill="none" opacity=".55"/>
+    <path d="M51 85L60 116L69 85" stroke="#2e2e31" stroke-width="2.2" fill="none"/><path d="M36 92Q48 98 52 112M84 92Q72 98 68 112" stroke="#26262a" stroke-width="1.2" fill="none" opacity=".8"/>
+    <path d="M39 133Q60 139 81 133L81 140Q60 146 39 140Z" fill="#3b2a1d"/><rect x="56" y="134.5" width="8" height="5" rx="1.2" fill="#d9a441"/>
+    <g class="pose hip" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M35 93L22 116L40 133" stroke="#161618" stroke-width="12"/><path d="M85 93L98 116L80 133" stroke="#161618" stroke-width="12"/><circle cx="41" cy="133" r="5.6" fill="#d6a082"/><circle cx="79" cy="133" r="5.6" fill="#d6a082"/></g>
+    <g class="pose flyA" fill="none" stroke-linecap="round"><path d="M36 93L30 136" stroke="#161618" stroke-width="12"/><circle cx="29" cy="139" r="5.6" fill="#d6a082"/><path d="M84 93L92 40" stroke="#161618" stroke-width="12"/><circle cx="92.5" cy="34" r="6.4" fill="#d6a082"/></g>
+    <g class="pose pointA" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M35 93L22 116L40 133" stroke="#161618" stroke-width="12"/><circle cx="41" cy="133" r="5.6" fill="#d6a082"/><path d="M85 93L116 78" stroke="#161618" stroke-width="12"/><circle cx="120" cy="76" r="5.6" fill="#d6a082"/></g>  </svg>`;
   const jg = document.createElement('div'); jg.className = 'jg'; jg.setAttribute('aria-hidden', 'true');
-  jg.innerHTML = `<div class="jg-fig" title="Justin — click for a tour"><div class="jg-face">${BODY}<img class="jg-head" src="${root}assets/img/justin-head.webp" alt="" draggable="false"></div></div><i class="jg-sh"></i>`;
+  jg.innerHTML = `<div class="jg-fig" title="Justin — click for a tour"><div class="jg-bob">${BODY}<img class="jg-head" src="${root}assets/img/justin-head.webp" alt="" draggable="false"></div></div>`;
   const say = document.createElement('div'); say.className = 'jg-say'; say.setAttribute('role', 'dialog'); say.setAttribute('aria-live', 'polite');
   const mount = () => { document.body.appendChild(jg); document.body.appendChild(say) };
   document.body ? mount() : addEventListener('DOMContentLoaded', mount);
+  const fig = jg.querySelector('.jg-fig');
 
   /* ---------- state + positioning ---------- */
-  let x = 0, y = 0, scale = 1, flip = false, stand = null, idx = -1, touring = false, busy = false;
-  const S = () => innerWidth < 700 ? .66 : 1, W = () => 92 * S(), Hh = () => 172 * S();
-  const home = () => ({ x: innerWidth < 700 ? 10 : 22, y: innerHeight - Hh() - (innerWidth < 700 ? 14 : 22) });
+  let x = 0, y = 0, flip = false, stand = null, idx = -1, touring = false, busy = false;
+  const S = () => innerWidth < 700 ? .56 : .82, W = () => 120 * S(), Hh = () => 200 * S();
+  const home = () => ({ x: innerWidth < 700 ? 4 : 14, y: innerHeight - Hh() - (innerWidth < 700 ? 10 : 16) });
   function place() { jg.style.transform = `translate3d(${x.toFixed(1)}px,${y.toFixed(1)}px,0) scale(${S()})`; jg.classList.toggle('flip', flip) }
-  function setPose(p) { jg.classList.remove('run', 'jump', 'wave'); if (p) jg.classList.add(p) }
-  // the platform he stands on (top edge of the perch element)
+  const lean = d => fig.style.setProperty('--lean', d.toFixed(1) + 'deg');
   function perchOf(i) {
     const [sel, , perchSel] = stops[i]; const s = document.querySelector(sel); if (!s) return null;
-    let p = perchSel ? s.matches(perchSel) ? s : s.querySelector(perchSel) : null;
+    let p = perchSel ? (s.matches(perchSel) ? s : s.querySelector(perchSel)) : null;
     if (!p) p = s.querySelector('h1,h2') || s;
-    const r = p.getBoundingClientRect(); if (!r.width) return { sec: s, el: s };
-    return { sec: s, el: p };
+    return p.getBoundingClientRect().width ? { sec: s, el: p } : { sec: s, el: s };
   }
+  // hover just above the platform's top edge, a little in from its left
   function spot(p) {
     const r = p.el.getBoundingClientRect(), w = W();
-    const px = clamp(r.left + Math.min(r.width * .5, Math.max(30, r.width * .18)) - w / 2, 8, innerWidth - w - 8);
-    let py = r.top - Hh() + 8; if (py < 40) py = clamp(r.top + 10, 40, innerHeight - Hh() - 80);
-    return { x: px, y: clamp(py, 40, innerHeight - Hh() - 10) };
+    const px = clamp(r.left + Math.min(r.width * .5, Math.max(24, r.width * .16)) - w / 2, 6, innerWidth - w - 6);
+    let py = r.top - Hh() - 4; if (py < 36) py = clamp(r.top + 8, 36, innerHeight - Hh() - 70);
+    return { x: px, y: clamp(py, 36, innerHeight - Hh() - 8) };
   }
-  // an arc jump from wherever he is to (tx, ty)
-  function jump(tx, ty, dur = 720) {
+  // a smooth flight along a gentle curve; he leans into the direction of travel and leaves a light trail
+  function fly(tx, ty, dur) {
     return new Promise(res => {
-      const x0 = x, y0 = y, apex = Math.min(y0, ty) - clamp(Math.abs(tx - x0) * .35 + 90, 110, 260);
-      flip = tx < x0 - 2; setPose('jump'); blip('jump');
-      if (reduce) { x = tx; y = ty; place(); setPose(); res(); return }
-      const t0 = performance.now();
-      (function f(now) { const k = clamp((now - t0) / dur, 0, 1), e = k;
-        x = x0 + (tx - x0) * ease(k);
-        const a = (1 - e) * (1 - e) * y0 + 2 * (1 - e) * e * apex + e * e * ty; y = a; place();
-        if (k < 1) requestAnimationFrame(f); else { land(); res() } })(t0);
+      const x0 = x, y0 = y, dist = Math.hypot(tx - x0, ty - y0); dur = dur || clamp(500 + dist * .7, 650, 1300);
+      if (dist < 4) { res(); return }
+      flip = tx < x0 - 2; place();
+      if (reduce) { jg.animate([{ opacity: 1 }, { opacity: 0 }, { opacity: 1 }], { duration: 400 }); x = tx; y = ty; place(); res(); return }
+      const cx = (x0 + tx) / 2, cy = Math.min(y0, ty) - clamp(dist * .22, 40, 150);
+      jg.classList.add('fly'); whoosh(Math.min(.9, dur / 1000)); const t0 = performance.now(); let lx = x0, ly = y0, n = 0;
+      (function f(now) {
+        const k = clamp((now - t0) / dur, 0, 1), e = ease(k), u = 1 - e;
+        x = u * u * x0 + 2 * u * e * cx + e * e * tx; y = u * u * y0 + 2 * u * e * cy + e * e * ty; place();
+        const vx = x - lx, vy = y - ly; lx = x; ly = y;
+        const sp = Math.hypot(vx, vy), want = sp > .4 ? clamp(Math.atan2(vy, Math.abs(vx)) * 57.3 * .35 + 62, 20, 80) * (vx < 0 ? -1 : 1) : 0;
+        lean(want * Math.sin(Math.PI * Math.min(1, k * 1.15)));
+        if (++n % 2 === 0 && sp > 1) trail(x + W() / 2 - (vx > 0 ? 1 : -1) * W() * .35, y + Hh() * .62);
+        if (k < 1) requestAnimationFrame(f); else { jg.classList.remove('fly'); lean(0); res() }
+      })(t0);
     });
   }
-  function land() {
-    setPose(); blip('land');
-    jg.querySelector('.jg-fig').animate([{ transform: 'scale(1.15,.8)' }, { transform: 'scale(.95,1.06)' }, { transform: 'scale(1)' }], { duration: 360, easing: 'cubic-bezier(.3,1.5,.5,1)' });
-    sparks();
-  }
-  function sparks() {
-    if (reduce) return; const cx = x + W() / 2, cy = y + Hh() - 6;
-    for (let i = 0; i < 9; i++) { const s = document.createElement('i'); s.className = 'jg-spark'; s.textContent = i % 3 ? '✦' : '✧'; s.style.left = cx + 'px'; s.style.top = cy + 'px'; document.body.appendChild(s);
-      const a = -Math.PI * (i / 8), d = 40 + Math.random() * 40; s.animate([{ transform: 'translate(-50%,-50%) scale(.4)', opacity: 1 }, { transform: `translate(calc(-50% + ${Math.cos(a) * d}px),calc(-50% + ${Math.sin(a) * d - 20}px)) scale(1) rotate(${Math.random() * 180}deg)`, opacity: 0 }], { duration: 700 + Math.random() * 300, easing: 'cubic-bezier(.2,.8,.3,1)' }).onfinish = () => s.remove() }
-    if (touring) { const p = document.createElement('b'); p.className = 'jg-plus'; p.textContent = '+1 world'; p.style.left = (cx - 30) + 'px'; p.style.top = (y - 10) + 'px'; document.body.appendChild(p);
-      p.animate([{ transform: 'translateY(0)', opacity: 1 }, { transform: 'translateY(-46px)', opacity: 0 }], { duration: 1100, easing: 'ease-out' }).onfinish = () => p.remove(); setTimeout(() => blip('coin'), 120) }
-  }
-  async function run(tx) { // a little run along the ground (used while the page scrolls)
-    flip = tx < x; setPose('run'); const x0 = x, t0 = performance.now(), dur = clamp(Math.abs(tx - x0) * 2.2, 260, 900);
-    await new Promise(r => (function f(now) { const k = clamp((now - t0) / dur, 0, 1); x = x0 + (tx - x0) * k; place(); k < 1 ? requestAnimationFrame(f) : r() })(t0));
-    setPose();
+  function trail(px, py) {
+    const t = document.createElement('i'); t.className = 'jg-trail'; t.style.left = px + 'px'; t.style.top = py + 'px'; document.body.appendChild(t);
+    t.animate([{ transform: 'scale(1.2)', opacity: .9 }, { transform: `translate(${(Math.random() - .5) * 14}px,${6 + Math.random() * 10}px) scale(.2)`, opacity: 0 }], { duration: 520 + Math.random() * 300, easing: 'ease-out' }).onfinish = () => t.remove();
   }
   // scroll the page so the stop sits nicely, and wait until it settles
   async function scrollToStop(p) {
-    const se = document.scrollingElement; if (se.scrollHeight <= innerHeight + 4) return; // one-screen page
+    const se = document.scrollingElement; if (se.scrollHeight <= innerHeight + 4) return;
     const r = p.sec.getBoundingClientRect(), pr = p.el.getBoundingClientRect();
-    let target = scrollY + r.top - (p.el !== p.sec ? Math.max(0, Math.min(innerHeight * .32, pr.top - r.top + 0) - (pr.top - r.top)) : 0);
-    target = scrollY + pr.top - innerHeight * .34; if (r.height > innerHeight * 1.1 && pr.top - r.top > innerHeight * .6) target = scrollY + r.top;
-    target = clamp(target, 0, se.scrollHeight - innerHeight);
-    if (Math.abs(target - scrollY) < 8) return;
+    let target = scrollY + pr.top - innerHeight * .36; if (r.height > innerHeight * 1.1 && pr.top - r.top > innerHeight * .6) target = scrollY + r.top;
+    target = clamp(target, 0, se.scrollHeight - innerHeight); if (Math.abs(target - scrollY) < 8) return;
     window.scrollTo({ top: target, behavior: reduce ? 'auto' : 'smooth' });
     let last = -1, same = 0; const t0 = performance.now();
     while (performance.now() - t0 < 2600) { await sleep(90); if (Math.abs(scrollY - last) < 1) { if (++same > 2) break } else same = 0; last = scrollY }
@@ -169,52 +165,51 @@
   }
   function posBubble() {
     if (!say.classList.contains('on')) return; const bw = say.offsetWidth, bh = say.offsetHeight, cx = x + W() / 2;
-    let bx = clamp(cx - 30, 8, innerWidth - bw - 8), by = y - bh - 16, below = false;
-    if (by < 8) { by = y + Hh() + 14; below = true }
+    let bx = clamp(cx - 30, 8, innerWidth - bw - 8), by = y - bh - 10, below = false;
+    if (by < 8) { by = y + Hh() + 10; below = true }
     say.style.left = bx + 'px'; say.style.top = by + 'px'; say.style.setProperty('--ox', clamp(cx - bx, 18, bw - 18) + 'px'); say.classList.toggle('below', below);
   }
   const hideBubble = () => say.classList.remove('on');
-  let hl = null; const highlight = el => { if (hl) hl.classList.remove('jg-hl'); hl = el; if (el && el !== document.body) { el.classList.add('jg-hl'); setTimeout(() => el.classList.remove('jg-hl'), 1800) } };
+  let hl = null; const highlight = el => { if (hl) hl.classList.remove('jg-hl'); hl = el; if (el && el !== document.body) { el.classList.add('jg-hl'); setTimeout(() => el.classList.remove('jg-hl'), 1600) } };
+  const point = () => { jg.classList.add('point'); setTimeout(() => jg.classList.remove('point'), 1400) };
 
   /* ---------- tour flow ---------- */
   async function go(i) {
     if (busy || !stops.length) return; busy = true; i = clamp(i, 0, stops.length - 1);
     const p = perchOf(i); if (!p) { busy = false; if (i < stops.length - 1) return go(i + 1); return }
     idx = i; touring = true; stand = null; hideBubble();
-    // run to the middle of the floor while the page scrolls, then jump up onto the platform
-    const scrolls = document.scrollingElement.scrollHeight > innerHeight + 4;
-    if (scrolls) { const h = home(); const runP = run(clamp(innerWidth * .18, 20, 260)); y = h.y; place(); await Promise.all([runP, scrollToStop(p)]) }
-    const s = spot(p); await jump(s.x, s.y);
+    // take off to a holding spot while the page scrolls, then glide onto the next heading
+    if (document.scrollingElement.scrollHeight > innerHeight + 4) await Promise.all([fly(clamp(innerWidth * .1, 10, 160), innerHeight * .42, 700), scrollToStop(p)]);
+    const s = spot(p); await fly(s.x, s.y);
     stand = { el: p.el, dx: x - p.el.getBoundingClientRect().left, dy: y - p.el.getBoundingClientRect().top };
-    highlight(p.sec.offsetHeight < innerHeight * 1.2 ? p.sec : p.el);
+    highlight(p.sec.offsetHeight < innerHeight * 1.2 ? p.sec : p.el); point();
     const last = i === stops.length - 1;
-    bubble(stops[i][1], `<span class="n">${i + 1}/${stops.length}</span>` + (i ? '<button class="jg-btn ghost" data-a="prev" aria-label="Previous stop">◀</button>' : '') +
-      (last ? '<button class="jg-btn go" data-a="end">Done ✦</button>' : '<button class="jg-btn go" data-a="next">Next ▶</button>') + '<button class="jg-btn ghost" data-a="end" aria-label="End tour">✕</button>');
-    if (i === 0) { setPose('wave'); setTimeout(() => setPose(), 1600) }
+    bubble(stops[i][1], `<span class="n">${String(i + 1).padStart(2, '0')} / ${String(stops.length).padStart(2, '0')}</span>` + (i ? '<button class="jg-btn" data-a="prev" aria-label="Previous stop">◀</button>' : '') +
+      (last ? '<button class="jg-btn go" data-a="end">Done</button>' : '<button class="jg-btn go" data-a="next">Next ▶</button>') + '<button class="jg-btn" data-a="end" aria-label="End tour">✕</button>');
     busy = false;
   }
   async function end() {
-    if (busy) return; busy = true; touring = false; stand = null; hideBubble(); const h = home(); await jump(h.x, h.y, 640); idx = -1; busy = false;
-    setTimeout(() => !touring && bubble("Anytime! Click me for another tour.", ''), 300); setTimeout(() => !touring && hideBubble(), 3200);
+    if (busy) return; busy = true; touring = false; stand = null; hideBubble(); const h = home(); await fly(h.x, h.y); idx = -1; busy = false;
+    setTimeout(() => !touring && bubble('Anytime. Tap me for another flight.', ''), 300); setTimeout(() => !touring && hideBubble(), 3000);
   }
   function act(a) { if (a === 'next') go(idx + 1); else if (a === 'prev') go(idx - 1); else if (a === 'end') end(); else if (a === 'start') go(0); else if (a === 'later') hideBubble() }
-  jg.querySelector('.jg-fig').addEventListener('click', () => { if (touring) { if (!busy) go(idx + 1 >= stops.length ? 0 : idx + 1) } else go(0) });
+  fig.addEventListener('click', () => { if (touring) { if (!busy) go(idx + 1 >= stops.length ? 0 : idx + 1) } else go(0) });
   addEventListener('keydown', e => { if (!touring || /input|textarea|select/i.test((e.target || {}).tagName || '')) return; if (e.key === 'ArrowRight') { e.preventDefault(); go(idx + 1) } else if (e.key === 'ArrowLeft') { e.preventDefault(); go(idx - 1) } else if (e.key === 'Escape') end() });
 
-  // follow the platform while the page moves; hop home if it scrolls away
+  // stay with the platform while the page moves; fly back to the corner if it scrolls away
   (function loop() {
     if (stand && !busy) {
       const r = stand.el.getBoundingClientRect(); x = r.left + stand.dx; y = r.top + stand.dy; place(); posBubble();
-      if (r.bottom < -40 || r.top > innerHeight + 40) { stand = null; hideBubble(); const h = home(); busy = true; jump(h.x, h.y, 520).then(() => { busy = false; touring && bubble('Lost you! Tap me to carry on the tour.', '<button class="jg-btn go" data-a="next">Continue ▶</button><button class="jg-btn ghost" data-a="end">✕</button>') }) }
+      if (r.bottom < -40 || r.top > innerHeight + 40) { stand = null; hideBubble(); const h = home(); busy = true; fly(h.x, h.y).then(() => { busy = false; touring && bubble('Lost you there. Tap me to carry on.', '<button class="jg-btn go" data-a="next">Continue ▶</button><button class="jg-btn" data-a="end">✕</button>') }) }
     }
     requestAnimationFrame(loop);
   })();
   addEventListener('resize', () => { if (!touring) { const h = home(); x = h.x; y = h.y; place() } posBubble() });
 
-  // entrance: drop in from above at the bottom-left and offer the tour
-  const h0 = home(); x = h0.x; y = -200; place();
-  setTimeout(async () => { if (!stops.length) return; await jump(h0.x, h0.y, 800); setPose('wave'); setTimeout(() => setPose(), 1500);
-    bubble("Hey, I'm <b>Justin</b>! Want me to show you around?", '<button class="jg-btn go" data-a="start">Tour ▶</button><button class="jg-btn ghost" data-a="later">Later</button>');
-    setTimeout(() => { if (!touring) hideBubble() }, 9000) }, 1400);
+  // entrance: he flies in from off-screen left and settles in the corner
+  const h0 = home(); x = -160; y = h0.y - 160; place();
+  setTimeout(async () => { if (!stops.length) return; await fly(h0.x, h0.y, 1100); point();
+    bubble("Hey, I'm <b>Justin</b>. Want the flying tour?", '<button class="jg-btn go" data-a="start">Take off ▶</button><button class="jg-btn" data-a="later">Later</button>');
+    setTimeout(() => { if (!touring) hideBubble() }, 9000) }, 1300);
   window.JMGuide = { go, end, get index() { return idx } };
 })();
