@@ -42,6 +42,11 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{fon
 .bento{display:grid;grid-template-columns:1.05fr 1.35fr 1fr;grid-template-rows:1fr auto auto;gap:12px;height:calc(100vh - 100px);min-height:640px;transform-origin:50% 40%}
 .intro{grid-column:1;grid-row:1;padding:26px;display:flex;flex-direction:column}
 .intro h1{font:800 clamp(44px,4.6vw,76px)/.92 var(--sans);letter-spacing:-.05em;margin-top:14px}
+.intro .status{display:inline-flex;align-self:flex-start;align-items:center;gap:8px;margin-top:20px;padding:7px 12px;border-radius:99px;background:rgba(79,255,160,.08);border:1px solid rgba(79,255,160,.25);font:500 12px var(--mono);color:#8ff5c0}
+.intro .status i{width:7px;height:7px;border-radius:50%;background:#4fffa0;box-shadow:0 0 10px #4fffa0;animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.intro .sig{margin-top:22px;font:400 italic 34px/1 var(--serif);color:rgba(242,242,240,.28);transform:rotate(-4deg);transform-origin:left}
+.intro .sig em{color:rgba(255,90,31,.55)}
 .intro p{margin-top:auto;font:400 14.5px/1.6 var(--sans);color:var(--mut)}
 .intro p b{color:var(--fg);font-weight:600}
 .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
@@ -93,7 +98,7 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{fon
 
 /* ===== FEATURED (TV pop-out) ===== */
 #featured{position:relative;padding:120px 4vw 100px;transition:background 1s}
-.blob3d{position:absolute;right:30%;top:40px;width:min(15vw,200px);pointer-events:none;filter:drop-shadow(0 30px 40px rgba(60,80,255,.35));animation:blobF 7s ease-in-out infinite}
+.blob3d{position:absolute;right:2.4vw;top:205px;z-index:5;width:min(11vw,150px);pointer-events:none;filter:drop-shadow(0 30px 40px rgba(60,80,255,.35));animation:blobF 7s ease-in-out infinite}
 @keyframes blobF{50%{transform:translateY(-22px) rotate(14deg)}}
 @media (max-width:980px){.blob3d{right:4vw;top:30px;width:90px}}
 #featured .bgTint{position:absolute;inset:0;transition:background 1s;opacity:.55;pointer-events:none}
@@ -174,7 +179,9 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{fon
 .deck{position:absolute;left:50%;top:54%;perspective:1400px;transform-style:preserve-3d}
 .dk{position:absolute;left:0;top:0;width:var(--w);aspect-ratio:var(--ar);border-radius:6px;overflow:hidden;box-shadow:0 20px 40px -14px rgba(0,0,0,.8);will-change:transform}
 .dk img{width:100%;height:100%;object-fit:cover}
-.dk.orange{background:var(--or)}
+.dk.orange{background:radial-gradient(circle at 50% 40%,#ff8a52,var(--or) 60%,#d9420f)}
+.dk.orange .dkpix{position:absolute;left:6%;top:14%;width:88%;height:auto;object-fit:contain;filter:drop-shadow(0 10px 10px rgba(0,0,0,.35))}
+.dk .dkcap{position:absolute;left:10px;bottom:8px;font:500 10px var(--mono);letter-spacing:.08em;color:#1a0a04;text-transform:uppercase}
 .abHead{position:absolute;left:4vw;bottom:10vh;z-index:3}
 .abCards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;padding:0 4vw 120px}
 .ac{min-height:440px;border-radius:14px;padding:24px;position:relative;overflow:hidden}
@@ -250,6 +257,8 @@ footer{position:relative;margin-top:180px;background:#151517;border-radius:26px 
   <div class="card intro">
     <div class="lbl">@justinmassion</div>
     <h1>Hello!<br>I'm Justin</h1>
+    <div class="status"><i></i>Booking new worlds for 2027</div>
+    <div class="sig">Justin <em>Massion</em></div>
     <p><b>Imagineer</b> working where theme-park thinking meets AI and spatial computing — building worlds that feel dreamed up in a back room, then shipped to the cloud.</p>
     <div class="tags"><span class="tag">Imagineering</span><span class="tag">AI-native</span><span class="tag">Spatial</span><span class="tag">Author</span><span class="tag">Artist</span><span class="tag">JAM Studios</span></div>
   </div>
@@ -434,7 +443,7 @@ function drawTour(){const L=RL*tP;route.style.strokeDashoffset=RL-L;const p=rout
 $('#ruler').innerHTML=Array.from({length:33},()=>'<i></i>').join('')+'<b style="left:0"></b><b style="left:100%"></b>';
 const DK=[['hero-photo',1.08,.86],['pixel-chameleon',1.6,1],['las-palmas',1.6,.9],['orange',.8,.75],['playset-agents',1.6,.95],['aluzina-os',1.6,1.05],['hero-sketch',1.08,.8],['enterprise-workflow',1.6,.9],['playset-blueprint',1.6,1]];
 const TG=[[-.36,-.18,-6],[.0,-.26,4],[.3,-.2,-3],[-.2,.12,8],[.34,.12,-7],[-.42,.16,5],[.15,.06,-2],[-.05,-.02,3],[.42,-.05,6]];
-$('#deck').innerHTML=DK.map(([k,ar,s],i)=>`<div class="dk${k==='orange'?' orange':''}" style="--w:${Math.round(s*190)}px;--ar:${ar}">${k==='orange'?'':`<img src="${IMG+k}.jpg" alt="">`}</div>`).join('');
+$('#deck').innerHTML=DK.map(([k,ar,s],i)=>`<div class="dk${k==='orange'?' orange':''}" style="--w:${Math.round(s*190)}px;--ar:${ar}">${k==='orange'?'<img class="dkpix" src="../assets/3d/pixel.webp" alt="Pixel the chameleon"><b class="dkcap">Pixel · 3D</b>':`<img src="${IMG+k}.jpg" alt="">`}</div>`).join('');
 const dks=$$('.dk');let dP=0;
 function drawDeck(){const vw=innerWidth,vh=innerHeight,e=dP<.5?2*dP*dP:1-Math.pow(-2*dP+2,2)/2;
   dks.forEach((d,i)=>{const [tx,ty,tr]=TG[i];const w=d.offsetWidth,h=d.offsetHeight;

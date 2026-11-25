@@ -29,14 +29,14 @@ a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;backgroun
 .names{position:absolute;left:0;top:47%;transform:translateY(-50%);z-index:2;white-space:nowrap;will-change:transform;pointer-events:none}
 .names span{display:inline-block;font:900 italic clamp(64px,11vw,200px)/1 var(--disp);letter-spacing:-.01em;text-transform:uppercase;color:#fff;margin:0 .32em;text-shadow:0 10px 40px rgba(0,0,0,.25);transition:opacity .8s}
 .names span:not(.on){opacity:.55}
-.choose{position:absolute;left:50%;top:calc(47% - clamp(64px,11vw,200px)*.72);transform:translateX(-50%);z-index:4;color:#fff;font:700 11px var(--sans);letter-spacing:.3em;text-transform:uppercase;padding:8px 16px;border-radius:99px;background:rgba(12,17,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);white-space:nowrap}
+.choose{position:absolute;left:4vw;top:calc(47% - clamp(64px,11vw,200px)*.95);z-index:4;color:#fff;font:700 11px var(--sans);letter-spacing:.3em;text-transform:uppercase;padding:8px 16px;border-radius:99px;background:rgba(12,17,22,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);white-space:nowrap}
 .sticker{position:absolute;left:50%;bottom:0;height:86vh;max-height:980px;z-index:3;transform:translateX(-46%);filter:drop-shadow(0 30px 40px rgba(0,0,0,.35)) drop-shadow(0 4px 6px rgba(0,0,0,.25));will-change:transform;pointer-events:none}
 .clouds{position:absolute;left:-10%;right:-10%;bottom:-6%;height:34%;z-index:4;pointer-events:none}
 .clouds i{position:absolute;bottom:0;border-radius:50%;background:radial-gradient(closest-side,rgba(255,255,255,.95),rgba(255,255,255,.55) 60%,rgba(255,255,255,0));filter:blur(6px);animation:cl 30s linear infinite}
 @keyframes cl{from{transform:translateX(-8vw)}to{transform:translateX(8vw)}}
 .top{position:absolute;left:0;right:0;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:22px 4vw;color:#fff}
-.logo{font:800 18px var(--sans);letter-spacing:-.02em}
-.logo b{color:var(--teal)}
+.logo{font:800 17px var(--sans);letter-spacing:-.02em;padding:10px 16px;border-radius:99px;background:rgba(12,17,22,.38);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,.2)}
+.logo b{color:#7ff3ef}
 .pills{display:flex;gap:4px;padding:5px;border-radius:99px}
 .pills a{padding:9px 16px;border-radius:99px;font:600 12.5px var(--sans);letter-spacing:.04em;text-transform:uppercase}
 .pills a:hover{background:rgba(255,255,255,.2)}
@@ -112,7 +112,7 @@ html,body{overflow-x:clip}
 .bub{position:absolute;right:112%;bottom:46%;width:max-content;max-width:230px;padding:10px 14px;border-radius:16px 16px 4px 16px;background:#fff;color:var(--ink);font:600 13px/1.35 var(--sans);box-shadow:0 14px 30px -12px rgba(0,0,0,.35);transform-origin:100% 100%}
 .island3d{position:absolute;right:3vw;top:-4vh;width:min(25vw,330px);z-index:0;pointer-events:none;filter:drop-shadow(0 40px 40px rgba(10,40,80,.25))}
 .srow{position:relative;z-index:1}
-@media (min-width:901px){#stats .srow{margin-right:min(26vw,340px)}.island3d{top:2vh}}
+@media (min-width:901px){#stats .srow{margin-right:min(26vw,340px)}.island3d{top:50%;margin-top:calc(min(25vw,330px)*-.66)}}
 .srow{display:grid;grid-template-columns:220px 1fr 220px;align-items:center;gap:30px;padding:28px 0;border-top:1px solid rgba(12,17,22,.08)}
 .srow b{font:800 clamp(48px,5vw,80px)/1 var(--sans);letter-spacing:-.04em}
 .srow small{display:block;font:600 12px var(--sans);opacity:.55;margin-top:6px}
@@ -173,7 +173,8 @@ footer .book{position:relative;left:auto;bottom:auto;transform:none;margin-top:7
   .bf.hide-m{display:none}
   .go{flex:1 1 100%;justify-content:center;padding:14px;margin-top:4px}
   .plane{width:170px;margin:-88px 0 0 -85px}
-  .buddy{right:auto;left:10px;width:96px}.bub{right:auto;left:104%;border-radius:16px 16px 16px 4px;max-width:180px;font-size:12px}
+  .buddy{right:auto;left:10px;width:84px}.bub{display:none}
+  footer .book{flex-direction:column;gap:6px}footer .book .bf{border-right:0;border-bottom:1px solid rgba(12,17,22,.1)}footer .book .go{padding:16px 26px;justify-content:center}
   .island3d{position:relative;display:block;right:auto;top:auto;width:62vw;margin:0 auto 2vh}
   .feat{width:160px}.feat p{display:none}
   .srow{grid-template-columns:1fr;gap:12px}
@@ -378,7 +379,7 @@ G.from('#buddy img',{yPercent:100,duration:.9,ease:'back.out(1.6)',delay:1.8});G
 G.to('#buddy img',{rotate:-6,duration:.5,ease:'sine.inOut',yoyo:true,repeat:-1,repeatDelay:2.6,delay:3.5});
 // El Peñol island bobs as it floats past the numbers
 G.to('#island3d',{y:-18,duration:3,ease:'sine.inOut',yoyo:true,repeat:-1});
-G.fromTo('#island3d',{yPercent:30,rotate:-4},{yPercent:-20,rotate:3,ease:'none',scrollTrigger:{trigger:'#stats',start:'top bottom',end:'bottom top',scrub:true}});
+G.fromTo('#island3d',{yPercent:8,rotate:-4},{yPercent:-8,rotate:3,ease:'none',scrollTrigger:{trigger:'#stats',start:'top bottom',end:'bottom top',scrub:true}});
 // hero parallax as you leave
 G.to('#sticker',{yPercent:14,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
 G.to('#names',{yPercent:-60,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
