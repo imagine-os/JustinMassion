@@ -216,14 +216,14 @@ section{position:relative}
 #contact{padding:8vh 0 110px}
 .cwin{position:relative;border-radius:40px;padding:18px;background:linear-gradient(160deg,#6c7b80,#2d3538 60%,#4a5559)}
 .cwin .win{min-height:min(80vh,720px)}
-.cwin .win img{object-position:96% 34%}
-.cwin .over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 6vw;z-index:2;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,0) 40%,rgba(20,30,20,.25))}
+.cwin .win img{object-position:center 60%}
+.cwin .over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 6vw;z-index:2;background:radial-gradient(ellipse 60% 55% at 50% 52%,rgba(10,20,15,.55),rgba(10,20,15,.15) 75%),linear-gradient(180deg,rgba(0,0,0,.15),transparent 40%,rgba(0,0,0,.3))}
 .cnav{position:absolute;top:26px;left:50%;transform:translateX(-50%);display:flex;gap:4px;padding:6px;border-radius:99px;z-index:3}
 .cnav a{padding:9px 18px;border-radius:99px;font:500 13px var(--sans)}
 .badge{padding:6px 14px;border-radius:99px;font:600 11px var(--sans);letter-spacing:.04em}
-.cwin h2{font:400 clamp(56px,7.6vw,132px)/.92 var(--serif);color:#16201a;margin-top:16px;letter-spacing:-.02em;text-shadow:0 2px 30px rgba(255,255,255,.35)}
-.cwin h2 em{color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.25)}
-.cwin p{margin-top:16px;font:500 17px/1.5 var(--sans);color:#16201a;max-width:560px;text-shadow:0 1px 14px rgba(255,255,255,.6)}
+.cwin h2{font:400 clamp(56px,7.6vw,132px)/.92 var(--serif);color:#fff;margin-top:16px;letter-spacing:-.02em;text-shadow:0 4px 40px rgba(0,0,0,.4)}
+.cwin h2 em{color:var(--lime);text-shadow:0 4px 30px rgba(0,0,0,.35)}
+.cwin p{margin-top:16px;font:500 17px/1.5 var(--sans);color:rgba(255,255,255,.92);max-width:560px;text-shadow:0 1px 14px rgba(0,0,0,.5)}
 .cwin .wait{margin-top:30px}
 .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:28px;font:500 12px var(--sans);opacity:.6}
 
@@ -274,7 +274,7 @@ section{position:relative}
   .bbanner{font-size:12.5px}
   .cnav{display:none}
   .cwin{padding:10px;border-radius:28px}
-  .cwin .over{padding:0 5vw;background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,.15) 50%,rgba(20,30,20,.35))}
+  .cwin .over{padding:0 5vw;background:linear-gradient(180deg,rgba(10,20,15,.35),rgba(10,20,15,.55) 50%,rgba(10,20,15,.45))}
   .cwin .wait{width:100%;padding:6px 6px 6px 16px}
   .cwin .wait .pill{padding:12px 14px;font-size:12px}
 }
@@ -373,13 +373,13 @@ section{position:relative}
 <!-- ================= CONTACT ================= -->
 <section id="contact"><div class="wrap">
   <div class="cwin rv">
-    <div class="win"><img src="assets/img/hero-photo.jpg" alt="Guatapé landscape through a window"><div class="glare"></div>
+    <div class="win"><img src="https://images.unsplash.com/photo-1598028060898-c117093edfcb?auto=format&fit=crop&w=2200&q=80" alt="Guatapé lake and islands through a window"><div class="glare"></div>
       <div class="cnav glass"><a href="#journal">Journal</a><a href="#explorer">Worlds</a><a href="#build">Build</a><a href="#academy">Academy</a></div>
       <div class="over"><span class="badge glass">Booking new worlds for 2027</span><h2>Let's build <em>a world.</em></h2><p>Tell me about the idea that won't sit still — a park, a product, a platform.</p>
         <form class="wait glass" id="wait2"><input type="email" placeholder="Enter your email" aria-label="Your email"><button class="pill dark" type="submit">Get in touch</button><span class="ok">Thanks — demo form, nothing is sent.</span></form></div>
     </div>
   </div>
-  <div class="foot"><span>JAM Studios · Los Angeles · Orlando · Guatapé</span><span>© 2026 Justin Massion</span><span>Concept B · stand-in images from the Loom</span></div>
+  <div class="foot"><span>JAM Studios · Los Angeles · Orlando · Guatapé</span><span>© 2026 Justin Massion</span><span>Concept B · work images from the Loom · atmosphere photos: Unsplash</span></div>
 </div></section>
 </main>
 

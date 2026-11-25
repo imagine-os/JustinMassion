@@ -247,7 +247,7 @@ footer .book{position:relative;left:auto;bottom:auto;transform:none;margin-top:7
     <button class="go" id="send">Get in touch <span>→</span></button>
   </div>
   <p id="sent" style="display:none;margin-top:16px;font:600 14px var(--sans);color:var(--teal)">Thanks — demo form, nothing is sent.</p>
-  <div class="fl"><span>JAM Studios · Los Angeles · Orlando · Guatapé</span><span>© 2026 Justin Massion</span><span>Concept D · stand-in images from the Loom</span></div>
+  <div class="fl"><span>JAM Studios · Los Angeles · Orlando · Guatapé</span><span>© 2026 Justin Massion</span><span>Concept D · work images from the Loom · atmosphere photos: Unsplash</span></div>
 </footer>
 
 <!-- world overlay -->
@@ -256,6 +256,7 @@ footer .book{position:relative;left:auto;bottom:auto;transform:none;margin-top:7
   <div class="ovtab" id="ovtab"><b id="ovn">01</b><span class="tt" id="ovt">Guatapé</span><button id="ovx" aria-label="Close">✕</button></div></div>
 
 <script src="../switcher.js" data-root="../" data-current="d"></script>
+<script src="../stock.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
@@ -263,17 +264,20 @@ footer .book{position:relative;left:auto;bottom:auto;transform:none;margin-top:7
 (()=>{
 const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
 const IMG='../assets/img/',pad=n=>String(n+1).padStart(2,'0'),clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t;
+// bg = shared Unsplash atmosphere photo (stock.js); k = Justin's own project image; '@key' in cards = stock photo
+const S=window.STOCK,pic=(k,w=700)=>k[0]==='@'?S.url(k.slice(1),w):IMG+k+'.jpg';
 const W=[
- {t:'Guatapé',k:'justin-guatape',big:'guatape-plate',pos:'center 35%',key:'01 · Home base',d:'Where the worlds get sketched first — under El Peñol, 740 steps above the lake.',cards:[['justin-guatape','El Peñol','Place'],['hero-sketch','The first sketch','Pencil'],['las-palmas','Morning mode','Interface'],['aluzina-os','Cloud studio','Concept']]},
- {t:'Playset',k:'playset-blueprint',soft:1,key:'02 · Studio',d:'Arcade cabinets, AI agents and enterprise workflows — all drawn like a ride before they get built.',cards:[['playset-blueprint','Cabinet blueprint','Blueprint'],['playset-agents','Select your agent','Game UI'],['enterprise-workflow','10-station workflow','Enterprise'],['pixel-chameleon','Pixel','Character']]},
- {t:'Pixel',k:'pixel-chameleon',soft:1,key:'03 · Character',d:'A high-end 3D chameleon: turnarounds, expressions, action poses and colour variations.',cards:[['pixel-chameleon','Character sheet','Turnaround'],['playset-agents','In the game','Game UI'],['hero-sketch','From pencil','Sketch'],['aluzina-os','In the cloud','Concept']]},
- {t:'Aluzina',k:'aluzina-os',soft:1,key:'04 · Interface',d:'An OS concept in its "after" state: cards of state machines and creators floating in the sky.',cards:[['aluzina-os','After state','Interface'],['las-palmas','Morning mode','Dashboard'],['enterprise-workflow','Systems','Workflow'],['playset-agents','Agents','Game UI']]},
- {t:'Las Palmas',k:'las-palmas',soft:1,key:'05 · Place',d:'A dashboard for a place to stay — sunrise first, then the plan for the day.',cards:[['las-palmas','Buenos días','Dashboard'],['justin-guatape','The view','Place'],['aluzina-os','Smart stay','Concept'],['hero-photo','Host','Portrait']]},
- {t:'Agents',k:'playset-agents',soft:1,key:'06 · Game UI',d:'AI agents presented like characters on a game select screen — each one has a job and a glow.',cards:[['playset-agents','Select your agent','Game UI'],['enterprise-workflow','Their workplace','Workflow'],['pixel-chameleon','Mascot','Character'],['playset-blueprint','Cabinet','Blueprint']]}];
+ {t:'Guatapé',k:'justin-guatape',bg:'guatape',key:'01 · Home base',d:'Where the worlds get sketched first — under El Peñol, 740 steps above the lake.',cards:[['@guatapeRock','El Peñol','Place'],['@guatapeStreet','Zócalos','Town'],['hero-sketch','The first sketch','Pencil'],['justin-guatape','Home base','Portrait']]},
+ {t:'Playset',k:'playset-blueprint',bg:'arcade2',key:'02 · Studio',d:'Arcade cabinets, AI agents and enterprise workflows — all drawn like a ride before they get built.',cards:[['playset-blueprint','Cabinet blueprint','Blueprint'],['playset-agents','Select your agent','Game UI'],['enterprise-workflow','10-station workflow','Enterprise'],['pixel-chameleon','Pixel','Character']]},
+ {t:'Pixel',k:'pixel-chameleon',bg:'chameleon',key:'03 · Character',d:'A high-end 3D chameleon: turnarounds, expressions, action poses and colour variations.',cards:[['pixel-chameleon','Character sheet','Turnaround'],['playset-agents','In the game','Game UI'],['hero-sketch','From pencil','Sketch'],['aluzina-os','In the cloud','Concept']]},
+ {t:'Aluzina',k:'aluzina-os',bg:'clouds',key:'04 · Interface',d:'An OS concept in its "after" state: cards of state machines and creators floating in the sky.',cards:[['aluzina-os','After state','Interface'],['las-palmas','Morning mode','Dashboard'],['enterprise-workflow','Systems','Workflow'],['playset-agents','Agents','Game UI']]},
+ {t:'Las Palmas',k:'las-palmas',bg:'palms',key:'05 · Place',d:'A dashboard for a place to stay — sunrise first, then the plan for the day.',cards:[['las-palmas','Buenos días','Dashboard'],['justin-guatape','The view','Place'],['aluzina-os','Smart stay','Concept'],['hero-photo','Host','Portrait']]},
+ {t:'Agents',k:'playset-agents',bg:'neon',key:'06 · Game UI',d:'AI agents presented like characters on a game select screen — each one has a job and a glow.',cards:[['playset-agents','Select your agent','Game UI'],['enterprise-workflow','Their workplace','Workflow'],['pixel-chameleon','Mascot','Character'],['playset-blueprint','Cabinet','Blueprint']]}];
 const N=W.length,G=window.gsap;
 
 /* ---------- hero: slides, names, booking bar ---------- */
-$('#slides').innerHTML=W.map((w,i)=>`<div class="sl${i?'':' on'}"><div class="bg${w.soft?' soft':''}" style="background-image:url(${IMG+(w.big||w.k)}.jpg);background-position:${w.pos||'center'}"></div></div>`).join('');
+$('#slides').innerHTML=W.map((w,i)=>`<div class="sl${i?'':' on'}"><div class="bg" style="background-image:url(${S.url(w.bg,2200)});background-position:${w.pos||'center'}"></div></div>`).join('');
+W.slice(1).forEach(w=>{const im=new Image();im.src=S.url(w.bg,2200)});
 $('#names').innerHTML=[...W,...W,...W].map((w,i)=>`<span data-i="${i%N}">${w.t}</span>`).join('');
 $('#hdots').innerHTML=W.map((w,i)=>`<button aria-label="${w.t}"${i?'':' class="on"'}></button>`).join('');
 $('#dd').innerHTML=W.map((w,i)=>`<button data-i="${i}"><img src="${IMG+w.k}.jpg" alt="">${w.t}</button>`).join('');
@@ -309,8 +313,8 @@ $('#hero').addEventListener('mousemove',e=>{const x=e.clientX/innerWidth-.5,y=e.
 /* ---------- world overlay (Show more / Explore) ---------- */
 let ovOpen=false,ovBusy=false;
 function openW(){if(ovBusy||ovOpen||!G)return;ovBusy=true;ovOpen=true;const w=W[cur];
-  $('#ovbg').style.backgroundImage=`url(${IMG+(w.big||w.k)}.jpg)`;$('#ovbg').className='ovbg'+(w.soft?' soft':'');$('#ovgiant').textContent=w.t;$('#ovn').textContent=pad(cur);$('#ovt').textContent=w.t;$('#ovk').textContent=w.key;$('#ovd').textContent=w.d;
-  $('#ovcards').innerHTML=w.cards.map(([k,t,s])=>`<div class="cd"><img src="${IMG+k}.jpg" alt="${t}"><span><small>${s}</small>${t}</span></div>`).join('');
+  $('#ovbg').style.backgroundImage=`url(${S.url(w.bg,2200)})`;$('#ovgiant').textContent=w.t;$('#ovn').textContent=pad(cur);$('#ovt').textContent=w.t;$('#ovk').textContent=w.key;$('#ovd').textContent=w.d;
+  $('#ovcards').innerHTML=w.cards.map(([k,t,s])=>`<div class="cd"><img src="${pic(k)}" alt="${t}"><span><small>${s}</small>${t}</span></div>`).join('');
   $('#ov').classList.add('on');lenis&&lenis.stop();
   G.timeline({onComplete:()=>{ovBusy=false}})
    .fromTo('#ovbg',{opacity:0,scale:1.05},{opacity:1,scale:1.35,duration:1.4,ease:'power2.inOut'},0)
@@ -330,7 +334,7 @@ $('#explore').addEventListener('click',openW);$('#ovx').addEventListener('click'
 $('#send').addEventListener('click',()=>{$('#sent').style.display='block'});
 
 /* ---------- flyover ground ---------- */
-const g=$('#ground');const ISL=[['pixel-chameleon',-620,-1100,360],['playset-blueprint',380,-860,420],['aluzina-os',-520,-380,340],['las-palmas',460,-120,380],['justin-guatape',-300,240,440],['enterprise-workflow',520,520,360],['playset-agents',-560,820,360],['hero-sketch',260,1080,320],['playset-blueprint',-180,-1380,300],['aluzina-os',600,1300,300]];
+const g=$('#ground');g.style.backgroundImage=`radial-gradient(ellipse at 50% 50%,rgba(10,35,80,.15),rgba(6,20,50,.55)),url(${S.url('ocean',2400)})`;g.style.backgroundSize='cover';const ISL=[['pixel-chameleon',-620,-1100,360],['playset-blueprint',380,-860,420],['aluzina-os',-520,-380,340],['las-palmas',460,-120,380],['justin-guatape',-300,240,440],['enterprise-workflow',520,520,360],['playset-agents',-560,820,360],['hero-sketch',260,1080,320],['playset-blueprint',-180,-1380,300],['aluzina-os',600,1300,300]];
 g.innerHTML=ISL.map(([k,x,y,w])=>`<div class="isl" style="left:${1200+x-w/2}px;top:${1600+y-w*.31}px;width:${w}px;height:${w*.62}px"><img src="${IMG+k}.jpg" alt=""></div>`).join('');
 const feats=$$('.feat');
 function placeFeats(sc){const m=innerWidth<900,R=Math.min(innerWidth,innerHeight)*(m?.34:.36);feats.forEach(f=>{const a=(+f.dataset.a-90)*Math.PI/180;
