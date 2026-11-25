@@ -106,6 +106,19 @@ a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;backgroun
 .chips span{padding:10px 16px;border-radius:99px;border:1px solid rgba(12,17,22,.15);font:600 13px var(--sans)}
 #stats{position:relative;overflow:hidden;padding:6vh 4vw 12vh;background:#fff}
 html,body{overflow-x:clip}
+/* boarding pass printed by the footer form */
+.pass{position:relative;display:flex;margin-top:5vh;width:min(720px,100%);border-radius:18px;background:#fbfaf6;color:var(--ink);box-shadow:0 40px 60px -24px rgba(0,0,0,.6);overflow:hidden}
+.pass .pl{flex:1;padding:22px 26px;border-right:2px dashed rgba(12,17,22,.18)}
+.pass small{display:block;font:700 10px var(--sans);letter-spacing:.18em;text-transform:uppercase;color:#7a8590;margin-bottom:4px}
+.pass .pw{display:block;font:900 italic clamp(34px,4vw,56px)/1 var(--disp);text-transform:uppercase;color:var(--teal);margin:4px 0 14px}
+.pass .pg{display:grid;grid-template-columns:repeat(3,1fr);gap:12px 18px;font:700 14px var(--sans)}
+.pass .pr{width:190px;padding:18px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;background:linear-gradient(160deg,#e6fbfa,#fbfaf6)}
+.pass .pr img{width:90px}
+.pass .bc{display:flex;gap:2px;height:44px}.pass .bc i{background:var(--ink);height:100%}
+.pass .px{position:absolute;right:12px;top:10px;width:28px;height:28px;border-radius:50%;background:rgba(12,17,22,.08);font-size:12px}
+.pass::before,.pass::after{content:'';position:absolute;right:181px;width:22px;height:22px;border-radius:50%;background:var(--ink)}
+.pass::before{top:-11px}.pass::after{bottom:-11px}
+@media (max-width:640px){.pass{flex-direction:column}.pass .pl{border-right:0;border-bottom:2px dashed rgba(12,17,22,.18)}.pass .pr{width:auto;flex-direction:row}.pass::before,.pass::after{display:none}.pass .pg{grid-template-columns:1fr 1fr}}
 /* Pixel the chameleon: peeks over the booking bar and comments on each world */
 .buddy{position:absolute;right:150px;bottom:calc(100% - 6px);width:132px;pointer-events:none;z-index:-1}
 .buddy img{display:block;width:100%;filter:drop-shadow(0 6px 10px rgba(0,0,0,.25));transform-origin:50% 100%}
@@ -265,6 +278,7 @@ footer .book{position:relative;left:auto;bottom:auto;transform:none;margin-top:7
   <div class="ovtab" id="ovtab"><b id="ovn">01</b><span class="tt" id="ovt">Guatapé</span><button id="ovx" aria-label="Close">✕</button></div></div>
 
 <script src="../switcher.js" data-root="../" data-current="d"></script>
+<script src="../fun.js" data-root="../" data-page="d"></script>
 <script src="../stock.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -345,7 +359,15 @@ function closeW(){if(ovBusy||!ovOpen||!G)return;ovBusy=true;G.killTweensOf('#ovg
    .to('#ovtab',{clipPath:'inset(0 0 100% 0)',duration:.4},.1)
    .to('#ovdim',{opacity:0,duration:.6},.4).to('#ovbg',{opacity:0,duration:.6},.6)}
 $('#explore').addEventListener('click',openW);$('#ovx').addEventListener('click',closeW);
-$('#send').addEventListener('click',()=>{$('#sent').style.display='block'});
+// sending the form prints a boarding pass to whichever world is selected up top
+$('#send').addEventListener('click',()=>{$('#sent').style.display='block';const old=$('#pass');old&&old.remove();
+  const who=(($('#mail').value||'').split('@')[0]||'Dreamer').replace(/[^\w .-]/g,'').slice(0,18)||'Dreamer',w=W[cur],seat=(7+Math.floor(Math.random()*20))+'ABCDEF'[Math.floor(Math.random()*6)];
+  const bars=Array.from({length:44},(_,i)=>`<i style="width:${1+(i*7%3)}px"></i>`).join('');
+  $('#sent').insertAdjacentHTML('afterend',`<div class="pass" id="pass"><div class="pl"><small>Boarding pass · JM Airways</small><b class="pw">${w.t}</b>
+    <div class="pg"><div><small>Passenger</small>${who}</div><div><small>From</small>Imagination</div><div><small>Flight</small>JM ${2027}</div><div><small>Seat</small>${seat}</div><div><small>Gate</small>✦</div><div><small>Boards</small>Whenever it's ready</div></div></div>
+    <div class="pr"><img src="../assets/3d/pixel-peek.webp" alt=""><div class="bc">${bars}</div><small>Have a great trip!</small></div><button class="px" aria-label="Close boarding pass">✕</button></div>`);
+  const p=$('#pass');p.querySelector('.px').onclick=()=>G?G.to(p,{y:60,opacity:0,duration:.4,onComplete:()=>p.remove()}):p.remove();
+  G&&G.fromTo(p,{y:140,opacity:0,rotate:-6,scale:.9},{y:0,opacity:1,rotate:-2,scale:1,duration:1,ease:'back.out(1.6)'})});
 
 /* ---------- flyover ground ---------- */
 const g=$('#ground');g.style.backgroundImage=`radial-gradient(ellipse at 50% 50%,rgba(10,35,80,.15),rgba(6,20,50,.55)),url(${S.url('ocean',2400)})`;g.style.backgroundSize='cover';const ISL=[['pixel-chameleon',-620,-1100,360],['playset-blueprint',380,-860,420],['aluzina-os',-520,-380,340],['las-palmas',460,-120,380],['justin-guatape',-300,240,440],['enterprise-workflow',520,520,360],['playset-agents',-560,820,360],['hero-sketch',260,1080,320],['playset-blueprint',-180,-1380,300],['aluzina-os',600,1300,300]];

@@ -140,6 +140,7 @@ footer{position:relative;background:var(--k);color:#fff;padding:12vh 2.4vw 4vh;o
 </footer>
 
 <script src="../switcher.js" data-root="../" data-current="f"></script>
+<script src="../fun.js" data-root="../" data-page="f"></script>
 <script src="../stock.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -267,6 +268,9 @@ function size(){R.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/in
 size();addEventListener('resize',size);
 let mx=0,my=0;addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
 window.__glasses={h:0};
+// click The Program to flick the glasses into a spin (and get a little confetti)
+let spin=0,spinV=0;visor.addEventListener('click',e=>{spinV+=.55;window.funBurst&&window.funBurst(e.clientX,e.clientY,22)});
+visor.style.cursor='pointer';visor.title='Click to spin the glasses';
 function loop(t){requestAnimationFrame(loop);
   const vr=visor.getBoundingClientRect();if(vr.bottom<0){cv.style.visibility='hidden';return}cv.style.visibility='visible';
   const W=innerWidth,H=innerHeight,mob=W<900,upp=2*Math.tan(15*Math.PI/180)*CZ/H;
@@ -282,7 +286,7 @@ function loop(t){requestAnimationFrame(loop);
   let rx=-.6*k1+e2*(Math.PI*2+.95),ry=.35*k1-.75*e2,rz=-.08*(1-k1)+Math.sin(k2*Math.PI)*.45+e2*.28;
   // 3) in The Program: lifted out of his hand to centre stage, then one full turn while the specs step through
   const k3=ease(clamp(p/.2));x=lerp(x,rest.x,k3);y=lerp(y,rest.y,k3);w=lerp(w,rest.w,k3);rx+=-.17*k3;ry+=-.1*k3;rz+=-.28*k3;
-  const e3=ease(clamp((p-.1)/.9));ry+=e3*Math.PI*2;rx+=Math.sin(p*Math.PI)*.35;rz+=Math.sin(p*Math.PI*2)*.1;
+  const e3=ease(clamp((p-.1)/.9));ry+=e3*Math.PI*2+spin;spinV*=.94;spin+=spinV;rx+=Math.sin(p*Math.PI)*.35;rz+=Math.sin(p*Math.PI*2)*.1;
   if(h>=1){y+=Math.sin(t/900)*6;ry+=mx*.3;rx+=my*.2}
   y+=Math.min(0,vr.top); // leaves with the section once it unpins
   G.position.set((x-W/2)*upp,-(y-H/2)*upp,0);G.rotation.set(rx,ry,rz);G.scale.setScalar(w*upp/FW);

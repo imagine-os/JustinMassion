@@ -8,10 +8,10 @@
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
 :root{--cream:#f3ece2;--paper:#faf6ef;--esp:#2a1d16;--terra:#c2532b;--gold:#c9a46a;--ink:#17120e;
-  --disp:'DM Serif Display',Georgia,serif;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif}
+  --disp:'DM Serif Display',Georgia,serif;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif;--hand:'Caveat','Comic Sans MS',cursive}
 *{box-sizing:border-box;margin:0;padding:0}
 html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
 body{background:var(--cream);color:var(--esp);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
@@ -118,6 +118,67 @@ nav .cta{padding:10px 18px;border-radius:99px;border:1.5px solid currentColor;fo
 .book3d .pages{width:42px;left:50%;margin-left:-21px;top:2%;bottom:2%;background:repeating-linear-gradient(90deg,#efe3c8 0 2px,#cdbb98 2px 3px);transform:rotateY(90deg) translateZ(calc(min(22vw,300px)/2 - 2px))}
 .bookGlow{position:absolute;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(201,164,106,.35),transparent);filter:blur(30px)}
 
+/* ===== FUN LAYER: paper grain, pencil cursor + graphite trail, self-drawing doodles ===== */
+body::after{content:'';position:fixed;inset:0;z-index:58;pointer-events:none;opacity:.09;mix-blend-mode:multiply;background-size:180px;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .17 0 0 0 0 .11 0 0 0 0 .08 0 0 0 1 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.55'/></svg>")}
+@media (hover:hover) and (pointer:fine){body{cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='34' height='34' viewBox='0 0 34 34'><g transform='rotate(45 17 17)'><rect x='14' y='-2' width='6' height='24' rx='1' fill='%23f2c14e' stroke='%232a1d16' stroke-width='1.2'/><rect x='14' y='-4' width='6' height='5' rx='1.5' fill='%23e48b9b' stroke='%232a1d16' stroke-width='1.2'/><path d='M14 22 L17 30 L20 22Z' fill='%23edcf9f' stroke='%232a1d16' stroke-width='1.2'/><path d='M16 27 L17 30 L18 27Z' fill='%232a1d16'/></g></svg>") 3 31,auto}
+  a,button,.row,.pix,.padc{cursor:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='34' height='34' viewBox='0 0 34 34'><g transform='rotate(45 17 17)'><rect x='14' y='-2' width='6' height='24' rx='1' fill='%23c2532b' stroke='%232a1d16' stroke-width='1.2'/><rect x='14' y='-4' width='6' height='5' rx='1.5' fill='%23e48b9b' stroke='%232a1d16' stroke-width='1.2'/><path d='M14 22 L17 30 L20 22Z' fill='%23edcf9f' stroke='%232a1d16' stroke-width='1.2'/><path d='M16 27 L17 30 L18 27Z' fill='%232a1d16'/></g></svg>") 3 31,pointer}}
+#trailCv{position:fixed;inset:0;width:100%;height:100%;z-index:54;pointer-events:none}
+.dd{position:absolute;overflow:visible;pointer-events:none}
+.dd path{fill:none;stroke:var(--terra);stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
+.hand{font:700 26px/1.05 var(--hand);color:var(--terra)}
+.uline{position:relative;display:inline-block}
+.uline .dd{left:-2%;bottom:-.12em;width:104%;height:.28em}
+.circ{position:relative;display:inline-block}
+.circ .dd{left:-12%;top:-14%;width:124%;height:128%}
+.circ .dd path{stroke-width:4}
+.note0{position:absolute;right:calc(6vw + min(40vw,600px) + 10px);top:22vh;z-index:3;transform:rotate(-6deg);text-align:right;pointer-events:none}
+.note0 .dd{right:-70px;top:30px;width:90px;height:60px}
+.storyPix{position:absolute;right:8%;bottom:calc(100% - 14px);width:22%;z-index:0;transform:translateY(80%);pointer-events:none}
+.storyPix img{width:100%;filter:drop-shadow(0 6px 10px rgba(42,29,22,.25))}
+.storyPix span{position:absolute;right:88%;top:0;white-space:nowrap;padding:6px 12px;border-radius:14px 14px 3px 14px;background:var(--esp);color:var(--cream);font:700 20px/1 var(--hand);opacity:0}
+.card{z-index:1}
+
+/* worlds: hand-drawn underline on hover, polaroid peek, passport stamps */
+.row h3{position:relative;display:inline-block;justify-self:start}
+.row h3 .dd{left:-3%;bottom:-6px;width:106%;height:20px}
+.row h3 .dd path{transition:stroke-dashoffset .6s cubic-bezier(.6,0,.2,1)}
+.row:hover h3 .dd path{stroke-dashoffset:0}
+.stamp{position:absolute;left:44%;top:50%;margin-top:-30px;padding:8px 16px;border:3px solid var(--terra);border-radius:8px;color:var(--terra);font:700 22px/1 var(--hand);letter-spacing:.06em;text-transform:uppercase;transform:rotate(-9deg);opacity:0;pointer-events:none;mix-blend-mode:multiply;
+  -webkit-mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90'><filter id='n'><feTurbulence baseFrequency='.6' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.7'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");mask-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='90' height='90'><filter id='n'><feTurbulence baseFrequency='.6' numOctaves='2'/><feColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 -2.2 1.7'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>")}
+.stamp small{display:block;font:600 9px var(--sans);letter-spacing:.2em}
+.passport{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:8px 14px;border-radius:99px;border:1.5px dashed rgba(42,29,22,.35);font:700 20px/1 var(--hand)}
+.passport i{display:flex;gap:4px}.passport i b{width:12px;height:12px;border-radius:50%;border:1.5px solid var(--terra);transition:background .3s}
+.passport i b.on{background:var(--terra)}
+.peek{background:#fffdf8;padding:10px 10px 46px;border-radius:3px;overflow:visible}
+.peek img{height:auto;aspect-ratio:.9;border-radius:1px}
+.peek span{left:0;right:0;bottom:10px;text-align:center;color:var(--esp);font:700 24px/1 var(--hand);letter-spacing:0;text-transform:none;text-shadow:none}
+.peek::before{content:'';position:absolute;left:50%;top:-14px;width:110px;height:30px;margin-left:-55px;background:rgba(230,214,170,.75);transform:rotate(-3deg);box-shadow:0 2px 4px rgba(0,0,0,.08);z-index:2}
+
+/* ===== SKETCH PAD (your turn) ===== */
+#pad{position:relative;padding:14vh 5vw 16vh;display:grid;grid-template-columns:.9fr 1.1fr;gap:5vw;align-items:center;background:var(--cream)}
+#pad h2{font:400 clamp(44px,4.8vw,90px)/.92 var(--disp);text-transform:uppercase}
+#pad h2 i{color:var(--terra)}
+#pad p{margin-top:20px;max-width:420px;font:400 16px/1.65 var(--sans);opacity:.72}
+.tools{display:flex;flex-wrap:wrap;gap:10px;margin-top:28px}
+.tools .btn{padding:13px 20px}
+.tools .btn.o{border-color:rgba(42,29,22,.35)}
+.swatch{display:flex;gap:8px;align-items:center;margin-top:22px;font:700 20px var(--hand)}
+.swatch button{width:26px;height:26px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1.5px rgba(42,29,22,.25);transition:transform .2s}
+.swatch button.on{transform:scale(1.25);box-shadow:0 0 0 2px var(--esp)}
+.padWrap{position:relative}
+.padc{position:relative;aspect-ratio:1.3;border-radius:6px;background:var(--paper);box-shadow:0 50px 80px -40px rgba(42,29,22,.45),0 0 0 1px rgba(42,29,22,.06);overflow:hidden;touch-action:none;z-index:1;
+  background-image:linear-gradient(#e8dfd0 1px,transparent 1px),linear-gradient(90deg,#e8dfd0 1px,transparent 1px);background-size:40px 40px}
+.padc::after{content:'';position:absolute;left:56px;top:0;bottom:0;width:1.5px;background:rgba(194,83,43,.35)}
+.padc canvas{position:absolute;inset:0;width:100%;height:100%}
+.padHint{position:absolute;inset:0;display:grid;place-items:center;font:700 34px var(--hand);color:rgba(42,29,22,.35);pointer-events:none;transition:opacity .4s}
+.padPix{position:absolute;right:6%;bottom:calc(100% - 12px);width:120px;z-index:0;pointer-events:none}
+.padPix img{width:100%;filter:drop-shadow(0 6px 10px rgba(42,29,22,.25))}
+.padPix span{position:absolute;right:92%;top:-8px;white-space:nowrap;padding:8px 14px;border-radius:16px 16px 3px 16px;background:var(--esp);color:var(--cream);font:700 22px/1 var(--hand)}
+.padLbl{display:flex;justify-content:space-between;margin-top:14px;font:500 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.flyer{position:absolute;left:50%;top:50%;width:150px;margin:-45px 0 0 -75px;opacity:0;z-index:5;pointer-events:none;filter:drop-shadow(8px 20px 14px rgba(42,29,22,.3))}
+#confetti{position:fixed;inset:0;width:100%;height:100%;z-index:65;pointer-events:none}
+
 /* ===== FOOTER ===== */
 footer{position:relative;background:var(--cream);padding:16vh 5vw 110px;text-align:center;overflow:hidden}
 .pix{position:absolute;right:2vw;bottom:15vh;width:min(19vw,280px);cursor:pointer;transform-origin:50% 90%}
@@ -147,11 +208,14 @@ footer h2 i{color:var(--terra)}
   #pour{grid-template-columns:1fr}
   #academy{grid-template-columns:1fr}
   .bookStage{height:50vh}.book3d{width:50vw}
+  #pad{grid-template-columns:1fr;padding-top:10vh}.padPix{width:84px}.padPix span{font-size:18px}
+  .note0{display:none}.stamp{left:auto;right:76px;font-size:16px;padding:6px 10px}
+  .storyPix span{font-size:16px}
 }
 </style>
 </head>
 <body>
-<nav id="nav"><a href="#story" class="logo">Justin <i>Massion</i></a><div class="links"><a href="#worlds">Worlds</a><a href="#pour">Process</a><a href="#academy">Academy</a></div><a href="#contact" class="cta">Get in touch</a></nav>
+<nav id="nav"><a href="#story" class="logo">Justin <i>Massion</i></a><div class="links"><a href="#worlds">Worlds</a><a href="#pour">Process</a><a href="#pad">Sketch pad</a><a href="#academy">Academy</a></div><a href="#contact" class="cta">Get in touch</a></nav>
 
 <!-- STORY -->
 <section id="story">
@@ -164,7 +228,9 @@ footer h2 i{color:var(--terra)}
     <div class="dots"><i><b></b></i><i><b></b></i><i><b></b></i></div>
     <div class="ctas"><a href="#worlds" class="btn">See the worlds →</a><a href="#contact" class="btn o">Get in touch</a></div>
   </div>
+  <div class="note0 hand" id="note0">psst — scroll,<br>I'll draw it for you<svg class="dd" viewBox="0 0 90 60"><path pathLength="1" d="M4 10 C 30 4, 60 14, 78 42 M78 42 L 64 38 M78 42 L 80 27"/></svg></div>
   <div class="cardWrap" id="cardWrap">
+    <div class="storyPix" id="storyPix"><span>ooh, colour!</span><img src="../assets/3d/pixel-peek.webp" alt=""></div>
     <div class="card" id="card">
       <svg class="art" viewBox="0 0 1114 1026" preserveAspectRatio="xMidYMid slice" aria-label="Justin's sketch filling with colour">
         <defs>
@@ -190,16 +256,28 @@ footer h2 i{color:var(--terra)}
 
 <!-- WORLDS MENU -->
 <section id="worlds">
-  <div class="wh"><div><div class="kick" style="color:var(--terra)">The menu</div><h2>Six worlds,<br><i>one pencil</i></h2></div><p>Hover a world to see where it lives. Each one started on the same kind of paper.</p></div>
+  <div class="wh"><div><div class="kick" style="color:var(--terra)">The menu</div><h2>Six worlds,<br><i class="uline">one pencil<svg class="dd" viewBox="0 0 300 24" preserveAspectRatio="none"><path pathLength="1" d="M4 14 C 50 4, 90 22, 140 12 S 230 4, 296 16"/></svg></i></h2></div><div><p>Hover a world to see where it lives. Click one to stamp your passport — collect all six.</p><div class="passport" id="passport">Passport <i></i><span id="pcount">0/6</span></div></div></div>
   <div id="rows"></div>
 </section>
 <div class="peek" id="peek"><img alt=""><span></span></div>
 
 <!-- POUR FEATURE -->
 <section id="pour">
-  <div><div class="kick" style="color:var(--terra)">The process</div><h2>From blueprint<br>to <i>magic</i></h2><p>Imagineering is a pour: a measured blueprint first, then everything that makes people feel something. The glass fills as you scroll.</p>
+  <div><div class="kick" style="color:var(--terra)">The process</div><h2>From blueprint<br>to <i class="circ">magic<svg class="dd" viewBox="0 0 200 100" preserveAspectRatio="none"><path pathLength="1" d="M150 12 C 90 -2, 12 14, 8 52 C 4 88, 120 98, 176 76 C 214 58, 196 18, 130 10 C 100 7, 70 10, 52 16"/></svg></i></h2><p>Imagineering is a pour: a measured blueprint first, then everything that makes people feel something. The glass fills as you scroll.</p>
     <div class="stats"><div><b id="s1">0</b><span>cities</span></div><div><b id="s2">0</b><span>worlds</span></div><div><b id="s3">0</b><span>books on the shelf</span></div></div></div>
   <div class="glass" id="glass"><span class="tag">Blueprint → World</span><img src="../assets/img/playset-blueprint.jpg" alt="Playset blueprint"><div class="fill" id="gfill"><img id="gimg" alt="Arcade world"></div><div class="stream" id="gstream"></div></div>
+</section>
+
+<!-- SKETCH PAD: your turn -->
+<section id="pad">
+  <div><div class="kick" style="color:var(--terra)">Your turn</div><h2>Sketch a world.<br><i>We'll pour it.</i></h2>
+    <p>Draw anything on the paper — a castle, a rocket, a ride. Then pour in the colour and fold it into a plane, the way every one of Justin's worlds ships.</p>
+    <div class="swatch" id="swatch">pencil:</div>
+    <div class="tools"><button class="btn" id="bPour">Pour colour ✦</button><button class="btn o" id="bFly">Fold &amp; fly ✈</button><button class="btn o" id="bClear">Clear</button></div></div>
+  <div class="padWrap"><div class="padPix" id="padPix"><span id="padSay">draw me a castle?</span><img src="../assets/3d/pixel-peek.webp" alt="Pixel peeking over the sketch pad"></div>
+    <div class="padc" id="padc"><canvas id="padCv" aria-label="Drawing pad: draw with your mouse or finger"></canvas><div class="padHint" id="padHint">draw anything here ✎</div></div>
+    <div class="padLbl"><span>Plate 07 · Your world</span><span id="padState">Pencil on paper</span></div>
+    <img class="flyer" id="flyer" src="../assets/3d/paper-plane.webp" alt=""></div>
 </section>
 
 <!-- ACADEMY -->
@@ -214,15 +292,17 @@ footer h2 i{color:var(--terra)}
 <footer id="contact">
   <div class="pix" id="pix" title="Pixel says hi"><span class="note">I started as a doodle too.</span><img src="../assets/3d/pixel.webp" alt="Pixel, Justin's 3D chameleon character, sitting on a branch"></div>
   <div class="kick" style="color:var(--terra)">Contact</div>
-  <h2>Let's sketch<br><i>your world</i></h2>
+  <h2>Let's sketch<br><i class="uline">your world<svg class="dd" viewBox="0 0 300 24" preserveAspectRatio="none"><path pathLength="1" d="M6 10 C 70 22, 140 2, 200 14 S 270 20, 294 8"/></svg></i></h2>
   <form class="mail" id="mail"><input type="email" placeholder="Your email" aria-label="Your email"><button class="btn" type="submit">Get in touch</button></form>
   <p class="ok" id="ok">Thank you — demo form, nothing is sent.</p>
   <div class="fl"><span>JAM Studios · Los Angeles · Orlando · Guatapé</span><span>© 2026 Justin Massion</span><span>Concept E · work images from the Loom · atmosphere photos: Unsplash</span></div>
 </footer>
 
+<canvas id="trailCv" aria-hidden="true"></canvas><canvas id="confetti" aria-hidden="true"></canvas>
 <svg id="follow" aria-hidden="true"><path id="trail" fill="none" stroke="rgba(194,83,43,.55)" stroke-width="2" stroke-dasharray="6 8"/><g id="fplane" style="opacity:0"><image href="../assets/3d/paper-plane.webp" x="-50" y="-29" width="80" height="46" style="filter:drop-shadow(4px 10px 6px rgba(42,29,22,.25))"/></g></svg>
 
 <script src="../switcher.js" data-root="../" data-current="e"></script>
+<script src="../fun.js" data-root="../" data-page="e"></script>
 <script src="../stock.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
@@ -254,6 +334,9 @@ function drawStory(){
   const sOn=fp>0&&fp<.98;stream.setAttribute('height',sOn?Math.max(0,lvl+20):0);stream.style.opacity=sOn?1:0;
   dropEls.forEach((c,i)=>{const ph=(t*1.6+i/7)%1;c.setAttribute('cx',558+Math.sin(i*2.1)*90*ph);c.setAttribute('cy',lvl-40*Math.sin(ph*Math.PI));c.style.opacity=sOn?1-ph:0});
   $('#plbl').textContent=fp>=1?'Finished world':fp>0?'Pouring colour…':'Pencil on paper';
+  // the handwritten "scroll, I'll draw it" note leaves once drawing starts; Pixel pops up when the colour lands
+  $('#note0').style.opacity=clamp(1-dp*6,0,1);
+  const pk=ease(clamp((fp-.8)/.2,0,1))*clamp(1-(p-.9)/.08,0,1);$('#storyPix').style.transform=`translateY(${(1-pk)*80}%)`;$('#storyPix span').style.opacity=pk;
   // 3) fly: .62 -> 1
   const yp=clamp((p-.62)/.38,0,1);
   $('#cardWrap').style.transform=`translateY(-46%) rotate(${-yp*5}deg) scale(${1-yp*.12})`+(innerWidth<900?'':'');
@@ -280,7 +363,7 @@ function planePos(){ // returns {x,y,show}
     const x=(1-k)*(1-k)*p0[0]+2*(1-k)*k*p1[0]+k*k*p2[0],y=(1-k)*(1-k)*p0[1]+2*(1-k)*k*p1[1]+k*k*p2[1];return{x,y,show:1,s:.8+k*.6}}
   // after the story: weave down the right margin with the scroll
   const total=document.documentElement.scrollHeight-H,u=clamp((scrollY-(sb.bottom+scrollY-H*.5))/Math.max(1,total-(sb.bottom+scrollY-H*.5)),0,1);
-  const m=W<900?.86:.92;return{x:W*m+Math.cos(u*22)*W*(W<900?.05:.035),y:H*(.35+.28*Math.sin(u*22)),show:1,s:1.4}}
+  const m=W<900?.93:.92;return{x:W*m+Math.cos(u*22)*W*(W<900?.03:.035),y:H*(.35+.28*Math.sin(u*22)),show:1,s:W<900?.85:1.4}}
 function drawPlane(){const p=planePos();if(!p.show){fpl.style.opacity=0;trail.setAttribute('d','');hist.length=0;return}
   hist.push([p.x,p.y]);if(hist.length>46)hist.shift();
   const a=hist.length>2?Math.atan2(p.y-hist[hist.length-3][1],p.x-hist[hist.length-3][0]):0;
@@ -289,35 +372,102 @@ function drawPlane(){const p=planePos();if(!p.show){fpl.style.opacity=0;trail.se
 
 /* ---------- worlds menu (Rosso) ---------- */
 const WL=[['Guatapé','Home base · Colombia','guatape','justin-guatape'],['Playset','Blueprint-first products','arcade2','playset-blueprint'],['Pixel','Character design','chameleon','pixel-chameleon'],['Aluzina','Operating system concept','cloudSea','aluzina-os'],['Las Palmas','Morning mode','palms','las-palmas'],['Agents','Game UI for AI','neon','playset-agents']];
-$('#rows').innerHTML=WL.map((w,i)=>`<a class="row" href="#" data-i="${i}"><span class="no">Section 0${i+1}</span><h3>${w[0]}</h3><span class="sub">${w[1]}</span><span class="th"><img src="${IMG+w[3]}.jpg" alt="${w[0]} project"></span></a>`).join('');
-WL.forEach(w=>{const im=new Image();im.src=S.url(w[2],700)});
-const peek=$('#peek');let mx=0,my=0,px=0,py=0;
-$$('.row').forEach(r=>{r.addEventListener('mouseenter',()=>{const w=WL[+r.dataset.i];peek.querySelector('img').src=S.url(w[2],700);peek.querySelector('span').textContent=w[0]+' · photo';peek.classList.add('on')});r.addEventListener('mouseleave',()=>peek.classList.remove('on'));r.addEventListener('click',e=>e.preventDefault())});
+const UL='<svg class="dd" viewBox="0 0 300 20" preserveAspectRatio="none"><path pathLength="1" d="M3 12 C 60 4, 110 18, 170 10 S 260 6, 297 13"/></svg>';
+const CAPS=['wish you were here!','blueprint o\'clock','that\'s me!','up in the clouds','breakfast view','glow mode: on'];
+$('#rows').innerHTML=WL.map((w,i)=>`<a class="row" href="#" data-i="${i}"><span class="no">Section 0${i+1}</span><h3>${w[0]}${UL}</h3><span class="sub">${w[1]}</span><span class="th"><img src="${IMG+w[3]}.jpg" alt="${w[0]} project"></span><span class="stamp">Visited<small>${w[0]} · ${['CO','LA','JAM','OS','CO','AI'][i]}</small></span></a>`).join('');
+WL.forEach(w=>{const im=new Image();im.src=S.url(w[2],900)});
+const peek=$('#peek');let mx=0,my=0,px=0,py=0,pr=0;
+$$('.row').forEach(r=>{r.addEventListener('mouseenter',()=>{const i=+r.dataset.i,w=WL[i];peek.querySelector('img').src=S.url(w[2],900);peek.querySelector('span').textContent=CAPS[i];peek.classList.add('on')});r.addEventListener('mouseleave',()=>peek.classList.remove('on'))});
 addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+// passport: click a world to stamp it; all six = confetti
+const visited=new Set();$('#passport i').innerHTML=WL.map(()=>'<b></b>').join('');
+$$('.row').forEach(r=>r.addEventListener('click',e=>{e.preventDefault();const i=+r.dataset.i,st=r.querySelector('.stamp');if(visited.has(i))return;visited.add(i);
+  $$('#passport i b')[i].classList.add('on');$('#pcount').textContent=visited.size+'/6';
+  if(window.gsap){gsap.fromTo(st,{scale:2.6,opacity:0,rotate:-24},{scale:1,opacity:.92,rotate:-9,duration:.35,ease:'power4.in',onComplete:()=>gsap.fromTo(r,{x:-4},{x:0,duration:.4,ease:'elastic.out(2,.3)'})})}else st.style.opacity=.9;
+  const b=st.getBoundingClientRect();burst(b.left+b.width/2,b.top+b.height/2,18);
+  if(visited.size===6){$('#pcount').textContent='6/6 — world traveller!';setTimeout(()=>{burst(innerWidth/2,innerHeight*.4,180)},300)}}));
 
 /* ---------- pour glass + academy ---------- */
-$('#gimg').src=S.url('arcade2',1200);
+$('#gimg').src=S.url('arcade2',1800);
 const BOOKS=['Whole Brain Power','Money: Master the Game','Secret Knowledge','The Sketchnote Handbook','Business Model Generation','Rebel Without a Crew','Think Outside the Box Office','Film Production Management 101','Watchmaking'];
 $('#blist').innerHTML=BOOKS.map(b=>`<span>${b}</span>`).join('');
 const mist=$('#mist'),mc=mist.getContext('2d'),MP=[];let bookAng=0;
-function sizeMist(){mist.width=mist.clientWidth;mist.height=mist.clientHeight}
+function sizeMist(){const d=Math.min(devicePixelRatio||1,2);mist.width=mist.clientWidth*d;mist.height=mist.clientHeight*d;mc.setTransform(d,0,0,d,0,0)}
 function drawMist(dt){const b=$('#book').getBoundingClientRect(),m=mist.getBoundingClientRect();if(m.bottom<0||m.top>innerHeight)return;
   const ox=b.left+b.width*.5-m.left,oy=b.top+b.height*.08-m.top;
   for(let i=0;i<3;i++)MP.push({x:ox+(Math.random()-.5)*b.width*.4,y:oy,vx:(Math.random()-.3)*.6,vy:-.4-Math.random()*.8,r:10+Math.random()*30,l:1});
-  mc.clearRect(0,0,mist.width,mist.height);mc.globalCompositeOperation='lighter';
+  mc.clearRect(0,0,mist.clientWidth,mist.clientHeight);mc.globalCompositeOperation='lighter';
   for(let i=MP.length-1;i>=0;i--){const p=MP[i];p.x+=p.vx+Math.sin(p.y/60)*.3;p.y+=p.vy;p.r+=.35;p.l-=.006;if(p.l<=0){MP.splice(i,1);continue}
     const g=mc.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);g.addColorStop(0,`rgba(214,178,118,${.06*p.l})`);g.addColorStop(1,'rgba(214,178,118,0)');mc.fillStyle=g;mc.beginPath();mc.arc(p.x,p.y,p.r,0,7);mc.fill()}
   mc.globalCompositeOperation='source-over'}
+
+/* ---------- confetti: paper scraps in the page palette ---------- */
+const cf=$('#confetti'),cfx=cf.getContext('2d'),CF=[],CFC=['#c2532b','#c9a46a','#e07b3f','#7fb6a8','#6aaee0','#e8a0b4','#2a1d16'];
+function sizeCf(){const d=Math.min(devicePixelRatio||1,2);cf.width=innerWidth*d;cf.height=innerHeight*d;cfx.setTransform(d,0,0,d,0,0)}
+function burst(x,y,n){for(let i=0;i<n;i++){const a=Math.random()*6.28,v=3+Math.random()*(n>60?11:7);CF.push({x,y,vx:Math.cos(a)*v,vy:Math.sin(a)*v-(n>60?6:3),r:Math.random()*6.28,vr:(Math.random()-.5)*.4,w:5+Math.random()*7,h:3+Math.random()*5,c:CFC[i%CFC.length],l:1,k:i%3})}}
+function drawCf(){cfx.clearRect(0,0,innerWidth,innerHeight);for(let i=CF.length-1;i>=0;i--){const p=CF[i];p.vy+=.22;p.vx*=.985;p.x+=p.vx;p.y+=p.vy;p.r+=p.vr;p.l-=.008;
+  if(p.l<=0||p.y>innerHeight+30){CF.splice(i,1);continue}cfx.save();cfx.globalAlpha=Math.min(1,p.l*2);cfx.translate(p.x,p.y);cfx.rotate(p.r);cfx.fillStyle=p.c;cfx.strokeStyle=p.c;
+  if(p.k===0)cfx.fillRect(-p.w/2,-p.h/2,p.w,p.h);else if(p.k===1){cfx.beginPath();cfx.arc(0,0,p.h*.7,0,7);cfx.fill()}else{cfx.lineWidth=2;cfx.beginPath();cfx.moveTo(-p.w,0);cfx.quadraticCurveTo(0,-p.w,p.w,0);cfx.stroke()}cfx.restore()}}
+
+/* ---------- graphite trail behind the pencil cursor (gold chalk over the Academy) ---------- */
+const tc=$('#trailCv'),tcx=tc.getContext('2d'),TR=[],fine=matchMedia('(hover:hover) and (pointer:fine)').matches;let chalk=false;
+function sizeTc(){const d=Math.min(devicePixelRatio||1,2);tc.width=innerWidth*d;tc.height=innerHeight*d;tcx.setTransform(d,0,0,d,0,0)}
+if(fine)addEventListener('mousemove',e=>{const t=e.target;if(t.closest&&t.closest('#padc')){TR.length=0;return}chalk=!!(t.closest&&t.closest('#academy'));TR.push({x:e.clientX,y:e.clientY,t:performance.now()})});
+addEventListener('scroll',()=>TR.length=0,{passive:true});
+function drawTrail(){tcx.clearRect(0,0,innerWidth,innerHeight);const now=performance.now();while(TR.length&&now-TR[0].t>1100)TR.shift();if(TR.length<2)return;
+  tcx.lineCap='round';for(let i=1;i<TR.length;i++){const a=1-(now-TR[i].t)/1100,p=TR[i-1],q=TR[i];
+    tcx.strokeStyle=chalk?`rgba(214,178,118,${a*.6})`:`rgba(42,29,22,${a*.45})`;tcx.lineWidth=chalk?2.4:1.5;tcx.beginPath();tcx.moveTo(p.x,p.y);tcx.lineTo(q.x,q.y);tcx.stroke();
+    tcx.strokeStyle=chalk?`rgba(214,178,118,${a*.25})`:`rgba(42,29,22,${a*.18})`;tcx.lineWidth=.8;tcx.beginPath();tcx.moveTo(p.x+.9,p.y+.7);tcx.lineTo(q.x+.9,q.y+.7);tcx.stroke()}}
+
+/* ---------- sketch pad: draw, pour colour, fold & fly ---------- */
+const pc=$('#padCv'),pcx=pc.getContext('2d'),PEN=['#2a1d16','#c2532b','#2f5fae','#2f8f6a'],WC=['#e07b3f','#6aaee0','#e8a0b4','#7fb6a8','#f2c14e','#b48be0'];
+let strokes=[],cur=null,pen=PEN[0];const PS={poured:0};let busy=false;
+$('#swatch').insertAdjacentHTML('beforeend',PEN.map((c,i)=>`<button style="background:${c}" class="${i?'':'on'}" aria-label="Pencil colour ${i+1}"></button>`).join(''));
+$$('#swatch button').forEach((b,i)=>b.addEventListener('click',()=>{pen=PEN[i];$$('#swatch button').forEach(x=>x.classList.toggle('on',x===b))}));
+function sizePad(){const d=Math.min(devicePixelRatio||1,2);pc.width=pc.clientWidth*d;pc.height=pc.clientHeight*d;pcx.setTransform(d,0,0,d,0,0);drawPad()}
+function path(s,n){const W=pc.clientWidth,H=pc.clientHeight;pcx.beginPath();s.pts.slice(0,n).forEach((p,i)=>i?pcx.lineTo(p[0]*W,p[1]*H):pcx.moveTo(p[0]*W,p[1]*H))}
+function drawPad(){const W=pc.clientWidth,H=pc.clientHeight;pcx.clearRect(0,0,W,H);pcx.lineCap='round';pcx.lineJoin='round';
+  if(PS.poured>0)strokes.forEach((s,i)=>{const n=Math.max(2,Math.ceil(s.pts.length*Math.min(1,PS.poured*1.3-i*.04)));if(PS.poured*1.3-i*.04<=0)return;const c=WC[i%WC.length];
+    // watercolour: a few offset washes that pool darker where they overlap, then a wet edge
+    pcx.save();pcx.globalCompositeOperation='multiply';pcx.strokeStyle=c;s.j=s.j||[[0,0],[3,-2],[-2,3],[1,4]];
+    s.j.forEach(([ox,oy],k)=>{pcx.globalAlpha=.17;pcx.lineWidth=Math.max(16,W*.042)*(1-k*.12);pcx.save();pcx.translate(ox,oy);path(s,n);pcx.stroke();pcx.restore()});
+    pcx.globalAlpha=.22;pcx.lineWidth=Math.max(3,W*.006);pcx.save();pcx.translate(2,1);path(s,n);pcx.stroke();pcx.restore();
+    const a=s.pts[0],z=s.pts[s.pts.length-1];if(s.pts.length>12&&Math.hypot((a[0]-z[0])*W,(a[1]-z[1])*H)<30){pcx.globalAlpha=.2*Math.min(1,PS.poured*1.5);pcx.fillStyle=c;path(s,n);pcx.fill()}
+    pcx.restore()});
+  strokes.forEach(s=>{pcx.strokeStyle=s.c;pcx.globalAlpha=.88;pcx.lineWidth=2.4;path(s,s.pts.length);pcx.stroke();
+    pcx.globalAlpha=.22;pcx.lineWidth=1;pcx.save();pcx.translate(.9,.7);path(s,s.pts.length);pcx.stroke();pcx.restore()});pcx.globalAlpha=1}
+const padPos=e=>{const r=pc.getBoundingClientRect();return[(e.clientX-r.left)/r.width,(e.clientY-r.top)/r.height]};
+pc.addEventListener('pointerdown',e=>{if(busy)return;pc.setPointerCapture(e.pointerId);cur={c:pen,pts:[padPos(e)]};strokes.push(cur);$('#padHint').style.opacity=0;say('ooh, keep going…')});
+pc.addEventListener('pointermove',e=>{if(!cur)return;const p=padPos(e),l=cur.pts[cur.pts.length-1];if(Math.hypot((p[0]-l[0])*pc.clientWidth,(p[1]-l[1])*pc.clientHeight)>1.5){cur.pts.push(p);drawPad()}});
+['pointerup','pointercancel'].forEach(ev=>pc.addEventListener(ev,()=>{cur=null}));
+function say(t){const s=$('#padSay');if(s.textContent===t)return;s.textContent=t;window.gsap&&gsap.fromTo(s,{scale:.6,opacity:0},{scale:1,opacity:1,duration:.45,ease:'back.out(2.4)'});window.gsap&&gsap.fromTo('#padPix img',{y:0},{y:-14,duration:.2,yoyo:true,repeat:1,ease:'power2.out'})}
+// if the paper is empty, Pixel sketches a little castle first
+const DEMO=[[[.18,.82],[.82,.82]],[[.28,.82],[.28,.42],[.72,.42],[.72,.82]],[[.22,.42],[.22,.3],[.34,.3],[.34,.42]],[[.66,.42],[.66,.3],[.78,.3],[.78,.42]],[[.44,.42],[.44,.24],[.56,.24],[.56,.42]],[[.5,.24],[.5,.12],[.6,.15],[.5,.18]],[[.45,.82],[.45,.64],[.5,.58],[.55,.64],[.55,.82]],[[.86,.2],[.9,.14],[.94,.2],[.9,.26],[.86,.2]],[[.08,.22],[.14,.17],[.2,.21],[.24,.16],[.3,.22]]];
+function demo(done){busy=true;say('nothing yet? I\'ll start one!');strokes=[];$('#padHint').style.opacity=0;let k=0;
+  const step=()=>{if(k>=DEMO.length){busy=false;done&&done();return}const src=DEMO[k],s={c:PEN[0],pts:[]};strokes.push(s);const seg=[];
+    for(let i=1;i<src.length;i++)for(let t=0;t<=1;t+=.1)seg.push([lerp(src[i-1][0],src[i][0],t)+(Math.random()-.5)*.003,lerp(src[i-1][1],src[i][1],t)+(Math.random()-.5)*.003]);
+    let j=0;const iv=setInterval(()=>{s.pts.push(...seg.slice(j,j+4));j+=4;drawPad();if(j>=seg.length){clearInterval(iv);k++;step()}},16)};step()}
+function pour(then){if(busy)return;if(!strokes.length){demo(()=>pour(then));return}if(PS.poured>=1){then&&then();return}busy=true;say('pouring… ✦');$('#padState').textContent='Pouring colour…';
+  const r=pc.getBoundingClientRect();burst(r.left+r.width/2,r.top+r.height*.3,40);
+  gsap.to(PS,{poured:1,duration:1.8,ease:'power2.inOut',onUpdate:drawPad,onComplete:()=>{busy=false;say('ooh! now ship it ✈');$('#padState').textContent='Finished world';then&&then()}})}
+function fly(){if(busy)return;if(PS.poured<1){pour(fly);return}busy=true;say('bon voyage!');
+  const fl=$('#flyer');gsap.timeline({onComplete:()=>{strokes=[];PS.poured=0;drawPad();busy=false;$('#padHint').textContent='draw another? ✎';$('#padHint').style.opacity=1;$('#padState').textContent='Shipped to the cloud ☁';say('it\'s in the cloud now!')}})
+   .to('#padc',{scale:.3,rotate:-16,opacity:0,duration:.55,ease:'power3.in'})
+   .fromTo(fl,{opacity:1,x:0,y:0,scale:.5,rotate:0},{keyframes:{x:[0,-120,innerWidth*.25,innerWidth*.7],y:[0,-60,-innerHeight*.35,-innerHeight*.9],rotate:[0,-24,-10,-18],scale:[.5,.8,1,.6]},duration:1.8,ease:'power1.in'},'-=.1')
+   .set(fl,{opacity:0}).fromTo('#padc',{scale:.85,rotate:3,opacity:0},{scale:1,rotate:0,opacity:1,duration:.7,ease:'back.out(1.6)'})}
+$('#bPour').addEventListener('click',()=>pour());$('#bFly').addEventListener('click',fly);
+$('#bClear').addEventListener('click',()=>{if(busy)return;strokes=[];PS.poured=0;drawPad();$('#padHint').textContent='draw anything here ✎';$('#padHint').style.opacity=1;$('#padState').textContent='Pencil on paper';say('fresh paper!')});
 
 /* ---------- loop ---------- */
 let last=performance.now();
 function frame(){const now=performance.now(),dt=Math.min(.05,(now-last)/1000);last=now;T+=dt;
   const sr=$('#story').getBoundingClientRect();if(sr.bottom>0&&sr.top<innerHeight){drawStory();drawFx()}
-  drawPlane();px+=(mx-px)*.14;py+=(my-py)*.14;peek.style.left=(px+24)+'px';peek.style.top=(py-200)+'px';
+  drawPlane();drawCf();if(fine)drawTrail();
+  pr+=(clamp((mx-px)*.12,-14,14)-pr)*.12;px+=(mx-px)*.14;py+=(my-py)*.14;peek.style.left=(px+24)+'px';peek.style.top=(py-200)+'px';peek.style.rotate=pr+'deg';
   drawMist(dt);$('#book').style.transform=`translateY(${Math.sin(T*1.2)*10}px) rotateY(${bookAng+Math.sin(T*.8)*6}deg) rotateX(6deg)`}
-function onResize(){sizeFx();sizeMist();$('#follow').setAttribute('viewBox',`0 0 ${innerWidth} ${innerHeight}`)}
+function onResize(){sizeFx();sizeMist();sizeCf();sizeTc();sizePad();$('#follow').setAttribute('viewBox',`0 0 ${innerWidth} ${innerHeight}`)}
 onResize();addEventListener('resize',onResize);
-$('#mail').addEventListener('submit',e=>{e.preventDefault();$('#ok').style.display='block'});
+$('#mail').addEventListener('submit',e=>{e.preventDefault();$('#ok').style.display='block';const b=e.target.querySelector('button').getBoundingClientRect();burst(b.left+b.width/2,b.top,70)});
 
 const G=window.gsap;if(!(G&&window.ScrollTrigger)){SP=1;(function l(){frame();requestAnimationFrame(l)})();return}
 gsap.registerPlugin(ScrollTrigger);
@@ -327,6 +477,13 @@ $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttri
 // intro
 G.from('.st.on h1, .st.on p, .st.on .n, .dots, .ctas',{y:40,opacity:0,stagger:.08,duration:1,ease:'power3.out',delay:.1});
 G.from('#cardWrap',{y:80,opacity:0,rotate:4,duration:1.4,ease:'expo.out'});
+// hand-drawn doodles draw themselves in when their section arrives
+G.from('#note0',{opacity:0,scale:.8,duration:.8,delay:1,ease:'back.out(2)'});G.to('#note0 path',{strokeDashoffset:0,duration:.9,delay:1.4,ease:'power2.inOut'});
+$$('.uline .dd path, .circ .dd path').forEach(p=>G.to(p,{strokeDashoffset:0,duration:1.1,ease:'power2.inOut',scrollTrigger:{trigger:p.closest('h2'),start:'top 75%'}}));
+G.from('#padPix img',{yPercent:100,duration:.9,ease:'back.out(1.8)',scrollTrigger:{trigger:'#pad',start:'top 60%'}});
+G.from('#padPix span',{scale:0,opacity:0,duration:.5,delay:.6,ease:'back.out(2.4)',scrollTrigger:{trigger:'#pad',start:'top 60%'}});
+G.from('#padc',{y:60,rotate:3,opacity:0,duration:1.1,ease:'expo.out',scrollTrigger:{trigger:'#pad',start:'top 75%'}});
+G.from('#pad h2, #pad p, .swatch, .tools',{y:40,opacity:0,stagger:.08,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'#pad',start:'top 70%'}});
 // story pin
 ScrollTrigger.create({trigger:'#story',start:'top top',end:'+=380%',pin:true,scrub:.6,onUpdate:s=>{SP=s.progress}});
 // stage headline swaps
