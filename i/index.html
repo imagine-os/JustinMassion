@@ -1,0 +1,1271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Justin Massion — Imagineer of worlds (Concept I)</title>
+<meta name="description" content="Justin Massion, Imagineer. Theme-park storytelling × AI × spatial computing. Los Angeles · Orlando · Guatapé.">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
+<style>
+:root{
+  --bg:#050506; --tile:#0d0d0f; --tile2:#121215; --line:rgba(255,255,255,.075); --line2:rgba(255,255,255,.14);
+  --text:#ededee; --soft:#b3b3b8; --mute:#77777e; --blue:#a9cdff; --green:#3ee08f; --amber:#ffc46b;
+  --sans:'Geist',ui-sans-serif,system-ui,-apple-system,'Segoe UI',sans-serif; --mono:'Geist Mono',ui-monospace,'SFMono-Regular',Menlo,monospace;
+  --ease:cubic-bezier(.2,.8,.2,1); --spring:cubic-bezier(.34,1.4,.5,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{overflow-x:clip;background:var(--bg)}
+html.lenis,html.lenis body{height:auto}
+.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{color:var(--text);font:400 15px/1.55 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+::selection{background:#a9cdff;color:#050506}
+.mono{font-family:var(--mono)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- top chrome ---------- */
+.topbar{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:22px 28px;pointer-events:none}
+.topbar>*{pointer-events:auto}
+.topbar:before{content:"";position:absolute;inset:0 0 -30px;background:linear-gradient(rgba(5,5,6,.92),rgba(5,5,6,.6) 55%,transparent);opacity:0;transition:opacity .5s;pointer-events:none;z-index:-1}
+.scrolled .topbar:before{opacity:1}
+.brand{display:flex;align-items:center;gap:10px;font:500 12px/1 var(--mono);letter-spacing:.08em;color:var(--soft);text-transform:uppercase;cursor:pointer}
+.brand i{display:grid;place-items:center;width:26px;height:26px;border-radius:7px;border:1px solid var(--line2);font:600 10.5px var(--mono);font-style:normal;color:var(--text);background:linear-gradient(180deg,#1a1a1e,#0c0c0e)}
+.lang{display:flex;gap:6px;align-items:center;font:500 12px/1 var(--mono);color:var(--mute)}
+.lang button{padding:6px 3px;color:var(--mute);letter-spacing:.06em;transition:color .3s}
+.lang button.on{color:#fff}
+.lang span{opacity:.5}
+
+/* ---------- hero ---------- */
+.hero{position:relative;height:100svh;min-height:800px;overflow:hidden;--gb:58vh}
+.hero canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero:after{content:"";position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(transparent,var(--bg));pointer-events:none}
+.pin-label{position:absolute;left:0;top:0;z-index:3;pointer-events:none;font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:#ffe2b0;white-space:nowrap;opacity:0;transition:opacity .4s;display:flex;align-items:center;gap:6px}
+.pin-label:before{content:"";width:16px;height:1px;background:linear-gradient(90deg,rgba(255,196,107,.0),rgba(255,196,107,.8))}
+.pin-label b{font-weight:500;color:rgba(255,255,255,.45)}
+.pin-label.left{flex-direction:row-reverse}
+.pin-label.left:before{background:linear-gradient(270deg,rgba(255,196,107,.0),rgba(255,196,107,.8))}
+.hero-c{position:absolute;left:50%;top:var(--gb);transform:translateX(-50%);width:min(640px,calc(100% - 40px));text-align:center;z-index:4}
+.hero-c h1{font:600 25px/1.1 var(--sans);letter-spacing:-.02em}
+.role{margin-top:8px;font:500 13px/1 var(--mono);letter-spacing:.14em;color:#d7d7da}
+.pitch{margin:22px auto 0;max-width:600px;font-size:16.5px;line-height:1.55;color:var(--soft);text-wrap:balance}
+.cta{display:flex;justify-content:center;gap:12px;margin-top:24px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:9px;height:40px;padding:0 16px;border-radius:9px;font:500 14.5px/1 var(--sans);letter-spacing:-.005em;transition:transform .35s var(--spring),background .3s,border-color .3s,box-shadow .3s;white-space:nowrap}
+.btn svg{width:15px;height:15px;opacity:.85}
+.btn.fill{background:linear-gradient(180deg,#48484d,#2c2c30);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 6px 18px -8px rgba(0,0,0,.8);color:#fff}
+.btn.line{border:1px solid rgba(255,255,255,.2);color:#f1f1f2;background:rgba(255,255,255,.015)}
+.btn:hover{transform:translateY(-2px)}
+.btn.fill:hover{background:linear-gradient(180deg,#56565c,#333338)}
+.btn.line:hover{border-color:rgba(255,255,255,.4);background:rgba(255,255,255,.05)}
+.btn small{font:500 10.5px/1 var(--mono);color:var(--green);letter-spacing:.04em;padding:3px 6px;border-radius:5px;background:rgba(62,224,143,.1)}
+.avail{display:inline-flex;align-items:center;gap:9px;margin-top:20px;font-size:13px;color:#a9a9ae}
+.pulse{position:relative;width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(62,224,143,.8)}
+.pulse:after{content:"";position:absolute;inset:-5px;border-radius:50%;border:1px solid var(--green);animation:pulse 2.2s var(--ease) infinite}
+@keyframes pulse{0%{transform:scale(.4);opacity:1}100%{transform:scale(1.8);opacity:0}}
+.side{position:absolute;bottom:150px;z-index:4}
+.side h4{font:500 12px/1 var(--mono);letter-spacing:.12em;margin-bottom:14px;color:#e8e8ea}
+.side ul{list-style:none}
+.worlds{left:28px}
+.worlds li button{display:flex;align-items:baseline;gap:10px;padding:4.5px 0;font-size:14.5px;color:#88888f;transition:color .25s,transform .35s var(--spring)}
+.worlds li button em{font:400 10.5px var(--mono);font-style:normal;color:#4b4b52;transition:color .25s}
+.worlds li button:hover,.worlds li button:focus-visible{color:#fff;transform:translateX(4px)}
+.worlds li button:hover em{color:var(--amber)}
+.cities{right:28px;text-align:right}
+.cities li{display:flex;justify-content:flex-end;gap:12px;padding:4.5px 0;font-size:14.5px;color:#88888f}
+.cities li span{font:400 11.5px/1.9 var(--mono);color:#56565d}
+.cities li.home{color:#e7e7e9}
+.cities li.home span{color:var(--amber)}
+.mworlds{display:none}
+
+/* ---------- wall ---------- */
+.wall-sec{position:relative;padding:8px 0 40px}
+.wall{display:flex;gap:24px;padding:0 16px;align-items:flex-start}
+.col{flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:24px;will-change:transform}
+.tile{position:relative;opacity:0;transform:translateY(36px) scale(.985);transition:opacity 1s var(--ease),transform 1.1s var(--ease)}
+.tile.in{opacity:1;transform:none}
+.tile-in{position:relative;border-radius:8px;border:1px solid var(--line);background:var(--tile);overflow:hidden;cursor:pointer;transition:border-color .45s,box-shadow .6s var(--ease),transform .7s var(--ease),opacity .5s,filter .5s;isolation:isolate}
+.tile.static .tile-in{cursor:default}
+.tile:hover .tile-in{border-color:rgba(255,255,255,.2);box-shadow:0 30px 70px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.04)}
+.tile:not(.static):hover .tile-in{transform:scale(1.012)}
+.wall.filtering .tile:not(.hit) .tile-in{opacity:.14;filter:grayscale(1)}
+.wall.filtering .tile.hit .tile-in{border-color:rgba(255,196,107,.6);box-shadow:0 0 0 1px rgba(255,196,107,.35),0 0 60px -10px rgba(255,196,107,.35)}
+.tile.flash .tile-in{animation:flash 1.6s var(--ease)}
+@keyframes flash{0%,100%{box-shadow:0 0 0 0 rgba(255,196,107,0)}25%{box-shadow:0 0 0 2px rgba(255,196,107,.9),0 0 70px rgba(255,196,107,.4)}}
+.lbl{position:absolute;top:16px;left:18px;z-index:3;display:flex;align-items:center;gap:8px;font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.55)}
+.lbl svg{width:15px;height:15px;opacity:.8}
+.cap{position:absolute;left:0;right:0;bottom:0;z-index:4;display:flex;align-items:flex-end;justify-content:space-between;gap:12px;padding:44px 18px 16px;background:linear-gradient(transparent,rgba(3,3,4,.88));opacity:0;transform:translateY(10px);transition:opacity .45s var(--ease),transform .55s var(--ease);pointer-events:none}
+.tile:hover .cap,.tile:focus-visible .cap{opacity:1;transform:none}
+.cap b{font:500 14.5px/1.25 var(--sans);color:#fff;letter-spacing:-.01em}
+.tag{flex:none;font:500 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:#e9e9ec;padding:6px 9px;border-radius:99px;border:1px solid rgba(255,255,255,.22);background:rgba(10,10,12,.6);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.tile:focus-visible{outline:none}
+.tile:focus-visible .tile-in{border-color:var(--blue)}
+
+/* shot */
+.t-shot .tile-in{background:radial-gradient(120% 90% at 50% 0%,#1d1f27 0%,#0f0f12 55%,#0b0b0d 100%);padding:54px 30px 32px}
+.t-shot .glowline{position:absolute;inset:auto -20% 6% -20%;height:40%;background:radial-gradient(50% 50% at 50% 100%,var(--glow,rgba(120,150,255,.22)),transparent 70%);z-index:0;pointer-events:none}
+.win{position:relative;z-index:1;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:#0e0e11;overflow:hidden;box-shadow:0 40px 60px -28px rgba(0,0,0,.95),0 0 0 1px rgba(0,0,0,.6);transform:perspective(1400px) rotateX(7deg) translateY(4px);transform-origin:50% 100%;transition:transform .9s var(--ease)}
+.tile:hover .win{transform:perspective(1400px) rotateX(0deg) translateY(-4px)}
+.chrome{display:flex;align-items:center;gap:6px;height:26px;padding:0 10px;border-bottom:1px solid rgba(255,255,255,.07);background:linear-gradient(180deg,#1a1a1e,#141417)}
+.chrome i{width:7px;height:7px;border-radius:50%;background:#38383d}
+.chrome span{margin-left:auto;margin-right:auto;transform:translateX(-12px);font:400 10px/1 var(--mono);color:#77777e;padding:4px 10px;border-radius:5px;background:rgba(255,255,255,.04);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:70%}
+.win img{width:100%;aspect-ratio:507/315;object-fit:cover}
+.win.tall img{aspect-ratio:358/315}
+
+/* brand */
+.t-brand .tile-in{color:#fff;display:flex;flex-direction:column;justify-content:flex-end;padding:26px}
+.t-brand .tile-in:before{content:"";position:absolute;inset:0;z-index:-1;background:var(--bgc)}
+.t-brand .tile-in:after{content:"";position:absolute;inset:0;z-index:-1;opacity:.22;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.t-brand .big{font:600 clamp(34px,4.1vw,60px)/.95 var(--sans);letter-spacing:-.045em}
+.t-brand .sub{margin-top:12px;font:500 11px/1.4 var(--mono);letter-spacing:.12em;text-transform:uppercase;opacity:.75}
+.t-brand .glyph{position:absolute;top:26px;right:26px;width:42px;height:42px;opacity:.9}
+.t-brand.dark-ink .tile-in{color:#16162a}
+.t-brand .art{position:absolute;pointer-events:none}
+
+/* render */
+.t-render .tile-in{background:radial-gradient(70% 60% at 50% 46%,var(--glow) 0%,transparent 70%),radial-gradient(130% 100% at 50% 0%,#141418,#09090b);display:grid;place-items:center}
+.t-render .rimg{width:var(--rw,60%);filter:drop-shadow(0 30px 30px rgba(0,0,0,.6));animation:float 7s ease-in-out infinite;transition:transform .9s var(--ease)}
+.tile:hover .t-render .rimg,.t-render:hover .rimg{transform:scale(1.06) rotate(-2deg)}
+.t-render .floor{position:absolute;left:25%;right:25%;bottom:12%;height:16px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.65),transparent);filter:blur(4px);animation:shadow 7s ease-in-out infinite}
+.t-render .shine{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.06) 48%,transparent 60%);transform:translateX(-60%);transition:transform 1.2s var(--ease);pointer-events:none}
+.tile:hover .shine{transform:translateX(60%)}
+@keyframes float{0%,100%{translate:0 -6px}50%{translate:0 8px}}
+@keyframes shadow{0%,100%{transform:scaleX(.86);opacity:.7}50%{transform:scaleX(1);opacity:1}}
+
+/* photo */
+.t-photo .tile-in img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:saturate(.92) brightness(.78);transition:transform 1.4s var(--ease),filter .8s}
+.tile:hover .t-photo img,.t-photo:hover img{transform:scale(1.05);filter:saturate(1.05) brightness(.9)}
+.t-photo .tile-in:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.35),transparent 35%,transparent 55%,rgba(0,0,0,.6))}
+.t-photo .ov{position:absolute;left:20px;right:20px;bottom:20px;z-index:2;font:500 21px/1.15 var(--sans);letter-spacing:-.02em;color:#fff;transition:opacity .4s}
+.tile:hover .t-photo .ov{opacity:0}
+
+/* note */
+.t-note .tile-in{padding:30px 28px 26px;background:linear-gradient(180deg,#111114,#0c0c0e)}
+.qm{font:700 40px/1 Georgia,serif;color:#fff;height:26px;margin-bottom:22px;letter-spacing:-.1em}
+.t-note p{font:400 17px/1.55 var(--sans);color:#dcdcdf;letter-spacing:-.008em;text-wrap:pretty}
+.t-note p strong{font-weight:500;color:#fff}
+.who{display:flex;align-items:center;gap:10px;margin-top:26px;font-size:13.5px;color:#e5e5e7}
+.who img{width:28px;height:28px;border-radius:50%;object-fit:cover;object-position:63% 18%;border:1px solid rgba(255,255,255,.2)}
+.who span{color:var(--mute)}
+.ratio{margin-top:24px}
+.ratio .bar{display:flex;height:8px;border-radius:99px;overflow:hidden;background:#1b1b20}
+.ratio .bp{width:20%;background:repeating-linear-gradient(135deg,#6f9cff 0 3px,#3a5fb8 3px 6px)}
+.ratio .mg{flex:1;background:linear-gradient(90deg,#ffc46b,#ff7ab6,#a58bff,#6fd8ff);background-size:200% 100%;animation:mag 6s linear infinite}
+@keyframes mag{to{background-position:200% 0}}
+.ratio .lg{display:flex;justify-content:space-between;margin-top:9px;font:500 10.5px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+.t-note.paper .tile-in{background:#f2f0eb;border-color:transparent}
+.t-note.paper p{color:#232326}
+.t-note.paper .qm{color:#18181a}
+.t-note.paper .who{color:#232326}
+.ph{display:inline-flex;margin-bottom:14px;font:500 10px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#8a5a00;background:#ffe7b3;padding:5px 8px;border-radius:5px}
+.who .av{display:grid;place-items:center;width:28px;height:28px;border-radius:50%;background:#dcd8cf;color:#6b675f;font:600 11px var(--mono)}
+
+/* stat / process / academy */
+.t-stat .tile-in{padding:22px 26px;background:linear-gradient(180deg,#0f0f12,#0b0b0d)}
+.st{display:flex;align-items:baseline;justify-content:space-between;padding:16px 0;border-bottom:1px solid var(--line)}
+.st:last-child{border-bottom:0}
+.st b{font:500 58px/1 var(--sans);letter-spacing:-.05em;background:linear-gradient(180deg,#fff,#8d8d94);-webkit-background-clip:text;background-clip:text;color:transparent}
+.st span{font:500 11px/1.4 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--soft);text-align:right}
+.t-proc .tile-in{padding:56px 26px 26px;background:radial-gradient(100% 70% at 0% 0%,rgba(111,156,255,.12),transparent 60%),#0c0c0e}
+.steps{list-style:none;position:relative}
+.steps:before{content:"";position:absolute;left:13px;top:12px;bottom:12px;width:1px;background:linear-gradient(#6f9cff,#ffc46b)}
+.steps li{position:relative;display:flex;gap:16px;align-items:center;padding:11px 0;font-size:16px;color:#e3e3e6}
+.steps li i{flex:none;display:grid;place-items:center;width:27px;height:27px;border-radius:50%;background:#141418;border:1px solid var(--line2);font:500 10px var(--mono);font-style:normal;color:var(--soft)}
+.steps li small{display:block;font:400 12.5px/1.35 var(--sans);color:var(--mute)}
+.t-acad .tile-in{background:#efeadf;color:#1b1a18;padding:26px}
+.t-acad .k{font:500 10.5px/1 var(--mono);letter-spacing:.12em;text-transform:uppercase;color:#8b8473}
+.t-acad h3{margin:10px 0 16px;font:600 26px/1.05 var(--sans);letter-spacing:-.035em}
+.books{list-style:none;counter-reset:b}
+.books li{display:flex;justify-content:space-between;gap:12px;padding:7px 0;border-top:1px solid rgba(0,0,0,.09);font-size:13px;line-height:1.3}
+.books li span{color:#8b8473;text-align:right;flex:none;max-width:45%;font-size:12px}
+.t-acad .wl{margin-top:16px;display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 13px;border-radius:8px;background:#1b1a18;color:#f2efe8;font:500 13px var(--sans)}
+
+/* pixel peek */
+.tile.has-peek{margin-top:30%}
+.peek{position:absolute;left:14%;bottom:calc(100% - 1px);width:44%;aspect-ratio:562/417;overflow:hidden;z-index:6;pointer-events:none}
+.peek img{width:100%;transform:translateY(102%);transition:transform .9s var(--spring)}
+.tile.in .peek img{transform:translateY(6%);transition-delay:.5s}
+.tile.has-peek:hover .peek img{transform:translateY(46%);transition-delay:0s;transition-duration:.35s}
+
+/* ---------- panels ---------- */
+.panel{position:relative;max-width:1180px;margin:0 auto;padding:0 16px}
+.pbox{border:1px solid var(--line);border-radius:14px;background:linear-gradient(180deg,#0c0c0e,#09090a);padding:56px}
+.sec{padding:60px 0}
+.eyebrow{display:flex;align-items:center;gap:10px;font:500 11.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--soft);margin-bottom:28px}
+.eyebrow:before{content:"";width:6px;height:6px;border-radius:50%;background:var(--blue);box-shadow:0 0 10px var(--blue)}
+.lead,.about-g .lead{font:500 clamp(26px,3vw,40px)/1.16 var(--sans);letter-spacing:-.035em;color:#f4f4f5;text-wrap:balance}
+.lead em{font-style:normal;color:var(--mute)}
+.about-g{display:grid;grid-template-columns:1.25fr .9fr;gap:56px;align-items:start}
+.about-g h3{margin-top:36px;font:600 18px/1.3 var(--sans);letter-spacing:-.01em}
+.about-g p{margin-top:10px;color:var(--soft);font-size:15.5px;max-width:58ch}
+.portrait{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--line2)}
+.portrait img{width:100%;aspect-ratio:4/4.4;object-fit:cover;object-position:62% 40%}
+.portrait figcaption{position:absolute;left:14px;right:14px;bottom:14px;display:flex;justify-content:space-between;align-items:center;font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#fff}
+.portrait:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 60%,rgba(0,0,0,.65));pointer-events:none}
+.portrait figcaption{z-index:2}
+.clocks{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.clock{border:1px solid var(--line);border-radius:10px;padding:12px 14px;background:#0b0b0d}
+.clock small{display:block;font:500 10.5px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.clock b{display:block;margin-top:8px;font:500 19px/1 var(--mono);letter-spacing:-.02em}
+.clock.home{border-color:rgba(255,196,107,.35)}
+.clock.home small{color:var(--amber)}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:48px;border-top:1px solid var(--line)}
+.flow div{padding:20px 18px 0 0}
+.flow i{font:500 10.5px/1 var(--mono);font-style:normal;color:var(--mute);letter-spacing:.1em}
+.flow b{display:block;margin-top:10px;font:500 16px/1.3 var(--sans);letter-spacing:-.01em}
+
+.svc{list-style:none;border-top:1px solid var(--line)}
+.svc li{border-bottom:1px solid var(--line)}
+.svc button{width:100%;display:grid;grid-template-columns:70px 1fr auto;align-items:center;gap:16px;padding:26px 4px;text-align:left;transition:padding .45s var(--ease)}
+.svc button:hover{padding-left:14px}
+.svc .n{font:500 12px/1 var(--mono);color:var(--mute);letter-spacing:.08em}
+.svc .t{font:500 clamp(21px,2.3vw,30px)/1.15 var(--sans);letter-spacing:-.03em;color:#ececee;transition:color .3s}
+.svc button:hover .t{color:#fff}
+.svc .pl{width:30px;height:30px;border-radius:50%;border:1px solid var(--line2);display:grid;place-items:center;transition:transform .5s var(--spring),background .3s}
+.svc .pl svg{width:12px;height:12px}
+.svc li.open .pl{transform:rotate(45deg);background:rgba(255,255,255,.08)}
+.svc .body{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease)}
+.svc li.open .body{grid-template-rows:1fr}
+.svc .body>div{overflow:hidden}
+.svc .body p{padding:0 4px 8px 86px;max-width:760px;color:var(--soft);font-size:15.5px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;padding:8px 4px 28px 86px}
+.chips span{font:500 10.5px/1 var(--mono);letter-spacing:.06em;text-transform:uppercase;padding:7px 10px;border-radius:99px;border:1px solid var(--line2);color:var(--soft)}
+
+.rows{border-top:1px solid var(--line);margin-top:8px}
+.row{display:grid;grid-template-columns:140px 1fr auto;align-items:center;gap:20px;padding:20px 0;border-bottom:1px solid var(--line)}
+.row>small{font:500 11.5px/1 var(--mono);letter-spacing:.12em;color:var(--mute);text-transform:uppercase}
+.row>span{font-size:17px;color:#ececee;letter-spacing:-.01em;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row>span.wrap{white-space:normal}
+.mini{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 12px;border-radius:8px;border:1px solid var(--line2);font:500 12.5px/1 var(--sans);color:#e6e6e8;transition:background .25s,border-color .25s}
+.mini:hover{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.28)}
+.mini svg{width:13px;height:13px}
+.mini.ok{border-color:rgba(62,224,143,.5);color:var(--green)}
+.cform{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:34px}
+.cform label{display:flex;flex-direction:column;gap:8px;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.cform .full{grid-column:1/-1}
+.cform input,.cform textarea{font:400 15.5px/1.4 var(--sans);color:#fff;background:#0b0b0d;border:1px solid var(--line2);border-radius:10px;padding:13px 14px;outline:none;transition:border-color .25s,box-shadow .25s;text-transform:none;letter-spacing:0}
+.cform textarea{min-height:110px;resize:vertical}
+.cform input:focus,.cform textarea:focus{border-color:rgba(169,205,255,.6);box-shadow:0 0 0 4px rgba(169,205,255,.08)}
+.kinds{display:flex;flex-wrap:wrap;gap:8px}
+.kinds button{height:34px;padding:0 13px;border-radius:99px;border:1px solid var(--line2);font:500 13px/1 var(--sans);color:var(--soft);transition:all .25s;text-transform:none;letter-spacing:0}
+.kinds button.on{background:#f1f1f2;color:#0a0a0b;border-color:#f1f1f2}
+.fend{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+.fend p{font:400 12px/1.4 var(--mono);color:var(--mute);letter-spacing:.02em;text-transform:none}
+
+footer{padding:40px 16px 150px;text-align:center}
+.wordmark{font:600 clamp(48px,12.5vw,190px)/.86 var(--sans);letter-spacing:-.065em;background:linear-gradient(180deg,#2a2a2f,#0a0a0b 85%);-webkit-background-clip:text;background-clip:text;color:transparent;user-select:none}
+.foot{display:flex;justify-content:center;gap:22px;flex-wrap:wrap;margin-top:22px;font:500 11px/1 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:#56565d}
+
+/* ---------- bottom nav ---------- */
+.dock{width:max-content;position:fixed;left:50%;bottom:76px;transform:translateX(-50%);z-index:80;display:flex;gap:8px;align-items:center}
+.pill{display:flex;align-items:center;padding:4px;border-radius:14px;background:rgba(22,22,25,.78);border:1px solid rgba(255,255,255,.09);box-shadow:0 16px 40px -12px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.05);backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4)}
+.pill a,.pill button{position:relative;z-index:1;display:flex;align-items:center;gap:8px;height:34px;padding:0 13px;border-radius:10px;font:500 13.5px/1 var(--sans);color:#a3a3a9;text-decoration:none;transition:color .3s;white-space:nowrap}
+.pill a:before{content:"";width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.55;transition:opacity .3s,background .3s}
+.pill a.on{color:#fff}
+.pill a.on:before{opacity:1;background:#fff}
+.pill a:hover,.pill button:hover{color:#fff}
+.nav-links{position:relative}
+.ind{position:absolute;left:0;top:4px;height:34px;width:60px;border-radius:10px;background:linear-gradient(180deg,#38383d,#2a2a2e);box-shadow:inset 0 1px 0 rgba(255,255,255,.12);transition:transform .55s var(--spring),width .55s var(--spring);z-index:0}
+.askb img{width:20px;height:20px;border-radius:6px;background:linear-gradient(160deg,#5fe08f,#16884a);object-fit:cover;object-position:50% 20%}
+.askb.on{color:#fff;background:#2e2e33}
+
+/* ask panel */
+.ask{position:fixed;left:50%;bottom:132px;z-index:85;width:min(380px,calc(100vw - 24px));transform:translate(-50%,16px) scale(.97);transform-origin:50% 100%;opacity:0;pointer-events:none;transition:opacity .35s var(--ease),transform .5s var(--spring);border-radius:18px;background:rgba(16,16,19,.92);border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 80px -20px rgba(0,0,0,.95);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);overflow:hidden}
+.ask.open{opacity:1;transform:translate(-50%,0) scale(1);pointer-events:auto}
+.ask-h{display:flex;align-items:center;gap:11px;padding:14px 16px;border-bottom:1px solid var(--line)}
+.av-px{position:relative;width:36px;height:36px;border-radius:11px;background:radial-gradient(circle at 50% 30%,#7ff0a8,#138047);overflow:hidden;flex:none}
+.av-px img{position:absolute;left:-12%;top:4%;width:124%}
+.ask-h b{display:block;font:500 14px/1.2 var(--sans)}
+.ask-h small{display:flex;align-items:center;gap:6px;font:400 11.5px/1.3 var(--mono);color:var(--mute)}
+.ask-h small i{width:6px;height:6px;border-radius:50%;background:var(--green)}
+.ask-x{margin-left:auto;width:30px;height:30px;border-radius:8px;display:grid;place-items:center;color:var(--mute)}
+.ask-x:hover{background:rgba(255,255,255,.06);color:#fff}
+.msgs{height:300px;overflow-y:auto;padding:16px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;overscroll-behavior:contain}
+.msg{max-width:86%;padding:10px 13px;border-radius:14px;font-size:14px;line-height:1.48;animation:pop .45s var(--spring)}
+.msg.px{align-self:flex-start;background:#1d1d22;border-bottom-left-radius:4px;color:#e3e3e6}
+.msg.me{align-self:flex-end;background:#e9e9ec;color:#0c0c0e;border-bottom-right-radius:4px}
+.msg .go2{display:inline-flex;margin-top:9px;height:30px;align-items:center;padding:0 11px;border-radius:8px;background:#2e2e34;font:500 12.5px var(--sans);color:#fff}
+.dots{display:inline-flex;gap:4px;padding:4px 0}
+.dots i{width:6px;height:6px;border-radius:50%;background:#77777e;animation:td 1s infinite}
+.dots i:nth-child(2){animation-delay:.15s}.dots i:nth-child(3){animation-delay:.3s}
+@keyframes td{0%,100%{opacity:.3;transform:none}40%{opacity:1;transform:translateY(-3px)}}
+@keyframes pop{from{opacity:0;transform:translateY(8px) scale(.96)}}
+.qs{display:flex;flex-wrap:wrap;gap:7px;padding:12px 14px 14px;border-top:1px solid var(--line)}
+.qs button{height:30px;padding:0 11px;border-radius:99px;border:1px solid var(--line2);font:500 12.5px/1 var(--sans);color:#d2d2d6;transition:background .2s,border-color .2s}
+.qs button:hover{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.3)}
+.qs button:disabled{opacity:.35;pointer-events:none}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:150;display:grid;place-items:center;padding:24px;background:rgba(2,2,3,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;pointer-events:none;transition:opacity .4s var(--ease)}
+.lb.open{opacity:1;pointer-events:auto}
+.lb-p{position:relative;width:min(1040px,100%);max-height:calc(100svh - 48px);display:grid;grid-template-columns:1.35fr 1fr;border-radius:16px;overflow:hidden;background:#0d0d10;border:1px solid rgba(255,255,255,.1);box-shadow:0 40px 120px -20px #000;transform:translateY(20px) scale(.97);transition:transform .6s var(--spring)}
+.lb.open .lb-p{transform:none}
+.lb-m{position:relative;min-height:440px;display:grid;place-items:center;overflow:hidden;background:#09090b}
+.lb-m>.tile-in{position:absolute;inset:0;border:0;border-radius:0;cursor:default;display:flex}
+.lb-m .t-shot-m{padding:48px 36px;width:100%;display:grid;place-items:center;background:radial-gradient(120% 90% at 50% 0%,#1d1f27,#0b0b0d)}
+.lb-m .t-shot-m .win{transform:none;width:100%}
+.lb-i{padding:36px 34px 30px;display:flex;flex-direction:column;overflow-y:auto}
+.lb-i .tag{align-self:flex-start}
+.lb-i h3{margin-top:22px;font:600 32px/1.05 var(--sans);letter-spacing:-.04em}
+.lb-i p{margin-top:16px;color:var(--soft);font-size:16px;line-height:1.6}
+.lb-i dl{margin-top:26px;border-top:1px solid var(--line)}
+.lb-i dl div{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13.5px}
+.lb-i dt{font:500 11px/1.6 var(--mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mute)}
+.lb-i dd{color:#e6e6e8;text-align:right}
+.lb-nav{margin-top:auto;padding-top:26px;display:flex;gap:8px;align-items:center}
+.lb-nav .grow{flex:1}
+.lb-nav .sq{width:38px;height:38px;border-radius:9px;border:1px solid var(--line2);display:grid;place-items:center}
+.lb-nav .sq:hover{background:rgba(255,255,255,.06)}
+.lb-nav .sq svg{width:14px;height:14px}
+.lb-x{position:absolute;top:14px;right:14px;z-index:5;width:36px;height:36px;border-radius:10px;display:grid;place-items:center;background:rgba(20,20,24,.8);border:1px solid var(--line2);color:#ddd}
+.lb-x:hover{color:#fff;background:#25252a}
+
+.toast{position:fixed;left:50%;top:22px;z-index:200;transform:translate(-50%,-250%);visibility:hidden;padding:11px 16px;border-radius:12px;background:#f1f1f2;color:#0b0b0c;font:500 13.5px var(--sans);box-shadow:0 20px 40px -14px rgba(0,0,0,.8);transition:transform .55s var(--spring)}
+.toast.show{transform:translate(-50%,0);visibility:visible}
+
+/* ---------- responsive ---------- */
+@media (max-width:1100px){
+  .about-g{grid-template-columns:1fr;gap:36px}
+  .portrait img{aspect-ratio:16/11}
+}
+@media (max-width:900px){
+  .worlds,.cities{display:none}
+  .mworlds{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;margin-top:22px}
+  .mworlds button{height:30px;padding:0 11px;border-radius:99px;border:1px solid var(--line2);font:500 12.5px/1 var(--sans);color:#a6a6ac;background:rgba(255,255,255,.02)}
+  .mworlds button.on{color:#fff;border-color:rgba(255,196,107,.6)}
+  .mworlds b{width:100%;font:500 10.5px/1 var(--mono);letter-spacing:.14em;color:var(--mute);margin-bottom:6px}
+}
+@media (max-width:760px){
+  body{font-size:14.5px}
+  .topbar{padding:16px 16px}
+  .brand span{display:none}
+  .hero{min-height:780px}
+  .hero-c h1{font-size:23px}
+  .pitch{font-size:15px;margin-top:16px}
+  .cta{gap:8px;margin-top:20px}
+  .btn{height:38px;padding:0 13px;font-size:14px}
+  .wall{gap:12px;padding:0 12px}
+  .col{gap:12px}
+  .t-shot .tile-in{padding:38px 12px 16px}
+  .lbl{top:12px;left:12px;font-size:9.5px;gap:6px}
+  .lbl svg{display:none}
+  .chrome{height:18px;gap:4px;padding:0 7px}
+  .chrome i{width:5px;height:5px}
+  .chrome span{display:none}
+  .cap{padding:30px 10px 10px;opacity:1;transform:none;background:linear-gradient(transparent,rgba(3,3,4,.78))}
+  .cap b{font-size:12px}
+  .cap .tag{display:none}
+  .t-brand .cap,.t-photo .cap{display:none}
+  .pin-label{font-size:9.5px}.pin-label b{display:none}
+  .t-brand .tile-in{padding:16px}
+  .t-brand .big{font-size:29px}
+  .t-brand .sub{font-size:9.5px;margin-top:8px}
+  .t-brand .glyph{top:14px;right:14px;width:26px;height:26px}
+  .t-photo .ov{left:12px;right:12px;bottom:12px;font-size:14.5px}
+  .t-note .tile-in{padding:18px 15px 16px}
+  .qm{font-size:30px;height:18px;margin-bottom:14px}
+  .t-note p{font-size:13.5px;line-height:1.45}
+  .who{margin-top:16px;font-size:12px;gap:7px;flex-wrap:wrap}
+  .who img,.who .av{width:22px;height:22px}
+  .ratio{margin-top:16px}.ratio .lg{font-size:9px}
+  .t-stat .tile-in{padding:8px 14px}
+  .st{padding:12px 0}
+  .st b{font-size:38px}
+  .st span{font-size:9.5px}
+  .t-proc .tile-in{padding:38px 14px 14px}
+  .steps:before{left:10px}
+  .steps li{gap:10px;font-size:13px;padding:8px 0}
+  .steps li i{width:21px;height:21px;font-size:9px}
+  .steps li small{font-size:11px}
+  .t-acad .tile-in{padding:16px 14px}
+  .t-acad h3{font-size:19px;margin:8px 0 10px}
+  .books li{font-size:11.5px;padding:5px 0}
+  .books li span{display:none}
+  .t-acad .wl{height:30px;font-size:12px;margin-top:12px}
+  .ph{font-size:9px}
+  .sec{padding:34px 0}
+  .panel{padding:0 12px}
+  .pbox{padding:30px 20px;border-radius:12px}
+  .clocks{grid-template-columns:repeat(3,1fr);gap:6px}
+  .clock{padding:10px}.clock b{font-size:15px}.clock small{font-size:9.5px}
+  .flow{grid-template-columns:1fr 1fr;row-gap:20px}
+  .svc button{grid-template-columns:36px 1fr auto;padding:20px 0;gap:10px}
+  .svc button:hover{padding-left:0}
+  .svc .body p{padding:0 0 8px 46px;font-size:14.5px}
+  .chips{padding:8px 0 22px 46px}
+  .row{grid-template-columns:1fr auto;gap:8px 12px;padding:16px 0}
+  .row>small{grid-column:1/-1}
+  .row>span{font-size:15.5px}
+  .cform{grid-template-columns:1fr}
+  .dock{bottom:70px;gap:6px}
+  .pill{padding:3px;border-radius:12px}
+  .pill a,.pill button{height:32px;padding:0 9px;font-size:12.5px;gap:6px}
+  .pill a:before{display:none}
+  .ind{top:3px;height:32px}
+  .askb img{width:18px;height:18px}
+  .ask{bottom:124px}
+  .msgs{height:min(300px,42svh)}
+  .lb{padding:10px;align-items:end}
+  .lb-p{grid-template-columns:1fr;max-height:calc(100svh - 20px)}
+  .lb-m{min-height:260px}
+  .lb-i{padding:22px 20px 20px}
+  .lb-i h3{font-size:25px}
+  .lb-i p{font-size:14.5px}
+  footer{padding-bottom:190px}
+}
+@media (prefers-reduced-motion:reduce){
+  .t-render .rimg,.t-render .floor,.ratio .mg,.pulse:after{animation:none}
+  .tile{transition:opacity .4s;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="brand" data-go="top"><i>JM</i><span>JAM Studios</span></div>
+  <div class="lang" role="group" aria-label="Language">
+    <button class="on" data-lang="en" aria-pressed="true">EN</button><span>/</span><button data-lang="es" aria-pressed="false">ES</button>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="top">
+  <canvas id="globe" aria-hidden="true"></canvas>
+  <div class="pin-label left" id="lab-la">Los Angeles</div>
+  <div class="pin-label left" id="lab-or">Orlando</div>
+  <div class="pin-label" id="lab-gu">Guatapé <b data-i18n="home">· home base</b></div>
+
+  <div class="hero-c">
+    <h1>Justin Massion</h1>
+    <div class="role">IMAGINEER</div>
+    <p class="pitch" data-i18n="pitch">I design worlds where theme-park storytelling meets AI and spatial computing — sketched in pencil, blueprinted like a ride, prototyped with AI and shipped to the cloud.</p>
+    <div class="cta">
+      <button class="btn fill" data-go="contact"><span data-i18n="book">Book a call</span>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></button>
+      <button class="btn line" id="audit"><span data-i18n="audit">World audit</span> <small data-i18n="free">FREE</small></button>
+    </div>
+    <div class="avail"><span class="pulse"></span><span data-i18n="avail">Booking worlds for 2027</span></div>
+    <div class="mworlds" id="mworlds"><b data-i18n="worlds">WORLDS</b></div>
+  </div>
+
+  <nav class="side worlds" aria-label="Worlds">
+    <h4 data-i18n="worlds">WORLDS</h4>
+    <ul id="worlds"></ul>
+  </nav>
+  <div class="side cities">
+    <h4 data-i18n="cities">CITIES</h4>
+    <ul>
+      <li>Los Angeles <span data-tz="America/Los_Angeles">--:--</span></li>
+      <li>Orlando <span data-tz="America/New_York">--:--</span></li>
+      <li class="home">Guatapé <span data-tz="America/Bogota">--:--</span></li>
+    </ul>
+  </div>
+</section>
+
+<section class="wall-sec" id="works" aria-label="Works">
+  <h2 class="sr">Works</h2>
+  <div class="wall" id="wall"></div>
+</section>
+
+<section class="sec" id="about">
+  <div class="panel"><div class="pbox">
+    <div class="eyebrow" data-i18n="aboutK">About</div>
+    <div class="about-g">
+      <div>
+        <p class="lead" data-i18n="aboutLead">Worlds that feel dreamed up in a theme-park back room — <em>then shipped to the cloud.</em></p>
+        <h3 data-i18n="a1h">What I do</h3>
+        <p data-i18n="a1p">I'm an experience designer working where Imagineering-style storytelling meets AI and spatial computing. Through JAM Studios I take a world from a pencil sketch to a working, cloud-shipped prototype — characters, rides, interfaces and the systems behind them.</p>
+        <h3 data-i18n="a2h">Where I work</h3>
+        <p data-i18n="a2p">Between Los Angeles, Orlando and Guatapé, Colombia — my home base under El Peñol, 740 steps above the lake. Author · artist · entrepreneur, depending on the day.</p>
+        <div class="clocks">
+          <div class="clock"><small>Los Angeles</small><b data-tz="America/Los_Angeles">--:--</b></div>
+          <div class="clock"><small>Orlando</small><b data-tz="America/New_York">--:--</b></div>
+          <div class="clock home"><small>Guatapé</small><b data-tz="America/Bogota">--:--</b></div>
+        </div>
+      </div>
+      <figure class="portrait">
+        <img src="../assets/img/justin-guatape.jpg" alt="Justin Massion at Guatapé with El Peñol behind him" loading="lazy">
+        <figcaption><span>Justin Massion</span><span>6.23° N · 75.16° W</span></figcaption>
+      </figure>
+    </div>
+    <div class="flow">
+      <div><i>01</i><b data-i18n="f1">Sketch it in pencil</b></div>
+      <div><i>02</i><b data-i18n="f2">Blueprint the magic</b></div>
+      <div><i>03</i><b data-i18n="f3">Prototype with AI</b></div>
+      <div><i>04</i><b data-i18n="f4">Ship to the cloud</b></div>
+    </div>
+  </div></div>
+</section>
+
+<section class="sec" id="services">
+  <div class="panel"><div class="pbox">
+    <div class="eyebrow" data-i18n="svcK">Services</div>
+    <p class="lead" style="margin-bottom:34px" data-i18n="svcLead">Four ways to build a world together. <em>Imagineering is 20% blueprint, 80% magic.</em></p>
+    <ul class="svc" id="svc"></ul>
+  </div></div>
+</section>
+
+<section class="sec" id="contact">
+  <div class="panel"><div class="pbox">
+    <div class="eyebrow" data-i18n="conK">Contact</div>
+    <p class="lead" data-i18n="conLead">Tell me about your world. <em>I'll tell you how it rides.</em></p>
+    <div class="rows" style="margin-top:34px">
+      <div class="row"><small data-i18n="rStart">Start</small><span class="wrap" data-i18n="rStartV">Send a note through the form below</span><button class="mini" data-go="form"><span data-i18n="write">Write</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg></button></div>
+      <div class="row"><small data-i18n="rLink">Link</small><span id="here">justinmassion.com</span><button class="mini" id="copy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="8" y="8" width="13" height="13" rx="2"/><path d="M16 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h3"/></svg><span data-i18n="copy">Copy link to this page</span></button></div>
+      <div class="row"><small data-i18n="rBase">Base</small><span data-i18n="rBaseV">Guatapé, Antioquia · Colombia</span><span></span></div>
+      <div class="row"><small data-i18n="rCities">Cities</small><span>Los Angeles · Orlando · Guatapé</span><span></span></div>
+      <div class="row"><small data-i18n="rStudio">Studio</small><span>JAM Studios · JAM Academy</span><span></span></div>
+    </div>
+    <form class="cform" id="form" novalidate>
+      <label><span data-i18n="fName">Name</span><input name="n" autocomplete="off" placeholder="Ada Lovelace" data-ph="phName"></label>
+      <label><span data-i18n="fMail">Email</span><input name="e" type="email" autocomplete="off" placeholder="you@studio.com" data-ph="phMail"></label>
+      <div class="full" style="display:flex;flex-direction:column;gap:8px"><label style="pointer-events:none" data-i18n="fKind">What are we building?</label>
+        <div class="kinds" id="kinds">
+          <button type="button" data-k="park" data-i18n="k1">Theme-park world</button>
+          <button type="button" data-k="ai" data-i18n="k2">AI-native product</button>
+          <button type="button" data-k="spatial" data-i18n="k3">Spatial experience</button>
+          <button type="button" data-k="char" data-i18n="k4">Character & story</button>
+          <button type="button" data-k="audit" data-i18n="k5">World audit (free)</button>
+          <button type="button" data-k="academy" data-i18n="k6">Academy waitlist</button>
+        </div></div>
+      <label class="full"><span data-i18n="fMsg">The world in a few lines</span><textarea name="m" placeholder="A ride, an app, a character…" data-ph="phMsg"></textarea></label>
+      <div class="full fend"><p data-i18n="demo">Demo form — nothing is sent.</p><button class="btn fill" type="submit" id="send"><span data-i18n="send">Send to Justin</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+    </form>
+  </div></div>
+</section>
+</main>
+
+<footer>
+  <div class="wordmark">Justin Massion</div>
+  <div class="foot"><span>© 2026 JAM Studios</span><span>Los Angeles · Orlando · Guatapé</span><span data-i18n="concept">Concept I — Moon wall</span></div>
+</footer>
+
+<nav class="dock" aria-label="Sections">
+  <div class="pill"><button class="askb" id="askb" aria-expanded="false"><img src="../assets/3d/pixel-peek.webp" alt=""><span data-i18n="nAsk">Ask</span></button></div>
+  <div class="pill nav-links" id="links">
+    <span class="ind" id="ind"></span>
+    <a href="#works" data-s="works" class="on" data-i18n="nWorks">Works</a>
+    <a href="#about" data-s="about" data-i18n="nAbout">About</a>
+    <a href="#services" data-s="services" data-i18n="nServices">Services</a>
+    <a href="#contact" data-s="contact" data-i18n="nContact">Contact</a>
+  </div>
+</nav>
+
+<div class="ask" id="ask" role="dialog" aria-label="Ask Pixel">
+  <div class="ask-h">
+    <div class="av-px"><img src="../assets/3d/pixel-peek.webp" alt=""></div>
+    <div><b data-i18n="pxName">Pixel</b><small><i></i><span data-i18n="pxSub">Justin's sidekick · usually online</span></small></div>
+    <button class="ask-x" id="askx" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="msgs" id="msgs" aria-live="polite"></div>
+  <div class="qs" id="qs"></div>
+</div>
+
+<div class="lb" id="lb" aria-hidden="true">
+  <div class="lb-p" role="dialog" aria-modal="true" aria-labelledby="lbt">
+    <button class="lb-x" id="lbx" aria-label="Close"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+    <div class="lb-m" id="lbm"></div>
+    <div class="lb-i">
+      <span class="tag" id="lbtag"></span>
+      <h3 id="lbt"></h3>
+      <p id="lbp"></p>
+      <dl id="lbd"></dl>
+      <div class="lb-nav">
+        <button class="sq" id="lbprev" aria-label="Previous"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"/></svg></button>
+        <button class="sq" id="lbnext" aria-label="Next"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"/></svg></button>
+        <span class="grow"></span>
+        <button class="btn fill" id="lbgo"><span data-i18n="lbGo">Build one like this</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="../switcher.js" data-root="../" data-current="i"></script>
+<script src="../fun.js" data-root="../" data-page="i"></script>
+<script src="../stock.js"></script>
+<script>
+(() => {
+const $ = (s, r = document) => r.querySelector(s), $$ = (s, r = document) => [...r.querySelectorAll(s)];
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const IMG = f => '../assets/img/' + f, R3 = f => '../assets/3d/' + f;
+const SU = (k, w = 900) => (window.STOCK ? STOCK.url(k, w) : '');
+let lang = 'en';
+const T = v => (v && typeof v === 'object') ? (v[lang] ?? v.en) : v;
+
+/* ---------------- copy ---------------- */
+const I18N = {
+ en: {
+  home: '· home base', pitch: 'I design worlds where theme-park storytelling meets AI and spatial computing — sketched in pencil, blueprinted like a ride, prototyped with AI and shipped to the cloud.',
+  book: 'Book a call', audit: 'World audit', free: 'FREE', avail: 'Booking worlds for 2027', worlds: 'WORLDS', cities: 'CITIES',
+  aboutK: 'About', aboutLead: 'Worlds that feel dreamed up in a theme-park back room — <em>then shipped to the cloud.</em>',
+  a1h: 'What I do', a1p: "I'm an experience designer working where Imagineering-style storytelling meets AI and spatial computing. Through JAM Studios I take a world from a pencil sketch to a working, cloud-shipped prototype — characters, rides, interfaces and the systems behind them.",
+  a2h: 'Where I work', a2p: 'Between Los Angeles, Orlando and Guatapé, Colombia — my home base under El Peñol, 740 steps above the lake. Author · artist · entrepreneur, depending on the day.',
+  f1: 'Sketch it in pencil', f2: 'Blueprint the magic', f3: 'Prototype with AI', f4: 'Ship to the cloud',
+  svcK: 'Services', svcLead: 'Four ways to build a world together. <em>Imagineering is 20% blueprint, 80% magic.</em>',
+  conK: 'Contact', conLead: "Tell me about your world. <em>I'll tell you how it rides.</em>",
+  rStart: 'Start', rStartV: 'Send a note through the form below', write: 'Write', rLink: 'Link', copy: 'Copy link to this page', copied: 'Link copied',
+  rBase: 'Base', rBaseV: 'Guatapé, Antioquia · Colombia', rCities: 'Cities', rStudio: 'Studio',
+  fName: 'Name', fMail: 'Email', fKind: 'What are we building?', fMsg: 'The world in a few lines', phName: 'Your name', phMail: 'you@studio.com', phMsg: 'A ride, an app, a character…',
+  k1: 'Theme-park world', k2: 'AI-native product', k3: 'Spatial experience', k4: 'Character & story', k5: 'World audit (free)', k6: 'Academy waitlist',
+  demo: 'Demo form — nothing is sent.', send: 'Send to Justin', sent: 'Received (demo) ✓', concept: 'Concept I — Moon wall',
+  nAsk: 'Ask', nWorks: 'Works', nAbout: 'About', nServices: 'Services', nContact: 'Contact',
+  pxName: 'Pixel', pxSub: "Justin's sidekick · usually online", lbGo: 'Build one like this',
+  auditMsg: "I'd love a free World audit of my project: ", acadMsg: 'Please add me to the JAM Academy waitlist.', toastLang: 'Hola — ahora en español',
+  dtWorld: 'World', dtType: 'Type', dtStep: 'Stage'
+ },
+ es: {
+  home: '· base', pitch: 'Diseño mundos donde la narrativa de los parques temáticos se cruza con la IA y la computación espacial — dibujados a lápiz, planificados como una atracción, prototipados con IA y lanzados a la nube.',
+  book: 'Agendar llamada', audit: 'Auditoría de mundo', free: 'GRATIS', avail: 'Reservando mundos para 2027', worlds: 'MUNDOS', cities: 'CIUDADES',
+  aboutK: 'Sobre mí', aboutLead: 'Mundos que parecen soñados en la trastienda de un parque temático — <em>y luego enviados a la nube.</em>',
+  a1h: 'Qué hago', a1p: 'Soy diseñador de experiencias donde la narrativa estilo Imagineering se encuentra con la IA y la computación espacial. Con JAM Studios llevo un mundo de un boceto a lápiz a un prototipo funcional en la nube — personajes, atracciones, interfaces y los sistemas detrás.',
+  a2h: 'Dónde trabajo', a2p: 'Entre Los Ángeles, Orlando y Guatapé, Colombia — mi base bajo El Peñol, a 740 escalones sobre el lago. Autor · artista · emprendedor, según el día.',
+  f1: 'Dibújalo a lápiz', f2: 'Planifica la magia', f3: 'Prototipa con IA', f4: 'Lánzalo a la nube',
+  svcK: 'Servicios', svcLead: 'Cuatro formas de construir un mundo juntos. <em>Imagineering es 20% plano, 80% magia.</em>',
+  conK: 'Contacto', conLead: 'Cuéntame de tu mundo. <em>Yo te digo cómo se monta.</em>',
+  rStart: 'Empezar', rStartV: 'Escribe una nota en el formulario de abajo', write: 'Escribir', rLink: 'Enlace', copy: 'Copiar enlace de esta página', copied: 'Enlace copiado',
+  rBase: 'Base', rBaseV: 'Guatapé, Antioquia · Colombia', rCities: 'Ciudades', rStudio: 'Estudio',
+  fName: 'Nombre', fMail: 'Correo', fKind: '¿Qué vamos a construir?', fMsg: 'El mundo en pocas líneas', phName: 'Tu nombre', phMail: 'tu@estudio.com', phMsg: 'Una atracción, una app, un personaje…',
+  k1: 'Mundo de parque temático', k2: 'Producto nativo de IA', k3: 'Experiencia espacial', k4: 'Personaje e historia', k5: 'Auditoría de mundo (gratis)', k6: 'Lista de espera Academy',
+  demo: 'Formulario demo — no se envía nada.', send: 'Enviar a Justin', sent: 'Recibido (demo) ✓', concept: 'Concepto I — Muro lunar',
+  nAsk: 'Pregunta', nWorks: 'Obras', nAbout: 'Sobre mí', nServices: 'Servicios', nContact: 'Contacto',
+  pxName: 'Pixel', pxSub: 'El compañero de Justin · casi siempre en línea', lbGo: 'Construyamos uno así',
+  auditMsg: 'Me encantaría una auditoría de mundo gratis de mi proyecto: ', acadMsg: 'Por favor añádeme a la lista de espera de JAM Academy.', toastLang: 'Hello — back in English',
+  dtWorld: 'Mundo', dtType: 'Tipo', dtStep: 'Etapa'
+ }
+};
+const t = k => I18N[lang][k] ?? I18N.en[k];
+
+/* ---------------- worlds + tiles ---------------- */
+const WORLDS = [['guatape', 'Guatapé'], ['playset', 'Playset'], ['pixel', 'Pixel'], ['aluzina', 'Aluzina'], ['laspalmas', 'Las Palmas'], ['agents', 'Agents']];
+const ico = {
+  win: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="4" width="18" height="16" rx="3"/><path d="M3 9h18M7 13h6M7 16h4"/></svg>',
+  cube: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3 4 7.5v9L12 21l8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/></svg>',
+  pin: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg>'
+};
+const TILES = [
+ {k:'shot', img:'aluzina-os.jpg', w:'aluzina', url:'justinmassion.com/aluzina', glow:'rgba(150,180,255,.28)', title:'Aluzina OS', tag:{en:'Interface • OS', es:'Interfaz • SO'}, step:{en:'After state',es:'Estado final'},
+  line:{en:'An operating-system concept shown in its “after” state — cards of state machines floating in the sky.', es:'Un concepto de sistema operativo en su estado “después” — tarjetas de máquinas de estado flotando en el cielo.'}},
+ {k:'render', img:'el-penol-island.webp', w:'guatape', glow:'rgba(255,190,110,.26)', rw:'54%', ar:'4/5', title:{en:'El Peñol, floating', es:'El Peñol, flotando'}, tag:{en:'Blender • Render', es:'Blender • Render'}, step:{en:'Home base',es:'Base'},
+  line:{en:'Home base as a floating low-poly island: the rock, the houses, the lake. Guatapé, rebuilt in Blender.', es:'La base como una isla low-poly flotante: la piedra, las casas, el lago. Guatapé, reconstruido en Blender.'}},
+ {k:'brand', w:'playset', bg:'radial-gradient(120% 90% at 85% 0%,#ffb067 0%,#ff6a2b 32%,#c4290f 62%,#3c0905 100%)', ar:'1/1', big:'Playset', sub:{en:'Arcades · drawn like rides', es:'Arcades · dibujados como atracciones'}, glyph:'joy', title:'Playset', tag:{en:'Brand • World', es:'Marca • Mundo'}, step:{en:'Blueprint',es:'Plano'},
+  line:{en:'A world of arcade cabinets, blueprinted like theme-park rides before a single panel gets built.', es:'Un mundo de máquinas arcade, planificadas como atracciones antes de construir un solo panel.'}},
+
+ {k:'note', s:1, ratio:1, title:'', q:{en:'Imagineering is <strong>20% blueprint</strong>, <strong>80% magic.</strong>', es:'Imagineering es <strong>20% plano</strong>, <strong>80% magia.</strong>'}},
+ {k:'shot', img:'playset-blueprint.jpg', w:'playset', url:'justinmassion.com/playset/blueprint', glow:'rgba(90,150,255,.3)', title:'Playset Blueprint', tag:{en:'Blueprint • Product', es:'Plano • Producto'}, step:{en:'Before the build',es:'Antes de construir'},
+  line:{en:'Arcade cabinets drawn like a ride before they get built — top view, rear view, every dimension.', es:'Máquinas arcade dibujadas como una atracción antes de construirlas — vista superior, trasera, cada medida.'}},
+ {k:'photo', stock:'guatapeRock', w:'guatape', ar:'4/5', ov:{en:'740 steps above the lake.', es:'740 escalones sobre el lago.'}, title:{en:'El Peñol, Guatapé', es:'El Peñol, Guatapé'}, tag:{en:'Atmosphere • Home', es:'Atmósfera • Casa'}, step:{en:'Home base',es:'Base'},
+  line:{en:'The rock Justin calls home base. 740 steps up, the whole lake of Guatapé below.', es:'La piedra que Justin llama hogar. 740 escalones arriba, todo el lago de Guatapé abajo.'}},
+
+ {k:'brand', w:'pixel', peek:1, bg:'radial-gradient(110% 90% at 20% 0%,#9cf5b8 0%,#2fcf75 30%,#118a4b 62%,#04331b 100%)', ar:'5/4', big:'Pixel', sub:{en:'The chameleon · mascot', es:'El camaleón · mascota'}, glyph:'eye', title:'Pixel the Chameleon', tag:{en:'Character • Brand', es:'Personaje • Marca'}, step:{en:'Character',es:'Personaje'},
+  line:{en:'The studio mascot: a chameleon who blends into every world Justin builds — and never stops talking.', es:'La mascota del estudio: un camaleón que se mezcla con cada mundo que Justin construye — y nunca deja de hablar.'}},
+ {k:'photo', stock:'arcade', w:'playset', ar:'1/1', ov:{en:'Every cabinet is a tiny ride.', es:'Cada máquina es una pequeña atracción.'}, title:{en:'The arcade row', es:'La fila arcade'}, tag:{en:'Atmosphere • Playset', es:'Atmósfera • Playset'}, step:{en:'Reference',es:'Referencia'},
+  line:{en:'Mood reference for Playset: the glow, the noise, the queue in front of the cabinet.', es:'Referencia de ambiente para Playset: la luz, el ruido, la fila frente a la máquina.'}},
+ {k:'shot', img:'las-palmas.jpg', w:'laspalmas', url:'justinmassion.com/las-palmas', glow:'rgba(255,150,90,.28)', title:'Las Palmas', tag:{en:'Dashboard • Stay', es:'Panel • Estancia'}, step:{en:'Morning mode',es:'Modo mañana'},
+  line:{en:'A “Buenos días” morning-mode dashboard for a place to stay — the room, the day and the city in one glance.', es:'Un panel “Buenos días” en modo mañana para un alojamiento — la habitación, el día y la ciudad de un vistazo.'}},
+
+ {k:'render', img:'jet.webp', w:'guatape', glow:'rgba(160,200,255,.22)', rw:'58%', ar:'1/1', title:{en:'LA → Guatapé', es:'LA → Guatapé'}, tag:{en:'Blender • Render', es:'Blender • Render'}, step:{en:'Travel',es:'Viaje'},
+  line:{en:'Three cities, one studio. The jet is how the worlds commute between Los Angeles, Orlando and Guatapé.', es:'Tres ciudades, un estudio. El jet es cómo los mundos viajan entre Los Ángeles, Orlando y Guatapé.'}},
+ {k:'brand', w:'aluzina', cls:'dark-ink', bg:'radial-gradient(90% 70% at 30% 20%,#ffffff 0%,#e6eeff 30%,#b8ccff 60%,#8a9dff 100%)', ar:'4/5', big:'Aluzina', sub:{en:'An OS in the clouds', es:'Un SO en las nubes'}, glyph:'ring', title:'Aluzina', tag:{en:'Brand • Interface', es:'Marca • Interfaz'}, step:{en:'After state',es:'Estado final'},
+  line:{en:'The Aluzina identity: soft sky, glass rings, an operating system that lives above the clouds.', es:'La identidad de Aluzina: cielo suave, anillos de cristal, un sistema operativo que vive sobre las nubes.'}},
+ {k:'note', s:2, cls:'paper', title:''},
+
+ {k:'shot', img:'playset-agents.jpg', w:'agents playset', tall:1, url:'justinmassion.com/playset/agents', glow:'rgba(110,230,255,.25)', title:'Playset Agents', tag:{en:'Game UI • Agents', es:'UI de juego • Agentes'}, step:{en:'Select screen',es:'Selección'},
+  line:{en:'AI agents presented like characters on a game select screen — pick your orchestrator, meet your team.', es:'Agentes de IA presentados como personajes en una pantalla de selección — elige tu orquestador, conoce a tu equipo.'}},
+ {k:'stat', s:1, static:1},
+ {k:'render', img:'pixel.webp', w:'pixel', glow:'rgba(80,230,140,.26)', rw:'74%', ar:'5/4', title:{en:'Pixel on a branch', es:'Pixel en una rama'}, tag:{en:'Character • 3D', es:'Personaje • 3D'}, step:{en:'Character',es:'Personaje'},
+  line:{en:'High-end 3D Pixel: googly eyes, curled tail, a branch to sit on. Rendered in Blender.', es:'Pixel en 3D de alta gama: ojos saltones, cola enroscada, una rama para sentarse. Renderizado en Blender.'}},
+
+ {k:'photo', stock:'palms', w:'laspalmas', ar:'4/5', ov:{en:'Buenos días.', es:'Buenos días.'}, title:{en:'Golden hour', es:'Hora dorada'}, tag:{en:'Atmosphere • Las Palmas', es:'Atmósfera • Las Palmas'}, step:{en:'Reference',es:'Referencia'},
+  line:{en:'The light Las Palmas is designed around: warm, slow, the first coffee of the day.', es:'La luz alrededor de la que se diseñó Las Palmas: cálida, lenta, el primer café del día.'}},
+ {k:'shot', img:'enterprise-workflow.jpg', w:'playset agents', url:'justinmassion.com/playset/workflow', glow:'rgba(255,200,120,.2)', title:'Enterprise Workflow', tag:{en:'Systems • Workflow', es:'Sistemas • Flujo'}, step:{en:'10 stations',es:'10 estaciones'},
+  line:{en:'A 10-station enterprise digital-transformation workflow, staged like a ride with a queue, a show and an exit.', es:'Un flujo de transformación digital empresarial de 10 estaciones, montado como una atracción con fila, show y salida.'}},
+ {k:'brand', w:'laspalmas', bg:'linear-gradient(170deg,#ffd29a 0%,#ff9a6b 26%,#f0566b 56%,#5d1e57 86%,#2a0f2e 100%)', ar:'1/1', big:'Las Palmas', sub:{en:'Buenos días · morning mode', es:'Buenos días · modo mañana'}, glyph:'sun', title:'Las Palmas', tag:{en:'Brand • Hospitality', es:'Marca • Hospitalidad'}, step:{en:'Morning mode',es:'Modo mañana'},
+  line:{en:'A hospitality world that wakes up with you — sunrise colours, soft type, nothing urgent.', es:'Un mundo de hospitalidad que despierta contigo — colores de amanecer, tipografía suave, nada urgente.'}},
+
+ {k:'proc', s:1, static:1},
+ {k:'render', img:'glass-blobs.webp', w:'aluzina', glow:'rgba(150,140,255,.3)', rw:'52%', ar:'1/1', title:{en:'Glass study', es:'Estudio de cristal'}, tag:{en:'Material • Render', es:'Material • Render'}, step:{en:'Look dev',es:'Look dev'},
+  line:{en:'Chrome-and-glass material study used to find the look of Aluzina’s floating cards.', es:'Estudio de materiales cromo y cristal para encontrar el look de las tarjetas flotantes de Aluzina.'}},
+ {k:'shot', img:'pixel-chameleon.jpg', w:'pixel', url:'justinmassion.com/pixel/sheet', glow:'rgba(110,240,150,.22)', title:'Pixel — character sheet', tag:{en:'Character • 3D', es:'Personaje • 3D'}, step:{en:'Turnaround',es:'Giro completo'},
+  line:{en:'High-end 3D character design: turnarounds, expressions, action poses and colour variations.', es:'Diseño de personaje 3D de alta gama: giros, expresiones, poses de acción y variaciones de color.'}},
+
+ {k:'brand', w:'agents', bg:'radial-gradient(100% 80% at 80% 100%,#8d6bff 0%,#4b2fc4 34%,#1c1150 70%,#0b0720 100%)', ar:'4/5', big:'Agents', sub:{en:'AI with a cast list', es:'IA con reparto'}, glyph:'spark', title:'Playset Agents', tag:{en:'Brand • AI', es:'Marca • IA'}, step:{en:'Cast',es:'Reparto'},
+  line:{en:'AI agents designed as a cast — each with a role, a costume and a cue — instead of a list of tools.', es:'Agentes de IA diseñados como un reparto — cada uno con rol, vestuario y entrada — en vez de una lista de herramientas.'}},
+ {k:'note', s:3, title:''},
+ {k:'photo', stock:'chameleonEye', w:'pixel', ar:'1/1', ov:{en:'Reference: the eye.', es:'Referencia: el ojo.'}, title:{en:'Chameleon reference', es:'Referencia camaleón'}, tag:{en:'Atmosphere • Pixel', es:'Atmósfera • Pixel'}, step:{en:'Reference',es:'Referencia'},
+  line:{en:'Where Pixel’s eyes came from. Real chameleons are even more dramatic.', es:'De dónde salieron los ojos de Pixel. Los camaleones reales son aún más dramáticos.'}},
+
+ {k:'shot', img:'justin-guatape.jpg', w:'guatape', url:'justinmassion.com/guatape', glow:'rgba(120,220,200,.22)', title:'Justin at Guatapé', tag:{en:'Home base • Portrait', es:'Base • Retrato'}, step:{en:'Home base',es:'Base'},
+  line:{en:'Justin at home base — Guatapé, the lake of islands and El Peñol behind him.', es:'Justin en su base — Guatapé, el lago de islas y El Peñol detrás.'}},
+ {k:'acad', s:1, w:'', title:'JAM Academy', tag:{en:'Academy • Waitlist', es:'Academy • Lista'}},
+ {k:'render', img:'paper-plane.webp', w:'agents', glow:'rgba(255,255,255,.14)', rw:'66%', ar:'5/4', title:{en:'Ship to the cloud', es:'Lánzalo a la nube'}, tag:{en:'Process • Render', es:'Proceso • Render'}, step:{en:'Step 04',es:'Paso 04'},
+  line:{en:'The last step of every project: fold it, aim it, ship it to the cloud.', es:'El último paso de cada proyecto: dóblalo, apunta y lánzalo a la nube.'}},
+
+ {k:'render', img:'pencil.webp', w:'', glow:'rgba(255,210,90,.22)', rw:'11%', ar:'3/4', title:{en:'Sketch it in pencil', es:'Dibújalo a lápiz'}, tag:{en:'Process • Render', es:'Proceso • Render'}, step:{en:'Step 01',es:'Paso 01'},
+  line:{en:'Every world starts here. Pencil first, always — the magic gets blueprinted later.', es:'Todo mundo empieza aquí. Primero el lápiz, siempre — la magia se planifica después.'}},
+ {k:'brand', w:'guatape', bg:'radial-gradient(120% 90% at 50% 110%,#3fb8a4 0%,#14706a 30%,#0b3d44 64%,#061c22 100%)', ar:'1/1', big:'Guatapé', sub:{en:'6.23° N · 75.16° W · home', es:'6.23° N · 75.16° W · casa'}, glyph:'rock', title:'Guatapé', tag:{en:'Place • Home base', es:'Lugar • Base'}, step:{en:'Home base',es:'Base'},
+  line:{en:'Colombia’s lake town under El Peñol — the studio’s home base and the colour palette of half its worlds.', es:'El pueblo del lago bajo El Peñol — la base del estudio y la paleta de color de la mitad de sus mundos.'}},
+ {k:'photo', stock:'cloudSea', w:'aluzina', ar:'4/5', ov:{en:'Above the clouds is where Aluzina lives.', es:'Sobre las nubes vive Aluzina.'}, title:{en:'Sea of clouds', es:'Mar de nubes'}, tag:{en:'Atmosphere • Aluzina', es:'Atmósfera • Aluzina'}, step:{en:'Reference',es:'Referencia'},
+  line:{en:'The sky Aluzina OS floats in: quiet, bright, endless.', es:'El cielo donde flota Aluzina OS: tranquilo, luminoso, infinito.'}}
+];
+const NOTES = {
+  1: {q:{en:'Imagineering is <strong>20% blueprint</strong>, <strong>80% magic.</strong>', es:'Imagineering es <strong>20% plano</strong>, <strong>80% magia.</strong>'}},
+  3: {q:{en:'Build worlds that feel like they were dreamed up in a <strong>theme-park back room</strong> — then ship them to the cloud.', es:'Construye mundos que parezcan soñados en la <strong>trastienda de un parque temático</strong> — y luego lánzalos a la nube.'}}
+};
+const glyphs = {
+  joy: '<svg class="glyph" viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="1.8"><rect x="6" y="28" width="36" height="12" rx="3"/><path d="M24 28V14"/><circle cx="24" cy="10" r="5" fill="rgba(255,255,255,.25)"/><circle cx="34" cy="34" r="2" fill="#fff"/></svg>',
+  eye: '<svg class="glyph" viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="1.8"><circle cx="24" cy="24" r="17"/><circle cx="27" cy="22" r="7" fill="#fff"/><circle cx="28.5" cy="21" r="2.4" fill="#0a3"/></svg>',
+  ring: '<svg class="glyph" viewBox="0 0 48 48" fill="none" stroke="#2b2c6e" stroke-width="1.8"><circle cx="24" cy="24" r="16"/><circle cx="24" cy="24" r="9" opacity=".6"/><path d="M8 24h4M36 24h4M24 8v4M24 36v4"/></svg>',
+  sun: '<svg class="glyph" viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="1.8"><path d="M6 32h36"/><path d="M13 32a11 11 0 0 1 22 0"/><path d="M24 12v4M10 18l3 3M38 18l-3 3"/></svg>',
+  spark: '<svg class="glyph" viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="1.8"><path d="M24 6c1.5 9 4 11.5 13 13-9 1.5-11.5 4-13 13-1.5-9-4-11.5-13-13 9-1.5 11.5-4 13-13z"/><path d="M38 31c.6 3.4 1.6 4.4 5 5-3.4.6-4.4 1.6-5 5-.6-3.4-1.6-4.4-5-5 3.4-.6 4.4-1.6 5-5z"/></svg>',
+  rock: '<svg class="glyph" viewBox="0 0 48 48" fill="none" stroke="#fff" stroke-width="1.8"><path d="M14 40c0-14 3-28 10-30 7 2 10 16 10 30"/><path d="M4 40h40"/><path d="M22 14l4 4-4 4 4 4-4 4 4 4" opacity=".7"/></svg>'
+};
+const tileTitle = d => T(d.title);
+function media(d, i, big) {
+  const tk = f => `data-tk="${i}:${f}"`;
+  if (d.k === 'shot') return `<div class="${big ? 't-shot-m' : ''}">${big ? '' : `<div class="lbl">${ico.win}<span>${(d.w || '').split(' ')[0] || 'world'}</span></div><div class="glowline" style="--glow:${d.glow}"></div>`}<div class="win${d.tall ? ' tall' : ''}"><div class="chrome"><i></i><i></i><i></i><span>${d.url}</span></div><img src="${IMG(d.img)}" alt="${tileTitle(d)}" ${big ? '' : 'loading="lazy"'}></div></div>`;
+  if (d.k === 'render') return `<div class="lbl">${ico.cube}<span>Blender</span></div><div class="floor"></div><img class="rimg" style="--rw:${big ? (parseFloat(d.rw) * .8) + '%' : d.rw}" src="${R3(d.img)}" alt="${tileTitle(d)}" ${big ? '' : 'loading="lazy"'}><div class="shine"></div>`;
+  if (d.k === 'photo') return `<img src="${SU(d.stock, big ? 1600 : 900)}" alt="${tileTitle(d)}" ${big ? '' : 'loading="lazy"'}>${big ? '' : `<div class="lbl" style="color:rgba(255,255,255,.8)">${ico.pin}<span>${T(d.tag).split('•')[1] || ''}</span></div><div class="ov" ${tk('ov')}>${T(d.ov)}</div>`}`;
+  if (d.k === 'brand') return `${glyphs[d.glyph] || ''}<div class="big">${d.big}</div><div class="sub" ${tk('sub')}>${T(d.sub)}</div>`;
+  return '';
+}
+function tileHTML(d, i) {
+  const tk = f => `data-tk="${i}:${f}"`;
+  let inner = '', style = d.ar ? `aspect-ratio:${d.ar};` : '';
+  if (d.k === 'shot' || d.k === 'render' || d.k === 'photo') inner = media(d, i);
+  if (d.k === 'render') style += `--glow:${d.glow};`;
+  if (d.k === 'brand') { inner = media(d, i); style += `--bgc:${d.bg};`; }
+  if (d.k === 'note' && d.s !== 2) {
+    inner = `<div class="qm">“</div><p data-nq="${d.s}">${T(NOTES[d.s].q)}</p>` + (d.s === 1 ? `<div class="ratio"><div class="bar"><span class="bp"></span><span class="mg"></span></div><div class="lg"><span data-i18x="bp">${lang === 'es' ? 'Plano' : 'Blueprint'}</span><span data-i18x="mg">${lang === 'es' ? 'Magia' : 'Magic'}</span></div></div>` : '') +
+      `<div class="who"><img src="${IMG('justin-guatape.jpg')}" alt="">Justin Massion <span>Imagineer</span></div>`;
+  }
+  if (d.k === 'note' && d.s === 2) {
+    inner = `<span class="ph" data-i18x="phb">${lang === 'es' ? 'Testimonio de ejemplo' : 'Placeholder testimonial'}</span><div class="qm">“</div><p data-i18x="phq">${lang === 'es' ? 'Testimonio de ejemplo — esperando las citas reales de Justin. Aquí irá lo que dice un productor sobre trabajar con él.' : 'Placeholder testimonial — awaiting Justin’s real quotes. This is where a producer says what it was like to build a world with him.'}</p><div class="who"><span class="av">TP</span><span data-i18x="phw" style="color:#6c6a64">${lang === 'es' ? 'Productor de parque temático (ejemplo)' : 'Theme-park producer (placeholder)'}</span></div>`;
+  }
+  if (d.k === 'stat') inner = `<div class="st"><b>3</b><span data-i18x="s1">${lang === 'es' ? 'Ciudades<br>LA · ORL · GUA' : 'Cities<br>LA · ORL · GUA'}</span></div><div class="st"><b>7</b><span data-i18x="s2">${lang === 'es' ? 'Mundos en<br>el portafolio' : 'Worlds in<br>the portfolio'}</span></div><div class="st"><b>9</b><span data-i18x="s3">${lang === 'es' ? 'Libros en<br>la estantería' : 'Books on<br>the shelf'}</span></div>`;
+  if (d.k === 'proc') inner = `<div class="lbl">${ico.cube}<span data-i18x="pr">${lang === 'es' ? 'El proceso' : 'The process'}</span></div><ol class="steps">${['f1', 'f2', 'f3', 'f4'].map((k, n) => `<li><i>0${n + 1}</i><div><span data-i18n="${k}">${t(k)}</span><small data-i18x="ps${n}">${PSUB[lang][n]}</small></div></li>`).join('')}</ol>`;
+  if (d.k === 'acad') inner = `<div class="k">JAM Academy</div><h3 data-i18x="ah">${lang === 'es' ? 'El arte de aprender cualquier cosa' : 'The art of learning anything'}</h3><ul class="books">${BOOKS.map(b => `<li>${b[0]}<span>${b[1]}</span></li>`).join('')}</ul><span class="wl" data-i18x="aw">${lang === 'es' ? 'Unirme a la lista →' : 'Join the waitlist →'}</span>`;
+  const clickable = !d.static && d.k !== 'note';
+  const cap = clickable && d.k !== 'acad' ? `<div class="cap"><b ${tk('title')}>${tileTitle(d)}</b><span class="tag" ${tk('tag')}>${T(d.tag)}</span></div>` : '';
+  const peek = d.peek ? `<div class="peek"><img src="${R3('pixel-peek.webp')}" alt="Pixel peeking over the tile"></div>` : '';
+  return `<article class="tile t-${d.k}${d.cls ? ' ' + d.cls : ''}${clickable ? '' : ' static'}${d.peek ? ' has-peek' : ''}" data-i="${i}" data-w="${d.w || ''}" ${clickable ? 'tabindex="0" role="button"' : ''} aria-label="${clickable ? tileTitle(d) : ''}">${peek}<div class="tile-in" style="${style}">${inner}${cap}</div></article>`;
+}
+const PSUB = { en: ['Every world starts on paper.', 'Draw it like a ride.', 'Make it real, fast.', 'Live, shared, alive.'], es: ['Todo mundo empieza en papel.', 'Dibújalo como una atracción.', 'Hazlo real, rápido.', 'En vivo, compartido, vivo.'] };
+const BOOKS = [['Whole Brain Power', 'M. J. Gelb'], ['Money: Master the Game', 'T. Robbins'], ['Secret Knowledge', 'D. Hockney'], ['The Sketchnote Handbook', 'M. Rohde'], ['Business Model Generation', 'Osterwalder & Pigneur'], ['Rebel Without a Crew', 'R. Rodriguez'], ['Think Outside the Box Office', 'J. Reiss'], ['Film Production Management 101', 'D. Patz'], ['Watchmaking', 'G. Daniels']];
+const X = { // misc strings that live inside tiles
+  en: { bp: 'Blueprint', mg: 'Magic', phb: 'Placeholder testimonial', phq: 'Placeholder testimonial — awaiting Justin’s real quotes. This is where a producer says what it was like to build a world with him.', phw: 'Theme-park producer (placeholder)', s1: 'Cities<br>LA · ORL · GUA', s2: 'Worlds in<br>the portfolio', s3: 'Books on<br>the shelf', pr: 'The process', ah: 'The art of learning anything', aw: 'Join the waitlist →' },
+  es: { bp: 'Plano', mg: 'Magia', phb: 'Testimonio de ejemplo', phq: 'Testimonio de ejemplo — esperando las citas reales de Justin. Aquí irá lo que dice un productor sobre trabajar con él.', phw: 'Productor de parque temático (ejemplo)', s1: 'Ciudades<br>LA · ORL · GUA', s2: 'Mundos en<br>el portafolio', s3: 'Libros en<br>la estantería', pr: 'El proceso', ah: 'El arte de aprender cualquier cosa', aw: 'Unirme a la lista →' }
+};
+
+/* ---------------- build wall ---------------- */
+const wall = $('#wall');
+let ncols = 0, colTweens = [];
+function buildWall() {
+  const n = innerWidth < 760 ? 2 : 3;
+  if (n === ncols) return;
+  ncols = n;
+  colTweens.forEach(tw => { tw.scrollTrigger && tw.scrollTrigger.kill(); tw.kill(); }); colTweens = [];
+  wall.innerHTML = '';
+  const cols = Array.from({ length: n }, () => { const c = document.createElement('div'); c.className = 'col'; wall.appendChild(c); return c; });
+  TILES.forEach((d, i) => cols[i % n].insertAdjacentHTML('beforeend', tileHTML(d, i)));
+  observeTiles();
+  if (window.gsap && window.ScrollTrigger && !reduce) {
+    const sets = n === 3 ? [[40, -90], [170, -230], [80, -140]] : [[30, -80], [140, -170]];
+    cols.forEach((c, k) => colTweens.push(gsap.fromTo(c, { y: sets[k][0] }, { y: sets[k][1], ease: 'none', scrollTrigger: { trigger: wall, start: 'top bottom', end: 'bottom top', scrub: .6 } })));
+    ScrollTrigger.refresh();
+  }
+}
+let tio;
+function observeTiles() {
+  tio && tio.disconnect();
+  tio = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); tio.unobserve(e.target); } }), { rootMargin: '0px 0px -6% 0px' });
+  $$('.tile', wall).forEach(el => tio.observe(el));
+}
+
+/* ---------------- worlds list ---------------- */
+const counts = w => TILES.filter(d => (d.w || '').split(' ').includes(w)).length;
+$('#worlds').innerHTML = WORLDS.map(([k, n]) => `<li><button data-w="${k}">${n}<em>${String(counts(k)).padStart(2, '0')}</em></button></li>`).join('');
+$('#mworlds').insertAdjacentHTML('beforeend', WORLDS.map(([k, n]) => `<button data-w="${k}">${n}</button>`).join(''));
+function highlight(w) {
+  if (!w) { wall.classList.remove('filtering'); $$('.tile.hit', wall).forEach(e => e.classList.remove('hit')); return; }
+  wall.classList.add('filtering');
+  $$('.tile', wall).forEach(e => e.classList.toggle('hit', e.dataset.w.split(' ').includes(w)));
+}
+$$('#worlds button').forEach(b => {
+  b.addEventListener('mouseenter', () => highlight(b.dataset.w));
+  b.addEventListener('focus', () => highlight(b.dataset.w));
+  b.addEventListener('mouseleave', () => highlight(null));
+  b.addEventListener('blur', () => highlight(null));
+  b.addEventListener('click', () => goWorld(b.dataset.w));
+});
+$$('#mworlds button').forEach(b => b.addEventListener('click', () => {
+  const on = !b.classList.contains('on');
+  $$('#mworlds button').forEach(x => x.classList.remove('on'));
+  if (on) { b.classList.add('on'); highlight(b.dataset.w); goWorld(b.dataset.w, true); } else highlight(null);
+}));
+function goWorld(w, keep) {
+  const first = $$('.tile', wall).filter(e => e.dataset.w.split(' ').includes(w)).sort((a, b) => a.getBoundingClientRect().top - b.getBoundingClientRect().top)[0];
+  if (!first) return;
+  scrollToEl(first, -120);
+  setTimeout(() => { highlight(w); $$('.tile', wall).filter(e => e.classList.contains('hit')).forEach(e => { e.classList.remove('flash'); void e.offsetWidth; e.classList.add('flash'); }); }, 700);
+  setTimeout(() => { if (!keep) highlight(null); else { highlight(null); $$('#mworlds button').forEach(x => x.classList.remove('on')); } }, 2600);
+}
+
+/* ---------------- scrolling ---------------- */
+let lenis = null;
+if (window.Lenis && !reduce) {
+  lenis = new Lenis({ lerp: .1, wheelMultiplier: 1 });
+  if (window.gsap) { lenis.on('scroll', () => window.ScrollTrigger && ScrollTrigger.update()); gsap.ticker.add(tm => lenis.raf(tm * 1000)); gsap.ticker.lagSmoothing(0); }
+  else { const raf = tm => { lenis.raf(tm); requestAnimationFrame(raf); }; requestAnimationFrame(raf); }
+}
+if (window.gsap && window.ScrollTrigger) gsap.registerPlugin(ScrollTrigger);
+function scrollToEl(el, off = 0) {
+  if (typeof el === 'string') el = document.getElementById(el);
+  if (!el) return;
+  if (lenis) lenis.scrollTo(el, { offset: off, duration: 1.4 });
+  else window.scrollTo({ top: el.getBoundingClientRect().top + scrollY + off, behavior: reduce ? 'auto' : 'smooth' });
+}
+document.addEventListener('click', e => {
+  const g = e.target.closest('[data-go]'); if (g) { e.preventDefault(); scrollToEl(g.dataset.go === 'form' ? $('#form') : g.dataset.go, g.dataset.go === 'top' ? 0 : -40); }
+  const a = e.target.closest('.nav-links a'); if (a) { e.preventDefault(); scrollToEl(a.dataset.s, a.dataset.s === 'works' ? -20 : -40); }
+});
+
+/* ---------------- nav indicator ---------------- */
+const ind = $('#ind'), links = $$('.nav-links a');
+let cur = 'works';
+function moveInd() { const a = links.find(l => l.dataset.s === cur) || links[0]; ind.style.width = a.offsetWidth + 'px'; ind.style.transform = `translateX(${a.offsetLeft - 4}px)`; links.forEach(l => l.classList.toggle('on', l === a)); }
+ind.style.left = '4px';
+function spy() {
+  const mid = innerHeight * .45; let s = 'works';
+  ['about', 'services', 'contact'].forEach(id => { const r = document.getElementById(id).getBoundingClientRect(); if (r.top < mid) s = id; });
+  if (s !== cur) { cur = s; moveInd(); }
+}
+addEventListener('scroll', () => { spy(); document.body.classList.toggle('scrolled', scrollY > innerHeight * .6); }, { passive: true });
+
+/* ---------------- services ---------------- */
+const SVC = [
+ {en:['Imagineering workshops','A day or a week in the back room: we sketch the world, map the guest journey and blueprint the magic together — the way a ride gets pitched before it gets built.',['Story map','Guest journey','Pencil boards']],
+  es:['Talleres de Imagineering','Un día o una semana en la trastienda: dibujamos el mundo, mapeamos el recorrido del visitante y planificamos la magia juntos — como se presenta una atracción antes de construirla.',['Mapa de historia','Recorrido','Bocetos a lápiz']]},
+ {en:['AI-native prototyping','From blueprint to something you can click, talk to or walk through — fast. Agents, interfaces and flows built with AI from day one, then shipped to the cloud.',['Agents','Interfaces','Cloud prototypes']],
+  es:['Prototipado nativo de IA','Del plano a algo que puedes tocar, hablarle o recorrer — rápido. Agentes, interfaces y flujos construidos con IA desde el primer día y lanzados a la nube.',['Agentes','Interfaces','Prototipos en la nube']]},
+ {en:['Spatial experience design','Rooms, rides and headsets. Designing how a world feels when you are standing inside it — scale, light, sound and the moment the doors open.',['Spatial computing','Attractions','Show flow']],
+  es:['Diseño de experiencias espaciales','Salas, atracciones y visores. Diseñar cómo se siente un mundo cuando estás dentro — escala, luz, sonido y el momento en que se abren las puertas.',['Computación espacial','Atracciones','Flujo del show']]},
+ {en:['Character & story worlds','Characters with turnarounds, expressions and a reason to exist — like Pixel — plus the world, rules and lore that make people want to visit.',['Character sheets','3D','Lore & rules']],
+  es:['Personajes y mundos narrativos','Personajes con giros, expresiones y una razón de existir — como Pixel — más el mundo, las reglas y la historia que hacen que la gente quiera visitarlo.',['Hojas de personaje','3D','Historia y reglas']]}
+];
+const plus = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg>';
+function buildSvc() {
+  const open = $$('#svc li').map(l => l.classList.contains('open'));
+  $('#svc').innerHTML = SVC.map((s, i) => { const v = s[lang]; return `<li class="${(open.length ? open[i] : i === 0) ? 'open' : ''}"><button aria-expanded="${i === 0}"><span class="n">0${i + 1}</span><span class="t">${v[0]}</span><span class="pl">${plus}</span></button><div class="body"><div><p>${v[1]}</p><div class="chips">${v[2].map(c => `<span>${c}</span>`).join('')}</div></div></div></li>`; }).join('');
+  $$('#svc li').forEach(li => li.querySelector('button').addEventListener('click', () => { li.classList.toggle('open'); li.querySelector('button').setAttribute('aria-expanded', li.classList.contains('open')); setTimeout(() => window.ScrollTrigger && ScrollTrigger.refresh(), 650); }));
+}
+
+/* ---------------- lightbox ---------------- */
+const lb = $('#lb'); let lbi = -1;
+const openable = () => TILES.map((d, i) => i).filter(i => !TILES[i].static && TILES[i].k !== 'note');
+function openLB(i) {
+  const d = TILES[i]; lbi = i;
+  if (d.k === 'acad') { closeLB(); preset('academy'); scrollToEl($('#form'), -60); return; }
+  const m = $('#lbm');
+  let style = d.k === 'brand' ? `--bgc:${d.bg};` : d.k === 'render' ? `--glow:${d.glow};` : '';
+  m.innerHTML = `<div class="tile-in t-${d.k}-lb" style="${style}"></div>`;
+  const box = m.firstChild;
+  box.className = 'tile-in';
+  const wrap = document.createElement('div'); wrap.className = `t-${d.k}${d.cls ? ' ' + d.cls : ''}`; wrap.style.cssText = 'position:absolute;inset:0;display:flex';
+  wrap.innerHTML = `<div class="tile-in" style="${style}position:absolute;inset:0;border:0;border-radius:0;cursor:default;width:100%">${media(d, i, true)}</div>`;
+  m.innerHTML = ''; m.appendChild(wrap);
+  $('#lbtag').textContent = T(d.tag); $('#lbt').textContent = tileTitle(d); $('#lbp').textContent = T(d.line);
+  const wname = (WORLDS.find(w => (d.w || '').split(' ')[0] === w[0]) || [, '—'])[1];
+  $('#lbd').innerHTML = `<div><dt>${t('dtWorld')}</dt><dd>${wname}</dd></div><div><dt>${t('dtType')}</dt><dd>${T(d.tag).split('•')[0].trim()}</dd></div><div><dt>${t('dtStep')}</dt><dd>${T(d.step) || '—'}</dd></div>`;
+  lb.classList.add('open'); lb.setAttribute('aria-hidden', 'false'); lenis && lenis.stop();
+  setTimeout(() => $('#lbx').focus({ preventScroll: true }), 50);
+}
+function closeLB() { if (!lb.classList.contains('open')) return; lb.classList.remove('open'); lb.setAttribute('aria-hidden', 'true'); lenis && lenis.start(); const el = $(`.tile[data-i="${lbi}"]`); el && el.focus({ preventScroll: true }); }
+function stepLB(dir) { const o = openable().filter(i => TILES[i].k !== 'acad'); let k = o.indexOf(lbi); k = (k + dir + o.length) % o.length; openLB(o[k]); }
+wall.addEventListener('click', e => { const tl = e.target.closest('.tile'); if (!tl || tl.classList.contains('static')) return; openLB(+tl.dataset.i); });
+wall.addEventListener('keydown', e => { if ((e.key === 'Enter' || e.key === ' ') && e.target.classList.contains('tile') && !e.target.classList.contains('static')) { e.preventDefault(); openLB(+e.target.dataset.i); } });
+$('#lbx').onclick = closeLB; $('#lbprev').onclick = () => stepLB(-1); $('#lbnext').onclick = () => stepLB(1);
+lb.addEventListener('click', e => { if (e.target === lb) closeLB(); });
+$('#lbgo').onclick = () => { closeLB(); setTimeout(() => scrollToEl($('#form'), -60), 150); };
+addEventListener('keydown', e => {
+  if (e.key === 'Escape') { closeLB(); closeAsk(); }
+  if (lb.classList.contains('open') && e.key === 'ArrowRight') stepLB(1);
+  if (lb.classList.contains('open') && e.key === 'ArrowLeft') stepLB(-1);
+});
+
+/* ---------------- ask pixel ---------------- */
+const QA = {
+ en: [
+  ['Who is Justin?', 'Justin Massion is an Imagineer — an experience designer working where theme-park storytelling meets AI and spatial computing. He runs JAM Studios and builds worlds that feel dreamed up in a theme-park back room, then shipped to the cloud.', null],
+  ['Where is he based?', 'Home base is Guatapé, Colombia — right under El Peñol, 740 steps above the lake. He works between Los Angeles, Orlando and Guatapé. I mostly stay on the rock.', null],
+  ["What's the Academy?", 'JAM Academy — “the art of learning anything”. Nine books on the shelf, from Whole Brain Power to Watchmaking. It has a waitlist, and I can take you to it.', ['Join the waitlist', 'academy']],
+  ['How do I start a project?', 'Tell Justin about your world in the form, or ask for a free World audit. Every project rides the same track: sketch it in pencil → blueprint the magic → prototype with AI → ship to the cloud.', ['Go to contact', 'contact']],
+  ['Who are you?', "I'm Pixel. Chameleon, mascot, part-time receptionist. I change colour, blend into any world and answer exactly five questions — this was one of them.", null]
+ ],
+ es: [
+  ['¿Quién es Justin?', 'Justin Massion es un Imagineer — un diseñador de experiencias donde la narrativa de parques temáticos se cruza con la IA y la computación espacial. Dirige JAM Studios y construye mundos que parecen soñados en la trastienda de un parque, y luego los lanza a la nube.', null],
+  ['¿Dónde vive?', 'Su base es Guatapé, Colombia — justo bajo El Peñol, a 740 escalones sobre el lago. Trabaja entre Los Ángeles, Orlando y Guatapé. Yo me quedo en la piedra.', null],
+  ['¿Qué es la Academy?', 'JAM Academy — “el arte de aprender cualquier cosa”. Nueve libros en la estantería, de Whole Brain Power a Watchmaking. Tiene lista de espera y te puedo llevar.', ['Unirme a la lista', 'academy']],
+  ['¿Cómo empiezo un proyecto?', 'Cuéntale a Justin de tu mundo en el formulario, o pide una auditoría de mundo gratis. Todo proyecto sigue la misma vía: dibújalo a lápiz → planifica la magia → prototipa con IA → lánzalo a la nube.', ['Ir a contacto', 'contact']],
+  ['¿Y tú quién eres?', 'Soy Pixel. Camaleón, mascota y recepcionista a medio tiempo. Cambio de color, me mezclo con cualquier mundo y respondo exactamente cinco preguntas — esta era una.', null]
+ ]
+};
+const HELLO = { en: "Hola! I'm Pixel 🦎 Ask me anything — well, one of these five things.", es: '¡Hola! Soy Pixel 🦎 Pregúntame lo que quieras — bueno, una de estas cinco cosas.' };
+const ask = $('#ask'), msgs = $('#msgs'), askb = $('#askb');
+let greeted = false, busy = false;
+function renderQs() { $('#qs').innerHTML = QA[lang].map((q, i) => `<button data-q="${i}" ${busy ? 'disabled' : ''}>${q[0]}</button>`).join(''); }
+function bubble(cls, html) { const m = document.createElement('div'); m.className = 'msg ' + cls; m.innerHTML = html; msgs.appendChild(m); msgs.scrollTop = msgs.scrollHeight; return m; }
+function typeInto(el, text, done) {
+  if (reduce) { el.textContent = text; done && done(); return; }
+  let k = 0; const step = () => { k = Math.min(text.length, k + 2); el.textContent = text.slice(0, k); msgs.scrollTop = msgs.scrollHeight; if (k < text.length) setTimeout(step, 16); else done && done(); }; step();
+}
+function pixelSays(text, action) {
+  busy = true; renderQs();
+  const m = bubble('px', '<span class="dots"><i></i><i></i><i></i></span>');
+  setTimeout(() => {
+    m.innerHTML = '<span></span>';
+    typeInto(m.firstChild, text, () => {
+      if (action) { const b = document.createElement('button'); b.className = 'go2'; b.textContent = action[0] + ' →'; b.onclick = () => { closeAsk(); if (action[1] === 'academy') preset('academy'); scrollToEl(action[1] === 'academy' ? $('#form') : 'contact', -60); }; m.appendChild(document.createElement('br')); m.appendChild(b); msgs.scrollTop = msgs.scrollHeight; }
+      busy = false; renderQs();
+    });
+  }, reduce ? 0 : 750);
+}
+function openAsk() { ask.classList.add('open'); askb.classList.add('on'); askb.setAttribute('aria-expanded', 'true'); renderQs(); if (!greeted) { greeted = true; pixelSays(HELLO[lang]); } }
+function closeAsk() { ask.classList.remove('open'); askb.classList.remove('on'); askb.setAttribute('aria-expanded', 'false'); }
+askb.onclick = () => ask.classList.contains('open') ? closeAsk() : openAsk();
+$('#askx').onclick = closeAsk;
+$('#qs').addEventListener('click', e => { const b = e.target.closest('button'); if (!b || busy) return; const q = QA[lang][+b.dataset.q]; bubble('me', q[0]); pixelSays(q[1], q[2]); });
+document.addEventListener('pointerdown', e => { if (ask.classList.contains('open') && !e.target.closest('#ask,#askb')) closeAsk(); });
+
+/* ---------------- contact ---------------- */
+$('#here').textContent = location.host + location.pathname;
+let kind = null;
+function preset(k) {
+  kind = k; $$('#kinds button').forEach(b => b.classList.toggle('on', b.dataset.k === k));
+  const ta = $('#form textarea');
+  if (k === 'audit' && !ta.value) ta.value = t('auditMsg');
+  if (k === 'academy' && !ta.value) ta.value = t('acadMsg');
+}
+$('#kinds').addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; if (b.classList.contains('on')) { b.classList.remove('on'); kind = null; } else preset(b.dataset.k); });
+$('#audit').onclick = () => { preset('audit'); scrollToEl($('#form'), -60); };
+$('#copy').onclick = async () => {
+  const b = $('#copy'), s = b.querySelector('span');
+  try { await navigator.clipboard.writeText(location.href); } catch (_) { const i = document.createElement('input'); i.value = location.href; document.body.appendChild(i); i.select(); try { document.execCommand('copy'); } catch (__) {} i.remove(); }
+  b.classList.add('ok'); s.textContent = t('copied'); toast(t('copied') + ' ✓');
+  setTimeout(() => { b.classList.remove('ok'); s.textContent = t('copy'); }, 2200);
+};
+$('#form').addEventListener('submit', e => {
+  e.preventDefault();
+  const b = $('#send'), s = b.querySelector('span'); s.textContent = t('sent');
+  const r = b.getBoundingClientRect(); window.funBurst && funBurst(r.left + r.width / 2, r.top, 60);
+  setTimeout(() => { s.textContent = t('send'); e.target.reset(); preset(null); }, 3200);
+});
+function toast(m) { const el = $('#toast'); el.textContent = m; el.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => el.classList.remove('show'), 2000); }
+
+/* ---------------- clocks ---------------- */
+function clocks() { $$('[data-tz]').forEach(el => { try { el.textContent = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit', timeZone: el.dataset.tz }).format(new Date()); } catch (_) {} }); }
+clocks(); setInterval(clocks, 20000);
+
+/* ---------------- language ---------------- */
+function setLang(l, silent) {
+  lang = l; document.documentElement.lang = l;
+  $$('.lang button').forEach(b => { b.classList.toggle('on', b.dataset.lang === l); b.setAttribute('aria-pressed', b.dataset.lang === l); });
+  $$('[data-i18n]').forEach(el => { const v = t(el.dataset.i18n); if (v != null) el.innerHTML = v; });
+  $$('[data-ph]').forEach(el => el.placeholder = t(el.dataset.ph));
+  $$('[data-tk]').forEach(el => { const [i, f] = el.dataset.tk.split(':'); el.textContent = T(TILES[i][f]); });
+  $$('[data-nq]').forEach(el => el.innerHTML = T(NOTES[el.dataset.nq].q));
+  $$('[data-i18x]').forEach(el => { const k = el.dataset.i18x; el.innerHTML = k.startsWith('ps') ? PSUB[l][+k.slice(2)] : X[l][k]; });
+  $$('.tile').forEach(el => { if (el.getAttribute('role')) el.setAttribute('aria-label', tileTitle(TILES[el.dataset.i])); });
+  buildSvc(); renderQs(); moveInd();
+  if (!silent) toast(l === 'es' ? '¡Hola! Ahora en español' : 'Hello — back in English');
+}
+$$('.lang button').forEach(b => b.onclick = () => b.dataset.lang !== lang && setLang(b.dataset.lang));
+
+/* ---------------- init ---------------- */
+buildWall(); buildSvc(); setLang('en', true);
+requestAnimationFrame(moveInd);
+document.fonts && document.fonts.ready.then(moveInd);
+let rz; addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { buildWall(); moveInd(); }, 200); });
+window.__scrollToEl = scrollToEl;
+})();
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const hero = document.getElementById('top'), cv = document.getElementById('globe');
+let renderer;
+try { renderer = new THREE.WebGLRenderer({ canvas: cv, antialias: true, alpha: true, powerPreference: 'high-performance' }); }
+catch (e) { renderer = null; }
+if (renderer) init();
+
+function init() {
+  renderer.setClearColor(0x000000, 0);
+  const PR = Math.min(devicePixelRatio || 1, 2);
+  renderer.setPixelRatio(PR);
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(30, 1, .1, 100);
+  const globe = new THREE.Group(); scene.add(globe);
+  const spin = new THREE.Group(); spin.rotation.order = 'XYZ'; globe.add(spin);
+
+  const ll = (lat, lon, r = 1) => { const p = (90 - lat) * Math.PI / 180, t = (lon + 180) * Math.PI / 180; return new THREE.Vector3(-Math.sin(p) * Math.cos(t) * r, Math.cos(p) * r, Math.sin(p) * Math.sin(t) * r); };
+
+  /* --- halftone dots --- */
+  const small = innerWidth < 760;
+  const N = small ? 30000 : 70000;
+  const pos = new Float32Array(N * 3), rnd = new Float32Array(N), land = new Float32Array(N);
+  const ga = Math.PI * (3 - Math.sqrt(5));
+  for (let i = 0; i < N; i++) {
+    const y = 1 - (i + .5) / N * 2, r = Math.sqrt(1 - y * y), th = ga * i;
+    pos[i * 3] = Math.cos(th) * r; pos[i * 3 + 1] = y; pos[i * 3 + 2] = Math.sin(th) * r; rnd[i] = Math.random();
+  }
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+  g.setAttribute('aRand', new THREE.BufferAttribute(rnd, 1));
+  const landAttr = new THREE.BufferAttribute(land, 1); g.setAttribute('aLand', landAttr);
+  const U = {
+    uTime: { value: 0 }, uPR: { value: PR }, uSize: { value: 3 }, uLandMix: { value: 0 }, uIntro: { value: reduce ? 1 : 0 },
+    uMouse: { value: new THREE.Vector2(9, 9) }, uAspect: { value: 1 }, uScatter: { value: reduce ? 0 : .045 }, uRad: { value: .2 },
+    uLight: { value: new THREE.Vector3(-.3, .8, .52).normalize() }
+  };
+  const dotMat = new THREE.ShaderMaterial({
+    uniforms: U, transparent: true, depthWrite: false, depthTest: false,
+    vertexShader: `
+      uniform float uTime,uPR,uSize,uLandMix,uIntro,uAspect,uScatter,uRad; uniform vec2 uMouse; uniform vec3 uLight;
+      attribute float aRand; attribute float aLand; varying float vA; varying float vLand; varying float vLit;
+      void main(){
+        vec3 n = normalize(mat3(modelMatrix) * position);
+        vec4 mv = modelViewMatrix * vec4(position,1.);
+        vec3 vn = normalize(normalMatrix * position);
+        float face = dot(vn, normalize(-mv.xyz));
+        float lam = dot(n, uLight);
+        float lit = smoothstep(-.12, .85, lam);
+        float lnd = aLand * uLandMix;
+        float tw = .82 + .18*sin(uTime*1.3 + aRand*40.);
+        vec4 p = projectionMatrix * mv;
+        vec2 ndc = p.xy / p.w;
+        vec2 d = (ndc - uMouse) * vec2(uAspect, 1.);
+        float dist = length(d);
+        float f = 1. - smoothstep(0., uRad, dist);
+        ndc += (d / max(dist, 1e-4)) * f * f * uScatter * (.5 + aRand) / vec2(uAspect, 1.);
+        p.xy = ndc * p.w;
+        gl_Position = p;
+        float reveal = smoothstep(0., .25, n.y - (1.05 - uIntro * 2.4));
+        float s = uSize * mix(.6, 1., lnd) * (.16 + .84 * lit) * (.78 + .44 * aRand) * (1. + f * .6);
+        gl_PointSize = s * uPR * smoothstep(-.02, .12, face) * reveal;
+        vA = mix(.5, 1., lnd) * (.04 + .96 * lit) * smoothstep(0., .2, face) * reveal * tw;
+        vLand = lnd; vLit = lit;
+      }`,
+    fragmentShader: `
+      varying float vA; varying float vLand; varying float vLit;
+      void main(){
+        float d = length(gl_PointCoord - .5);
+        float a = smoothstep(.5, .3, d) * vA;
+        if (a < .01) discard;
+        vec3 ocean = vec3(.36,.52,.74), landC = vec3(.74,.87,1.);
+        vec3 c = mix(ocean, landC, vLand) * (.75 + .35 * vLit);
+        gl_FragColor = vec4(c, a);
+      }`
+  });
+  const dots = new THREE.Points(g, dotMat); dots.renderOrder = 2; spin.add(dots);
+
+  /* occluder (hides arcs/pins/orbit behind the globe) */
+  const occ = new THREE.Mesh(new THREE.SphereGeometry(.985, 64, 48), new THREE.MeshBasicMaterial({ colorWrite: false }));
+  occ.renderOrder = 0; spin.add(occ);
+
+  /* atmosphere rim */
+  const atm = new THREE.Mesh(new THREE.SphereGeometry(1, 64, 48), new THREE.ShaderMaterial({
+    uniforms: { uLight: U.uLight }, transparent: true, depthWrite: false, side: THREE.BackSide, blending: THREE.AdditiveBlending,
+    vertexShader: `varying vec3 vN; varying vec3 vW; void main(){ vN = normalize(normalMatrix*normal); vW = normalize(mat3(modelMatrix)*normal); gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+    fragmentShader: `uniform vec3 uLight; varying vec3 vN; varying vec3 vW; void main(){ float k = clamp(-dot(vN, vec3(0,0,1.)) / .33, 0., 1.); float i = pow(k, 3.5); float l = smoothstep(-.1, .9, -dot(vW, uLight) * -1.); gl_FragColor = vec4(vec3(.45,.66,1.), i * l * .55); }`
+  }));
+  atm.scale.setScalar(1.06); atm.renderOrder = 1; globe.add(atm);
+
+  /* pins */
+  const CITIES = [{ id: 'lab-la', lat: 34.05, lon: -118.24 }, { id: 'lab-or', lat: 28.54, lon: -81.38 }, { id: 'lab-gu', lat: 6.23, lon: -75.16, home: 1 }];
+  const pinPos = new Float32Array(9), pinPh = new Float32Array(3), pinHome = new Float32Array(3);
+  CITIES.forEach((c, i) => { const v = ll(c.lat, c.lon, 1.006); pinPos.set([v.x, v.y, v.z], i * 3); pinPh[i] = i * .33; pinHome[i] = c.home ? 1 : 0; c.v = v; c.el = document.getElementById(c.id); });
+  const pg = new THREE.BufferGeometry();
+  pg.setAttribute('position', new THREE.BufferAttribute(pinPos, 3)); pg.setAttribute('aPh', new THREE.BufferAttribute(pinPh, 1)); pg.setAttribute('aHome', new THREE.BufferAttribute(pinHome, 1));
+  const pinMat = new THREE.ShaderMaterial({
+    uniforms: { uTime: U.uTime, uPR: U.uPR, uS: { value: 46 } }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: `uniform float uPR,uS; attribute float aPh; attribute float aHome; varying float vPh; varying float vHome; void main(){ vPh=aPh; vHome=aHome; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); gl_PointSize = uS*uPR*(1.+aHome*.35); }`,
+    fragmentShader: `uniform float uTime; varying float vPh; varying float vHome; void main(){ float d = length(gl_PointCoord-.5)*2.; float core = smoothstep(.16,.06,d); float glow = exp(-d*d*9.)*.8; float r = fract(uTime*.45+vPh); float ring = smoothstep(.06,0.,abs(d-r))*(1.-r)*.9; vec3 c = mix(vec3(1.,.78,.42), vec3(1.,.86,.55), vHome); float a = core + glow*.55 + ring; gl_FragColor = vec4(c*a, a); }`
+  });
+  const pins = new THREE.Points(pg, pinMat); pins.renderOrder = 4; spin.add(pins);
+
+  /* arcs */
+  const arcMats = [];
+  function arc(a, b, k) {
+    const va = a.v.clone().normalize(), vb = b.v.clone().normalize(), ang = va.angleTo(vb), seg = 120;
+    const P = new Float32Array((seg + 1) * 3), Tt = new Float32Array(seg + 1);
+    for (let i = 0; i <= seg; i++) {
+      const tt = i / seg, s = Math.sin(ang);
+      const v = va.clone().multiplyScalar(Math.sin((1 - tt) * ang) / s).add(vb.clone().multiplyScalar(Math.sin(tt * ang) / s));
+      v.setLength(1.004 + ang * .32 * Math.sin(Math.PI * tt));
+      P.set([v.x, v.y, v.z], i * 3); Tt[i] = tt;
+    }
+    const geo = new THREE.BufferGeometry(); geo.setAttribute('position', new THREE.BufferAttribute(P, 3)); geo.setAttribute('aT', new THREE.BufferAttribute(Tt, 1));
+    const m = new THREE.ShaderMaterial({
+      uniforms: { uHead: { value: 0 } }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+      vertexShader: `attribute float aT; varying float vT; void main(){ vT=aT; gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); }`,
+      fragmentShader: `uniform float uHead; varying float vT; void main(){ float h = exp(-pow((vT-uHead)*9.,2.)); float tail = smoothstep(uHead-.35, uHead, vT)*step(vT,uHead)*.5; float a = .38 + h*1.3 + tail; vec3 c = mix(vec3(.62,.8,1.), vec3(1.,.82,.5), h+tail*.6); gl_FragColor = vec4(c*a, a); }`
+    });
+    m.userData.off = k * .37; arcMats.push(m);
+    const line = new THREE.Line(geo, m); line.renderOrder = 3; spin.add(line);
+  }
+  arc(CITIES[0], CITIES[1], 0); arc(CITIES[1], CITIES[2], 1); arc(CITIES[0], CITIES[2], 2);
+
+  /* orbit */
+  const curve = new THREE.EllipseCurve(0, 0, 1.42, 1.42, 0, Math.PI * 2);
+  const opts = curve.getPoints(360).map(p => new THREE.Vector3(p.x, p.y, 0));
+  const og = new THREE.BufferGeometry().setFromPoints(opts);
+  const orbit = new THREE.Line(og, new THREE.LineDashedMaterial({ color: 0x9cc6ff, dashSize: .018, gapSize: .03, transparent: true, opacity: .42, depthWrite: false }));
+  orbit.computeLineDistances();
+  const oGroup = new THREE.Group(); oGroup.rotation.set(1.18, -.42, .32); oGroup.add(orbit); globe.add(oGroup);
+  const sat = new THREE.Points(new THREE.BufferGeometry().setAttribute('position', new THREE.BufferAttribute(new Float32Array(3), 3)), new THREE.ShaderMaterial({
+    uniforms: { uPR: U.uPR }, transparent: true, depthWrite: false, blending: THREE.AdditiveBlending,
+    vertexShader: `uniform float uPR; void main(){ gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); gl_PointSize = 16.*uPR; }`,
+    fragmentShader: `void main(){ float d=length(gl_PointCoord-.5)*2.; float a = smoothstep(.3,.1,d) + exp(-d*d*6.)*.5; gl_FragColor = vec4(vec3(.85,.93,1.)*a, a); }`
+  }));
+  oGroup.add(sat);
+
+  /* stars */
+  const SN = 260, sp = new Float32Array(SN * 3), sr = new Float32Array(SN);
+  for (let i = 0; i < SN; i++) { sp.set([(Math.random() - .5) * 26, (Math.random() - .5) * 15, -12 - Math.random() * 4], i * 3); sr[i] = Math.random(); }
+  const sgeo = new THREE.BufferGeometry(); sgeo.setAttribute('position', new THREE.BufferAttribute(sp, 3)); sgeo.setAttribute('aRand', new THREE.BufferAttribute(sr, 1));
+  const stars = new THREE.Points(sgeo, new THREE.ShaderMaterial({
+    uniforms: { uTime: U.uTime, uPR: U.uPR }, transparent: true, depthWrite: false,
+    vertexShader: `uniform float uTime,uPR; attribute float aRand; varying float vA; void main(){ vA = (.25+.6*aRand)*(.6+.4*sin(uTime*(.6+aRand)+aRand*30.)); gl_Position = projectionMatrix*modelViewMatrix*vec4(position,1.); gl_PointSize = (1.+aRand*1.4)*uPR; }`,
+    fragmentShader: `varying float vA; void main(){ float d=length(gl_PointCoord-.5); if(d>.5) discard; gl_FragColor = vec4(vec3(.85,.9,1.), vA*smoothstep(.5,.1,d)); }`
+  }));
+  scene.add(stars);
+
+  /* orientation: face the Americas */
+  const focus = ll(20, -86);
+  const yaw0 = Math.atan2(-focus.x, focus.z), tilt0 = .2;
+
+  /* land mask */
+  (async () => {
+    let ok = false;
+    try {
+      const r = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/land-110m.json');
+      const topo = await r.json();
+      const W = 1024, H = 512, c = document.createElement('canvas'); c.width = W; c.height = H;
+      const x = c.getContext('2d', { willReadFrequently: true }); x.fillStyle = '#fff';
+      const [sx, sy] = topo.transform.scale, [tx, ty] = topo.transform.translate;
+      const arcs = topo.arcs.map(a => { let X = 0, Y = 0; return a.map(([dx, dy]) => { X += dx; Y += dy; return [X * sx + tx, Y * sy + ty]; }); });
+      const ring = ids => { const out = []; ids.forEach(i => { const a = i < 0 ? arcs[~i].slice().reverse() : arcs[i]; a.forEach((p, k) => { if (k || !out.length) out.push(p); }); }); return out; };
+      const polys = [];
+      topo.objects.land.geometries.forEach(gm => { if (gm.type === 'Polygon') polys.push(gm.arcs); if (gm.type === 'MultiPolygon') gm.arcs.forEach(p => polys.push(p)); });
+      polys.forEach(poly => {
+        [-W, 0, W].forEach(off => {
+          x.beginPath();
+          poly.forEach(rg => {
+            const pts = ring(rg); let prev = null;
+            pts.forEach((p, k) => {
+              let lon = p[0]; if (prev !== null) { while (lon - prev > 180) lon -= 360; while (lon - prev < -180) lon += 360; } prev = lon;
+              const X = (lon + 180) / 360 * W + off, Y = (90 - p[1]) / 180 * H;
+              k ? x.lineTo(X, Y) : x.moveTo(X, Y);
+            });
+            x.closePath();
+          });
+          x.fill('evenodd');
+        });
+      });
+      const data = x.getImageData(0, 0, W, H).data;
+      for (let i = 0; i < N; i++) {
+        const X = pos[i * 3], Y = pos[i * 3 + 1], Z = pos[i * 3 + 2];
+        let th = Math.atan2(Z, -X); if (th < 0) th += Math.PI * 2;
+        const u = Math.min(W - 1, Math.floor(th / (Math.PI * 2) * W)), v = Math.min(H - 1, Math.floor((Math.PI / 2 - Math.asin(Y)) / Math.PI * H));
+        land[i] = data[(v * W + u) * 4 + 3] > 100 ? 1 : 0;
+      }
+      ok = true;
+    } catch (e) { ok = false; }
+    if (!ok) { // fallback: moon-like crater noise
+      for (let i = 0; i < N; i++) { const X = pos[i * 3], Y = pos[i * 3 + 1], Z = pos[i * 3 + 2]; const n = Math.sin(X * 5.1 + Math.sin(Y * 3.7)) * Math.sin(Y * 4.3 + Z * 2.2) + .5 * Math.sin(Z * 9.1 + X * 3.3); land[i] = n > .15 ? 1 : 0; }
+    }
+    landAttr.needsUpdate = true;
+    const t0 = performance.now(); const fade = () => { const k = Math.min(1, (performance.now() - t0) / 1600); U.uLandMix.value = 1 - Math.pow(1 - k, 3); if (k < 1) requestAnimationFrame(fade); }; reduce ? (U.uLandMix.value = 1) : fade();
+  })();
+
+  /* layout */
+  let W = 1, H = 1, rpx = 300, mob = false;
+  function layout() {
+    W = hero.clientWidth; H = hero.clientHeight; mob = W < 760;
+    renderer.setSize(W, H, false);
+    camera.aspect = W / H;
+    rpx = mob ? Math.min(W * .45, H * .23) : Math.min(H * .37, W * .29);
+    const cy = mob ? rpx + 70 : H * .4;
+    const tanH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    const alpha = Math.atan(rpx / (H / 2) * tanH), d = 1 / Math.sin(alpha);
+    camera.position.set(0, 0, d); camera.lookAt(0, 0, 0); camera.updateProjectionMatrix();
+    globe.position.y = (H / 2 - cy) / (H / 2) * tanH * d;
+    hero.style.setProperty('--gb', Math.round(cy + rpx * (mob ? .52 : .36)) + 'px');
+    U.uSize.value = mob ? Math.max(1.7, rpx / 172 * 2.2) : rpx / 350 * 3.1;
+    U.uAspect.value = W / H; pinMat.uniforms.uS.value = mob ? 30 : 46;
+  }
+  layout();
+  new ResizeObserver(layout).observe(hero);
+
+  /* mouse */
+  const m = new THREE.Vector2(9, 9), mt = new THREE.Vector2(9, 9), par = new THREE.Vector2(), part = new THREE.Vector2();
+  addEventListener('pointermove', e => {
+    const r = cv.getBoundingClientRect();
+    if (e.clientY > r.bottom) { mt.set(9, 9); return; }
+    mt.set((e.clientX - r.left) / r.width * 2 - 1, -((e.clientY - r.top) / r.height * 2 - 1));
+    part.set(mt.x, mt.y);
+  }, { passive: true });
+  document.addEventListener('pointerleave', () => mt.set(9, 9));
+
+  /* visibility */
+  let visible = true;
+  new IntersectionObserver(es => es.forEach(e => visible = e.isIntersecting)).observe(hero);
+
+  const clock = new THREE.Clock(); const tmp = new THREE.Vector3(), cpos = new THREE.Vector3(), gpos = new THREE.Vector3();
+  const lerp = (a, b, k) => a + (b - a) * k;
+  function frame() {
+    requestAnimationFrame(frame);
+    if (!visible) return;
+    const t = clock.getElapsedTime();
+    U.uTime.value = t;
+    if (!reduce && U.uIntro.value < 1) U.uIntro.value = Math.min(1, t / 2.4);
+    if (Math.abs(mt.x) > 5) m.lerp(mt, 1); else m.lerp(mt, .12);
+    if (Math.abs(m.x) > 5 && Math.abs(mt.x) <= 5) m.copy(mt);
+    U.uMouse.value.copy(m);
+    par.lerp(Math.abs(part.x) > 5 ? new THREE.Vector2() : part, .04);
+    const sway = reduce ? 0 : Math.sin(t * .09) * .32 + Math.sin(t * .031) * .1;
+    spin.rotation.y = yaw0 + sway + par.x * .12;
+    spin.rotation.x = tilt0 - par.y * .07;
+    globe.rotation.z = par.x * -.02;
+    oGroup.rotation.z = .32 + t * .02;
+    const sa = t * .22; sat.geometry.attributes.position.array.set([Math.cos(sa) * 1.42, Math.sin(sa) * 1.42, 0]); sat.geometry.attributes.position.needsUpdate = true;
+    arcMats.forEach(mm => mm.uniforms.uHead.value = ((t * .16 + mm.userData.off) % 1.5) - .1);
+    stars.position.x = -par.x * .25; stars.position.y = -par.y * .15;
+    renderer.render(scene, camera);
+
+    /* labels */
+    globe.getWorldPosition(gpos); cpos.copy(camera.position);
+    CITIES.forEach(c => {
+      tmp.copy(c.v); spin.localToWorld(tmp);
+      const nrm = tmp.clone().sub(gpos).normalize(), view = cpos.clone().sub(tmp).normalize();
+      const f = nrm.dot(view);
+      const p = tmp.clone().project(camera);
+      const x = (p.x + 1) / 2 * W, y = (1 - p.y) / 2 * H;
+      const left = c.el.classList.contains('left');
+      c.el.style.transform = `translate(${left ? x - c.el.offsetWidth - 8 : x + 8}px, ${y - 5}px)`;
+      c.el.style.opacity = f > .2 && U.uIntro.value > .8 ? Math.min(1, (f - .2) * 4) : 0;
+    });
+  }
+  frame();
+}
+</script>
+</body>
+</html>

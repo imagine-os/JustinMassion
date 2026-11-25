@@ -12,6 +12,14 @@
     c: ["Season 2026, episode: me.", "Flip the pass — there's a sketch on the back!", "Hover the slices. I'm slice number two.", "LA → Orlando → Guatapé. I fly economy.", "Scroll fast — the deck explodes!", "Think. Sketch. Build. Snack."],
     d: ["Pick a world, any world.", "Fasten your seatbelt — scroll to fly.", "Pencil meets pixels. I'm the pixels.", "Those numbers? I counted them myself.", "Hover the cards — they fan out.", "Book a trip. I'll pack snacks."],
     e: ["Hi! I started as a doodle too.", "Stamp all six worlds for a surprise.", "Watch the glass fill up…", "Try the sketch pad — I'll help!", "The book breathes. Don't tell anyone.", "Let's sketch YOUR world."],
+    g: ["Welcome to Justin's studio! Click anything.", "The window shows Guatapé — right now, for real.", "Try the lamp. And the record player.", "The books open. I've read none of them.", "The phone rings Justin. Probably."],
+    h: ["Bold. Red. Very serious. I'm not.", "Those cards fly at you. Duck!", "JAM Studios © — fancy, right?", "Skill {set}. Mine is blending in.", "Write Justin. He answers fast."],
+    i: ["That's not the moon. It's El Peñol. Kind of.", "Hover a tile — it wakes up.", "The wall keeps going. Like my snacks.", "Hola! Try the ES switch up top.", "Hit Ask down there — it's me answering."],
+    j: ["Hi! The words up top change colour. Like me!", "Click a folder — it opens.", "Numbers! Sticker! Wheee.", "Those bubbles bounce. Poke them.", "Scroll to the bottom. Faces fall."],
+    k: ["Welcome to the playground! Scroll the big panel.", "Hover the cards — some of them move.", "EN / ES — I speak both. Badly.", "Subscribe for news. I'll deliver it myself."],
+    l: ["Welcome to Justin OS. Double-click things!", "Drag the windows around — it's your desk now.", "Try the dock down there. Every icon is a world.", "Voice mode reads Justin's bio out loud."],
+    m: ["All aboard! Stamp your ticket first.", "Next stop: the worlds. Mind the gap.", "I'm sitting in the last car. Wave!", "Final stop: say hi to Justin."],
+    n: ["Late night at Justin's desk. Shh.", "Double-click the icons — they're worlds.", "Put the CD in. Trust me.", "The stars move if you move."],
     f: ["Those are Justin's glasses. Don't drop them!", "They land in his hand. Smooth.", "Scroll — they turn all the way round.", "Hover a card to wipe the glass.", "Swiss grid. Very serious. I'm not.", "Start a world with Justin!"],
   }[page] || [];
   const EGG = 'psst… type P-I-X-E-L';
@@ -51,13 +59,15 @@
   }
   window.funBurst = burst;
 
-  // ---- Pixel buddy ----
+  // ---- Pixel buddy (only on the original concepts A–F; the newer ones run without the pop-up) ----
+  const BUDDY = /^[a-f]$/.test(page);
   const b = document.createElement('div'); b.className = 'fun-buddy'; b.setAttribute('role', 'button'); b.setAttribute('aria-label', 'Pixel the chameleon — click me');
   b.innerHTML = `<div class="fun-say"></div><img src="${root}assets/3d/pixel-peek.webp" alt="">`;
-  document.body.appendChild(b);
+  if (BUDDY) document.body.appendChild(b);
   const say = b.querySelector('.fun-say'), img = b.querySelector('img');
   let hideT = 0, lastPop = 0, hue = 0, qi = 0;
   function pop(text, ms = 4200) {
+    if (!BUDDY) return;
     say.textContent = text; b.classList.add('up'); lastPop = Date.now();
     clearTimeout(hideT); hideT = setTimeout(() => b.classList.remove('up'), ms);
   }
@@ -75,7 +85,7 @@
     if (!e.isIntersecting) return; const i = secs.indexOf(e.target); if (seen.has(i) || Date.now() - lastPop < 7000) return;
     seen.add(i); const n = seen.size - 1; pop(n >= QUIPS.length ? EGG : QUIPS[Math.min(n, QUIPS.length - 1)]);
   }), { threshold: .45 });
-  setTimeout(() => { secs.forEach(s => io.observe(s)) }, 2600);
+  if (BUDDY) setTimeout(() => { secs.forEach(s => io.observe(s)) }, 2600);
 
   // ---- easter egg: type PIXEL ----
   let buf = '';
