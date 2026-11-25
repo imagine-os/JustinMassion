@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Justin Massion — Sketch the world (Concept E)</title>
+<meta name="description" content="Concept E (one object, one story) for the new JustinMassion.com">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--cream:#f3ece2;--paper:#faf6ef;--esp:#2a1d16;--terra:#c2532b;--gold:#c9a46a;--ink:#17120e;
+  --disp:'DM Serif Display',Georgia,serif;--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--cream);color:var(--esp);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}img{display:block}
+.kick{font:600 11px var(--sans);letter-spacing:.24em;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;gap:12px;padding:15px 26px;border-radius:99px;background:var(--esp);color:var(--cream);font:600 13px var(--sans);letter-spacing:.04em;transition:transform .3s,background .3s}
+.btn:hover{transform:translateY(-2px);background:var(--terra)}
+.btn.o{background:transparent;color:var(--esp);border:1.5px solid var(--esp)}
+nav{position:fixed;top:0;left:0;right:0;z-index:60;display:flex;justify-content:space-between;align-items:center;padding:22px 5vw;transition:background .4s,color .4s}
+nav.solid{background:rgba(243,236,226,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding-top:14px;padding-bottom:14px}
+nav.dark{color:var(--cream);background:rgba(15,11,8,.7)}
+nav .logo{font:400 24px/1 var(--disp)}
+nav .logo i{font-style:italic;color:var(--terra)}
+nav .links{display:flex;gap:30px;font:500 13px var(--sans)}
+nav .links a{opacity:.75}nav .links a:hover{opacity:1}
+nav .cta{padding:10px 18px;border-radius:99px;border:1.5px solid currentColor;font:600 12.5px var(--sans)}
+
+/* ===== STORY: sketch -> pour -> fly ===== */
+#story{position:relative;height:100vh;overflow:hidden;background:radial-gradient(ellipse at 70% 40%,#fbf7f0,var(--cream) 60%)}
+.copy{position:absolute;left:5vw;top:50%;transform:translateY(-50%);width:min(44vw,640px);z-index:3}
+.stage{position:relative;height:clamp(240px,38vh,420px)}
+.st{position:absolute;inset:0;opacity:0;pointer-events:none}
+.st.on{opacity:1;pointer-events:auto}
+.st .n{font:500 14px var(--sans);display:flex;gap:10px;align-items:center;margin-bottom:18px}
+.st .n b{font:400 44px/1 var(--disp)}
+.st h1,.st h2{font:400 clamp(58px,7.4vw,128px)/.9 var(--disp);letter-spacing:-.015em;text-transform:uppercase}
+.st h1 .w,.st h2 .w{display:inline-block;overflow:hidden;vertical-align:top}
+.st h1 .w span,.st h2 .w span{display:inline-block}
+.st p{margin-top:22px;max-width:420px;font:400 16px/1.6 var(--sans);opacity:.72}
+.dots{display:flex;gap:10px;margin-top:34px}
+.dots i{width:34px;height:3px;border-radius:3px;background:rgba(42,29,22,.15);position:relative;overflow:hidden}
+.dots i b{position:absolute;inset:0;background:var(--terra);transform-origin:left;transform:scaleX(0)}
+.ctas{display:flex;gap:12px;margin-top:30px}
+.cardWrap{position:absolute;right:6vw;top:50%;width:min(40vw,600px);aspect-ratio:1114/1026;transform:translateY(-46%);z-index:2;will-change:transform}
+.card{position:absolute;inset:0;border-radius:6px;background:var(--paper);box-shadow:0 50px 80px -40px rgba(42,29,22,.45),0 0 0 1px rgba(42,29,22,.06);overflow:visible}
+.card svg.art{position:absolute;inset:0;width:100%;height:100%;border-radius:6px;overflow:hidden}
+.card .lbl{position:absolute;left:0;right:0;bottom:-34px;display:flex;justify-content:space-between;font:500 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.55}
+.pencil{position:absolute;left:0;top:0;width:44px;height:260px;transform-origin:50% 100%;z-index:5;pointer-events:none;filter:drop-shadow(10px 18px 14px rgba(42,29,22,.3));will-change:transform}
+#fx{position:absolute;inset:0;z-index:4;pointer-events:none}
+.scrollHint{position:absolute;left:5vw;bottom:5vh;z-index:3;display:flex;gap:12px;align-items:center;opacity:.6}
+.scrollHint i{width:1px;height:40px;background:var(--esp);transform-origin:top;animation:drip 2s infinite}
+@keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* the paper plane that keeps flying down the page */
+#follow{position:fixed;inset:0;z-index:55;pointer-events:none;width:100%;height:100%}
+
+/* ===== WORLDS MENU (Rosso) ===== */
+#worlds{position:relative;padding:18vh 5vw 14vh;background:var(--cream)}
+.wh{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:8vh}
+.wh h2{font:400 clamp(48px,6.4vw,112px)/.92 var(--disp);text-transform:uppercase}
+.wh h2 i{color:var(--terra)}
+.wh p{max-width:360px;font:400 15px/1.6 var(--sans);opacity:.7}
+.row{display:grid;grid-template-columns:90px 1fr 220px 120px;align-items:center;gap:24px;padding:26px 0;border-top:1px solid rgba(42,29,22,.15);position:relative;transition:padding .5s cubic-bezier(.2,.8,.2,1),color .4s}
+.row:last-child{border-bottom:1px solid rgba(42,29,22,.15)}
+.row:hover{padding-left:20px;color:var(--terra)}
+.row .no{font:500 12px var(--sans);letter-spacing:.16em;opacity:.5}
+.row h3{font:400 clamp(40px,4.8vw,84px)/1 var(--serif);font-style:italic;letter-spacing:-.01em}
+.row .sub{font:500 13px var(--sans);opacity:.6}
+.row .th{width:120px;aspect-ratio:1.6;border-radius:6px;overflow:hidden;box-shadow:0 14px 24px -12px rgba(0,0,0,.4);transition:transform .5s}
+.row .th img{width:100%;height:100%;object-fit:cover}
+.row:hover .th{transform:rotate(-4deg) scale(1.1)}
+.peek{position:fixed;left:0;top:0;width:340px;aspect-ratio:.8;border-radius:10px;overflow:hidden;pointer-events:none;z-index:40;opacity:0;transform:scale(.7) rotate(-4deg);transition:opacity .35s,transform .5s cubic-bezier(.2,.8,.2,1);box-shadow:0 40px 60px -20px rgba(0,0,0,.5)}
+.peek.on{opacity:1;transform:scale(1) rotate(-4deg)}
+.peek img{width:100%;height:100%;object-fit:cover}
+.peek span{position:absolute;left:14px;bottom:12px;color:#fff;font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;text-shadow:0 2px 8px rgba(0,0,0,.6)}
+
+/* ===== FEATURE (Wake the beans / pour) ===== */
+#pour{position:relative;padding:10vh 5vw 16vh;display:grid;grid-template-columns:1fr 1fr;gap:6vw;align-items:center;background:var(--cream)}
+#pour h2{font:400 clamp(56px,7vw,124px)/.88 var(--disp);text-transform:uppercase}
+#pour h2 i{color:var(--terra)}
+#pour p{margin-top:20px;max-width:440px;font:400 16px/1.65 var(--sans);opacity:.72}
+.glass{position:relative;aspect-ratio:.9;border-radius:20px;overflow:hidden;background:#e9e0d3}
+.glass img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.glass .fill{position:absolute;inset:0;clip-path:inset(100% 0 0 0)}
+.glass .stream{position:absolute;left:50%;top:-10%;width:14px;height:0;margin-left:-7px;border-radius:7px;background:linear-gradient(#e08a4f,#c2532b)}
+.glass .tag{position:absolute;left:18px;top:18px;padding:8px 14px;border-radius:99px;background:rgba(250,246,239,.88);font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;z-index:2}
+.stats{display:flex;gap:40px;margin-top:34px}
+.stats b{display:block;font:400 52px/1 var(--disp)}
+.stats span{font:500 12px var(--sans);opacity:.6}
+
+/* ===== ACADEMY (Aurenza: dark gold, book + mist) ===== */
+#academy{position:relative;min-height:110vh;background:radial-gradient(ellipse at 60% 50%,#2a2017,#0f0b08 70%);color:#efe5d3;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:4vw;padding:14vh 5vw}
+#mist{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.acopy{position:relative;z-index:2}
+.acopy .kick{color:var(--gold)}
+.acopy h2{font:400 clamp(48px,5.8vw,104px)/.92 var(--disp);text-transform:uppercase;margin-top:18px}
+.acopy h2 i{color:var(--gold)}
+.acopy p{margin-top:20px;max-width:440px;font:400 16px/1.65 var(--sans);opacity:.7}
+.blist{columns:2;gap:30px;margin-top:30px;font:400 17px/1.9 var(--serif);font-style:italic;opacity:.85}
+.blist span{display:block;break-inside:avoid}
+.acopy .btn{background:var(--gold);color:#1a120c;margin-top:30px}
+.bookStage{position:relative;z-index:2;height:70vh;display:grid;place-items:center;perspective:1400px}
+.book3d{position:relative;width:min(22vw,300px);aspect-ratio:.68;transform-style:preserve-3d;will-change:transform}
+.book3d>div{position:absolute;inset:0;backface-visibility:hidden}
+.book3d .front{background:linear-gradient(135deg,#3a2a1a,#1b130c);border:1px solid rgba(201,164,106,.5);display:flex;flex-direction:column;justify-content:space-between;padding:12% 10%;transform:translateZ(22px);box-shadow:inset 0 0 0 8px rgba(201,164,106,.12)}
+.book3d .front small{font:600 10px var(--sans);letter-spacing:.3em;color:var(--gold)}
+.book3d .front h3{font:400 clamp(28px,2.6vw,44px)/1 var(--disp);color:#f3e6cc}
+.book3d .front h3 i{color:var(--gold)}
+.book3d .front em{font:italic 400 18px var(--serif);color:var(--gold)}
+.book3d .back{background:#1b130c;transform:rotateY(180deg) translateZ(22px);border:1px solid rgba(201,164,106,.3)}
+.book3d .spine{width:44px;left:50%;margin-left:-22px;background:linear-gradient(90deg,#120c07,#3a2a1a,#120c07);transform:rotateY(-90deg) translateZ(calc(min(22vw,300px)/2))}
+.book3d .pages{width:42px;left:50%;margin-left:-21px;top:2%;bottom:2%;background:repeating-linear-gradient(90deg,#efe3c8 0 2px,#cdbb98 2px 3px);transform:rotateY(90deg) translateZ(calc(min(22vw,300px)/2 - 2px))}
+.bookGlow{position:absolute;width:60%;aspect-ratio:1;border-radius:50%;background:radial-gradient(closest-side,rgba(201,164,106,.35),transparent);filter:blur(30px)}
+
+/* ===== FOOTER ===== */
+footer{position:relative;background:var(--cream);padding:16vh 5vw 110px;text-align:center}
+footer h2{font:400 clamp(52px,7.4vw,130px)/.9 var(--disp);text-transform:uppercase}
+footer h2 i{color:var(--terra)}
+.mail{display:flex;gap:10px;align-items:center;width:min(560px,92vw);margin:6vh auto 0;padding:7px 7px 7px 24px;border-radius:99px;background:var(--paper);box-shadow:0 20px 40px -24px rgba(42,29,22,.4)}
+.mail input{flex:1;min-width:0;border:0;background:transparent;font:400 15px var(--sans);outline:none;color:var(--esp)}
+.ok{display:none;margin-top:16px;font:italic 400 20px var(--serif);color:var(--terra)}
+.fl{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:12vh;font:500 12px var(--sans);opacity:.55}
+
+@media (max-width:900px){
+  nav .links{display:none}
+  .copy{left:6vw;right:6vw;width:auto;top:12vh;transform:none}
+  .stage{height:240px}
+  .st h1,.st h2{font-size:clamp(44px,13vw,72px)}
+  .st p{font-size:14px;margin-top:12px}
+  .ctas{display:none}
+  .cardWrap{left:8vw;right:8vw;width:auto;top:auto;bottom:9vh;transform:none}
+  .pencil{width:30px;height:180px}
+  .scrollHint{display:none}
+  .row{grid-template-columns:40px 1fr 70px;gap:12px}.row .sub{display:none}.row .th{width:70px}
+  .peek{display:none}
+  #pour{grid-template-columns:1fr}
+  #academy{grid-template-columns:1fr}
+  .bookStage{height:50vh}.book3d{width:50vw}
+}
+</style>
+</head>
+<body>
+<nav id="nav"><a href="#story" class="logo">Justin <i>Massion</i></a><div class="links"><a href="#worlds">Worlds</a><a href="#pour">Process</a><a href="#academy">Academy</a></div><a href="#contact" class="cta">Get in touch</a></nav>
+
+<!-- STORY -->
+<section id="story">
+  <div class="copy">
+    <div class="stage">
+      <div class="st on" data-s="0"><div class="n"><b>1</b><span class="kick">Pencil first</span></div><h1>Sketch<br>the world</h1><p>Every world starts as lines on paper — the way Imagineers start a ride.</p></div>
+      <div class="st" data-s="1"><div class="n"><b>2</b><span class="kick">AI + experience design</span></div><h2>Pour in<br>the colour</h2><p>Then the sketch fills up — light, texture and story poured in until it feels real.</p></div>
+      <div class="st" data-s="2"><div class="n"><b>3</b><span class="kick">Shipped to the cloud</span></div><h2>Let it<br>take off</h2><p>Finally the world leaves the page. Follow the plane — it knows where everything is.</p></div>
+    </div>
+    <div class="dots"><i><b></b></i><i><b></b></i><i><b></b></i></div>
+    <div class="ctas"><a href="#worlds" class="btn">See the worlds →</a><a href="#contact" class="btn o">Get in touch</a></div>
+  </div>
+  <div class="cardWrap" id="cardWrap">
+    <div class="card" id="card">
+      <svg class="art" viewBox="0 0 1114 1026" preserveAspectRatio="xMidYMid slice" aria-label="Justin's sketch filling with colour">
+        <defs>
+          <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" stroke="#e8dfd0" stroke-width="1"/></pattern>
+          <mask id="drawMask" maskUnits="userSpaceOnUse"><rect width="1114" height="1026" fill="#000"/><path id="scrib" fill="none" stroke="#fff" stroke-width="150" stroke-linecap="round" stroke-linejoin="round"/></mask>
+          <clipPath id="fillClip"><polygon id="liquid" points="0,1026 1114,1026 1114,1026 0,1026"/></clipPath>
+          <linearGradient id="streamG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f0b37a"/><stop offset=".5" stop-color="#e07b3f"/><stop offset="1" stop-color="#c2532b"/></linearGradient>
+        </defs>
+        <rect width="1114" height="1026" fill="url(#grid)"/>
+        <image href="../assets/img/hero-sketch.jpg" width="1114" height="1026" mask="url(#drawMask)" style="mix-blend-mode:multiply;filter:brightness(1.35) contrast(1.15)"/>
+        <image href="../assets/img/hero-photo.jpg" width="1114" height="1026" clip-path="url(#fillClip)"/>
+        <path id="surf" fill="none" stroke="rgba(255,240,220,.8)" stroke-width="5"/>
+        <rect id="stream" x="545" y="-20" width="26" height="0" rx="13" fill="url(#streamG)"/>
+        <g id="drops"></g>
+      </svg>
+      <div class="lbl"><span>Plate 01 · Guatapé</span><span id="plbl">Pencil on paper</span></div>
+    </div>
+    <svg class="pencil" id="pencil" viewBox="0 0 44 260" aria-hidden="true"><defs><linearGradient id="pb" x1="0" x2="1"><stop offset="0" stop-color="#e9a72c"/><stop offset=".5" stop-color="#f7c948"/><stop offset="1" stop-color="#d9921f"/></linearGradient></defs>
+      <rect x="4" y="0" width="36" height="26" rx="6" fill="#e48b9b"/><rect x="4" y="22" width="36" height="16" fill="#b9bcc2"/><rect x="4" y="38" width="36" height="170" fill="url(#pb)"/><path d="M4 208 L40 208 L22 252Z" fill="#edcf9f"/><path d="M16 238 L28 238 L22 254Z" fill="#3a3a3a"/></svg>
+  </div>
+  <canvas id="fx"></canvas>
+  <div class="scrollHint kick"><i></i>Scroll to sketch</div>
+</section>
+
+<!-- WORLDS MENU -->
+<section id="worlds">
+  <div class="wh"><div><div class="kick" style="color:var(--terra)">The menu</div><h2>Six worlds,<br><i>one pencil</i></h2></div><p>Hover a world to see where it lives. Each one started on the same kind of paper.</p></div>
+  <div id="rows"></div>
+</section>
+<div class="peek" id="peek"><img alt=""><span></span></div>
+
+<!-- POUR FEATURE -->
+<section id="pour">
+  <div><div class="kick" style="color:var(--terra)">The process</div><h2>From blueprint<br>to <i>magic</i></h2><p>Imagineering is a pour: a measured blueprint first, then everything that makes people feel something. The glass fills as you scroll.</p>
+    <div class="stats"><div><b id="s1">0</b><span>cities</span></div><div><b id="s2">0</b><span>worlds</span></div><div><b id="s3">0</b><span>books on the shelf</span></div></div></div>
+  <div class="glass" id="glass"><span class="tag">Blueprint → World</span><img src="../assets/img/playset-blueprint.jpg" alt="Playset blueprint"><div class="fill" id="gfill"><img id="gimg" alt="Arcade world"></div><div class="stream" id="gstream"></div></div>
+</section>
+
+<!-- ACADEMY -->
+<section id="academy">
+  <canvas id="mist"></canvas>
+  <div class="acopy"><div class="kick">The Academy</div><h2>The art of<br><i>learning anything</i></h2><p>A reading list that leaves a trace — the nine books behind the worlds. Turn the book; it breathes out what it taught.</p>
+    <div class="blist" id="blist"></div><a href="#contact" class="btn">Join the waitlist →</a></div>
+  <div class="bookStage"><div class="bookGlow"></div><div class="book3d" id="book"><div class="front"><small>JAM ACADEMY</small><h3>Learning<br><i>Anything</i></h3><em>Justin Massion</em></div><div class="back" style="display:grid;place-items:center;font:italic 400 18px var(--serif);color:var(--gold);text-align:center;padding:14%">“Learn anything — then build a world with it.”</div><div class="spine"></div><div class="pages"></div></div></div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="kick" style="color:var(--terra)">Contact</div>
+  <h2>Let's sketch<br><i>your world</i></h2>
+  <form class="mail" id="mail"><input type="email" placeholder="Your email" aria-label="Your email"><button class="btn" type="submit">Get in touch</button></form>
+  <p class="ok" id="ok">Thank you — demo form, nothing is sent.</p>
+  <div class="fl"><span>JAM Studios · Los Angeles · Orlando · Guatapé</span><span>© 2026 Justin Massion</span><span>Concept E · work images from the Loom · atmosphere photos: Unsplash</span></div>
+</footer>
+
+<svg id="follow" aria-hidden="true"><path id="trail" fill="none" stroke="rgba(194,83,43,.55)" stroke-width="2" stroke-dasharray="6 8"/><g id="fplane" style="opacity:0"><path d="M-22 -14 L26 0 L-22 14 L-12 0Z" fill="#faf6ef" stroke="#2a1d16" stroke-width="2" stroke-linejoin="round"/><path d="M-12 0 L26 0" stroke="#2a1d16" stroke-width="1.5"/></g></svg>
+
+<script src="../switcher.js" data-root="../" data-current="e"></script>
+<script src="../stock.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const IMG='../assets/img/',S=window.STOCK,clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t,ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+
+/* ---------- story art: scribble path, liquid, pencil ---------- */
+let d='M -80 40';for(let i=0;i<9;i++){const y=60+i*125;d+=` L 1190 ${y+20} L -80 ${y+90}`}d+=' L 1190 1100';
+const scrib=$('#scrib');scrib.setAttribute('d',d);const SL=scrib.getTotalLength();scrib.style.strokeDasharray=SL;scrib.style.strokeDashoffset=SL;
+const liquid=$('#liquid'),surf=$('#surf'),stream=$('#stream'),drops=$('#drops');
+drops.innerHTML=Array.from({length:7},()=>'<circle r="7" fill="#e07b3f"/>').join('');const dropEls=[...drops.children];
+const pencil=$('#pencil'),card=$('#card');
+let SP=0,T=0;
+function drawStory(){
+  const p=SP,t=T;
+  // 1) sketch: 0 -> .32
+  const dp=clamp(p/.32,0,1);scrib.style.strokeDashoffset=SL*(1-dp);
+  const pt=scrib.getPointAtLength(SL*dp),r=card.getBoundingClientRect(),sx=r.width/1114,sy=r.height/1026;
+  const pv=clamp(1-(p-.3)/.06,0,1);
+  pencil.style.opacity=pv;pencil.style.transform=`translate(${pt.x*sx-22}px,${pt.y*sy-260}px) rotate(${24+Math.sin(t*14)*4*(dp<1&&dp>0?1:0)}deg)`;
+  // 2) pour: .32 -> .62
+  const fp=clamp((p-.32)/.3,0,1),lvl=1026-1100*ease(fp);
+  let pts=`0,1026 1114,1026`,sd='';
+  for(let x=1114;x>=0;x-=37){const y=lvl+Math.sin(x/70+t*3)*14*Math.min(1,fp*4)*(1-fp*.6);pts+=` ${x},${y.toFixed(1)}`;sd+=(sd?' L ':'M ')+x+' '+y.toFixed(1)}
+  liquid.setAttribute('points',pts);surf.setAttribute('d',sd);surf.style.opacity=fp>0&&fp<1?.9:0;
+  const sOn=fp>0&&fp<.98;stream.setAttribute('height',sOn?Math.max(0,lvl+20):0);stream.style.opacity=sOn?1:0;
+  dropEls.forEach((c,i)=>{const ph=(t*1.6+i/7)%1;c.setAttribute('cx',558+Math.sin(i*2.1)*90*ph);c.setAttribute('cy',lvl-40*Math.sin(ph*Math.PI));c.style.opacity=sOn?1-ph:0});
+  $('#plbl').textContent=fp>=1?'Finished world':fp>0?'Pouring colour…':'Pencil on paper';
+  // 3) fly: .62 -> 1
+  const yp=clamp((p-.62)/.38,0,1);
+  $('#cardWrap').style.transform=`translateY(-46%) rotate(${-yp*5}deg) scale(${1-yp*.12})`+(innerWidth<900?'':'');
+  if(innerWidth<900)$('#cardWrap').style.transform=`rotate(${-yp*5}deg) scale(${1-yp*.12})`;
+  // stages + dots
+  const si=p<.32?0:p<.62?1:2;$$('.st').forEach((s,i)=>s.classList.toggle('on',i===si));
+  $$('.dots b').forEach((b,i)=>b.style.transform=`scaleX(${clamp([dp,fp,yp][i],0,1)})`);
+}
+/* ---------- sparks burst + plane launch (canvas) ---------- */
+const fx=$('#fx'),fc=fx.getContext('2d');const SPK=Array.from({length:90},(_,i)=>({a:Math.random()*6.28,v:.4+Math.random(),s:2+Math.random()*5,c:['#c2532b','#c9a46a','#e07b3f','#2a1d16','#7fb6a8'][i%5]}));
+function sizeFx(){fx.width=fx.clientWidth*devicePixelRatio;fx.height=fx.clientHeight*devicePixelRatio}
+function drawFx(){const W=fx.width,H=fx.height,dp=devicePixelRatio;fc.clearRect(0,0,W,H);const yp=clamp((SP-.62)/.38,0,1);if(yp<=0)return;
+  const r=card.getBoundingClientRect(),sr=fx.getBoundingClientRect(),cx=(r.left+r.width/2-sr.left)*dp,cy=(r.top+r.height/2-sr.top)*dp,R=r.width*.5*dp;
+  const k=ease(Math.min(1,yp*1.6));SPK.forEach(s=>{const d=R*.4+k*R*1.6*s.v;fc.globalAlpha=Math.max(0,1-yp*1.3);fc.fillStyle=s.c;fc.beginPath();fc.arc(cx+Math.cos(s.a)*d,cy+Math.sin(s.a)*d*.8,s.s*dp,0,7);fc.fill()});fc.globalAlpha=1}
+
+/* ---------- the plane: launches from the card, then follows the scroll ---------- */
+const fpl=$('#fplane'),trail=$('#trail'),hist=[];
+function planePos(){ // returns {x,y,show}
+  const yp=clamp((SP-.62)/.38,0,1),story=$('#story').parentElement,sb=story.getBoundingClientRect();
+  const r=card.getBoundingClientRect(),W=innerWidth,H=innerHeight;
+  if(sb.bottom>H*.5){ if(yp<=.05)return{show:0};
+    // bezier from card centre up-left, then out to the right margin
+    const k=ease(clamp((yp-.05)/.95,0,1)),p0=[r.left+r.width*.45,r.top+r.height*.45],p1=[W*.35,H*.08],p2=[W*.92,H*.35];
+    const x=(1-k)*(1-k)*p0[0]+2*(1-k)*k*p1[0]+k*k*p2[0],y=(1-k)*(1-k)*p0[1]+2*(1-k)*k*p1[1]+k*k*p2[1];return{x,y,show:1,s:.8+k*.6}}
+  // after the story: weave down the right margin with the scroll
+  const total=document.documentElement.scrollHeight-H,u=clamp((scrollY-(sb.bottom+scrollY-H*.5))/Math.max(1,total-(sb.bottom+scrollY-H*.5)),0,1);
+  const m=W<900?.86:.92;return{x:W*m+Math.cos(u*22)*W*(W<900?.05:.035),y:H*(.35+.28*Math.sin(u*22)),show:1,s:1.4}}
+function drawPlane(){const p=planePos();if(!p.show){fpl.style.opacity=0;trail.setAttribute('d','');hist.length=0;return}
+  hist.push([p.x,p.y]);if(hist.length>46)hist.shift();
+  const a=hist.length>2?Math.atan2(p.y-hist[hist.length-3][1],p.x-hist[hist.length-3][0]):0;
+  fpl.style.opacity=1;fpl.setAttribute('transform',`translate(${p.x} ${p.y}) rotate(${a*57.3}) scale(${p.s})`);
+  trail.setAttribute('d','M'+hist.map(h=>h[0].toFixed(1)+' '+h[1].toFixed(1)).join(' L '))}
+
+/* ---------- worlds menu (Rosso) ---------- */
+const WL=[['Guatapé','Home base · Colombia','guatape','justin-guatape'],['Playset','Blueprint-first products','arcade2','playset-blueprint'],['Pixel','Character design','chameleon','pixel-chameleon'],['Aluzina','Operating system concept','cloudSea','aluzina-os'],['Las Palmas','Morning mode','palms','las-palmas'],['Agents','Game UI for AI','neon','playset-agents']];
+$('#rows').innerHTML=WL.map((w,i)=>`<a class="row" href="#" data-i="${i}"><span class="no">Section 0${i+1}</span><h3>${w[0]}</h3><span class="sub">${w[1]}</span><span class="th"><img src="${IMG+w[3]}.jpg" alt="${w[0]} project"></span></a>`).join('');
+WL.forEach(w=>{const im=new Image();im.src=S.url(w[2],700)});
+const peek=$('#peek');let mx=0,my=0,px=0,py=0;
+$$('.row').forEach(r=>{r.addEventListener('mouseenter',()=>{const w=WL[+r.dataset.i];peek.querySelector('img').src=S.url(w[2],700);peek.querySelector('span').textContent=w[0]+' · photo';peek.classList.add('on')});r.addEventListener('mouseleave',()=>peek.classList.remove('on'));r.addEventListener('click',e=>e.preventDefault())});
+addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+
+/* ---------- pour glass + academy ---------- */
+$('#gimg').src=S.url('arcade2',1200);
+const BOOKS=['Whole Brain Power','Money: Master the Game','Secret Knowledge','The Sketchnote Handbook','Business Model Generation','Rebel Without a Crew','Think Outside the Box Office','Film Production Management 101','Watchmaking'];
+$('#blist').innerHTML=BOOKS.map(b=>`<span>${b}</span>`).join('');
+const mist=$('#mist'),mc=mist.getContext('2d'),MP=[];let bookAng=0;
+function sizeMist(){mist.width=mist.clientWidth;mist.height=mist.clientHeight}
+function drawMist(dt){const b=$('#book').getBoundingClientRect(),m=mist.getBoundingClientRect();if(m.bottom<0||m.top>innerHeight)return;
+  const ox=b.left+b.width*.5-m.left,oy=b.top+b.height*.08-m.top;
+  for(let i=0;i<3;i++)MP.push({x:ox+(Math.random()-.5)*b.width*.4,y:oy,vx:(Math.random()-.3)*.6,vy:-.4-Math.random()*.8,r:10+Math.random()*30,l:1});
+  mc.clearRect(0,0,mist.width,mist.height);mc.globalCompositeOperation='lighter';
+  for(let i=MP.length-1;i>=0;i--){const p=MP[i];p.x+=p.vx+Math.sin(p.y/60)*.3;p.y+=p.vy;p.r+=.35;p.l-=.006;if(p.l<=0){MP.splice(i,1);continue}
+    const g=mc.createRadialGradient(p.x,p.y,0,p.x,p.y,p.r);g.addColorStop(0,`rgba(214,178,118,${.06*p.l})`);g.addColorStop(1,'rgba(214,178,118,0)');mc.fillStyle=g;mc.beginPath();mc.arc(p.x,p.y,p.r,0,7);mc.fill()}
+  mc.globalCompositeOperation='source-over'}
+
+/* ---------- loop ---------- */
+let last=performance.now();
+function frame(){const now=performance.now(),dt=Math.min(.05,(now-last)/1000);last=now;T+=dt;
+  const sr=$('#story').getBoundingClientRect();if(sr.bottom>0&&sr.top<innerHeight){drawStory();drawFx()}
+  drawPlane();px+=(mx-px)*.14;py+=(my-py)*.14;peek.style.left=(px+24)+'px';peek.style.top=(py-200)+'px';
+  drawMist(dt);$('#book').style.transform=`translateY(${Math.sin(T*1.2)*10}px) rotateY(${bookAng+Math.sin(T*.8)*6}deg) rotateX(6deg)`}
+function onResize(){sizeFx();sizeMist();$('#follow').setAttribute('viewBox',`0 0 ${innerWidth} ${innerHeight}`)}
+onResize();addEventListener('resize',onResize);
+$('#mail').addEventListener('submit',e=>{e.preventDefault();$('#ok').style.display='block'});
+
+const G=window.gsap;if(!(G&&window.ScrollTrigger)){SP=1;(function l(){frame();requestAnimationFrame(l)})();return}
+gsap.registerPlugin(ScrollTrigger);
+let lenis=null;if(window.Lenis){lenis=new Lenis({lerp:.09});lenis.on('scroll',ScrollTrigger.update);G.ticker.add(t=>lenis.raf(t*1000));G.ticker.lagSmoothing(0)}
+G.ticker.add(frame);
+$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1&&lenis){e.preventDefault();lenis.scrollTo(id==='#story'?0:id,{duration:1.5})}}));
+// intro
+G.from('.st.on h1, .st.on p, .st.on .n, .dots, .ctas',{y:40,opacity:0,stagger:.08,duration:1,ease:'power3.out',delay:.1});
+G.from('#cardWrap',{y:80,opacity:0,rotate:4,duration:1.4,ease:'expo.out'});
+// story pin
+ScrollTrigger.create({trigger:'#story',start:'top top',end:'+=380%',pin:true,scrub:.6,onUpdate:s=>{SP=s.progress}});
+// stage headline swaps
+let lastS=0;ScrollTrigger.create({trigger:'#story',start:'top top',end:'+=380%',onUpdate:s=>{const si=s.progress<.32?0:s.progress<.62?1:2;if(si!==lastS){lastS=si;G.fromTo(`.st[data-s="${si}"] h1, .st[data-s="${si}"] h2, .st[data-s="${si}"] p, .st[data-s="${si}"] .n`,{y:50,opacity:0},{y:0,opacity:1,stagger:.06,duration:.8,ease:'power3.out'})}}});
+// worlds rows reveal
+G.from('.row',{y:60,opacity:0,stagger:.08,duration:1,ease:'power3.out',scrollTrigger:{trigger:'#rows',start:'top 85%'}});
+// pour glass fills
+const gtl=G.timeline({scrollTrigger:{trigger:'#glass',start:'top 80%',end:'bottom 40%',scrub:.6}});
+gtl.to('#gstream',{height:'112%',duration:.3,ease:'none'},0).to('#gfill',{clipPath:'inset(0% 0 0 0)',duration:.7,ease:'none'},.25).to('#gstream',{opacity:0,duration:.1},.9);
+ScrollTrigger.create({trigger:'.stats',start:'top 85%',once:true,onEnter:()=>[['#s1',3],['#s2',6],['#s3',9]].forEach(([id,n])=>G.to({v:0},{v:n,duration:1.4,ease:'power2.out',onUpdate:function(){$(id).textContent=Math.round(this.targets()[0].v)}}))});
+// academy book turns with scroll; nav goes light on dark
+G.to({},{scrollTrigger:{trigger:'#academy',start:'top bottom',end:'bottom top',scrub:.6,onUpdate:s=>{bookAng=-40+s.progress*80}}});
+ScrollTrigger.create({trigger:'#academy',start:'top 60px',end:'bottom 60px',onToggle:s=>$('#nav').classList.toggle('dark',s.isActive)});
+ScrollTrigger.create({trigger:'#worlds',start:'top 70px',end:'max',onToggle:s=>$('#nav').classList.toggle('solid',s.isActive)});
+G.from('.acopy > *',{y:50,opacity:0,stagger:.08,duration:1,ease:'power3.out',scrollTrigger:{trigger:'#academy',start:'top 70%'}});
+G.from('footer h2',{y:80,opacity:0,duration:1.2,ease:'power4.out',scrollTrigger:{trigger:'footer',start:'top 80%'}});
+ScrollTrigger.sort();ScrollTrigger.refresh();
+})();
+</script>
+</body>
+</html>
