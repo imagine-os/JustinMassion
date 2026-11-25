@@ -46,7 +46,7 @@ img{display:block}
 .ld-pct{margin-top:14px;font:500 11px var(--sans);letter-spacing:.3em;opacity:.5}
 
 /* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:80;display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;transition:background .5s,backdrop-filter .5s}
+nav{position:fixed;top:0;left:0;right:0;z-index:80;color:var(--paper);display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;transition:background .5s,backdrop-filter .5s}
 nav.solid{background:rgba(20,18,16,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
 .logo{font:400 24px/1 var(--serif);letter-spacing:.01em}
 .logo em{color:var(--copper)}
@@ -121,7 +121,7 @@ nav.solid{background:rgba(20,18,16,.55);backdrop-filter:blur(14px);-webkit-backd
 .arch-head{position:absolute;left:5vw;top:14vh;z-index:3;max-width:440px;pointer-events:none}
 .arch-head .h2{font-size:clamp(44px,5vw,88px)}
 .arch-vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 35%,#0f0d0b 82%)}
-.panel{position:absolute;right:5vw;bottom:10vh;z-index:4;width:290px;padding:18px;border-radius:16px;background:rgba(28,25,22,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(239,233,223,.1);font:500 12px var(--sans)}
+.panel{position:absolute;right:5vw;bottom:17vh;z-index:4;width:290px;padding:18px;border-radius:16px;background:rgba(28,25,22,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(239,233,223,.1);font:500 12px var(--sans)}
 .panel .ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:13px}
 .panel .ph span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--copper)}
 .modes{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;padding:4px;border-radius:10px;background:rgba(0,0,0,.3)}
@@ -184,13 +184,47 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radiu
 
 .static #loader{display:none}
 @media (max-width:800px){
-  .links{display:none}
-  #heroCanvas{width:100%;opacity:.55;-webkit-mask-image:none;mask-image:none}
-  .hero-copy{right:5vw}
-  .panel{left:5vw;right:5vw;width:auto;bottom:4vh}
-  .roles{grid-template-columns:1fr 1fr}
+  nav{padding:18px 6vw}
+  .links,.chip,.hero-hint,.hero-foot{display:none}
+  /* hero: photo on top, copy underneath */
+  #heroCanvas{width:100%;height:60%;-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent);mask-image:linear-gradient(180deg,#000 62%,transparent)}
+  .hero-copy{left:6vw;right:6vw;top:auto;bottom:6vh;transform:none}
+  .hero-copy .eyebrow{font-size:9.5px;letter-spacing:.22em;margin-bottom:14px}
+  .hero-name{font-size:clamp(58px,17vw,96px)}
+  .hero-copy p{font-size:14.5px;line-height:1.6;margin-top:18px}
+  .ctas{margin-top:22px;gap:10px}
+  .btn{padding:14px 18px;font-size:10.5px;letter-spacing:.16em}
+  /* sections */
+  #worlds{padding:14vh 0 12vh}
+  .w-head{margin-bottom:6vh}
+  .it{height:21vh}
+  .irow{margin-bottom:12px}.itrack{gap:12px}
+  .cyl-head{flex-direction:column;align-items:flex-start;top:11vh}
+  .cyl-head .lede{display:none}
+  .cyl-head .h2{font-size:38px}
+  .cyl-foot{bottom:4vh}
+  #archive{height:100vh}
+  .arch-head{top:11vh;right:6vw;z-index:5}
+  .arch-head .lede{display:none}
+  .panel{left:4vw;right:4vw;width:auto;bottom:3vh;padding:12px 14px}
+  .panel .ph{display:none}
+  .panel label{margin:5px 0;grid-template-columns:52px 1fr 30px}
+  .panel label:nth-of-type(4),.panel label:nth-of-type(5){display:none}
+  #about{padding:16vh 6vw 12vh}
+  .roles{grid-template-columns:1fr 1fr;gap:28px 6vw;margin-top:8vh}
+  #academy{padding:12vh 6vw}
+  .shelf{gap:30px 12px}
+  .bk{width:94px;gap:10px}
+  .book{width:94px;height:140px}
+  .b-front{padding:10px 9px}
+  .b-front h4{font-size:14px}
+  .b-front small{font-size:6.5px}
+  .b-front .orn{width:20px;height:20px}
+  .bk a{font-size:7.5px;letter-spacing:.1em}
   .join{grid-template-columns:1fr}
-  .hero-hint{display:none}
+  #contact{padding:16vh 6vw 4vh}
+  .mag{width:150px;height:150px}
+  .socials{gap:18px;flex-wrap:wrap}
 }
 </style>
 </head>
@@ -315,7 +349,10 @@ const BL=Array.from({length:34},(_,i)=>({a:i*2.399+Math.random()*.6,d:Math.pow(M
 const SP=Array.from({length:46},()=>({a:Math.random()*6.28,o:Math.random(),s:.4+Math.random()*1.4}));
 function sizeHero(){
   H.dpr=Math.min(devicePixelRatio||1,1.6);const r=cv.getBoundingClientRect();H.W=cv.width=Math.round(r.width*H.dpr);H.Hh=cv.height=Math.round(r.height*H.dpr);mk.width=H.W;mk.height=H.Hh;
-  const iw=1114,ih=1026,s=Math.max(H.W/iw,H.Hh/ih),dw=iw*s,dh=ih*s;H.fit={x:H.W-dw,y:(H.Hh-dh)*.35,w:dw,h:dh,s};
+  const iw=1114,ih=1026,s=Math.max(H.W/iw,H.Hh/ih),dw=iw*s,dh=ih*s;
+  // wide screens: anchor right; narrow (portrait) screens: centre on Justin and his pointing hand
+  const fx=H.W/H.Hh<1?clamp(H.W*.5-520*s,H.W-dw,0):H.W-dw;
+  H.fit={x:fx,y:(H.Hh-dh)*.35,w:dw,h:dh,s};
   H.ox=H.fit.x+735*s;H.oy=H.fit.y+300*s; // reveal starts at the pointing hand
 }
 function drawHero(){
@@ -379,6 +416,9 @@ const arch=$('#arch'),AN=64,A={mode:'helix',twist:22,radius:460,s:190,tilt:-12,s
 const pool=[...WORK.map(w=>w[0]),'hero-photo','hero-sketch'];
 arch.innerHTML=Array.from({length:AN},(_,i)=>`<div class="at"><img src="${IMG+pool[(i*3)%pool.length]}.jpg" alt="" loading="lazy"></div>`).join('');
 const ats=$$('.at',arch);
+if(innerWidth<800){Object.assign(A,{radius:230,s:120,twist:26});
+  [['radius',230],['s',120],['twist',26]].forEach(([k,v])=>{const i=$(`.panel input[data-k=${k}]`);i.value=v;i.nextElementSibling.textContent=v});
+  $('#archive').style.setProperty('--s',120)}
 $$('.panel input').forEach(inp=>inp.addEventListener('input',()=>{const k=inp.dataset.k,v=+inp.value,o=inp.nextElementSibling;
   if(k==='speed'){A.speed=v/10;o.textContent=A.speed.toFixed(1)}else{A[k]=v;o.textContent=v;if(k==='s')$('#archive').style.setProperty('--s',v)}}));
 $$('.modes button').forEach(b=>b.addEventListener('click',()=>{$$('.modes button').forEach(x=>x.classList.toggle('on',x===b));A.mode=b.dataset.mode;A.mixT=A.mode==='tunnel'?1:0}));
@@ -443,14 +483,14 @@ gsap.registerPlugin(ScrollTrigger);
 if(window.Lenis){lenis=new Lenis({lerp:.085,smoothWheel:true});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);lenis.stop()}
 gsap.ticker.add(frame);
 $$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1&&lenis){e.preventDefault();lenis.scrollTo(id==='#hero'?0:id,{duration:1.6})}}));
-ScrollTrigger.create({start:80,onToggle:s=>$('#nav').classList.toggle('solid',s.isActive)});
+ScrollTrigger.create({start:80,end:'max',onToggle:s=>$('#nav').classList.toggle('solid',s.isActive)});
 
 // hero: scrolling dissolves the photo back into the sketch, copy lifts away
 const htl=gsap.timeline({scrollTrigger:{trigger:'#hero',start:'top top',end:'+=130%',scrub:1,pin:true}});
 htl.to(H,{scroll:1,ease:'power1.inOut',duration:1},0)
    .to('.hero-copy',{y:-120,opacity:0,ease:'power2.in',duration:.55},0)
    .to('.hero-foot,.hero-hint',{opacity:0,duration:.25},0)
-   .to('#heroCanvas',{scale:1.08,xPercent:-12,ease:'power1.inOut',duration:1},0);
+   .to('#heroCanvas',{scale:1.08,xPercent:innerWidth<800?0:-12,ease:'power1.inOut',duration:1},0);
 
 // rows enter from opposite sides
 ScrollTrigger.create({trigger:'#worlds',start:'top bottom',end:'bottom top',onUpdate:s=>{rows[0].extra=(1-s.progress)*-500;rows[1].extra=(1-s.progress)*500}});
