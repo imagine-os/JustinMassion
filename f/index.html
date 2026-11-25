@@ -39,9 +39,8 @@ a{color:inherit;text-decoration:none}img{display:block}
 
 /* ===== VISOR (black, pinned) ===== */
 #visor{position:relative;height:100vh;background:var(--k);color:#fff;overflow:hidden}
-.ghostJ{position:absolute;left:24vw;right:24vw;top:0;bottom:0;background-size:cover;background-position:42% 18%;filter:grayscale(1) brightness(.35) contrast(1.2);opacity:.9}
-#gl{position:absolute;inset:0;width:100%;height:100%}
-.vtop{position:absolute;left:2.4vw;right:2.4vw;top:9vh;display:flex;justify-content:space-between;z-index:3;color:var(--g)}
+.ghostJ{position:absolute;left:24vw;right:24vw;top:0;bottom:0;background-size:cover;background-position:42% 18%;filter:grayscale(1) brightness(.5) contrast(1.15);opacity:.9}
+#gl{position:fixed;inset:0;width:100vw;height:100vh;z-index:6;pointer-events:none}.vtop{position:absolute;left:2.4vw;right:2.4vw;top:9vh;display:flex;justify-content:space-between;z-index:3;color:var(--g)}
 .spec{position:absolute;left:2.4vw;top:50%;transform:translateY(-50%);width:min(26vw,340px);z-index:3}
 .spec .it{position:absolute;left:0;top:0;opacity:0}
 .spec .it .n{color:var(--or)}
@@ -87,7 +86,7 @@ footer{position:relative;background:var(--k);color:#fff;padding:12vh 2.4vw 4vh;o
   .stageH{left:0;right:0}
   .hcol.l1{top:auto;bottom:22vh;width:60vw;color:#fff;mix-blend-mode:difference}.hcol.r1{display:none}
   .word{font-size:25vw}
-  .spec{width:auto;right:2.4vw;top:auto;bottom:16vh;transform:none}
+  .spec{width:auto;right:2.4vw;top:auto;bottom:30vh;transform:none}
   .vright b{font-size:15vw}
   .ghostJ{left:0;right:0}
   .wtop{grid-template-columns:1fr}.wtop h2{grid-column:auto}
@@ -104,7 +103,7 @@ footer{position:relative;background:var(--k);color:#fff;padding:12vh 2.4vw 4vh;o
   <div class="stageH"><img class="sharp" id="sharp" src="../assets/img/hero-photo.jpg" alt="Justin Massion"><canvas id="frost" aria-label="Frosted glass over the photo — move the cursor to clear it"></canvas></div>
   <div class="hcol l1 m"><div class="lbl">(01) — Index</div>Experience designer and Imagineer working where theme-park storytelling meets AI and spatial computing.</div>
   <div class="hcol r1 m"><div class="lbl">Based</div>Los Angeles<br>Orlando<br>Guatapé, CO</div>
-  <div class="hcol l2 m">Scroll ↓ — the program</div>
+  <div class="hcol l2 m">Scroll ↓ — take the lenses off</div>
   <div class="hint m" id="hint">Move to clear the glass</div>
   <div class="word">MASSION<sup>®</sup></div>
 </section>
@@ -112,17 +111,18 @@ footer{position:relative;background:var(--k);color:#fff;padding:12vh 2.4vw 4vh;o
 <!-- VISOR -->
 <section id="visor">
   <div class="ghostJ" id="ghostJ"></div>
-  <canvas id="gl" aria-label="An orange spatial-computing headset rotating"></canvas>
-  <div class="vtop m"><span>(02) — The Program</span><span>Spatial headset, rendered live</span></div>
+  <div class="vtop m"><span>(02) — The Program</span><span>Justin's lenses, rendered live</span></div>
   <div class="spec m" id="spec">
     <div class="it"><span class="n">01 — FRAME</span><h3>Theme-park thinking, built into every edge.</h3><dl><dt>Origin</dt><dd>Imagineering method</dd><dt>Weight</dt><dd>One pencil sketch</dd></dl></div>
     <div class="it"><span class="n">02 — LENS</span><h3>AI-native optics. You see the world before it exists.</h3><dl><dt>Tools</dt><dd>AI · real-time 3D</dd><dt>Field</dt><dd>Spatial computing</dd></dl></div>
-    <div class="it"><span class="n">03 — STRAP</span><h3>Story holds it together, so people keep it on.</h3><dl><dt>Fit</dt><dd>Parks · products · platforms</dd><dt>Studio</dt><dd>JAM Studios</dd></dl></div>
+    <div class="it"><span class="n">03 — ARMS</span><h3>Story holds them in place, so people keep them on.</h3><dl><dt>Fit</dt><dd>Parks · products · platforms</dd><dt>Studio</dt><dd>JAM Studios</dd></dl></div>
     <div class="it"><span class="n">04 — DELIVERY</span><h3>Shipped to the cloud. Ready for visitors.</h3><dl><dt>Range</dt><dd>LA → Orlando → Guatapé</dd><dt>Status</dt><dd>Booking 2027</dd></dl></div>
   </div>
   <div class="vright m"><b id="vnum">01</b>/ 04 — scroll to turn it</div>
   <div class="vprog"><i id="vbar"></i></div>
 </section>
+
+<canvas id="gl" aria-label="Justin's orange spectacles: they come off his face as you scroll and land in The Program"></canvas>
 
 <!-- WORK -->
 <section id="work">
@@ -206,44 +206,80 @@ ScrollTrigger.sort();ScrollTrigger.refresh();
 })();
 </script>
 
-<!-- three.js: glossy orange spatial headset -->
+<!-- three.js: Justin's orange spectacles. They start on his face in the hero photo,
+     come off as you scroll, tumble down slowly and land in The Program, where they turn. -->
 <script type="module">
 import * as THREE from 'three';
 import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
-const cv=document.getElementById('gl');
+const cv=document.getElementById('gl'),sharp=document.getElementById('sharp'),hero=document.getElementById('hero'),visor=document.getElementById('visor');
 const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});R.setPixelRatio(Math.min(devicePixelRatio,2));R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;
 const scene=new THREE.Scene();const pm=new THREE.PMREMGenerator(R);scene.environment=pm.fromScene(new RoomEnvironment(),.04).texture;
-const cam=new THREE.PerspectiveCamera(30,1,.1,100);cam.position.set(0,0,9);
+const CZ=9,cam=new THREE.PerspectiveCamera(30,1,.1,100);cam.position.set(0,0,CZ);
 const key=new THREE.DirectionalLight(0xffffff,2.2);key.position.set(3,4,5);scene.add(key);
-const rim=new THREE.DirectionalLight(0xff6a33,3);rim.position.set(-4,1,-3);scene.add(rim);
-const H=new THREE.Group();scene.add(H);
-const orange=new THREE.MeshPhysicalMaterial({color:0xff4d1a,roughness:.08,metalness:0,clearcoat:1,clearcoatRoughness:.05,transmission:.55,thickness:.6,ior:1.45,transparent:true,opacity:.96,side:THREE.DoubleSide});
-const black=new THREE.MeshPhysicalMaterial({color:0x121212,roughness:.35,metalness:.4,clearcoat:.6});
-const chrome=new THREE.MeshStandardMaterial({color:0xdedede,roughness:.15,metalness:1});
-// Everything is built on one elliptical arc around the head; front faces +z (the camera).
-const SX=1.15,SZ=.9,A=1.15; // ellipse stretch + half-angle of the visor
-const at=(r,th,y=0)=>new THREE.Vector3(r*SX*Math.sin(th),y,r*SZ*Math.cos(th));
-const arc=(r,t0,t1,y,n=64)=>new THREE.CatmullRomCurve3(Array.from({length:n+1},(_,i)=>at(r,t0+(t1-t0)*i/n,y)));
-// curved visor shell (orange glass) + dark inner lens
-const shell=new THREE.Mesh(new THREE.CylinderGeometry(1.7,1.66,.95,96,1,true,-A,2*A),orange);shell.scale.set(SX,1,SZ);H.add(shell);
-const lens=new THREE.Mesh(new THREE.CylinderGeometry(1.6,1.57,.7,96,1,true,-A+.05,2*A-.1),new THREE.MeshPhysicalMaterial({color:0x1a0803,roughness:.05,metalness:.3,clearcoat:1,side:THREE.DoubleSide}));lens.scale.set(SX,1,SZ);H.add(lens);
-// rims hugging the top and bottom edges
-[.48,-.48].forEach(y=>H.add(new THREE.Mesh(new THREE.TubeGeometry(arc(1.69,-A-.02,A+.02,y),96,.045,12,false),black)));
-// side hinges where the visor meets the strap
-[-A,A].forEach(th=>{const h=new THREE.Mesh(new THREE.BoxGeometry(.16,.56,.36),chrome);h.position.copy(at(1.74,th));h.rotation.y=th;H.add(h)});
-// strap wraps round the back of the head
-H.add(new THREE.Mesh(new THREE.TubeGeometry(arc(1.78,A,Math.PI*2-A,0,80),120,.11,14,false),black));
-// three sensor dots on the front
-for(let i=-1;i<=1;i++){const d=new THREE.Mesh(new THREE.SphereGeometry(.045,16,16),new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xffffff,emissiveIntensity:1.4}));d.position.copy(at(1.73,i*.22,.3));H.add(d)}
-function size(){const w=cv.clientWidth,h=cv.clientHeight;if(!w)return;R.setSize(w,h,false);cam.aspect=w/h;cam.position.z=w/h<1?13:9;cam.updateProjectionMatrix()}
+const rim=new THREE.DirectionalLight(0xff6a33,2.4);rim.position.set(-4,1,-3);scene.add(rim);
+
+/* ---- the spectacles (lens centres at ±.66, so eye distance = 1.32 units, total width ≈ 2.6) ---- */
+const G=new THREE.Group();scene.add(G);
+const orange=new THREE.MeshPhysicalMaterial({color:0xff4d1a,roughness:.12,metalness:0,clearcoat:1,clearcoatRoughness:.04});
+const black=new THREE.MeshPhysicalMaterial({color:0x141414,roughness:.3,metalness:.3,clearcoat:.8});
+const chrome=new THREE.MeshStandardMaterial({color:0xe8e8e8,roughness:.12,metalness:1});
+const tint=new THREE.MeshPhysicalMaterial({color:0x2a1408,roughness:.03,metalness:.15,clearcoat:1,transparent:true,opacity:.52,side:THREE.DoubleSide});
+function rr(w,h,r,hole){const s=hole?new THREE.Path():new THREE.Shape(),x=-w/2,y=-h/2;
+  s.moveTo(x+r,y);s.lineTo(x+w-r,y);s.absarc(x+w-r,y+r,r,-Math.PI/2,0);s.lineTo(x+w,y+h-r);s.absarc(x+w-r,y+h-r,r,0,Math.PI/2);
+  s.lineTo(x+r,y+h);s.absarc(x+r,y+h-r,r,Math.PI/2,Math.PI);s.lineTo(x,y+r);s.absarc(x+r,y+r,r,Math.PI,Math.PI*1.5);return s}
+const LW=1.06,LH=.8,LR=.3,LX=.66;
+const rimShape=rr(LW+.18,LH+.18,LR+.09);rimShape.holes.push(rr(LW,LH,LR,true));
+const rimGeo=new THREE.ExtrudeGeometry(rimShape,{depth:.09,bevelEnabled:true,bevelThickness:.025,bevelSize:.025,bevelSegments:3,curveSegments:24});rimGeo.center();
+const lensGeo=new THREE.ShapeGeometry(rr(LW+.02,LH+.02,LR),24);
+[-1,1].forEach(sd=>{
+  const fr=new THREE.Mesh(rimGeo,orange);fr.position.x=sd*LX;fr.rotation.y=-sd*.06;G.add(fr);
+  const le=new THREE.Mesh(lensGeo,tint);le.position.set(sd*LX,0,-.01);le.rotation.y=-sd*.06;G.add(le);
+  // chrome rivets on the outer corners (the little detail that makes them "his")
+  [.26,-.26].forEach(y=>{const rv=new THREE.Mesh(new THREE.CylinderGeometry(.035,.035,.03,16),chrome);rv.rotation.x=Math.PI/2;rv.position.set(sd*(LX+.5),y*.9+.06,.07);G.add(rv)});
+  // hinge + temple arm that runs back over the ear
+  const hx=sd*(LX+.62);const hg=new THREE.Mesh(new THREE.BoxGeometry(.1,.16,.16),orange);hg.position.set(hx,.18,-.08);G.add(hg);
+  const arm=new THREE.CatmullRomCurve3([new THREE.Vector3(hx,.18,-.12),new THREE.Vector3(hx*1.03,.18,-1.1),new THREE.Vector3(hx*1.02,.12,-1.9),new THREE.Vector3(hx*.96,-.16,-2.25)]);
+  G.add(new THREE.Mesh(new THREE.TubeGeometry(arm,48,.04,10,false),orange));
+  const tip=new THREE.CatmullRomCurve3([new THREE.Vector3(hx*1.02,.12,-1.9),new THREE.Vector3(hx*.96,-.16,-2.25),new THREE.Vector3(hx*.94,-.3,-2.3)]);
+  G.add(new THREE.Mesh(new THREE.TubeGeometry(tip,24,.05,10,false),black));});
+// keyhole bridge
+G.add(new THREE.Mesh(new THREE.TubeGeometry(new THREE.CatmullRomCurve3([new THREE.Vector3(-.08,.16,0),new THREE.Vector3(-.03,.27,.03),new THREE.Vector3(.03,.27,.03),new THREE.Vector3(.08,.16,0)]),24,.045,10,false),orange));
+const FW=2.6,EYE=1.32;
+
+/* ---- choreography ---- */
+const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t,ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+const FACE={x:465,y:168,eye:50,iw:1114,ih:1026}; // eye centre + pupil distance in hero-photo.jpg pixels
+function face(){const r=sharp.getBoundingClientRect(),s=Math.max(r.width/FACE.iw,r.height/FACE.ih),dx=(r.width-FACE.iw*s)*.42,dy=(r.height-FACE.ih*s)*.18;
+  return{x:r.left+dx+FACE.x*s,y:r.top+dy+FACE.y*s,w:FACE.eye*s*2.35}}
+// where the glasses get caught: just under the pointing finger of the ghost photo in The Program
+const ghost=document.getElementById('ghostJ'),HAND={x:745,y:352};
+function hand(){const r=ghost.getBoundingClientRect(),s=Math.max(r.width/FACE.iw,r.height/FACE.ih),dx=(r.width-FACE.iw*s)*.42,dy=(r.height-FACE.ih*s)*.18;
+  const w=FACE.eye*s*2.35*1.25;
+  return{x:Math.min(r.left+dx+HAND.x*s,innerWidth-w*.7),w,y:Math.max(r.top,0)+dy+HAND.y*s}}
+function size(){R.setSize(innerWidth,innerHeight,false);cam.aspect=innerWidth/innerHeight;cam.updateProjectionMatrix()}
 size();addEventListener('resize',size);
 let mx=0,my=0;addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
-function loop(t){requestAnimationFrame(loop);const r=cv.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;if(cv.width!==Math.round(cv.clientWidth*R.getPixelRatio()))size();
-  const p=(window.__vis&&window.__vis.p)||0;const e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
-  // rises from the silhouette's face, then turns a full revolution while the specs step through
-  H.position.y=-.2+(1-Math.min(1,p*3))*-1.6+Math.sin(t/900)*.06;H.position.x=(innerWidth<900?0:.9)*Math.min(1,p*2.5);
-  H.rotation.y=-.5+e*Math.PI*2.1+mx*.3;H.rotation.x=.18+Math.sin(p*Math.PI)*.35+my*.2;H.rotation.z=Math.sin(p*Math.PI*2)*.12;
-  const s=.75+Math.min(1,p*2.5)*.35;H.scale.setScalar(s);R.render(scene,cam)}
+window.__glasses={h:0};
+function loop(t){requestAnimationFrame(loop);
+  const vr=visor.getBoundingClientRect();if(vr.bottom<0){cv.style.visibility='hidden';return}cv.style.visibility='visible';
+  const W=innerWidth,H=innerHeight,mob=W<900,upp=2*Math.tan(15*Math.PI/180)*CZ/H;
+  const h=clamp(scrollY/hero.offsetHeight),p=(window.__vis&&window.__vis.p)||0;window.__glasses.h=h;
+  const f=face(),rest={x:W*(mob?.5:.6),y:H*(mob?.36:.5),w:mob?W*.62:Math.min(W*.3,470)};
+  // 1) off the face: for the first few pixels they ride with the photo, then they stay put while
+  //    the face scrolls out from under them, tilting toward you like a hand pulling them away
+  const g=ease(clamp(h/.08)),fy=lerp(f.y,f.y+scrollY,g);
+  const k1=ease(clamp(h/.2)),lift={x:f.x+k1*f.w*.25,y:fy-k1*f.w*.35,w:f.w*(1+k1*.5)};
+  // 2) the slow fall: drift + sway, one lazy flip, caught on the outstretched hand of the Justin behind
+  const hd=hand(),k2=clamp((h-.2)/.8),e2=ease(k2);
+  let x=lerp(lift.x,hd.x,e2)+Math.sin(k2*Math.PI*2)*W*.07*(1-k2),y=lerp(lift.y,hd.y,Math.pow(k2,1.3)),w=lerp(lift.w,hd.w,e2);
+  let rx=-.6*k1+e2*(Math.PI*2+.95),ry=.35*k1-.75*e2,rz=-.08*(1-k1)+Math.sin(k2*Math.PI)*.45+e2*.28;
+  // 3) in The Program: lifted out of his hand to centre stage, then one full turn while the specs step through
+  const k3=ease(clamp(p/.2));x=lerp(x,rest.x,k3);y=lerp(y,rest.y,k3);w=lerp(w,rest.w,k3);rx+=-.17*k3;ry+=-.1*k3;rz+=-.28*k3;
+  const e3=ease(clamp((p-.1)/.9));ry+=e3*Math.PI*2;rx+=Math.sin(p*Math.PI)*.35;rz+=Math.sin(p*Math.PI*2)*.1;
+  if(h>=1){y+=Math.sin(t/900)*6;ry+=mx*.3;rx+=my*.2}
+  y+=Math.min(0,vr.top); // leaves with the section once it unpins
+  G.position.set((x-W/2)*upp,-(y-H/2)*upp,0);G.rotation.set(rx,ry,rz);G.scale.setScalar(w*upp/FW);
+  R.render(scene,cam)}
 requestAnimationFrame(loop);
 </script>
 </body>

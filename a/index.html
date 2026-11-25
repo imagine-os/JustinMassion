@@ -144,6 +144,11 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radiu
 
 /* academy */
 #academy{padding:16vh 5vw 18vh}
+.shelfPix{position:absolute;right:-2vw;bottom:40px;width:120px;pointer-events:none}
+.shelfPix img{width:100%;display:block;filter:drop-shadow(0 8px 10px rgba(0,0,0,.25));animation:pxb 4s ease-in-out infinite;transform-origin:50% 100%}
+.shelfPix span{position:absolute;right:70%;bottom:96%;width:max-content;padding:8px 12px;border-radius:14px 14px 4px 14px;background:#151310;color:#efe9df;font:500 12px/1.3 var(--sans)}
+@keyframes pxb{50%{transform:rotate(-5deg) translateY(-4px)}}
+@media (max-width:760px){.shelfPix{right:0;width:84px;bottom:36px}}
 .ac-head{display:flex;justify-content:space-between;align-items:flex-end;gap:4vw;flex-wrap:wrap}
 .ac-head .lede{max-width:380px}
 .shelf{display:flex;flex-wrap:wrap;gap:46px 20px;justify-content:center;margin-top:11vh;padding-bottom:30px;border-bottom:10px solid #d6cdbd;box-shadow:0 26px 40px -24px rgba(0,0,0,.35)}
@@ -305,7 +310,8 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radiu
 <!-- ACADEMY -->
 <section id="academy" data-theme="light">
   <div class="ac-head"><div><span class="eyebrow" style="color:var(--copper)">(05) Introducing</span><h2 class="h2">The <em>Academy</em></h2></div><p class="lede">"The new school of learning anything." The reading list behind the work — pick a book up and it turns toward you.</p></div>
-  <div class="shelf" id="shelf"></div>
+  <div style="position:relative"><div class="shelf" id="shelf"></div>
+    <div class="shelfPix" aria-hidden="true"><span>Psst — start with<br>the Sketchnote one.</span><img src="../assets/3d/pixel-peek.webp" alt=""></div></div>
   <form class="join" id="join">
     <h3>Join the <em>Academy</em></h3>
     <input placeholder="First name" aria-label="First name"><input placeholder="Last name" aria-label="Last name">
@@ -405,8 +411,9 @@ addEventListener('pointerup',()=>dragging=false);
 function drawCyl(){
   C.theta=lerp(C.theta,C.target,.08);C.drag=lerp(C.drag,C.dragT,.1);const th=C.theta-C.drag;let best=0,bd=9;
   cps.forEach((p,i)=>{const phi=i*C.step+th;const a=Math.abs(phi);if(a<bd){bd=a;best=i}
-    if(a>.92){p.style.opacity=0;p.style.visibility='hidden';return}
-    p.style.visibility='visible';p.style.opacity=clamp(1.5-a*1.6,0,1);
+    // panels swinging past the viewer would scale far beyond their pixels; fade them out before they get close
+    if(a>.74){p.style.opacity=0;p.style.visibility='hidden';return}
+    p.style.visibility='visible';p.style.opacity=clamp(1.65-a*2.25,0,1);
     p.style.transform=`translate(-50%,-50%) translate3d(${C.R*Math.sin(phi)}px,0,${C.R-C.R*Math.cos(phi)}px) rotateY(${-phi}rad)`});
   $('#cylNum').textContent=String(best+1).padStart(2,'0')+' / '+String(PANELS.length).padStart(2,'0');
 }
@@ -430,11 +437,11 @@ function drawArch(dt){
     // helix
     const ha=i*tw+A.t*.6,hy=(i-AN/2)*s*.16,hx=Math.sin(ha)*R,hz=Math.cos(ha)*R,hr=ha;
     // tunnel (concentric rings receding)
-    const j=Math.floor(i/K),k=i%K,phi=k/K*6.2832+j*tw*.5+A.t*.15;let tz=((j*S+A.t*120)%L);tz=tz-L+S*1.5;
+    const j=Math.floor(i/K),k=i%K,phi=k/K*6.2832+j*tw*.5+A.t*.15;let tz=((j*S+A.t*120)%L);tz=tz-L+S*.6;
     const tx=Math.sin(phi)*R*.9,ty=-Math.cos(phi)*R*.9;
     const X=lerp(hx,tx,m),Y=lerp(hy,ty,m),Z=lerp(hz,tz,m),RY=lerp(hr,0,m),RZ=lerp(0,phi,m);
     el.style.transform=`translate(-50%,-50%) translate3d(${X}px,${Y}px,${Z}px) rotateY(${RY}rad) rotateZ(${RZ}rad)`;
-    const op=m<.5?(.35+.65*(Math.cos(ha)*.5+.5)):clamp(1-(-tz)/L*1.1,0,1)*clamp((S*1.5-tz)/S,0,1);
+    const op=m<.5?(.35+.65*(Math.cos(ha)*.5+.5)):clamp(1-(-tz)/L*1.1,0,1)*clamp((S*.6-tz)/(S*.8),0,1);
     el.style.opacity=op.toFixed(3)});
 }
 

@@ -92,7 +92,10 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{fon
 .pi b{display:block;font:600 13px var(--sans)}.pi span{font:400 11.5px var(--sans);color:var(--mut)}
 
 /* ===== FEATURED (TV pop-out) ===== */
-#featured{padding:120px 4vw 100px;transition:background 1s}
+#featured{position:relative;padding:120px 4vw 100px;transition:background 1s}
+.blob3d{position:absolute;right:30%;top:40px;width:min(15vw,200px);pointer-events:none;filter:drop-shadow(0 30px 40px rgba(60,80,255,.35));animation:blobF 7s ease-in-out infinite}
+@keyframes blobF{50%{transform:translateY(-22px) rotate(14deg)}}
+@media (max-width:980px){.blob3d{right:4vw;top:30px;width:90px}}
 #featured .bgTint{position:absolute;inset:0;transition:background 1s;opacity:.55;pointer-events:none}
 .feat{position:relative;margin-top:150px}
 .frameF{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:2.35;background:#111}
@@ -130,7 +133,11 @@ a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{fon
 .st img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.7,0,.2,1),filter .6s;filter:saturate(.7) brightness(.75)}
 .st.on img{filter:none}
 .st .dot{position:absolute;left:50%;top:-30px;width:5px;height:5px;border-radius:50%;background:var(--mut);transform:translateX(-50%)}
-.player{display:flex;align-items:center;gap:22px;margin:26px 4vw 0}
+.player{position:relative;display:flex;align-items:center;gap:22px;margin:26px 4vw 0}
+.pxp{position:absolute;right:170px;bottom:calc(100% - 6px);width:120px;pointer-events:none}
+.pxp img{width:100%;display:block;filter:drop-shadow(0 8px 14px rgba(0,0,0,.5))}
+.pxb{position:absolute;right:100%;bottom:50%;width:max-content;max-width:200px;padding:8px 12px;border-radius:14px 14px 4px 14px;background:#f3efe7;color:#111;font:600 12px/1.3 var(--sans)}
+@media (max-width:980px){.pxp{right:10px;width:84px}.pxb{font-size:11px}}
 .player h3{font:700 clamp(28px,3vw,46px)/1 var(--sans);letter-spacing:-.04em}
 .player .by{font:500 12px var(--sans);color:var(--mut);margin-top:6px}
 .ctrl{display:flex;gap:8px;margin-left:auto}
@@ -274,7 +281,7 @@ footer{position:relative;margin-top:180px;background:#151517;border-radius:26px 
 </div></section>
 
 <!-- ================= FEATURED (pop-out banner) ================= -->
-<section id="featured" class="sec"><div class="bgTint" id="bgTint"></div>
+<section id="featured" class="sec"><div class="bgTint" id="bgTint"></div><img class="blob3d" id="blob3d" src="../assets/3d/glass-blobs.webp" alt="" aria-hidden="true">
   <div class="rv" style="position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap"><h2 class="h2">Now <em>streaming</em></h2><div class="lbl">7 episodes · season 2026 · pick one</div></div>
   <div class="feat" id="feat">
     <img class="popImg under" id="popU" src="../assets/img/hero-photo.jpg" alt="">
@@ -289,7 +296,7 @@ footer{position:relative;margin-top:180px;background:#151517;border-radius:26px 
 <section id="worlds">
   <div class="whead rv"><h2 class="h2">Worlds <em>library</em></h2><div class="lbl">hover a slice · or let it play</div></div>
   <div class="strips" id="strips"></div>
-  <div class="player"><div><h3 id="pTitle">Pixel the Chameleon</h3><div class="by" id="pBy">Character design · by Justin Massion</div></div><div class="ctrl"><button id="pPrev" aria-label="Previous">⏮</button><button id="pPlay" aria-label="Pause">❚❚</button><button id="pNext" aria-label="Next">⏭</button></div></div>
+  <div class="player"><div class="pxp" aria-hidden="true"><span class="pxb" id="pxb">Ooh, this one's me.</span><img src="../assets/3d/pixel-peek.webp" alt=""></div><div><h3 id="pTitle">Pixel the Chameleon</h3><div class="by" id="pBy">Character design · by Justin Massion</div></div><div class="ctrl"><button id="pPrev" aria-label="Previous">⏮</button><button id="pPlay" aria-label="Pause">❚❚</button><button id="pNext" aria-label="Next">⏭</button></div></div>
   <div class="prog"><i id="pProg"></i></div>
 </section>
 
@@ -302,7 +309,7 @@ footer{position:relative;margin-top:180px;background:#151517;border-radius:26px 
     <path id="route" fill="none" stroke="#4f8cff" stroke-width="3" stroke-linecap="round" filter="url(#gl)" d="M190 150 C 360 90, 520 160, 640 250 S 820 300, 880 350 S 960 470, 1010 470"/>
     <defs><filter id="gl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
     <g id="cities"></g>
-    <g id="plane"><circle r="22" fill="rgba(79,140,255,.2)"/><path d="M-14 -9 L16 0 L-14 9 L-7 0 Z" fill="#fff"/></g>
+    <g id="plane"><circle r="30" fill="rgba(79,140,255,.18)"/><image href="../assets/3d/jet.webp" x="-34" y="-33" width="68" height="66" transform="rotate(90)"/></g>
   </svg>
   <div class="tcard" id="tcard"><img id="timg" alt="" class="timg"><small id="tsm">STOP 01</small><h3 id="tname">Los Angeles</h3><p id="tdesc"></p><div class="tags" id="ttags"></div></div>
   <div class="vprog"><i id="vbar"></i><span style="top:0%"></span><span style="top:50%"></span><span style="top:100%"></span></div>
@@ -398,7 +405,10 @@ const fimg=$('#fimg');
 /* ---------- worlds strips ---------- */
 $('#strips').innerHTML=W.map((w,i)=>`<div class="st${i===1?' on':''}" data-i="${i}"><div class="cap"><b>${w.t}</b>${w.s}</div><div class="im"><img src="${IMG+w.k}.jpg" alt="${w.t}"></div></div>`).join('');
 const sts=$$('.st');let sI=1,playing=true,sT=0;
-function setS(i){sI=(i+N)%N;sts.forEach((s,k)=>s.classList.toggle('on',k===sI));$('#pTitle').textContent=W[sI].t;$('#pBy').textContent=W[sI].s+' · by Justin Massion';sT=0}
+// Pixel reacts to whichever world is playing
+const PXQ=['Home. The lake smells like ideas.','Ooh, this one\'s me.','I live in cabinet #3.','Too many clouds. I blend in.','Wake me when breakfast is ready.','They glow. I\'m not jealous. Much.','Ten stations, zero naps.'];
+function setS(i){const prev=sI;sI=(i+N)%N;sts.forEach((s,k)=>s.classList.toggle('on',k===sI));$('#pTitle').textContent=W[sI].t;$('#pBy').textContent=W[sI].s+' · by Justin Massion';sT=0;
+  const b=$('#pxb');if(b&&prev!==sI){b.textContent=PXQ[sI]||'';window.gsap&&gsap.fromTo(b,{scale:.6,opacity:0},{scale:1,opacity:1,duration:.45,ease:'back.out(2.4)'});window.gsap&&gsap.fromTo('.pxp img',{y:0},{y:-12,duration:.2,yoyo:true,repeat:1,ease:'power2.out'})}}
 sts.forEach(s=>s.addEventListener('mouseenter',()=>setS(+s.dataset.i)));sts.forEach(s=>s.addEventListener('click',()=>setS(+s.dataset.i)));
 $('#pPrev').onclick=()=>setS(sI-1);$('#pNext').onclick=()=>setS(sI+1);
 $('#pPlay').onclick=()=>{playing=!playing;$('#pPlay').textContent=playing?'❚❚':'▶'};

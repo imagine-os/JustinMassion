@@ -79,6 +79,11 @@ section{position:relative}
 .stk .in{display:grid;place-items:center;text-align:center;font:600 15px/1.1 var(--sans);box-shadow:0 14px 30px -12px rgba(0,0,0,.45);animation:bob 5s ease-in-out infinite;transition:transform .3s}
 .stk:hover .in{transform:scale(1.06)}
 @keyframes bob{50%{translate:0 -8px}}
+.s6 .in{width:190px;box-shadow:none;animation-delay:-2.5s;position:relative}
+.win .s6 img{position:relative;inset:auto;width:100%;height:auto;object-fit:contain;transform:none;display:block;filter:drop-shadow(0 16px 14px rgba(0,0,0,.35));pointer-events:none;transition:transform .25s cubic-bezier(.3,1.6,.5,1)}
+.win .s6:active img{transform:scale(1.08,.92)}
+.s6 .say{position:absolute;left:58%;top:-6px;padding:6px 11px;border-radius:12px 12px 12px 3px;background:#fff;font:600 12px var(--sans);white-space:nowrap;box-shadow:0 8px 18px -8px rgba(0,0,0,.4)}
+@media (max-width:760px){.s6 .in{width:120px}}
 .s1 .in{width:128px;height:128px;border-radius:30px;background:var(--lime);rotate:-10deg;gap:6px}
 .s1 svg{width:30px;height:30px}
 .s2 .in{width:150px;height:150px;border-radius:50%;background:var(--forest);color:var(--lime);font:400 24px/1 var(--serif);font-style:italic;rotate:-18deg;animation-delay:-1.5s}
@@ -313,6 +318,7 @@ section{position:relative}
           <div class="stk s3" style="left:44%;top:60%"><div class="in">Theme-park thinking</div></div>
           <div class="stk s4" style="left:80%;top:34%"><div class="in">Guatapé,<br>Colombia</div></div>
           <div class="stk s5" style="left:76%;top:64%"><div class="in">Ship it</div></div>
+          <div class="stk s6" style="left:3%;top:9%" title="Pixel · drag me"><div class="in"><img src="assets/3d/pixel.webp" alt="Pixel, Justin's chameleon character" draggable="false"><span class="say">drag me!</span></div></div>
           <a class="nowcard glass" href="#explorer"><img src="assets/img/playset-agents.jpg" alt=""><div><small>Now building</small><b>Playset Agents</b><span>Game-style AI agent interface</span></div><div class="go">↗</div></a>
         </div>
       </div>
@@ -407,7 +413,8 @@ $('#avs').innerHTML=W.slice(0,5).map(w=>`<img src="${IMG+w.k}.jpg" alt="">`).joi
 $$('.stk').forEach(s=>{let sx,sy,ox,oy,drag=false;
   s.addEventListener('pointerdown',e=>{drag=true;s.setPointerCapture(e.pointerId);sx=e.clientX;sy=e.clientY;const m=new DOMMatrix(getComputedStyle(s).transform);ox=m.e;oy=m.f;s.style.zIndex=9});
   s.addEventListener('pointermove',e=>{if(!drag)return;s.style.transform=`translate(${ox+e.clientX-sx}px,${oy+e.clientY-sy}px) rotate(${(e.clientX-sx)*.05}deg)`});
-  s.addEventListener('pointerup',()=>{drag=false;s.style.transform=s.style.transform.replace(/rotate\([^)]*\)/,'rotate(0deg)')});});
+  s.addEventListener('pointerup',()=>{drag=false;s.style.transform=s.style.transform.replace(/rotate\([^)]*\)/,'rotate(0deg)');
+    const say=s.querySelector('.say');if(say){const L=['wheee!','again!','put me by the lake','I can see my house','that tickles'];say.textContent=L[(+say.dataset.n||0)%L.length];say.dataset.n=(+say.dataset.n||0)+1}});});
 const win=$('#win'),winImg=$('#winImg');
 win.addEventListener('mousemove',e=>{const b=win.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;winImg.style.transform=`scale(1.1) translate(${x*-18}px,${y*-12}px)`;
   $$('.stk .in').forEach((el,i)=>el.style.translate=`${x*(10+i*6)}px ${y*(8+i*5)}px`)});
