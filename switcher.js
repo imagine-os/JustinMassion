@@ -5,6 +5,7 @@
   const VERSIONS = [
     { id: 'b', label: 'B', name: 'Spatial journal', path: '' },   // default: site root
     { id: 'a', label: 'A', name: 'Cinematic', path: 'a/' },
+    { id: 'c', label: 'C', name: 'Dark studio', path: 'c/' },
   ];
   const me = document.currentScript;
   const root = (me && me.dataset.root) || '';

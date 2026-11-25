@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Justin Massion — Digital Pass (Concept C)</title>
+<meta name="description" content="Concept C (dark studio) for the new JustinMassion.com">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0b;--card:#141416;--card2:#1b1b1e;--line:rgba(255,255,255,.08);--fg:#f2f2f0;--mut:rgba(242,242,240,.55);--or:#ff5a1f;--sky:#4f8cff;
+  --sans:'Inter',system-ui,sans-serif;--serif:'Instrument Serif',Georgia,serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{font-family:var(--sans);color:var(--fg);background:#120a14;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0;z-index:-1;background:radial-gradient(60% 70% at 0% 100%,#2b6bff 0,transparent 60%),radial-gradient(55% 60% at 100% 0%,#ff2d7a 0,transparent 60%),radial-gradient(70% 80% at 100% 100%,#ffb21a 0,transparent 55%),linear-gradient(135deg,#3a1d8f,#c2185b 50%,#ff6a1a)}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.screen{margin:14px;border-radius:30px;background:var(--bg);overflow:hidden;box-shadow:0 30px 80px -20px rgba(0,0,0,.6);position:relative}
+.dots{background-image:radial-gradient(rgba(255,255,255,.12) 1px,transparent 1.2px);background-size:22px 22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:22px;position:relative;overflow:hidden}
+.lbl{font:500 11px var(--mono);letter-spacing:.04em;color:var(--mut)}
+.tag{display:inline-flex;padding:6px 11px;border-radius:99px;border:1px solid var(--line);font:500 12px var(--sans);color:var(--fg);background:rgba(255,255,255,.03)}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:14px 22px;border-radius:99px;font:600 14px var(--sans);transition:transform .3s,background .3s}
+.btn.w{background:#fff;color:#0a0a0b}.btn.g{background:var(--card2);border:1px solid var(--line)}
+.btn:hover{transform:translateY(-2px)}
+.sec{padding:110px 4vw;position:relative}
+.h2{font:700 clamp(40px,5.2vw,84px)/.95 var(--sans);letter-spacing:-.045em}
+.h2 em{font:400 italic 1.05em/1 var(--serif);letter-spacing:-.01em;color:var(--or)}
+.paren{font:400 clamp(40px,4.6vw,72px)/1 var(--serif);color:var(--or)}
+
+/* top bar */
+.top{position:sticky;top:0;z-index:50;display:flex;justify-content:space-between;align-items:center;padding:16px 22px;background:linear-gradient(var(--bg),rgba(10,10,11,.85) 70%,transparent);backdrop-filter:blur(8px)}
+.brand{font:800 15px var(--sans);letter-spacing:.02em;display:flex;gap:8px;align-items:center}
+.brand i{width:9px;height:9px;border-radius:50%;background:var(--or);box-shadow:0 0 12px var(--or)}
+.tnav{display:flex;gap:22px;font:500 13px var(--sans);color:var(--mut)}
+.tnav a:hover{color:var(--fg)}
+
+/* ===== HERO (Max: bento + lanyard pass) ===== */
+#hero{padding:8px 22px 22px}
+.bento{display:grid;grid-template-columns:1.05fr 1.35fr 1fr;grid-template-rows:1fr auto auto;gap:12px;height:calc(100vh - 100px);min-height:640px;transform-origin:50% 40%}
+.intro{grid-column:1;grid-row:1;padding:26px;display:flex;flex-direction:column}
+.intro h1{font:800 clamp(44px,4.6vw,76px)/.92 var(--sans);letter-spacing:-.05em;margin-top:14px}
+.intro p{margin-top:auto;font:400 14.5px/1.6 var(--sans);color:var(--mut)}
+.intro p b{color:var(--fg);font-weight:600}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+.loc{grid-column:1;grid-row:2;padding:18px 20px;height:112px;display:flex;flex-direction:column;justify-content:flex-end}
+.loc svg{position:absolute;right:-10px;top:-10px;width:62%;height:140%;opacity:.55}
+.loc b{font:600 18px var(--sans)}
+.loc .ping{position:absolute;right:28%;top:42%;width:12px;height:12px;border-radius:50%;background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,.6);animation:ping 2s infinite}
+@keyframes ping{70%{box-shadow:0 0 0 18px rgba(255,255,255,0)}100%{box-shadow:0 0 0 0 rgba(255,255,255,0)}}
+.cta{grid-column:1;grid-row:3;display:flex;gap:10px}
+.cta .btn{flex:1}
+.pass{grid-column:2;grid-row:1/4;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding-bottom:22px;background:radial-gradient(80% 60% at 50% 0%,rgba(79,140,255,.25),transparent 60%),var(--card)}
+.pass .glow{position:absolute;left:50%;top:-20%;width:70%;height:60%;transform:translateX(-50%);background:radial-gradient(closest-side,rgba(140,255,170,.18),transparent);filter:blur(20px)}
+.lanyard{position:absolute;left:50%;top:-10px;width:0;height:0;transform-origin:0 0;z-index:2;cursor:grab;touch-action:none}
+.lanyard:active{cursor:grabbing}
+.strap{position:absolute;left:-14px;top:0;width:28px;height:var(--strap,190px);background:repeating-linear-gradient(90deg,#1a1a1c 0 3px,#232326 3px 6px);border-left:1px solid #2c2c30;border-right:1px solid #2c2c30}
+.strap::after{content:"JAM STUDIOS · JAM STUDIOS · JAM STUDIOS";position:absolute;left:50%;top:40px;transform:translateX(-50%) rotate(90deg);transform-origin:center;white-space:nowrap;font:600 8px var(--mono);letter-spacing:.3em;color:#55555c;width:20px}
+.clip{position:absolute;left:-17px;top:calc(var(--strap,190px) - 6px);width:34px;height:28px;border-radius:6px 6px 10px 10px;background:linear-gradient(#444,#1d1d20);box-shadow:inset 0 1px 0 #777}
+.badgeWrap{position:absolute;left:0;top:calc(var(--strap,190px) + 14px);perspective:1200px}
+.badge{position:relative;left:calc(var(--bw,250px) / -2);width:var(--bw,250px);aspect-ratio:.72;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.3,1.4,.4,1)}
+.badge.flip{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:18px;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;background:#0f0f11;border:1px solid rgba(255,255,255,.18);box-shadow:0 40px 60px -20px rgba(0,0,0,.8),inset 0 0 0 6px rgba(255,255,255,.04)}
+.face::before{content:"";position:absolute;left:50%;top:10px;width:46px;height:9px;border-radius:9px;background:#050506;transform:translateX(-50%);z-index:3;box-shadow:inset 0 1px 2px rgba(0,0,0,.8)}
+.face.front .ph{position:absolute;inset:26px 12px 12px;border-radius:10px;overflow:hidden;background:#9fb3c4}
+.face.front img{width:100%;height:100%;object-fit:cover;object-position:38% 8%;transform:scale(1.25);transform-origin:40% 20%}
+.face .wm{position:absolute;left:0;right:0;top:34px;text-align:center;font:800 34px var(--sans);letter-spacing:-.04em;color:rgba(255,255,255,.55);mix-blend-mode:overlay;z-index:2}
+.face .sheen{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.22) 45%,transparent 60%);transform:translateX(var(--sx,-60%));pointer-events:none;z-index:4}
+.face.back{transform:rotateY(180deg);display:flex;flex-direction:column;padding:30px 18px 18px;background:#f2efe8;color:#111}
+.face.back img{width:100%;aspect-ratio:1.1;object-fit:cover;object-position:40% 25%;border-radius:8px;filter:grayscale(1) contrast(1.1)}
+.face.back b{font:800 20px var(--sans);letter-spacing:-.03em;margin-top:12px}
+.face.back span{font:500 11px var(--mono);opacity:.6}
+.bars{margin-top:auto;height:30px;background:repeating-linear-gradient(90deg,#111 0 2px,transparent 2px 4px,#111 4px 5px,transparent 5px 9px,#111 9px 12px,transparent 12px 14px)}
+.passCap{position:relative;z-index:3;text-align:center}
+.passCap b{font:600 15px var(--sans)}.passCap div{font:500 12px var(--sans);color:var(--mut);margin-top:3px}
+.passHint{position:absolute;left:18px;top:16px;z-index:3}
+.col3{grid-column:3;grid-row:1/4;display:flex;flex-direction:column;gap:12px;min-height:0}
+.social{flex:1;min-height:0;padding:20px;display:flex;flex-direction:column}
+.cta .btn{height:54px}
+.hex{position:relative;height:210px;margin:auto 0}
+.hx{position:absolute;width:76px;height:86px;clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);background:#1f1f23;display:grid;place-items:center;font:700 18px var(--sans);transition:transform .35s cubic-bezier(.3,1.5,.5,1),background .3s}
+.hx span{position:absolute;bottom:14px;font:500 9px var(--sans);opacity:0;transition:opacity .3s}
+.hx:hover{transform:translateY(-6px) scale(1.1);background:#2a2a30;z-index:2}.hx:hover span{opacity:.8}
+.hx.c{background:conic-gradient(from 0deg,#ff2d7a,#ffb21a,#4f8cff,#7c4dff,#ff2d7a)}
+.proj{flex:none;padding:16px 18px;display:flex;flex-direction:column;gap:2px}
+.proj h4{font:600 15px var(--sans);margin-bottom:8px}
+.pi{display:flex;gap:12px;align-items:center;padding:8px;border-radius:12px;transition:background .3s}
+.pi:hover,.pi.on{background:rgba(255,255,255,.06)}
+.pi img{width:36px;height:36px;border-radius:9px;object-fit:cover;flex:none}
+.pi b{display:block;font:600 13px var(--sans)}.pi span{font:400 11.5px var(--sans);color:var(--mut)}
+
+/* ===== FEATURED (TV pop-out) ===== */
+#featured{padding:120px 4vw 100px;transition:background 1s}
+#featured .bgTint{position:absolute;inset:0;transition:background 1s;opacity:.55;pointer-events:none}
+.feat{position:relative;margin-top:150px}
+.frameF{position:relative;border-radius:24px;overflow:hidden;aspect-ratio:2.35;background:#111}
+.frameF .bgimg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:opacity .8s,transform 1.2s}
+.frameF .shade{position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.75),rgba(0,0,0,.15) 55%,transparent),linear-gradient(0deg,rgba(0,0,0,.65),transparent 45%)}
+.popImg{position:absolute;pointer-events:none;transition:opacity .7s}
+.popImg.under{z-index:1;-webkit-mask-image:linear-gradient(90deg,transparent,#000 22%);mask-image:linear-gradient(90deg,transparent,#000 22%)}
+.popImg.over{z-index:3;-webkit-mask-image:radial-gradient(ellipse 13% 15% at 40.6% 17%,#000 60%,transparent 100%);mask-image:radial-gradient(ellipse 13% 15% at 40.6% 17%,#000 60%,transparent 100%)}
+.ftext{position:absolute;left:5%;top:30%;z-index:4;max-width:55%}
+.ftext h3{font:800 clamp(44px,6.4vw,108px)/.9 var(--sans);letter-spacing:-.05em;text-shadow:0 10px 40px rgba(0,0,0,.5)}
+.ftext .meta{margin-top:14px;font:500 13px var(--sans);color:rgba(255,255,255,.8);display:flex;gap:10px;align-items:center}
+.ftext .meta i{font-style:normal;color:#ffc93c;letter-spacing:.1em}
+.ftext p{margin-top:12px;font:400 14px/1.6 var(--sans);color:rgba(255,255,255,.75);max-width:420px}
+.eps{position:relative;z-index:5;display:flex;gap:12px;margin:-70px 5% 0;overflow-x:auto;scrollbar-width:none;padding-bottom:6px}
+.eps::-webkit-scrollbar{display:none}
+.ep{flex:none;width:170px;cursor:pointer;opacity:.6;transition:opacity .3s,transform .4s}
+.ep:hover,.ep.on{opacity:1}.ep.on{transform:translateY(-8px)}
+.ep .im{aspect-ratio:1.6;border-radius:10px;overflow:hidden;border:2px solid transparent;transition:border-color .3s}
+.ep.on .im{border-color:#fff}
+.ep img{width:100%;height:100%;object-fit:cover}
+.ep span{display:block;font:500 11px var(--mono);margin-top:6px;color:var(--mut)}
+
+/* ===== WORLDS (accordion strips) ===== */
+#worlds{padding:110px 0 90px;background:#000}
+.whead{padding:0 4vw;display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap}
+.strips{display:flex;gap:6px;height:min(62vh,560px);margin:60px 4vw 0}
+.st{position:relative;flex:1;min-width:0;transition:flex 1s cubic-bezier(.7,0,.2,1);cursor:pointer;display:flex;flex-direction:column}
+.st.on{flex:7}
+.st .cap{height:46px;font:500 10.5px/1.3 var(--sans);color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:color .3s}
+.st .cap b{display:block;color:var(--fg);font-weight:600}
+.st.on .cap{color:var(--fg)}
+.st .im{flex:1;border-radius:8px;overflow:hidden;position:relative}
+.st img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.7,0,.2,1),filter .6s;filter:saturate(.7) brightness(.75)}
+.st.on img{filter:none}
+.st .dot{position:absolute;left:50%;top:-30px;width:5px;height:5px;border-radius:50%;background:var(--mut);transform:translateX(-50%)}
+.player{display:flex;align-items:center;gap:22px;margin:26px 4vw 0}
+.player h3{font:700 clamp(28px,3vw,46px)/1 var(--sans);letter-spacing:-.04em}
+.player .by{font:500 12px var(--sans);color:var(--mut);margin-top:6px}
+.ctrl{display:flex;gap:8px;margin-left:auto}
+.ctrl button{width:44px;height:44px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-size:14px;transition:background .3s}
+.ctrl button:hover{background:#fff;color:#000}
+.prog{height:2px;background:var(--line);margin:20px 4vw 0;position:relative;overflow:hidden}
+.prog i{position:absolute;inset:0;background:var(--or);transform-origin:left;transform:scaleX(0)}
+
+/* ===== WORLD TOUR (drone flight over map) ===== */
+#tour{height:100vh;background:radial-gradient(ellipse at 50% 30%,#1d1d22,#0a0a0b 70%);overflow:hidden}
+.ghost{position:absolute;left:50%;top:16%;transform:translateX(-50%);font:900 clamp(90px,17vw,300px)/1 var(--sans);letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1px rgba(255,255,255,.14);white-space:nowrap;background:linear-gradient(180deg,rgba(255,255,255,.12),rgba(255,255,255,0) 80%);-webkit-background-clip:text;background-clip:text}
+.ghost small{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);font:300 clamp(22px,2.6vw,40px) var(--sans);letter-spacing:.3em;-webkit-text-stroke:0;color:#fff}
+#mapsvg{position:absolute;left:0;right:0;bottom:0;width:100%;height:78%}
+.tcard{position:absolute;left:4vw;bottom:9vh;width:min(360px,80vw);padding:22px;border-radius:18px;background:rgba(20,20,22,.82);backdrop-filter:blur(14px);border:1px solid var(--line);z-index:3}
+.tcard small{font:500 11px var(--mono);color:var(--or)}
+.tcard h3{font:700 28px var(--sans);letter-spacing:-.03em;margin-top:6px}
+.tcard p{font:400 13.5px/1.6 var(--sans);color:var(--mut);margin-top:8px}
+.tcard .tags{margin-top:14px}
+.vprog{position:absolute;right:26px;top:16vh;bottom:16vh;width:2px;background:var(--line);z-index:3}
+.vprog i{position:absolute;left:0;right:0;top:0;height:100%;background:var(--sky);transform-origin:top;transform:scaleY(0)}
+.vprog span{position:absolute;left:-4px;width:10px;height:10px;border-radius:50%;background:#333;transition:background .4s}
+.vprog span.on{background:var(--sky);box-shadow:0 0 10px var(--sky)}
+.thead{position:absolute;left:4vw;top:9vh;z-index:3}
+
+/* ===== ABOUT (Campione) ===== */
+#about{background:#0a0a0b;padding:0}
+.deckSec{height:100vh;position:relative;overflow:hidden}
+.ruler{position:absolute;left:4vw;right:4vw;top:9vh;height:20px;display:flex;justify-content:space-between;align-items:center;z-index:3}
+.ruler::before{content:"";position:absolute;left:0;right:0;top:50%;height:1px;background:rgba(255,255,255,.25)}
+.ruler i{width:1px;height:10px;background:rgba(255,255,255,.4);position:relative}
+.ruler i:nth-child(4n+1){height:18px}
+.ruler b{position:absolute;top:50%;width:7px;height:7px;border-radius:50%;background:var(--or);transform:translate(-50%,-50%)}
+.deck{position:absolute;left:50%;top:54%;perspective:1400px;transform-style:preserve-3d}
+.dk{position:absolute;left:0;top:0;width:var(--w);aspect-ratio:var(--ar);border-radius:6px;overflow:hidden;box-shadow:0 20px 40px -14px rgba(0,0,0,.8);will-change:transform}
+.dk img{width:100%;height:100%;object-fit:cover}
+.dk.orange{background:var(--or)}
+.abHead{position:absolute;left:4vw;bottom:10vh;z-index:3}
+.abCards{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;padding:0 4vw 120px}
+.ac{min-height:440px;border-radius:14px;padding:24px;position:relative;overflow:hidden}
+.ac.a{background:var(--card2)}
+.ac.a h4{font:400 clamp(26px,2.4vw,36px)/1.1 var(--serif)}
+.halftone{position:absolute;left:-10%;right:-10%;bottom:16%;height:42%;background-image:radial-gradient(circle,rgba(255,255,255,.12) 44%,transparent 46%);background-size:44px 44px}
+.ac.a .fact{position:absolute;left:24px;bottom:24px;font:400 30px var(--serif)}
+.ac.b{background:var(--card2);padding:0;display:flex;flex-direction:column}
+.ac.b .rib{position:relative;flex:1;overflow:hidden}
+.ac.b .rib img{width:100%;height:100%;object-fit:cover;object-position:40% 20%;filter:blur(3px) saturate(1.2)}
+.ac.b .rib::after{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.16) 0 2px,rgba(0,0,0,.12) 2px 5px,rgba(255,255,255,.04) 5px 9px);backdrop-filter:blur(2px)}
+.ac.b .info{display:grid;grid-template-columns:1fr 1fr;gap:14px;padding:20px}
+.ac.b .info div{font:400 20px var(--serif)}
+.ac.b .info small{display:block;font:500 12px var(--sans);color:var(--mut);margin-top:4px}
+.ac.c{background:var(--or);cursor:none}
+.ac.c img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 30%;mix-blend-mode:multiply;filter:grayscale(1) contrast(1.4);opacity:.9}
+.ac.c h4{position:absolute;left:24px;right:24px;bottom:24px;font:400 clamp(26px,2.4vw,36px)/1.08 var(--serif);color:#fff;z-index:2}
+.vf{position:absolute;width:150px;height:110px;border:2px solid #fff;border-radius:10px;transform:translate(-50%,-50%);pointer-events:none;z-index:2;left:50%;top:40%;transition:width .3s,height .3s}
+.vf::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;border-radius:50%;background:var(--or);border:2px solid #fff;transform:translate(-50%,-50%)}
+
+/* ===== FOOTER (polaroid pile) ===== */
+footer{position:relative;margin-top:180px;background:#151517;border-radius:26px 26px 0 0;padding:70px 4vw 110px}
+.pile{position:absolute;left:0;right:0;top:-150px;height:220px;pointer-events:none}
+.pol{position:absolute;bottom:0;background:#fff;padding:6px 6px 22px;box-shadow:0 18px 30px -10px rgba(0,0,0,.7);pointer-events:auto;transition:transform .5s cubic-bezier(.3,1.4,.5,1),z-index 0s;cursor:pointer}
+.pol img{width:100%;height:100%;object-fit:cover}
+.pol:hover{transform:translateY(-70px) rotate(0deg) scale(1.35)!important;z-index:20}
+.note{position:absolute;padding:12px 14px;background:#0d0d0e;border:1px solid var(--line);border-radius:6px;font:500 11px/1.6 var(--mono);color:#ddd;rotate:-3deg;pointer-events:auto}
+.stick{position:absolute;font-size:56px;rotate:-12deg;filter:drop-shadow(0 6px 8px rgba(0,0,0,.5));pointer-events:auto;cursor:grab;transition:transform .3s}
+.stick:hover{transform:scale(1.15) rotate(10deg)}
+.fgrid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:30px;margin-top:40px}
+.fgrid h5{font:500 11px var(--mono);color:var(--mut);margin-bottom:12px;font-weight:500}
+.fgrid a{display:block;font:500 14px/1.9 var(--sans);color:#ddd}
+.fgrid a:hover{color:var(--or)}
+.mantra{font:700 clamp(26px,2.6vw,40px)/1.05 var(--sans);letter-spacing:-.03em}
+.mantra span{color:var(--mut)}
+.circle{width:26px;height:26px;border-radius:50%;border:2px solid #fff;margin-bottom:60px}
+.fbot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:60px;font:500 11px var(--mono);color:var(--mut)}
+
+.rv{opacity:0;transform:translateY(40px)}
+
+@media (max-width:980px){
+  .screen{margin:8px;border-radius:22px}
+  .tnav{display:none}
+  .bento{grid-template-columns:1fr;grid-template-rows:none;height:auto;min-height:0}
+  .intro,.loc,.cta,.pass,.col3{grid-column:1;grid-row:auto}
+  .pass{height:640px}
+  .hex{height:200px;transform:scale(.9);transform-origin:left center}
+  .feat{margin-top:90px}
+  .frameF{aspect-ratio:1.1}
+  .ftext{top:auto;bottom:24%;max-width:90%}
+  .popImg{display:none}
+  #mapsvg{height:62%;bottom:20%}
+  .ghost{top:12%}
+  .eps{margin:14px 0 0}
+  .ep{width:128px}
+  .strips{height:52vh;gap:4px;margin:40px 3vw 0}
+  .st.on{flex:5}
+  .st .cap{font-size:0;height:20px}.st.on .cap{font-size:10px}
+  .abCards{grid-template-columns:1fr}
+  .ac{min-height:380px}
+  .fgrid{grid-template-columns:1fr 1fr}
+  .tcard{bottom:7vh}
+  .vprog{right:14px}
+}
+</style>
+</head>
+<body>
+<div class="screen">
+<header class="top"><a href="#hero" class="brand"><i></i>JUSTIN MASSION</a><nav class="tnav"><a href="#featured">Featured</a><a href="#worlds">Worlds</a><a href="#tour">World tour</a><a href="#about">About</a><a href="#footer">Contact</a></nav><a href="#footer" class="btn w" style="padding:10px 18px;font-size:13px">Contact me</a></header>
+
+<!-- ================= HERO ================= -->
+<section id="hero"><div class="bento" id="bento">
+  <div class="card intro">
+    <div class="lbl">@justinmassion</div>
+    <h1>Hello!<br>I'm Justin</h1>
+    <p><b>Imagineer</b> working where theme-park thinking meets AI and spatial computing — building worlds that feel dreamed up in a back room, then shipped to the cloud.</p>
+    <div class="tags"><span class="tag">Imagineering</span><span class="tag">AI-native</span><span class="tag">Spatial</span><span class="tag">Author</span><span class="tag">Artist</span><span class="tag">JAM Studios</span></div>
+  </div>
+  <div class="card loc">
+    <svg viewBox="0 0 200 140" fill="none" stroke="#fff" stroke-width=".7"><path d="M0 30 C40 40 60 10 100 22 S170 60 200 40"/><path d="M10 140 C30 100 70 110 90 70 S150 20 190 0"/><path d="M0 90 C50 80 80 100 120 90 S180 110 200 100"/><path d="M60 0 C70 40 50 80 70 140"/><path d="M140 0 C130 50 160 90 150 140"/><path d="M20 60 L60 70 L90 50 L130 66 L170 52"/><path d="M100 140 C110 120 130 118 150 96"/></svg>
+    <div class="ping"></div>
+    <b>Guatapé, CO</b><div class="lbl" id="clock">—:— · local time</div>
+  </div>
+  <div class="cta"><a href="#footer" class="btn w">Contact me</a><a href="#featured" class="btn g">Work</a></div>
+  <div class="card pass dots" id="passCard">
+    <div class="glow"></div>
+    <div class="lbl passHint">drag the pass · click to flip</div>
+    <div class="lanyard" id="lanyard">
+      <div class="strap"></div><div class="clip"></div>
+      <div class="badgeWrap"><div class="badge" id="badge">
+        <div class="face front"><div class="wm">JAM</div><div class="ph"><img src="../assets/img/hero-photo.jpg" alt="Justin Massion"></div><div class="sheen"></div></div>
+        <div class="face back"><img src="../assets/img/hero-sketch.jpg" alt="Pencil sketch of Justin"><b>Justin Massion</b><span>IMAGINEER · ACCESS ALL WORLDS</span><span>LA · ORLANDO · GUATAPÉ</span><div class="bars"></div></div>
+      </div></div>
+    </div>
+    <div class="passCap"><b>Digital Pass</b><div>Made in Guatapé</div></div>
+  </div>
+  <div class="col3">
+    <div class="card social">
+      <div class="lbl">Find me</div>
+      <div class="hex" id="hex"></div>
+    </div>
+    <div class="card proj"><h4>Latest projects</h4><div id="plist"></div></div>
+  </div>
+</div></section>
+
+<!-- ================= FEATURED (pop-out banner) ================= -->
+<section id="featured" class="sec"><div class="bgTint" id="bgTint"></div>
+  <div class="rv" style="position:relative;display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap"><h2 class="h2">Now <em>streaming</em></h2><div class="lbl">7 episodes · season 2026 · pick one</div></div>
+  <div class="feat" id="feat">
+    <img class="popImg under" id="popU" src="../assets/img/hero-photo.jpg" alt="">
+    <div class="frameF" id="frameF"><img class="bgimg" id="fimg" src="../assets/img/justin-guatape.jpg" alt=""><div class="shade"></div>
+      <div class="ftext"><h3 id="ftitle">Guatapé</h3><div class="meta"><span id="fmeta">Season 2026 · Home base · 18+ ideas</span><i>★★★★★</i></div><p id="fdesc"></p></div></div>
+    <img class="popImg over" id="popO" src="../assets/img/hero-photo.jpg" alt="">
+  </div>
+  <div class="eps" id="eps"></div>
+</section>
+
+<!-- ================= WORLDS (accordion strips) ================= -->
+<section id="worlds">
+  <div class="whead rv"><h2 class="h2">Worlds <em>library</em></h2><div class="lbl">hover a slice · or let it play</div></div>
+  <div class="strips" id="strips"></div>
+  <div class="player"><div><h3 id="pTitle">Pixel the Chameleon</h3><div class="by" id="pBy">Character design · by Justin Massion</div></div><div class="ctrl"><button id="pPrev" aria-label="Previous">⏮</button><button id="pPlay" aria-label="Pause">❚❚</button><button id="pNext" aria-label="Next">⏭</button></div></div>
+  <div class="prog"><i id="pProg"></i></div>
+</section>
+
+<!-- ================= WORLD TOUR (flight over a map) ================= -->
+<section id="tour">
+  <div class="ghost">WORLDS<small>THREE CITIES</small></div>
+  <div class="thead lbl">(04) World tour — scroll to fly</div>
+  <svg id="mapsvg" viewBox="0 0 1200 560" preserveAspectRatio="xMidYMid slice"><g id="roads" fill="none" stroke="rgba(255,255,255,.13)" stroke-width="1.2"></g>
+    <path id="routeBg" fill="none" stroke="rgba(79,140,255,.18)" stroke-width="3" d="M190 150 C 360 90, 520 160, 640 250 S 820 300, 880 350 S 960 470, 1010 470"/>
+    <path id="route" fill="none" stroke="#4f8cff" stroke-width="3" stroke-linecap="round" filter="url(#gl)" d="M190 150 C 360 90, 520 160, 640 250 S 820 300, 880 350 S 960 470, 1010 470"/>
+    <defs><filter id="gl" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+    <g id="cities"></g>
+    <g id="plane"><circle r="22" fill="rgba(79,140,255,.2)"/><path d="M-14 -9 L16 0 L-14 9 L-7 0 Z" fill="#fff"/></g>
+  </svg>
+  <div class="tcard" id="tcard"><small id="tsm">STOP 01</small><h3 id="tname">Los Angeles</h3><p id="tdesc"></p><div class="tags" id="ttags"></div></div>
+  <div class="vprog"><i id="vbar"></i><span style="top:0%"></span><span style="top:50%"></span><span style="top:100%"></span></div>
+</section>
+
+<!-- ================= ABOUT (deck explodes into a collage) ================= -->
+<section id="about">
+  <div class="deckSec" id="deckSec">
+    <div class="ruler" id="ruler"></div>
+    <div class="deck" id="deck"></div>
+    <div class="abHead"><div class="paren">(About Me)</div><p class="lbl" style="margin-top:12px;max-width:380px;line-height:1.7">Sketches, renders, rooms and rides — everything starts in one pile on the desk. Scroll to throw it across the table.</p></div>
+  </div>
+  <div class="abCards">
+    <div class="ac a rv"><h4>Imagineering is 20% blueprint, 80% magic</h4><div class="halftone"></div><div class="fact">#Fact</div></div>
+    <div class="ac b rv"><div class="rib"><img src="../assets/img/hero-photo.jpg" alt=""></div><div class="info"><div>Based<small>LA · Orlando · Guatapé</small></div><div>Hours<small>Whenever the idea shows up</small></div><div>Studio<small>JAM Studios</small></div><div>Medium<small>Pencil → AI → cloud</small></div></div></div>
+    <div class="ac c rv" id="vfCard"><img src="../assets/img/hero-sketch.jpg" alt=""><div class="vf" id="vf"></div><h4>What's the point of a world you can't step into?</h4></div>
+  </div>
+</section>
+
+<!-- ================= FOOTER (polaroid pile) ================= -->
+<footer id="footer">
+  <div class="pile" id="pile"></div>
+  <div class="fgrid">
+    <div><div class="circle"></div><div class="mantra">Think. Sketch.<br>Build. Ship.<br><span>Repeat.</span></div></div>
+    <div><h5>Navigate</h5><a href="#hero">Home</a><a href="#featured">Featured</a><a href="#worlds">Worlds</a><a href="#tour">World tour</a><a href="#about">About</a></div>
+    <div><h5>Studio</h5><a href="#">JAM Studios</a><a href="#">The Academy</a><a href="#">Reading list</a><a href="#">Blog</a></div>
+    <div><h5>Follow</h5><a href="#">Instagram</a><a href="#">YouTube</a><a href="#">LinkedIn</a><a href="#">X</a><a href="#">TikTok</a></div>
+  </div>
+  <div class="fbot"><span>© 2026 Justin Massion</span><span>Concept C · dark studio · stand-in images from the Loom</span></div>
+</footer>
+</div>
+
+<script src="../switcher.js" data-root="../" data-current="c"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script>
+(()=>{
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const IMG='../assets/img/',clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t;
+const W=[
+ {k:'justin-guatape',t:'Guatapé',s:'Home base',d:'Home base in Colombia, under El Peñol — where a lot of these worlds get sketched first.',tint:'#1e6a7a',pop:true},
+ {k:'pixel-chameleon',t:'Pixel the Chameleon',s:'Character design',d:'A high-end 3D character: turnarounds, an expression sheet, action poses and colour variations.',tint:'#3f7a1e'},
+ {k:'playset-blueprint',t:'Playset Blueprint',s:'Blueprint',d:'An arcade cabinet drawn the Imagineering way — measured, annotated and ready to build.',tint:'#1d3fa8'},
+ {k:'aluzina-os',t:'Aluzina OS',s:'After state',d:'An interface concept in its "after" state: glowing cards floating in the clouds.',tint:'#5a6fa0'},
+ {k:'las-palmas',t:'Las Palmas',s:'Morning mode',d:'A morning-mode dashboard for a place to stay — the sunrise first, then the schedule.',tint:'#a8541d'},
+ {k:'playset-agents',t:'Playset Agents',s:'Game UI',d:'AI agents presented like characters on a game select screen. Each one has a job and a glow.',tint:'#127a6a'},
+ {k:'enterprise-workflow',t:'Enterprise Workflow',s:'Playset',d:'A ten-station enterprise transformation, staged like a theme-park queue line.',tint:'#6a5a3a'}];
+const N=W.length;
+
+/* ---------- hero: clock, hexes, project list ---------- */
+const tick=()=>{try{$('#clock').textContent=new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'America/Bogota'}).format(new Date())+' GMT−5 · local time'}catch(e){}};tick();setInterval(tick,20000);
+const HX=[['▶','YouTube',0,0],['◎','Instagram',1,0],['♪','TikTok',-.5,1],['✦','',.5,1,'c'],['in','LinkedIn',1.5,1],['𝕏','X',0,2],['✉','Email',1,2]];
+$('#hex').innerHTML=HX.map(([g,l,x,y,c])=>`<a href="#" class="hx ${c||''}" style="left:calc(50% + ${(x-.5)*80}px - 38px);top:${y*66}px">${g}<span>${l}</span></a>`).join('');
+$('#plist').innerHTML=W.slice(1,5).map((w,i)=>`<a class="pi" href="#featured" data-i="${i+1}"><img src="${IMG+w.k}.jpg" alt=""><div><b>${w.t}</b><span>${w.s}</span></div></a>`).join('');
+$$('.pi').forEach(p=>p.addEventListener('click',()=>setF(+p.dataset.i)));
+
+/* ---------- lanyard physics ---------- */
+const lan=$('#lanyard'),badge=$('#badge'),card=$('#passCard');
+let ang=.5,av=0,dragging=false,moved=0,pv={x:0,y:0};
+function sizePass(){const h=card.clientHeight,w=card.clientWidth;const bw=Math.min(260,w*.5,h*.4);lan.style.setProperty('--bw',bw+'px');lan.style.setProperty('--strap',Math.max(80,h-bw/.72-150)+'px')}
+sizePass();addEventListener('resize',sizePass);
+lan.addEventListener('pointerdown',e=>{dragging=true;moved=0;lan.setPointerCapture(e.pointerId)});
+lan.addEventListener('pointermove',e=>{if(!dragging)return;const r=card.getBoundingClientRect();const px=r.left+r.width/2,py=r.top-10;const a=Math.atan2(e.clientX-px,e.clientY-py);moved+=Math.abs(a-ang);av=(a-ang)*.6;ang=clamp(a,-1.2,1.2)});
+lan.addEventListener('pointerup',()=>{dragging=false;if(moved<.03)badge.classList.toggle('flip')});
+card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect();pv.x=(e.clientX-r.left)/r.width-.5;if(!dragging)av+=pv.x*.0016});
+function drawPass(){if(!dragging){av+=-ang*.012;av*=.985;ang+=av}
+  lan.style.transform=`rotate(${-ang}rad)`;badge.style.setProperty('--sx',(-60+ang*120)+'%');$('.sheen').style.transform=`translateX(${-60+ang*160}%)`}
+
+/* ---------- featured (TV pop-out) ---------- */
+$('#eps').innerHTML=W.map((w,i)=>`<div class="ep" data-i="${i}"><div class="im"><img src="${IMG+w.k}.jpg" alt="${w.t}"></div><span>0${i+1} · ${w.t}</span></div>`).join('');
+const eps=$$('.ep');let fI=0,fTimer;
+function placePop(){const f=$('#frameF').getBoundingClientRect(),feat=$('#feat').getBoundingClientRect();const W0=f.width;
+  // Justin's photo sits on the right, head rising above the frame top
+  const iw=W0*.6,ih=iw*1026/1114,left=f.left-feat.left+W0*.4,top=f.top-feat.top-ih*.17;
+  [$('#popU'),$('#popO')].forEach(im=>{im.style.width=iw+'px';im.style.height=ih+'px';im.style.left=left+'px';im.style.top=top+'px'});
+  $('#popU').style.clipPath=`inset(${ih*.17}px 0 ${Math.max(0,ih*.83-f.height)}px 0 round 0 0 24px 0)`}
+function setF(i){fI=(i+N)%N;const w=W[fI];eps.forEach((e,k)=>e.classList.toggle('on',k===fI));
+  const pop=w.pop&&innerWidth>=980;
+  const im=$('#fimg');im.style.opacity=0;setTimeout(()=>{im.src=IMG+w.k+'.jpg';im.style.opacity=pop?.45:1},350);
+  $('#ftitle').textContent=w.t;$('#fmeta').textContent=`Season 2026 · ${w.s} · Episode 0${fI+1}`;$('#fdesc').textContent=w.d;
+  $('#bgTint').style.background=`radial-gradient(70% 60% at 50% 40%,${w.tint},transparent 70%)`;
+  $('#popU').style.opacity=pop?1:0;$('#popO').style.opacity=pop?1:0;
+  clearTimeout(fTimer);fTimer=setTimeout(()=>setF(fI+1),6500)}
+eps.forEach(e=>e.addEventListener('click',()=>setF(+e.dataset.i)));
+// Guatapé episode: show the full photo inside the frame as the banner
+const fimg=$('#fimg');
+
+/* ---------- worlds strips ---------- */
+$('#strips').innerHTML=W.map((w,i)=>`<div class="st${i===1?' on':''}" data-i="${i}"><div class="cap"><b>${w.t}</b>${w.s}</div><div class="im"><img src="${IMG+w.k}.jpg" alt="${w.t}"></div></div>`).join('');
+const sts=$$('.st');let sI=1,playing=true,sT=0;
+function setS(i){sI=(i+N)%N;sts.forEach((s,k)=>s.classList.toggle('on',k===sI));$('#pTitle').textContent=W[sI].t;$('#pBy').textContent=W[sI].s+' · by Justin Massion';sT=0}
+sts.forEach(s=>s.addEventListener('mouseenter',()=>setS(+s.dataset.i)));sts.forEach(s=>s.addEventListener('click',()=>setS(+s.dataset.i)));
+$('#pPrev').onclick=()=>setS(sI-1);$('#pNext').onclick=()=>setS(sI+1);
+$('#pPlay').onclick=()=>{playing=!playing;$('#pPlay').textContent=playing?'❚❚':'▶'};
+
+/* ---------- tour map ---------- */
+let seed=11;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+let rd='';for(let i=0;i<70;i++){let x=rnd()*1200,y=rnd()*560;rd+=`<path d="M${x|0} ${y|0}`;for(let k=0;k<4;k++){x+=(rnd()-.5)*260;y+=(rnd()-.5)*160;rd+=` Q ${(x+(rnd()-.5)*80)|0} ${(y+(rnd()-.5)*80)|0} ${x|0} ${y|0}`}rd+='"/>'}
+$('#roads').innerHTML=rd;
+const fitMap=()=>$('#mapsvg').setAttribute('preserveAspectRatio',innerWidth<980?'xMidYMid meet':'xMidYMid slice');fitMap();addEventListener('resize',fitMap);
+const CITIES=[{n:'Los Angeles',x:190,y:150,sm:'STOP 01 · USA',d:'JAM Studios and the business side — where the worlds get funded, filmed and pitched.',tags:['JAM Studios','Film','Ventures']},
+ {n:'Orlando',x:880,y:350,sm:'STOP 02 · USA',d:'Theme-park country. The Imagineering mindset: blueprint first, then make it feel like magic.',tags:['Imagineering','Parks','Experience']},
+ {n:'Guatapé',x:1010,y:470,sm:'STOP 03 · COLOMBIA',d:'Home base under El Peñol — sketchbooks, AI prototypes and the view that started it all.',tags:['Sketching','AI','Spatial']}];
+$('#cities').innerHTML=CITIES.map((c,i)=>`<g class="city" data-i="${i}" transform="translate(${c.x} ${c.y})"><circle r="6" fill="#4f8cff"/><circle r="14" fill="none" stroke="#4f8cff" stroke-opacity=".4"/><text x="14" y="-12" fill="#fff" font-family="Inter" font-size="15" font-weight="600">${c.n}</text></g>`).join('');
+const route=$('#route'),RL=route.getTotalLength();route.style.strokeDasharray=RL;route.style.strokeDashoffset=RL;
+let tP=0,tShown=-1;
+function drawTour(){const L=RL*tP;route.style.strokeDashoffset=RL-L;const p=route.getPointAtLength(Math.max(.1,L)),q=route.getPointAtLength(Math.min(RL,L+2));
+  $('#plane').setAttribute('transform',`translate(${p.x} ${p.y}) rotate(${Math.atan2(q.y-p.y,q.x-p.x)*57.3})`);
+  const ci=tP<.33?0:tP<.8?1:2;$('#vbar').style.transform=`scaleY(${tP})`;$$('.vprog span').forEach((s,k)=>s.classList.toggle('on',k<=ci));
+  if(ci!==tShown){tShown=ci;const c=CITIES[ci];$('#tsm').textContent=c.sm;$('#tname').textContent=c.n;$('#tdesc').textContent=c.d;$('#ttags').innerHTML=c.tags.map(t=>`<span class="tag">${t}</span>`).join('');
+    window.gsap&&gsap.fromTo('#tcard',{y:20,opacity:.3},{y:0,opacity:1,duration:.6,ease:'power3.out'})}}
+
+/* ---------- about deck ---------- */
+$('#ruler').innerHTML=Array.from({length:33},()=>'<i></i>').join('')+'<b style="left:0"></b><b style="left:100%"></b>';
+const DK=[['hero-photo',1.08,.86],['pixel-chameleon',1.6,1],['las-palmas',1.6,.9],['orange',.8,.75],['playset-agents',1.6,.95],['aluzina-os',1.6,1.05],['hero-sketch',1.08,.8],['enterprise-workflow',1.6,.9],['playset-blueprint',1.6,1]];
+const TG=[[-.36,-.18,-6],[.0,-.26,4],[.3,-.2,-3],[-.2,.12,8],[.34,.12,-7],[-.42,.16,5],[.15,.06,-2],[-.05,-.02,3],[.42,-.05,6]];
+$('#deck').innerHTML=DK.map(([k,ar,s],i)=>`<div class="dk${k==='orange'?' orange':''}" style="--w:${Math.round(s*190)}px;--ar:${ar}">${k==='orange'?'':`<img src="${IMG+k}.jpg" alt="">`}</div>`).join('');
+const dks=$$('.dk');let dP=0;
+function drawDeck(){const vw=innerWidth,vh=innerHeight,e=dP<.5?2*dP*dP:1-Math.pow(-2*dP+2,2)/2;
+  dks.forEach((d,i)=>{const [tx,ty,tr]=TG[i];const w=d.offsetWidth,h=d.offsetHeight;
+    const sx=-w/2+i*4,sy=-h/2-i*3,sz=-i*18;
+    const x=lerp(sx,tx*vw-w/2,e),y=lerp(sy,ty*vh-h/2,e),z=lerp(sz,0,e),ry=lerp(-38,0,e),rx=lerp(14,0,e),rz=lerp(-4+i,tr,e);
+    d.style.transform=`translate3d(${x}px,${y}px,${z}px) rotateX(${rx}deg) rotateY(${ry}deg) rotateZ(${rz}deg)`;d.style.zIndex=e>.5?i:20-i})}
+const vfc=$('#vfCard'),vf=$('#vf');vfc.addEventListener('mousemove',e=>{const r=vfc.getBoundingClientRect();vf.style.left=(e.clientX-r.left)+'px';vf.style.top=(e.clientY-r.top)+'px'});
+vfc.addEventListener('mouseleave',()=>{vf.style.left='50%';vf.style.top='40%'});
+
+/* ---------- footer pile ---------- */
+const PL=['hero-photo','pixel-chameleon','las-palmas','playset-agents','justin-guatape','aluzina-os','hero-sketch','enterprise-workflow','playset-blueprint'];
+$('#pile').innerHTML=PL.map((k,i)=>{const w=120+((i*37)%5)*16,x=4+i*10.6+((i*13)%5),r=((i*47)%22)-11,b=(i*29)%40;return `<div class="pol" style="left:${x}%;width:${w}px;height:${w*.86}px;bottom:${b}px;transform:rotate(${r}deg);z-index:${i}"><img src="${IMG+k}.jpg" alt=""></div>`}).join('')+
+ `<div class="note" style="left:30%;bottom:120px;z-index:12">JAM Studios<br>Los Angeles · Orlando<br>Guatapé, Colombia</div><div class="stick" style="left:63%;bottom:96px;z-index:13">🦎</div>`;
+
+/* ---------- loop ---------- */
+const onScreen=el=>{const b=el.getBoundingClientRect();return b.bottom>-40&&b.top<innerHeight+40};
+let last=performance.now();
+function frame(){const now=performance.now(),dt=Math.min(.05,(now-last)/1000);last=now;
+  if(onScreen(card))drawPass();
+  if(onScreen($('#worlds'))&&playing){sT+=dt;$('#pProg').style.transform=`scaleX(${Math.min(1,sT/4.5)})`;if(sT>4.5)setS(sI+1)}
+  if(onScreen($('#tour')))drawTour();
+  if(onScreen($('#deckSec')))drawDeck()}
+placePop();addEventListener('resize',placePop);setF(0);
+if(!(window.gsap&&window.ScrollTrigger)){$$('.rv').forEach(e=>{e.style.opacity=1;e.style.transform='none'});tP=1;dP=1;(function l(){frame();requestAnimationFrame(l)})();return}
+gsap.registerPlugin(ScrollTrigger);
+let lenis=null;if(window.Lenis){lenis=new Lenis({lerp:.09});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}
+gsap.ticker.add(frame);
+$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1&&lenis){e.preventDefault();lenis.scrollTo(id==='#hero'?0:id,{duration:1.4})}}));
+// intro: camera pulls back from the pass (Max video)
+gsap.from('#bento',{scale:1.6,filter:'blur(12px)',duration:1.8,ease:'expo.out'});
+gsap.from('#bento > .card, #bento > .cta',{opacity:0,y:30,stagger:.06,duration:1,ease:'power3.out',delay:.4});
+// featured: frame rises, pop-out leans forward
+gsap.from('#feat',{y:120,scale:.92,opacity:0,duration:1.2,ease:'expo.out',scrollTrigger:{trigger:'#feat',start:'top 85%'},onComplete:placePop});
+ScrollTrigger.create({trigger:'#tour',start:'top top',end:'+=200%',pin:true,scrub:.5,onUpdate:s=>{tP=s.progress}});
+ScrollTrigger.create({trigger:'#deckSec',start:'top top',end:'+=130%',pin:true,scrub:.5,onUpdate:s=>{dP=s.progress}});
+gsap.from('.ghost',{y:80,opacity:0,duration:1.2,ease:'power3.out',scrollTrigger:{trigger:'#tour',start:'top 70%'}});
+$$('.rv').forEach(el=>gsap.to(el,{opacity:1,y:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}}));
+gsap.from('.st',{y:80,opacity:0,stagger:.06,duration:1,ease:'power3.out',scrollTrigger:{trigger:'#strips',start:'top 85%'}});
+gsap.from('.pol',{y:140,opacity:0,stagger:.05,duration:1,ease:'back.out(1.4)',scrollTrigger:{trigger:'footer',start:'top 95%'}});
+ScrollTrigger.sort();ScrollTrigger.refresh();setTimeout(placePop,400);
+})();
+</script>
+</body>
+</html>
