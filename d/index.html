@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Justin Massion — Destinations (Concept D)</title>
+<meta name="description" content="Concept D (destinations slider) for the new JustinMassion.com">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--teal:#14c4c1;--slate:#2a2c3a;--ink:#0b0c10;--fg:#fff;--sans:'Plus Jakarta Sans',system-ui,sans-serif}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--sans);color:var(--ink);background:linear-gradient(160deg,#8fb5d8 0%,#6fb9d4 40%,#1fc2c0 100%);overflow:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+img{display:block}
+.bar{position:fixed;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;padding:22px 6vw;z-index:5;color:#0d2a35}
+.bar .logo{font:800 17px var(--sans);letter-spacing:-.02em}
+.bar .logo span{color:#fff}
+.bar nav{display:flex;gap:26px;font:600 13px var(--sans)}
+.bar nav a{opacity:.75}.bar nav a:hover{opacity:1}
+.hint{position:fixed;left:6vw;bottom:24px;font:600 11px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#0d2a35;opacity:.6;z-index:5}
+
+/* the window */
+.win{position:fixed;left:50%;top:50%;width:min(88vw,1500px);height:min(76vh,820px);transform:translate(-50%,-48%);background:var(--slate);overflow:hidden;box-shadow:0 60px 90px -30px rgba(10,40,60,.55),0 20px 40px -20px rgba(10,40,60,.4)}
+.slides{position:absolute;inset:0}
+.sl{position:absolute;inset:0;overflow:hidden;clip-path:inset(0 0 0 100%)}
+.sl.on{clip-path:inset(0 0 0 0)}
+.sl .bg{position:absolute;inset:-4%;background-size:cover;background-position:center;transform:scale(1.08);will-change:transform}
+.sl .bg.soft{filter:blur(2.5px) saturate(1.1)}
+.sl .vig{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 45%,transparent 30%,rgba(0,0,0,.45) 100%),linear-gradient(0deg,rgba(0,0,0,.35),transparent 40%)}
+.dim{position:absolute;inset:0;background:var(--slate);opacity:0;pointer-events:none}
+.title{position:absolute;left:0;right:0;top:50%;transform:translateY(-58%);text-align:center;color:#fff;pointer-events:none;z-index:3}
+.title h1{font:800 clamp(64px,10.5vw,190px)/.9 var(--sans);letter-spacing:-.045em;text-shadow:0 12px 50px rgba(0,0,0,.35);white-space:nowrap}
+.title h1 .ch{display:inline-block;will-change:transform}
+.title p{margin-top:14px;font:600 13px var(--sans);letter-spacing:.2em;text-transform:uppercase;opacity:.85}
+.count{position:absolute;left:36px;bottom:30px;z-index:4;color:#fff;font:600 15px var(--sans);display:flex;align-items:center;gap:14px}
+.count .n{font-weight:800}
+.count .sep{width:22px;height:1.5px;background:#fff;transform:rotate(-60deg);opacity:.8}
+.count .tot{opacity:.75}
+.arrows{display:flex;gap:6px;margin-left:16px}
+.arrows button{width:38px;height:38px;border:1.5px solid rgba(255,255,255,.55);display:grid;place-items:center;color:#fff;font-size:15px;transition:background .3s,color .3s}
+.arrows button:hover{background:#fff;color:var(--ink)}
+.dots{position:absolute;left:50%;bottom:34px;transform:translateX(-50%);display:flex;gap:8px;z-index:4}
+.dots button{width:26px;height:3px;background:rgba(255,255,255,.35);transition:background .4s,width .4s}
+.dots button.on{background:#fff;width:46px}
+
+/* Show more block -> top tab */
+.more{position:absolute;right:0;bottom:0;z-index:6;width:220px;height:84px;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;gap:14px;font:700 15px var(--sans);overflow:hidden}
+.more .chev{display:inline-block;transition:transform .4s}
+.more:hover .chev{transform:translateY(3px)}
+.tab{position:absolute;right:0;top:0;z-index:7;height:84px;display:flex;align-items:center;gap:22px;padding:0 30px;background:var(--ink);color:#fff;font:700 15px var(--sans);clip-path:inset(0 0 100% 0);pointer-events:none}
+.tab .tn{font-weight:800}.tab .tt{opacity:.55;font-weight:600}
+.tab button{font-size:20px;opacity:.7;margin-left:24px;transition:opacity .3s,transform .4s}
+.tab button:hover{opacity:1;transform:rotate(90deg)}
+.teal-line{position:absolute;right:0;bottom:0;height:12px;width:0;background:var(--teal);z-index:5}
+
+/* detail state */
+.giant{position:absolute;left:0;bottom:-.17em;z-index:2;font:800 clamp(140px,23vw,420px)/1 var(--sans);letter-spacing:-.05em;color:#0e0f15;white-space:nowrap;transform:translateY(110%);pointer-events:none;text-transform:uppercase;will-change:transform}
+.cards{position:absolute;left:4%;right:0;top:20%;bottom:16%;z-index:4;display:flex;align-items:flex-start;gap:28px;pointer-events:none;overflow-x:auto;scrollbar-width:none;padding-right:6%}
+.cards::-webkit-scrollbar{display:none}
+.cards.live{pointer-events:auto}
+.cd{flex:none;width:clamp(150px,14vw,230px);aspect-ratio:.74;position:relative;overflow:hidden;opacity:0;transform-origin:50% 50%;box-shadow:0 30px 40px -20px rgba(0,0,0,.6);cursor:pointer}
+.cd:nth-child(even){margin-top:3%}
+.cd img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
+.cd:hover img{transform:scale(1.08)}
+.cd .lb{position:absolute;left:14px;right:14px;bottom:14px;color:#fff;font:700 15px var(--sans);text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.cd .lb small{display:block;font:600 10px var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.8;margin-bottom:4px}
+.cd::after{content:"";position:absolute;inset:0;background:linear-gradient(0deg,rgba(0,0,0,.55),transparent 50%)}
+.cd .lb{z-index:1}
+.dcopy{position:absolute;left:4%;top:7%;z-index:4;color:#fff;max-width:460px;opacity:0}
+.dcopy small{font:700 11px var(--sans);letter-spacing:.2em;text-transform:uppercase;color:var(--teal)}
+.dcopy p{font:500 14.5px/1.6 var(--sans);opacity:.8;margin-top:8px}
+
+/* lightbox */
+.lb2{position:fixed;inset:0;z-index:300;background:rgba(10,14,20,.86);display:none;align-items:center;justify-content:center;padding:6vw}
+.lb2.on{display:flex}
+.lb2 img{max-width:100%;max-height:80vh;box-shadow:0 40px 80px -20px #000}
+.lb2 b{position:absolute;left:6vw;bottom:5vh;color:#fff;font:700 22px var(--sans)}
+.lb2 button{position:absolute;right:5vw;top:4vh;color:#fff;font-size:30px}
+
+@media (max-width:800px){
+  .bar nav{display:none}
+  .win{width:94vw;height:74vh;transform:translate(-50%,-46%)}
+  .more{width:150px;height:64px;font-size:13px}
+  .tab{height:60px;padding:0 18px;gap:12px;font-size:13px}.tab button{margin-left:6px}
+  .count{left:18px;bottom:20px}.arrows{display:none}
+  .dots{display:none}
+  .cards{top:26%;bottom:20%;gap:14px;left:5%}
+  .cd{width:44vw}
+  .dcopy{top:11%;left:5%;right:5%;max-width:none}
+  .dcopy p{font-size:13px}
+  .title h1{font-size:clamp(48px,15vw,90px)}
+  .hint{display:none}
+}
+</style>
+</head>
+<body>
+<header class="bar"><a class="logo" href="#">Justin <span>Massion</span></a><nav><a href="#" data-go="0">Worlds</a><a href="../c/#about">About</a><a href="../#contact">Contact</a></nav></header>
+<div class="hint" id="hint">← → or scroll to travel · Show more to step in</div>
+
+<main class="win" id="win">
+  <div class="slides" id="slides"></div>
+  <div class="dim" id="dim"></div>
+  <div class="giant" id="giant">Guatapé</div>
+  <div class="title" id="title"><h1 id="tH"></h1><p id="tP"></p></div>
+  <div class="dcopy" id="dcopy"><small id="dK"></small><p id="dD"></p></div>
+  <div class="cards" id="cards"></div>
+  <div class="count" id="count"><span class="n" id="cN">01</span><span class="sep"></span><span class="tot" id="cT">06</span><div class="arrows"><button id="prev" aria-label="Previous world">←</button><button id="next" aria-label="Next world">→</button></div></div>
+  <div class="dots" id="dots"></div>
+  <div class="teal-line" id="tline"></div>
+  <button class="more" id="more">Show more <span class="chev">⌄</span></button>
+  <div class="tab" id="tab"><span class="tn" id="tabN">01</span><span class="tt" id="tabT">Guatapé</span><button id="close" aria-label="Close">✕</button></div>
+</main>
+<div class="lb2" id="lb2"><img id="lbImg" alt=""><b id="lbT"></b><button id="lbX" aria-label="Close">✕</button></div>
+
+<script src="../switcher.js" data-root="../" data-current="d"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const IMG='../assets/img/';
+// big photos are crisp; the project screenshots are small, so they get a soft depth-of-field look when full-bleed
+const W=[
+ {t:'Guatapé',k:'hero-photo',sub:'Home base · Colombia',key:'01 · Home base',d:'Where the worlds get sketched first — under El Peñol, 740 steps above the lake.',pos:'40% 12%',cards:[['justin-guatape','El Peñol','Place'],['hero-sketch','The first sketch','Pencil'],['las-palmas','Morning mode','Interface'],['aluzina-os','Cloud studio','Concept']]},
+ {t:'Playset',k:'playset-blueprint',soft:1,sub:'Blueprint-first products',key:'02 · Studio',d:'Arcade cabinets, AI agents and enterprise workflows — all drawn like a ride before they get built.',cards:[['playset-blueprint','Cabinet blueprint','Blueprint'],['playset-agents','Select your agent','Game UI'],['enterprise-workflow','10-station workflow','Enterprise'],['pixel-chameleon','Pixel','Character']]},
+ {t:'Pixel',k:'pixel-chameleon',soft:1,sub:'Character design',key:'03 · Character',d:'A high-end 3D chameleon: turnarounds, expressions, action poses and colour variations.',cards:[['pixel-chameleon','Character sheet','Turnaround'],['playset-agents','In the game','Game UI'],['hero-sketch','From pencil','Sketch'],['aluzina-os','In the cloud','Concept']]},
+ {t:'Aluzina',k:'aluzina-os',soft:1,sub:'Operating system concept',key:'04 · Interface',d:'An OS concept shown in its "after" state: cards of state machines and creators floating in the sky.',cards:[['aluzina-os','After state','Interface'],['las-palmas','Morning mode','Dashboard'],['enterprise-workflow','Systems','Workflow'],['playset-agents','Agents','Game UI']]},
+ {t:'Las Palmas',k:'las-palmas',soft:1,sub:'Morning mode',key:'05 · Place',d:'A dashboard for a place to stay — sunrise first, then the plan for the day.',cards:[['las-palmas','Buenos días','Dashboard'],['justin-guatape','The view','Place'],['aluzina-os','Smart stay','Concept'],['hero-photo','Host','Portrait']]},
+ {t:'Sketchbook',k:'hero-sketch',sub:'Where everything starts',key:'06 · Process',d:'Every world begins as pencil lines. The render comes later; the idea is already here.',pos:'45% 35%',cards:[['hero-sketch','Pencil pass','Sketch'],['hero-photo','Final render','Photo'],['playset-blueprint','Blueprint','Plan'],['pixel-chameleon','Character','Model']]}];
+const N=W.length;
+$('#slides').innerHTML=W.map((w,i)=>`<div class="sl${i===0?' on':''}"><div class="bg${w.soft?' soft':''}" style="background-image:url(${IMG+w.k}.jpg);background-position:${w.pos||'center'}"></div><div class="vig"></div></div>`).join('');
+$('#dots').innerHTML=W.map((w,i)=>`<button aria-label="${w.t}"${i===0?' class="on"':''}></button>`).join('');
+$('#cT').textContent=String(N).padStart(2,'0');
+W.forEach(w=>{const im=new Image();im.src=IMG+w.k+'.jpg'});
+const sls=$$('.sl'),dots=$$('#dots button'),pad=n=>String(n+1).padStart(2,'0');
+let cur=0,open=false,busy=false;
+const split=t=>[...t].map(c=>`<span class="ch">${c===' '?'&nbsp;':c}</span>`).join('');
+function setTitle(i){$('#tH').innerHTML=split(W[i].t);$('#tP').textContent=W[i].sub}
+setTitle(0);
+
+const G=window.gsap;
+// Ken Burns on the active slide
+function kb(i){if(!G)return;G.killTweensOf(sls[i].firstElementChild);G.fromTo(sls[i].firstElementChild,{scale:1.14},{scale:1.04,duration:9,ease:'none'})}
+
+function go(i,dir){if(busy||open)return;i=(i+N)%N;if(i===cur)return;busy=true;dir=dir||(i>cur?1:-1);
+  const a=sls[cur],b=sls[i];b.style.zIndex=2;a.style.zIndex=1;
+  if(!G){a.classList.remove('on');b.classList.add('on');cur=i;setTitle(i);busy=false;return}
+  G.set(b,{clipPath:dir>0?'inset(0 0 0 100%)':'inset(0 100% 0 0)'});b.classList.add('on');
+  G.timeline({onComplete:()=>{a.classList.remove('on');G.set(a,{clipPath:''});busy=false}})
+   .to('#tH .ch',{yPercent:-110,opacity:0,stagger:.025,duration:.45,ease:'power3.in'},0)
+   .to('#tP',{opacity:0,y:-10,duration:.3},0)
+   .to(b,{clipPath:'inset(0 0 0 0%)',duration:1.1,ease:'expo.inOut'},.15)
+   .fromTo(b.firstElementChild,{scale:1.3,xPercent:dir*6},{scale:1.14,xPercent:0,duration:1.4,ease:'expo.out'},.15)
+   .to(a.firstElementChild,{xPercent:-dir*12,duration:1.1,ease:'expo.inOut'},.15)
+   .add(()=>{cur=i;setTitle(i);$('#cN').textContent=pad(i);dots.forEach((d,k)=>d.classList.toggle('on',k===i));G.set(a.firstElementChild,{xPercent:0});kb(i)},.75)
+   .fromTo('#tH .ch',{yPercent:110,opacity:0},{yPercent:0,opacity:1,stagger:.035,duration:.8,ease:'expo.out',immediateRender:false},.8)
+   .fromTo('#tP',{opacity:0,y:12},{opacity:.85,y:0,duration:.6,immediateRender:false},1)
+   .fromTo('#cN',{yPercent:100,opacity:0},{yPercent:0,opacity:1,duration:.5,immediateRender:false},.75)}
+
+/* ---------- Show more: expand into the world ---------- */
+function openW(){if(busy||open||!G)return;busy=true;open=true;const w=W[cur];
+  $('#giant').textContent=w.t;$('#tabN').textContent=pad(cur);$('#tabT').textContent=w.t;$('#dK').textContent=w.key;$('#dD').textContent=w.d;
+  $('#cards').innerHTML=w.cards.map(([k,t,s])=>`<div class="cd" data-k="${k}" data-t="${t}"><img src="${IMG+k}.jpg" alt="${t}"><div class="lb"><small>${s}</small>${t}</div></div>`).join('');
+  const cds=$$('.cd');cds.forEach(c=>c.addEventListener('click',()=>{$('#lbImg').src=IMG+c.dataset.k+'.jpg';$('#lbT').textContent=c.dataset.t;$('#lb2').classList.add('on')}));
+  const mb=$('#more').getBoundingClientRect(),wb=$('#win').getBoundingClientRect();
+  G.timeline({onComplete:()=>{busy=false;$('#cards').classList.add('live')}})
+   // teal block slides up the right edge and becomes the black tab
+   .to('#more .chev,#more',{color:'transparent',duration:.15},0)
+   .to('#more',{height:wb.height,duration:.55,ease:'power3.inOut'},0)
+   .to('#more',{height:84,y:-(wb.height-84),backgroundColor:'#0b0c10',duration:.55,ease:'power3.inOut'},.55)
+   .set('#tab',{clipPath:'inset(0 0 0% 0)'},1.1).set('#more',{opacity:0},1.1).set('#tab',{pointerEvents:'auto'},1.1)
+   .fromTo('#tab > *',{y:16,opacity:0},{y:0,opacity:1,stagger:.06,duration:.4},1.1)
+   .to('#tline',{width:'100%',duration:.6,ease:'power3.inOut'},.2).to('#tline',{width:0,x:0,duration:.01},1.2)
+   // photo pushes in and fades to slate, title dissolves
+   .to(sls[cur].firstElementChild,{scale:1.4,duration:1.4,ease:'power2.inOut'},0)
+   .to('#dim',{opacity:1,duration:.9,ease:'power2.inOut'},.35)
+   .to('#tH .ch',{yPercent:-40,opacity:0,stagger:.02,duration:.5,ease:'power2.in'},.1).to('#tP,#count,#dots',{opacity:0,duration:.3},0)
+   // giant title rises and drifts, cards fly in from the right
+   .to('#giant',{y:0,duration:1.1,ease:'expo.out'},.75)
+   // slow drift runs on its own so it doesn't keep the page "busy"
+   .add(()=>G.fromTo('#giant',{x:0},{x:-$('#giant').scrollWidth*.18,duration:14,ease:'none'}),.75)
+   .fromTo(cds,{x:()=>innerWidth*.8,y:40,scale:.55,opacity:0,rotate:6},{x:0,y:0,scale:1,opacity:1,rotate:0,stagger:.12,duration:1.1,ease:'expo.out'},.9)
+   .fromTo('#dcopy',{opacity:0,y:20},{opacity:1,y:0,duration:.7},1.1)}
+function closeW(){if(busy||!open||!G)return;busy=true;$('#cards').classList.remove('live');const cds=$$('.cd');
+  G.killTweensOf('#giant');
+  G.timeline({onComplete:()=>{open=false;busy=false;$('#cards').innerHTML='';kb(cur)}})
+   .to(cds,{x:-80,y:-30,scale:.2,opacity:0,stagger:.06,duration:.6,ease:'power3.in'},0)
+   .to('#dcopy',{opacity:0,duration:.3},0)
+   .to('#giant',{y:'110%',duration:.7,ease:'power3.in'},.1)
+   .to('#tab',{clipPath:'inset(0 0 100% 0)',duration:.4,ease:'power3.in'},.1).set('#tab',{pointerEvents:'none'})
+   .set('#more',{opacity:1,y:0,height:84,backgroundColor:'#14c4c1',color:'#fff'},.5).set('#more .chev',{color:'#fff'},.5)
+   .fromTo('#more',{clipPath:'inset(100% 0 0 0)'},{clipPath:'inset(0% 0 0 0)',duration:.5,ease:'power3.out'},.5)
+   .to('#dim',{opacity:0,duration:.8,ease:'power2.inOut'},.35)
+   .to(sls[cur].firstElementChild,{scale:1.1,duration:1.1,ease:'expo.out'},.35)
+   .fromTo('#tH .ch',{yPercent:110,opacity:0},{yPercent:0,opacity:1,stagger:.035,duration:.8,ease:'expo.out'},.7)
+   .to('#tP',{opacity:.85,y:0,duration:.5},.9).to('#count,#dots',{opacity:1,duration:.5},.9)}
+$('#more').addEventListener('click',openW);$('#close').addEventListener('click',closeW);
+$('#lbX').addEventListener('click',()=>$('#lb2').classList.remove('on'));$('#lb2').addEventListener('click',e=>{if(e.target.id==='lb2')$('#lb2').classList.remove('on')});
+
+/* ---------- navigation: arrows, dots, keys, wheel, swipe ---------- */
+$('#prev').onclick=()=>go(cur-1,-1);$('#next').onclick=()=>go(cur+1,1);
+dots.forEach((d,k)=>d.addEventListener('click',()=>go(k)));
+$$('[data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();if(open)closeW();else go(0)}));
+addEventListener('keydown',e=>{if($('#lb2').classList.contains('on')){if(e.key==='Escape')$('#lb2').classList.remove('on');return}
+  if(e.key==='ArrowRight')go(cur+1,1);if(e.key==='ArrowLeft')go(cur-1,-1);
+  if(e.key==='Enter'||e.key==='ArrowDown')openW();if(e.key==='Escape'||e.key==='ArrowUp')closeW()});
+let wl=0;addEventListener('wheel',e=>{if(open){$('#cards').scrollLeft+=e.deltaY;return}const now=Date.now();if(now-wl<1100||Math.abs(e.deltaY)+Math.abs(e.deltaX)<25)return;wl=now;
+  const d=Math.abs(e.deltaX)>Math.abs(e.deltaY)?e.deltaX:e.deltaY;go(cur+(d>0?1:-1),d>0?1:-1)},{passive:true});
+let tx=null,ty=null;$('#win').addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY},{passive:true});
+$('#win').addEventListener('touchend',e=>{if(tx===null)return;const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;
+  if(!open&&Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy))go(cur+(dx<0?1:-1),dx<0?1:-1);
+  else if(!open&&dy<-60)openW();else if(open&&dy>80&&Math.abs(dy)>Math.abs(dx))closeW();tx=null},{passive:true});
+// auto-advance until the visitor interacts
+let auto=setInterval(()=>{if(!open&&!document.hidden)go(cur+1,1)},7000);
+['keydown','wheel','pointerdown','touchstart'].forEach(ev=>addEventListener(ev,()=>{clearInterval(auto)},{once:true,passive:true}));
+
+/* ---------- intro ---------- */
+if(G){G.from('#win',{scale:.86,y:60,opacity:0,duration:1.4,ease:'expo.out'});G.from('#tH .ch',{yPercent:110,opacity:0,stagger:.05,duration:1,ease:'expo.out',delay:.5});
+  G.from('#tP,#count,#dots,.bar,#hint',{opacity:0,y:14,stagger:.08,duration:.8,delay:.8});G.from('#more',{clipPath:'inset(100% 0 0 0)',duration:.8,ease:'power3.out',delay:1});kb(0)}
+})();
+</script>
+</body>
+</html>
