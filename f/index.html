@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Massion® — Imagineer (Concept F)</title>
+<meta name="description" content="Concept F (glass + visor) for the new JustinMassion.com">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--w:#f4f4f2;--k:#0b0b0b;--or:#ff4d1a;--g:#8a8a86;--sans:'Inter Tight',system-ui,sans-serif;--mono:'JetBrains Mono',ui-monospace,monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{background:var(--w);color:var(--k);font-family:var(--sans);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}img{display:block}
+.m{font:400 11px/1.5 var(--mono);letter-spacing:.02em}
+.m b{font-weight:500}
+.top{position:fixed;left:0;right:0;top:0;z-index:50;display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px;padding:18px 2.4vw;mix-blend-mode:difference;color:#fff}
+.top .brand{font:800 16px var(--sans);letter-spacing:-.02em}
+.top .brand sup{font-size:9px}
+.top a:hover{color:var(--or)}
+.top .r{text-align:right}
+
+/* ===== HERO: reeded glass ===== */
+#hero{position:relative;height:100vh;min-height:620px;overflow:hidden;background:var(--w)}
+.stageH{position:absolute;left:24vw;right:24vw;top:0;bottom:0}
+.sharp{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:42% 18%}
+#frost{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair}
+.hcol{position:absolute;z-index:3}
+.hcol.l1{left:2.4vw;top:38%;width:18vw}
+.hcol.r1{right:2.4vw;top:62%;width:17vw;text-align:right}
+.hcol.l2{left:2.4vw;bottom:4vh}
+.hcol .lbl{color:var(--g);margin-bottom:6px}
+.word{position:absolute;right:1.4vw;bottom:-.08em;z-index:4;font:800 clamp(90px,16.5vw,300px)/.8 var(--sans);letter-spacing:-.065em;pointer-events:none}
+.word sup{font-size:.18em;vertical-align:top;margin-left:.04em;letter-spacing:0;position:relative;top:.35em}
+.hint{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:3;padding:8px 14px;border-radius:99px;background:rgba(11,11,11,.8);color:#fff;pointer-events:none;transition:opacity .6s}
+
+/* ===== VISOR (black, pinned) ===== */
+#visor{position:relative;height:100vh;background:var(--k);color:#fff;overflow:hidden}
+.ghostJ{position:absolute;left:24vw;right:24vw;top:0;bottom:0;background-size:cover;background-position:42% 18%;filter:grayscale(1) brightness(.35) contrast(1.2);opacity:.9}
+#gl{position:absolute;inset:0;width:100%;height:100%}
+.vtop{position:absolute;left:2.4vw;right:2.4vw;top:9vh;display:flex;justify-content:space-between;z-index:3;color:var(--g)}
+.spec{position:absolute;left:2.4vw;top:50%;transform:translateY(-50%);width:min(26vw,340px);z-index:3}
+.spec .it{position:absolute;left:0;top:0;opacity:0}
+.spec .it .n{color:var(--or)}
+.spec .it h3{font:500 clamp(22px,1.9vw,30px)/1.15 var(--sans);letter-spacing:-.02em;margin:10px 0 14px}
+.spec .it dl{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;color:var(--g)}
+.spec .it dd{color:#fff}
+.vright{position:absolute;right:2.4vw;bottom:6vh;z-index:3;text-align:right;color:var(--g)}
+.vright b{display:block;font:800 clamp(60px,8vw,140px)/.85 var(--sans);letter-spacing:-.06em;color:#fff}
+.vprog{position:absolute;left:2.4vw;right:2.4vw;bottom:3vh;height:1px;background:rgba(255,255,255,.15);z-index:3}
+.vprog i{position:absolute;inset:0;background:var(--or);transform-origin:left;transform:scaleX(0)}
+
+/* ===== WORK GRID ===== */
+#work{padding:16vh 2.4vw 12vh;background:var(--w)}
+.wtop{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px;margin-bottom:9vh}
+.wtop h2{grid-column:1/3;font:500 clamp(40px,4.6vw,80px)/.95 var(--sans);letter-spacing:-.045em}
+.wtop h2 em{font-style:normal;color:var(--or)}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2.4vw 1.6vw}
+.c{position:relative;cursor:pointer}
+.c .im{position:relative;aspect-ratio:4/5;overflow:hidden;background:#e6e6e3}
+.c .im img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.c .glass{position:absolute;inset:0;backdrop-filter:blur(14px) saturate(1.1);-webkit-backdrop-filter:blur(14px) saturate(1.1);background:repeating-linear-gradient(90deg,rgba(255,255,255,.22) 0 2px,rgba(255,255,255,0) 2px 9px,rgba(0,0,0,.08) 9px 11px,rgba(255,255,255,.06) 11px 18px);transition:opacity .7s;-webkit-mask-image:linear-gradient(#000,#000);mask-image:linear-gradient(#000,#000)}
+.c:hover .glass{opacity:0}
+.c:hover .im img{transform:scale(1.05)}
+.c .cap{display:grid;grid-template-columns:auto 1fr auto;gap:14px;margin-top:12px;align-items:baseline}
+.c .cap .t{font:500 15px var(--sans);letter-spacing:-.01em}
+.c .cap .g{color:var(--g)}
+.c.wide{grid-column:span 2}.c.wide .im{aspect-ratio:16/10}
+
+/* ===== FOOTER ===== */
+footer{position:relative;background:var(--k);color:#fff;padding:12vh 2.4vw 4vh;overflow:hidden}
+.fgrid{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:20px}
+.fgrid .lbl{color:var(--g);margin-bottom:8px}
+.fgrid a{display:block}.fgrid a:hover{color:var(--or)}
+.mail{font:500 clamp(28px,3.4vw,58px)/1 var(--sans);letter-spacing:-.04em;margin:10vh 0 4vh;display:inline-flex;gap:16px;align-items:center}
+.mail span{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--or);animation:bl 1.4s infinite}
+@keyframes bl{50%{opacity:.25}}
+.fword{font:800 clamp(100px,21vw,400px)/.78 var(--sans);letter-spacing:-.07em;margin-top:6vh;white-space:nowrap}
+.fword sup{font-size:.16em;vertical-align:top;position:relative;top:.4em;color:var(--or)}
+.fl{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:3vh;color:var(--g);padding-bottom:70px}
+
+@media (max-width:900px){
+  .top{grid-template-columns:1fr 1fr}.top .hide-m{display:none}
+  .stageH{left:0;right:0}
+  .hcol.l1{top:auto;bottom:22vh;width:60vw;color:#fff;mix-blend-mode:difference}.hcol.r1{display:none}
+  .word{font-size:25vw}
+  .spec{width:auto;right:2.4vw;top:auto;bottom:16vh;transform:none}
+  .vright b{font-size:15vw}
+  .ghostJ{left:0;right:0}
+  .wtop{grid-template-columns:1fr}.wtop h2{grid-column:auto}
+  .grid{grid-template-columns:1fr 1fr}.c.wide{grid-column:span 2}
+  .fgrid{grid-template-columns:1fr 1fr}
+}
+</style>
+</head>
+<body>
+<header class="top m"><a href="#hero" class="brand">Massion<sup>®</sup></a><div class="hide-m">Imagineer<br>AI · Spatial · Story</div><div class="hide-m"><a href="#visor">The Program</a><br><a href="#work">Field Notes</a></div><div class="r"><a href="#contact">Contact</a><br><span id="clk">—</span></div></header>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="stageH"><img class="sharp" id="sharp" src="../assets/img/hero-photo.jpg" alt="Justin Massion"><canvas id="frost" aria-label="Frosted glass over the photo — move the cursor to clear it"></canvas></div>
+  <div class="hcol l1 m"><div class="lbl">(01) — Index</div>Experience designer and Imagineer working where theme-park storytelling meets AI and spatial computing.</div>
+  <div class="hcol r1 m"><div class="lbl">Based</div>Los Angeles<br>Orlando<br>Guatapé, CO</div>
+  <div class="hcol l2 m">Scroll ↓ — the program</div>
+  <div class="hint m" id="hint">Move to clear the glass</div>
+  <div class="word">MASSION<sup>®</sup></div>
+</section>
+
+<!-- VISOR -->
+<section id="visor">
+  <div class="ghostJ" id="ghostJ"></div>
+  <canvas id="gl" aria-label="An orange spatial-computing headset rotating"></canvas>
+  <div class="vtop m"><span>(02) — The Program</span><span>Spatial headset, rendered live</span></div>
+  <div class="spec m" id="spec">
+    <div class="it"><span class="n">01 — FRAME</span><h3>Theme-park thinking, built into every edge.</h3><dl><dt>Origin</dt><dd>Imagineering method</dd><dt>Weight</dt><dd>One pencil sketch</dd></dl></div>
+    <div class="it"><span class="n">02 — LENS</span><h3>AI-native optics. You see the world before it exists.</h3><dl><dt>Tools</dt><dd>AI · real-time 3D</dd><dt>Field</dt><dd>Spatial computing</dd></dl></div>
+    <div class="it"><span class="n">03 — STRAP</span><h3>Story holds it together, so people keep it on.</h3><dl><dt>Fit</dt><dd>Parks · products · platforms</dd><dt>Studio</dt><dd>JAM Studios</dd></dl></div>
+    <div class="it"><span class="n">04 — DELIVERY</span><h3>Shipped to the cloud. Ready for visitors.</h3><dl><dt>Range</dt><dd>LA → Orlando → Guatapé</dd><dt>Status</dt><dd>Booking 2027</dd></dl></div>
+  </div>
+  <div class="vright m"><b id="vnum">01</b>/ 04 — scroll to turn it</div>
+  <div class="vprog"><i id="vbar"></i></div>
+</section>
+
+<!-- WORK -->
+<section id="work">
+  <div class="wtop"><h2>Field notes, <em>clear</em> on contact.</h2><div class="m" style="color:var(--g)">(03) — Selected worlds<br>Hover to wipe the glass.</div><div class="m" style="text-align:right">2024 — 2026</div></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="fgrid m"><div><div class="lbl">(04) — Contact</div>New worlds for 2027</div><div><div class="lbl">Studio</div>JAM Studios</div><div><div class="lbl">Elsewhere</div><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">YouTube</a></div><div><div class="lbl">Other concepts</div>Use the switcher ↘</div></div>
+  <a class="mail" href="#contact"><span></span>Start a world with Justin</a>
+  <div class="fword">MASSION<sup>®</sup></div>
+  <div class="fl m"><span>© 2026 Justin Massion</span><span>Concept F · work images from the Loom · atmosphere photos: Unsplash</span></div>
+</footer>
+
+<script src="../switcher.js" data-root="../" data-current="f"></script>
+<script src="../stock.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+<script>
+(()=>{
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const IMG='../assets/img/',clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const tick=()=>{try{$('#clk').textContent='Guatapé '+new Intl.DateTimeFormat('en-GB',{hour:'2-digit',minute:'2-digit',timeZone:'America/Bogota'}).format(new Date())}catch(e){}};tick();setInterval(tick,30000);
+$('#ghostJ').style.backgroundImage=`url(${IMG}hero-photo.jpg)`;
+
+/* ---------- reeded frosted glass with liquid wipe ---------- */
+const cv=$('#frost'),cx=cv.getContext('2d'),img=$('#sharp');let frost=null,W=0,H=0,dpr=1;const pts=[];
+function buildFrost(){if(!img.complete||!img.naturalWidth)return;dpr=Math.min(devicePixelRatio||1,1.5);const r=cv.getBoundingClientRect();W=cv.width=Math.round(r.width*dpr);H=cv.height=Math.round(r.height*dpr);
+  // cover-fit the photo like object-fit:cover; object-position 42% 18%
+  const iw=img.naturalWidth,ih=img.naturalHeight,s=Math.max(W/iw,H/ih),dw=iw*s,dh=ih*s,dx=(W-dw)*.42,dy=(H-dh)*.18;
+  const blur=document.createElement('canvas');blur.width=W;blur.height=H;const b=blur.getContext('2d');b.filter=`blur(${10*dpr}px) saturate(1.05)`;b.drawImage(img,dx-20,dy-20,dw+40,dh+40);
+  frost=document.createElement('canvas');frost.width=W;frost.height=H;const f=frost.getContext('2d');
+  const rib=Math.round(16*dpr);
+  for(let x=0;x<W;x+=rib){const off=Math.sin(x*.07)*rib*.9;f.drawImage(blur,x+off,0,rib,H,x,0,rib,H)}
+  const g=f.createLinearGradient(0,0,rib,0);g.addColorStop(0,'rgba(255,255,255,.28)');g.addColorStop(.35,'rgba(255,255,255,.05)');g.addColorStop(.8,'rgba(0,0,0,.08)');g.addColorStop(1,'rgba(255,255,255,.18)');
+  const pat=document.createElement('canvas');pat.width=rib;pat.height=4;const pc=pat.getContext('2d');pc.fillStyle=g;pc.fillRect(0,0,rib,4);
+  f.fillStyle=f.createPattern(pat,'repeat');f.fillRect(0,0,W,H);f.fillStyle='rgba(244,244,242,.18)';f.fillRect(0,0,W,H)}
+img.complete?buildFrost():img.addEventListener('load',buildFrost);addEventListener('resize',buildFrost);
+let lx=null,ly=null,moved=false;
+function addPt(x,y){pts.push({x,y,r:(60+Math.random()*50)*dpr,l:1,w:Math.random()*6.28});if(pts.length>260)pts.shift()}
+cv.addEventListener('pointermove',e=>{const r=cv.getBoundingClientRect(),x=(e.clientX-r.left)*dpr,y=(e.clientY-r.top)*dpr;
+  if(lx!==null){const d=Math.hypot(x-lx,y-ly),n=Math.min(8,Math.ceil(d/(18*dpr)));for(let i=1;i<=n;i++)addPt(lx+(x-lx)*i/n,ly+(y-ly)*i/n)}else addPt(x,y);lx=x;ly=y;
+  if(!moved){moved=true;$('#hint').style.opacity=0}});
+cv.addEventListener('pointerleave',()=>{lx=ly=null});
+let T=0;
+function drawFrost(){if(!frost)return;T+=.016;cx.globalCompositeOperation='source-over';cx.clearRect(0,0,W,H);cx.drawImage(frost,0,0);
+  cx.globalCompositeOperation='destination-out';
+  for(let i=pts.length-1;i>=0;i--){const p=pts[i];p.l-=.0045;if(p.l<=0){pts.splice(i,1);continue}
+    const a=Math.min(1,p.l*1.6),r=p.r*(.75+.25*Math.min(1,(1-p.l)*8));
+    // liquid edge: a few overlapping soft blobs
+    for(let k=0;k<3;k++){const ox=Math.cos(p.w+k*2.1+T)*r*.28,oy=Math.sin(p.w+k*2.1+T*1.3)*r*.28;
+      const g=cx.createRadialGradient(p.x+ox,p.y+oy,0,p.x+ox,p.y+oy,r*.7);g.addColorStop(0,`rgba(0,0,0,${a})`);g.addColorStop(.6,`rgba(0,0,0,${a*.9})`);g.addColorStop(1,'rgba(0,0,0,0)');cx.fillStyle=g;cx.beginPath();cx.arc(p.x+ox,p.y+oy,r*.7,0,7);cx.fill()}}
+  cx.globalCompositeOperation='source-over'}
+// a first wipe across the face so visitors see what's under the glass
+let auto=0;function autoWipe(){if(moved||auto>70||!W)return;const t=auto/70,x=W*(.3+.4*t),y=H*(.22+Math.sin(t*6)*.06);addPt(x,y);auto++}
+
+/* ---------- work grid ---------- */
+const WK=[['pixel-chameleon','Pixel the Chameleon','Character',1],['playset-blueprint','Playset','Blueprint',0],['aluzina-os','Aluzina OS','Interface',0],['las-palmas','Las Palmas','Dashboard',0],['playset-agents','Playset Agents','Game UI',0],['enterprise-workflow','Enterprise Workflow','Systems',1],['justin-guatape','Guatapé','Home base',0]];
+$('#grid').innerHTML=WK.map((w,i)=>`<div class="c${w[3]?' wide':''}"><div class="im"><img src="${IMG+w[0]}.jpg" alt="${w[1]}" loading="lazy"><div class="glass"></div></div><div class="cap m"><span>0${i+1}</span><span class="t">${w[1]}</span><span class="g">${w[2]}</span></div></div>`).join('');
+
+/* ---------- loop + scroll ---------- */
+window.__vis={p:0};
+function frame(){const r=$('#hero').getBoundingClientRect();if(r.bottom>0){autoWipe();drawFrost()}}
+const G=window.gsap;if(!(G&&window.ScrollTrigger)){(function l(){frame();requestAnimationFrame(l)})();return}
+gsap.registerPlugin(ScrollTrigger);
+let lenis=null;if(window.Lenis){lenis=new Lenis({lerp:.09});lenis.on('scroll',ScrollTrigger.update);G.ticker.add(t=>lenis.raf(t*1000));G.ticker.lagSmoothing(0)}
+G.ticker.add(frame);
+$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1&&lenis){e.preventDefault();lenis.scrollTo(id==='#hero'?0:id,{duration:1.4})}}));
+G.from('.word',{yPercent:60,opacity:0,duration:1.4,ease:'expo.out'});G.from('.hcol,.top',{opacity:0,y:12,stagger:.08,duration:.8,delay:.3});
+const its=$$('.spec .it');
+ScrollTrigger.create({trigger:'#visor',start:'top top',end:'+=320%',pin:true,scrub:.6,onUpdate:s=>{const p=s.progress;window.__vis.p=p;$('#vbar').style.transform=`scaleX(${p})`;
+  const i=clamp(Math.floor(p*4),0,3);$('#vnum').textContent='0'+(i+1);
+  its.forEach((el,k)=>{const c=p*4-k,o=clamp(Math.min(c*4,(1-c)*4+ (k===3?9:0)),0,1);el.style.opacity=o;el.style.transform=`translateY(${(1-clamp(c*3,0,1))*24}px)`});
+  $('#ghostJ').style.opacity=.9*(1-clamp(p*2.2,0,1))}});
+G.from('.c',{y:60,opacity:0,stagger:.07,duration:1,ease:'power3.out',scrollTrigger:{trigger:'#grid',start:'top 85%'}});
+G.from('.fword',{yPercent:40,opacity:0,duration:1.3,ease:'expo.out',scrollTrigger:{trigger:'footer',start:'top 70%'}});
+ScrollTrigger.sort();ScrollTrigger.refresh();
+})();
+</script>
+
+<!-- three.js: glossy orange spatial headset -->
+<script type="module">
+import * as THREE from 'three';
+import {RoomEnvironment} from 'three/addons/environments/RoomEnvironment.js';
+const cv=document.getElementById('gl');
+const R=new THREE.WebGLRenderer({canvas:cv,antialias:true,alpha:true});R.setPixelRatio(Math.min(devicePixelRatio,2));R.toneMapping=THREE.ACESFilmicToneMapping;R.toneMappingExposure=1.05;
+const scene=new THREE.Scene();const pm=new THREE.PMREMGenerator(R);scene.environment=pm.fromScene(new RoomEnvironment(),.04).texture;
+const cam=new THREE.PerspectiveCamera(30,1,.1,100);cam.position.set(0,0,9);
+const key=new THREE.DirectionalLight(0xffffff,2.2);key.position.set(3,4,5);scene.add(key);
+const rim=new THREE.DirectionalLight(0xff6a33,3);rim.position.set(-4,1,-3);scene.add(rim);
+const H=new THREE.Group();scene.add(H);
+const orange=new THREE.MeshPhysicalMaterial({color:0xff4d1a,roughness:.08,metalness:0,clearcoat:1,clearcoatRoughness:.05,transmission:.55,thickness:.6,ior:1.45,transparent:true,opacity:.96,side:THREE.DoubleSide});
+const black=new THREE.MeshPhysicalMaterial({color:0x121212,roughness:.35,metalness:.4,clearcoat:.6});
+const chrome=new THREE.MeshStandardMaterial({color:0xdedede,roughness:.15,metalness:1});
+// Everything is built on one elliptical arc around the head; front faces +z (the camera).
+const SX=1.15,SZ=.9,A=1.15; // ellipse stretch + half-angle of the visor
+const at=(r,th,y=0)=>new THREE.Vector3(r*SX*Math.sin(th),y,r*SZ*Math.cos(th));
+const arc=(r,t0,t1,y,n=64)=>new THREE.CatmullRomCurve3(Array.from({length:n+1},(_,i)=>at(r,t0+(t1-t0)*i/n,y)));
+// curved visor shell (orange glass) + dark inner lens
+const shell=new THREE.Mesh(new THREE.CylinderGeometry(1.7,1.66,.95,96,1,true,-A,2*A),orange);shell.scale.set(SX,1,SZ);H.add(shell);
+const lens=new THREE.Mesh(new THREE.CylinderGeometry(1.6,1.57,.7,96,1,true,-A+.05,2*A-.1),new THREE.MeshPhysicalMaterial({color:0x1a0803,roughness:.05,metalness:.3,clearcoat:1,side:THREE.DoubleSide}));lens.scale.set(SX,1,SZ);H.add(lens);
+// rims hugging the top and bottom edges
+[.48,-.48].forEach(y=>H.add(new THREE.Mesh(new THREE.TubeGeometry(arc(1.69,-A-.02,A+.02,y),96,.045,12,false),black)));
+// side hinges where the visor meets the strap
+[-A,A].forEach(th=>{const h=new THREE.Mesh(new THREE.BoxGeometry(.16,.56,.36),chrome);h.position.copy(at(1.74,th));h.rotation.y=th;H.add(h)});
+// strap wraps round the back of the head
+H.add(new THREE.Mesh(new THREE.TubeGeometry(arc(1.78,A,Math.PI*2-A,0,80),120,.11,14,false),black));
+// three sensor dots on the front
+for(let i=-1;i<=1;i++){const d=new THREE.Mesh(new THREE.SphereGeometry(.045,16,16),new THREE.MeshStandardMaterial({color:0xffffff,emissive:0xffffff,emissiveIntensity:1.4}));d.position.copy(at(1.73,i*.22,.3));H.add(d)}
+function size(){const w=cv.clientWidth,h=cv.clientHeight;if(!w)return;R.setSize(w,h,false);cam.aspect=w/h;cam.position.z=w/h<1?13:9;cam.updateProjectionMatrix()}
+size();addEventListener('resize',size);
+let mx=0,my=0;addEventListener('pointermove',e=>{mx=e.clientX/innerWidth-.5;my=e.clientY/innerHeight-.5});
+function loop(t){requestAnimationFrame(loop);const r=cv.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;if(cv.width!==Math.round(cv.clientWidth*R.getPixelRatio()))size();
+  const p=(window.__vis&&window.__vis.p)||0;const e=p<.5?2*p*p:1-Math.pow(-2*p+2,2)/2;
+  // rises from the silhouette's face, then turns a full revolution while the specs step through
+  H.position.y=-.2+(1-Math.min(1,p*3))*-1.6+Math.sin(t/900)*.06;H.position.x=(innerWidth<900?0:.9)*Math.min(1,p*2.5);
+  H.rotation.y=-.5+e*Math.PI*2.1+mx*.3;H.rotation.x=.18+Math.sin(p*Math.PI)*.35+my*.2;H.rotation.z=Math.sin(p*Math.PI*2)*.12;
+  const s=.75+Math.min(1,p*2.5)*.35;H.scale.setScalar(s);R.render(scene,cam)}
+requestAnimationFrame(loop);
+</script>
+</body>
+</html>

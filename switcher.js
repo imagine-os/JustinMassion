@@ -8,6 +8,7 @@
     { id: 'c', label: 'C', name: 'Dark studio', path: 'c/' },
     { id: 'd', label: 'D', name: 'Destinations', path: 'd/' },
     { id: 'e', label: 'E', name: 'Sketch story', path: 'e/' },
+    { id: 'f', label: 'F', name: 'Glass & visor', path: 'f/' },
   ];
   const me = document.currentScript;
   const root = (me && me.dataset.root) || '';
