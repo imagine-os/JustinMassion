@@ -29,5 +29,14 @@ jobs:
       - uses: actions/upload-pages-artifact@v5
         with:
           path: .
+      # The artifact is sometimes not visible to deploy-pages straight away
+      # ("No artifacts named github-pages were found"), so give it a moment and retry once.
+      - run: sleep 20
+      - id: first
+        uses: actions/deploy-pages@v5
+        continue-on-error: true
+      - if: steps.first.outcome == 'failure'
+        run: sleep 45
       - id: deployment
+        if: steps.first.outcome == 'failure'
         uses: actions/deploy-pages@v5
