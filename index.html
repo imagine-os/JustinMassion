@@ -3,529 +3,555 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Justin Massion — Imagineered Across Worlds</title>
-<meta name="description" content="Concept A v2 for the new JustinMassion.com">
+<title>Justin Massion — Worlds you can stand inside (Concept B)</title>
+<meta name="description" content="Concept B (spatial journal) for the new JustinMassion.com">
 <link rel="icon" href="data:,">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#141210;--ink2:#1c1916;--paper:#efe9df;--copper:#cf7a4c;--sky:#6aaee0;--bg:var(--ink);--fg:var(--paper);--serif:'Cormorant Garamond',Georgia,serif;--sans:'Inter',system-ui,sans-serif}
+:root{--ink:#15201a;--forest:#1f3d2b;--lime:#cdeb7d;--lime2:#b9e05a;--paper:#f7f8f4;--sky:#d4e4ec;--slate:#3d4866;--copper:#d0673f;
+  --glass:rgba(255,255,255,.58);--glassD:rgba(24,28,30,.42);--line:rgba(21,32,26,.12);
+  --serif:'Instrument Serif',Georgia,serif;--sans:'Inter Tight',system-ui,sans-serif;--hand:'Caveat',cursive}
 *{box-sizing:border-box;margin:0;padding:0}
-html.lenis,html.lenis body{height:auto}
-.lenis.lenis-smooth{scroll-behavior:auto!important}
-body{background:var(--bg);color:var(--fg);font-family:var(--sans);overflow-x:hidden;transition:background-color .9s cubic-bezier(.6,0,.2,1),color .9s;-webkit-font-smoothing:antialiased}
-@media (pointer:fine){body,a,button,input,textarea,label{cursor:none}}
-a{color:inherit;text-decoration:none}
-em{font-family:var(--serif);font-style:italic;font-weight:300}
-img{display:block}
-.grain{position:fixed;inset:-50%;z-index:90;pointer-events:none;opacity:.06;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");animation:grain 1s steps(6) infinite}
-@keyframes grain{0%{transform:translate(0,0)}25%{transform:translate(-4%,3%)}50%{transform:translate(3%,-5%)}75%{transform:translate(5%,-2%)}100%{transform:translate(0,0)}}
-.eyebrow{font:500 11px var(--sans);letter-spacing:.32em;text-transform:uppercase;color:var(--sky);display:block;margin-bottom:22px}
-.h2{font:300 clamp(48px,6.4vw,112px)/.95 var(--serif);letter-spacing:-.01em}
-.h2 em{color:var(--copper)}
-.lede{font:300 17px/1.65 var(--sans);opacity:.7;max-width:560px}
+html.lenis,html.lenis body{height:auto}.lenis.lenis-smooth{scroll-behavior:auto!important}
+body{font-family:var(--sans);color:var(--ink);background:linear-gradient(180deg,#bcd3df 0,#dde9ee 40vh,#eef3f0 120vh,#f2f4ef 100%);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}img{display:block;max-width:100%}
+em{font-family:var(--serif);font-style:italic;font-weight:400}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.serif{font-family:var(--serif);font-weight:400}
+.eyebrow{font:600 10.5px var(--sans);letter-spacing:.24em;text-transform:uppercase;opacity:.6}
+.glass{background:var(--glass);backdrop-filter:blur(18px) saturate(1.5);-webkit-backdrop-filter:blur(18px) saturate(1.5);border:1px solid rgba(255,255,255,.7);box-shadow:0 20px 50px -24px rgba(30,50,60,.35)}
+.glassD{background:var(--glassD);backdrop-filter:blur(22px) saturate(1.4);-webkit-backdrop-filter:blur(22px) saturate(1.4);border:1px solid rgba(255,255,255,.18);color:#fff}
+.pill{display:inline-flex;align-items:center;gap:10px;white-space:nowrap;padding:14px 22px;border-radius:99px;font:600 13px var(--sans);letter-spacing:.01em;transition:transform .4s cubic-bezier(.2,.8,.2,1),background .3s}
+.pill.dark{background:var(--ink);color:#fff}.pill.white{background:#fff;color:var(--ink)}
+.pill:hover{transform:translateY(-2px)}
+.pill .ar{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--lime);color:var(--ink);font-size:12px}
+.clouds{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+.clouds i{position:absolute;border-radius:50%;background:#fff;filter:blur(40px);opacity:.55;animation:drift 60s linear infinite}
+@keyframes drift{from{transform:translateX(-20vw)}to{transform:translateX(120vw)}}
+main{position:relative;z-index:1}
+section{position:relative}
+.wrap{width:min(1320px,92vw);margin:0 auto}
+.sec-head{text-align:center;max-width:760px;margin:0 auto}
+.sec-head h2{font:400 clamp(44px,5.4vw,84px)/.98 var(--serif);letter-spacing:-.01em;margin-top:14px}
+.sec-head h2 em{color:var(--forest)}
+.sec-head p{margin-top:16px;font:400 16px/1.6 var(--sans);opacity:.65}
 
-/* cursor */
-.cur,.ring{position:fixed;left:0;top:0;z-index:120;pointer-events:none;border-radius:50%}
-.cur{width:6px;height:6px;margin:-3px 0 0 -3px;background:var(--copper)}
-.ring{width:40px;height:40px;margin:-20px 0 0 -20px;border:1px solid rgba(239,233,223,.55);display:grid;place-items:center;transition:width .4s,height .4s,margin .4s,background .4s,border-color .4s}
-.ring::after{content:attr(data-label);font:500 10px/1 var(--sans);letter-spacing:.14em;text-transform:uppercase;color:var(--ink);opacity:0;transition:opacity .3s}
-.ring.big{width:92px;height:92px;margin:-46px 0 0 -46px;background:var(--paper);border-color:transparent}
-.ring.big::after{opacity:1}
-@media (pointer:coarse){.cur,.ring{display:none}}
+/* ================= HERO (Area + Railroad + Orizon + Nestive) ================= */
+#hero{padding:22px 0 70px}
+.frame{background:var(--paper);border-radius:34px;padding:18px;box-shadow:0 40px 90px -40px rgba(30,60,80,.45);will-change:transform}
+.fnav{display:flex;align-items:center;justify-content:space-between;padding:8px 10px 20px}
+.logo{display:flex;align-items:center;gap:10px;font:400 26px/1 var(--serif)}
+.logo svg{width:26px;height:26px}
+.logo em{color:var(--forest)}
+.flinks{display:flex;gap:6px;padding:5px;border-radius:99px;background:#eef0ea}
+.flinks a{padding:9px 16px;border-radius:99px;font:500 13px var(--sans);transition:background .3s}
+.flinks a:hover{background:#fff}
+.fnav .right{display:flex;gap:10px;align-items:center}
+.grid{display:grid;grid-template-columns:.92fr 1.25fr;grid-template-rows:auto 1fr;gap:16px;min-height:calc(100vh - 150px)}
+.lime{grid-row:1;background:var(--lime);border-radius:28px;padding:44px 40px 40px;position:relative;
+  -webkit-mask:radial-gradient(circle at 100% 100%,transparent 46px,#000 47px);mask:radial-gradient(circle at 100% 100%,transparent 46px,#000 47px)}
+.lime .eyebrow{opacity:.7}
+.lime h1{font:600 clamp(40px,4.3vw,68px)/1.02 var(--sans);letter-spacing:-.035em;margin-top:18px}
+.lime h1 .hl{background:#fff;border-radius:14px;padding:0 .16em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+.lime h1 em{font-weight:400;letter-spacing:-.01em}
+.lime p{margin-top:22px;max-width:420px;font:400 15.5px/1.6 var(--sans);opacity:.78}
+.lime .ctas{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}
+.stat{grid-row:2;border:1.5px dashed rgba(21,32,26,.35);border-radius:28px;padding:28px 32px;display:flex;flex-direction:column;justify-content:space-between;gap:18px}
+.stat .big{font:600 clamp(48px,4.6vw,72px)/1 var(--sans);letter-spacing:-.04em}
+.stat .big small{font:400 22px var(--serif);font-style:italic;letter-spacing:0;margin-left:6px}
+.stat .lbl{font:500 18px var(--sans);margin-top:4px}
+.avs{display:flex}
+.avs img{width:46px;height:46px;border-radius:50%;object-fit:cover;border:3px solid var(--paper);margin-left:-10px;background:#ccc}
+.avs img:first-child{margin-left:0}
+.stat .row{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;font:500 13px var(--sans)}
+.stat .cities{display:flex;gap:8px}
+.stat .cities span{padding:6px 12px;border-radius:99px;background:#eef0ea}
+/* window */
+.window{grid-row:1/3;grid-column:2;position:relative;border-radius:34px;padding:14px;background:linear-gradient(160deg,#6c7b80,#2d3538 60%,#4a5559);box-shadow:inset 0 2px 0 rgba(255,255,255,.25),inset 0 -3px 8px rgba(0,0,0,.4)}
+.window::after{content:"";position:absolute;left:30px;right:30px;bottom:5px;height:4px;background:radial-gradient(circle,#8d9a9e 1.6px,transparent 2px) 0 0/34px 4px;opacity:.8}
+.win{position:relative;height:100%;min-height:520px;border-radius:24px;overflow:hidden;box-shadow:inset 0 0 0 3px #1e2427,inset 0 10px 30px rgba(0,0,0,.35)}
+.win img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:40% 30%;transform:scale(1.08);will-change:transform}
+.win .glare{position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.18) 0,rgba(255,255,255,0) 30%,rgba(255,255,255,0) 62%,rgba(255,255,255,.12) 70%,rgba(255,255,255,0) 78%);pointer-events:none}
+.stk{position:absolute;z-index:3;touch-action:none;cursor:grab;user-select:none}
+.stk:active{cursor:grabbing}
+.stk .in{display:grid;place-items:center;text-align:center;font:600 15px/1.1 var(--sans);box-shadow:0 14px 30px -12px rgba(0,0,0,.45);animation:bob 5s ease-in-out infinite;transition:transform .3s}
+.stk:hover .in{transform:scale(1.06)}
+@keyframes bob{50%{translate:0 -8px}}
+.s1 .in{width:128px;height:128px;border-radius:30px;background:var(--lime);rotate:-10deg;gap:6px}
+.s1 svg{width:30px;height:30px}
+.s2 .in{width:150px;height:150px;border-radius:50%;background:var(--forest);color:var(--lime);font:400 24px/1 var(--serif);font-style:italic;rotate:-18deg;animation-delay:-1.5s}
+.s3 .in{padding:14px 22px;border-radius:99px;background:#fff;font:600 17px var(--sans);rotate:-8deg;animation-delay:-3s}
+.s4 .in{width:96px;height:96px;border-radius:50%;background:#fff;font:600 12px/1.2 var(--sans);rotate:22deg;animation-delay:-2s}
+.s5 .in{width:120px;height:110px;background:var(--lime);clip-path:path('M60 6 Q66 0 72 8 L116 88 Q120 100 108 102 L12 102 Q0 100 4 88 L48 8 Q54 0 60 6Z');font:600 15px var(--sans);padding-top:34px;rotate:12deg;animation-delay:-4s}
+.nowcard{position:absolute;left:18px;bottom:18px;z-index:2;display:flex;align-items:center;gap:14px;padding:12px 14px 12px 12px;border-radius:22px;max-width:330px}
+.nowcard img{width:62px;height:62px;border-radius:14px;object-fit:cover}
+.nowcard small{display:block;font:600 10px var(--sans);letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+.nowcard b{display:block;font:600 16px var(--sans);margin-top:3px}
+.nowcard span{font:400 12.5px var(--sans);opacity:.75}
+.nowcard .go{width:36px;height:36px;border-radius:50%;background:#fff;color:var(--ink);display:grid;place-items:center;flex:none}
+.wintag{position:absolute;right:18px;top:18px;z-index:2;padding:9px 14px;border-radius:99px;font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase}
+.steps-mini{display:flex;gap:10px;margin-top:16px}
+.steps-mini div{flex:1;padding:12px 14px;border-radius:16px;background:#fff;font:500 12px var(--sans)}
+.steps-mini div b{display:block;font:400 20px var(--serif);font-style:italic;margin-bottom:2px;color:var(--forest)}
 
-/* loader */
-#loader{position:fixed;inset:0;z-index:110;background:var(--ink);display:grid;place-items:center}
-.ld{text-align:center}
-.ld-name{font:300 clamp(48px,8vw,120px)/1 var(--serif);overflow:hidden;display:flex;gap:.25em;justify-content:center}
-.ld-name span{display:inline-block;transform:translateY(110%)}
-.ld-name span:last-child{font-style:italic;color:var(--copper)}
-.ld-line{width:220px;height:1px;background:rgba(239,233,223,.12);margin:28px auto 0;position:relative;overflow:hidden}
-.ld-line i{position:absolute;inset:0;background:var(--copper);transform-origin:left;transform:scaleX(0)}
-.ld-pct{margin-top:14px;font:500 11px var(--sans);letter-spacing:.3em;opacity:.5}
+/* ================= JOURNAL (Pinterest journal pins) ================= */
+#journal{height:100vh}
+.jbox{position:absolute;inset:3vh 2vw;border-radius:34px;background:linear-gradient(180deg,#46527a,#323b58);overflow:hidden;color:#fff;box-shadow:0 40px 80px -40px rgba(20,30,60,.6)}
+.jtop{position:absolute;left:24px;right:24px;top:20px;display:flex;justify-content:space-between;z-index:5}
+.jtop .ic{display:flex;gap:8px}
+.jtop button{width:40px;height:40px;border-radius:50%;display:grid;place-items:center;border:1px solid rgba(255,255,255,.35)}
+.jtop button.on{background:#fff;color:var(--slate)}
+.jhead{position:absolute;left:0;right:0;top:5.5vh;text-align:center;z-index:5}
+.jhead h2{font:600 clamp(28px,2.6vw,40px)/1 var(--sans);letter-spacing:-.02em}
+.jhead p{margin-top:8px;font:500 12px var(--sans);opacity:.75;display:flex;gap:6px;justify-content:center;align-items:center}
+.jstage{position:absolute;left:0;right:0;top:16vh;bottom:17vh;perspective:1600px}
+.jp{position:absolute;left:50%;top:50%;width:min(58vw,820px);aspect-ratio:1.62;transform-style:preserve-3d;will-change:transform;border-radius:18px}
+.jp .pg{position:absolute;inset:0;border-radius:18px;overflow:hidden;background:#f4efe4;color:var(--ink);box-shadow:0 30px 60px -20px rgba(0,0,0,.55);backface-visibility:hidden}
+.jp .pg::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.14),transparent 4%,transparent 47%,rgba(0,0,0,.1) 50%,transparent 53%,transparent 96%,rgba(0,0,0,.12));pointer-events:none;z-index:4}
+.jp .num{position:absolute;left:4%;top:3%;font:400 clamp(40px,5vw,80px)/1 var(--serif);color:#2a2a2a;z-index:3;opacity:.9}
+.jp .shade{position:absolute;inset:0;background:#1b2034;pointer-events:none;z-index:5;border-radius:18px}
+.sp{position:absolute;inset:0;display:grid;grid-template-columns:1fr 1fr}
+.sp .L{position:relative;padding:12% 7% 7% 9%}
+.sp .R{position:relative;overflow:hidden}
+.sp .R img{width:100%;height:100%;object-fit:cover}
+.sp .polar{position:absolute;background:#fff;padding:6px 6px 22px;box-shadow:0 10px 20px -8px rgba(0,0,0,.4);rotate:-6deg;width:46%;left:8%;top:30%}
+.sp .polar img{width:100%;aspect-ratio:1;object-fit:cover}
+.sp .tape{position:absolute;width:64px;height:20px;background:rgba(205,235,125,.75);top:-10px;left:30%;rotate:4deg}
+.sp .note{position:absolute;right:6%;top:22%;width:40%;font:500 clamp(14px,1.35vw,21px)/1.15 var(--hand);color:#2b3a5a;rotate:3deg}
+.sp .ttl{position:absolute;left:9%;bottom:8%;right:8%;font:400 clamp(20px,2vw,32px)/1 var(--serif)}
+.sp .ttl small{display:block;font:600 9px var(--sans);letter-spacing:.2em;text-transform:uppercase;opacity:.55;margin-bottom:6px}
+.sp .dot{position:absolute;border-radius:50%;display:grid;place-items:center;font-size:clamp(14px,1.4vw,22px);box-shadow:0 6px 14px -6px rgba(0,0,0,.4)}
+.sp .flag{position:absolute;right:8%;bottom:12%;width:30%;rotate:-8deg}
+.jfoot{position:absolute;left:0;right:0;bottom:5vh;display:flex;flex-direction:column;align-items:center;gap:14px;z-index:5}
+.jbtns{display:flex;gap:12px}
+.jbtns button{width:44px;height:44px;border-radius:50%;background:#fff;color:var(--slate);display:grid;place-items:center;font-size:16px;box-shadow:0 10px 20px -10px rgba(0,0,0,.5);transition:transform .3s}
+.jbtns button:hover{transform:translateY(-3px)}
+.jcap{font:500 13px var(--sans);opacity:.85;text-align:center;min-height:18px}
 
-/* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:80;color:var(--paper);display:flex;align-items:center;justify-content:space-between;padding:24px 5vw;transition:background .5s,backdrop-filter .5s}
-nav.solid{background:rgba(20,18,16,.55);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-.logo{font:400 24px/1 var(--serif);letter-spacing:.01em}
-.logo em{color:var(--copper)}
-.links{display:flex;gap:34px;font:400 12px var(--sans);letter-spacing:.2em;text-transform:uppercase}
-.links a{opacity:.7;transition:opacity .3s;position:relative}
-.links a:hover{opacity:1}
-.links a::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:1px;background:var(--copper);transform:scaleX(0);transform-origin:right;transition:transform .5s cubic-bezier(.7,0,.2,1)}
-.links a:hover::after{transform:scaleX(1);transform-origin:left}
-.chip{position:fixed;right:5vw;bottom:22px;z-index:80;font:500 10px var(--sans);letter-spacing:.2em;text-transform:uppercase;display:flex;gap:10px;align-items:center;padding:9px 14px;border-radius:99px;background:rgba(20,18,16,.6);backdrop-filter:blur(10px);border:1px solid rgba(239,233,223,.1);color:var(--paper)}
-.chip b{width:7px;height:7px;border-radius:50%;background:var(--copper);box-shadow:0 0 10px var(--copper);animation:pulse 1.6s infinite}
-@keyframes pulse{50%{opacity:.3}}
+/* ================= EXPLORER (Athens Explorer + Beach destinations) ================= */
+#explorer{padding:14vh 0 10vh}
+.xroom{position:relative;margin-top:7vh;height:min(86vh,820px);border-radius:34px;overflow:hidden;background:#2a2622}
+.xbg{position:absolute;inset:-60px;background-size:cover;background-position:center;filter:blur(36px) brightness(.72) saturate(1.2);transition:opacity 1s;transform:scale(1.1)}
+.xroom::after{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 50% 120%,rgba(0,0,0,.55),transparent 60%);pointer-events:none}
+.xbar{position:absolute;left:50%;top:26px;transform:translateX(-50%);z-index:6;display:flex;align-items:center;gap:8px;padding:8px;border-radius:99px;width:min(780px,90%)}
+.xbar .b{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.12);font-size:15px;flex:none}
+.xbar .url{flex:1;height:38px;border-radius:99px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;gap:8px;font:500 14px var(--sans);white-space:nowrap;overflow:hidden}
+.xbar .url i{opacity:.6;font-style:normal}
+.xrail{position:absolute;left:24px;top:50%;transform:translateY(-50%);z-index:6;display:flex;flex-direction:column;gap:10px;padding:10px;border-radius:99px}
+.xrail span{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font-size:15px}
+.xstage{position:absolute;left:0;right:0;top:110px;bottom:130px;perspective:1400px}
+.xc{position:absolute;left:50%;top:50%;width:min(380px,30vw);aspect-ratio:.78;border-radius:26px;overflow:hidden;will-change:transform,opacity;cursor:pointer;transition:box-shadow .4s}
+.xc img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.xc .info{position:absolute;left:0;right:0;bottom:0;padding:20px 22px;border:0;border-top:1px solid rgba(255,255,255,.2);border-radius:0}
+.xc h3{font:500 clamp(20px,1.9vw,30px)/1.1 var(--sans);letter-spacing:-.01em}
+.xc p{font:400 13.5px/1.5 var(--sans);opacity:.85;margin-top:8px;max-height:0;overflow:hidden;transition:max-height .6s}
+.xc.on p{max-height:120px}
+.xc .meta{display:flex;justify-content:space-between;font:500 12px var(--sans);opacity:.7;margin-top:6px}
+.xc .exp{position:absolute;left:50%;top:14px;transform:translateX(-50%);padding:8px 14px;border-radius:99px;font:500 12px var(--sans);opacity:0;transition:opacity .4s}
+.xc.on .exp{opacity:1}
+.xdock{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:6;display:flex;align-items:center;gap:14px;padding:8px 10px;border-radius:99px;min-width:min(420px,88%)}
+.xdock button{width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.14);display:grid;place-items:center;font-size:16px;flex:none}
+.xdock img{width:48px;height:48px;border-radius:50%;object-fit:cover;flex:none}
+.xdock .t{flex:1;min-width:0}
+.xdock .t b{display:block;font:600 15px var(--sans)}
+.xdock .t span{font:400 12px var(--sans);opacity:.75}
+.xdots{display:flex;gap:6px;justify-content:center;margin-top:22px}
+.xdots button{width:7px;height:7px;border-radius:99px;background:rgba(21,32,26,.22);transition:width .4s,background .4s}
+.xdots button.on{width:26px;background:var(--forest)}
+.xcap{text-align:center;max-width:620px;margin:16px auto 0;font:400 15px/1.6 var(--sans);opacity:.7;min-height:48px}
 
-/* hero */
-#hero{position:relative;height:100vh;overflow:hidden;background:#161412}
-#heroCanvas{position:absolute;top:0;right:0;height:100%;width:68%;-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 26%);mask-image:linear-gradient(90deg,transparent 0,#000 26%)}
-.hero-shade{position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(22,20,18,.35),transparent 25%,transparent 70%,rgba(22,20,18,.9))}
-.hero-copy{position:absolute;left:5vw;top:50%;transform:translateY(-46%);z-index:3;max-width:620px}
-.hero-name{font:300 clamp(80px,10.5vw,190px)/.86 var(--serif);letter-spacing:-.01em}
-.hero-name .ln{display:block;overflow:hidden;padding-bottom:.06em}
-.hero-name .ln:last-child{font-style:italic;color:var(--copper)}
-.ch{display:inline-block;will-change:transform}
-.hero-copy p{margin-top:34px;font:300 18px/1.7 var(--sans);opacity:.8;max-width:500px}
-.ctas{display:flex;gap:16px;margin-top:40px;flex-wrap:wrap}
-.btn{display:inline-flex;align-items:center;gap:12px;padding:18px 30px;font:500 12px var(--sans);letter-spacing:.22em;text-transform:uppercase;border:1px solid rgba(239,233,223,.35);transition:background .4s,color .4s,border-color .4s}
-.btn.pri{background:var(--sky);border-color:var(--sky);color:#0e1a24}
-.btn:hover{background:var(--paper);color:var(--ink);border-color:var(--paper)}
-.hero-foot{position:absolute;left:5vw;right:5vw;bottom:4.5vh;display:flex;justify-content:space-between;align-items:center;z-index:3;font:500 10px var(--sans);letter-spacing:.3em;text-transform:uppercase;opacity:.65}
-.hero-foot .sh{display:flex;align-items:center;gap:12px}
-.hero-foot .sh i{display:block;width:1px;height:38px;background:var(--paper);transform-origin:top;animation:drip 2s cubic-bezier(.7,0,.2,1) infinite}
-@keyframes drip{0%{transform:scaleY(0)}50%{transform:scaleY(1);transform-origin:top}51%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
-.hero-hint{position:absolute;right:5vw;top:15vh;z-index:3;font:400 13px var(--serif);font-style:italic;font-size:19px;opacity:0;color:var(--paper);display:flex;gap:10px;align-items:center}
-.hero-hint b{width:26px;height:26px;border-radius:50%;border:1px solid var(--copper);box-shadow:0 0 14px var(--copper)}
+/* ================= BUILD (EcoSolutions + Nestive + three.js island) ================= */
+#build{height:100vh}
+.bbox{position:absolute;inset:3vh 2vw;border-radius:34px;background:linear-gradient(180deg,#f3f8ee,#e7f1e3);overflow:hidden;box-shadow:0 40px 80px -40px rgba(30,60,40,.35)}
+.bhead{position:absolute;left:4vw;top:6vh;z-index:3}
+.bhead .crumb{font:500 12px var(--sans);opacity:.55}
+.bhead h2{font:600 clamp(30px,2.8vw,44px)/1.05 var(--sans);letter-spacing:-.03em;margin-top:10px}
+.bhead h2 em{font-weight:400;color:var(--forest)}
+.bhead .lv{display:inline-flex;gap:8px;align-items:center;margin-top:14px;padding:8px 14px 8px 8px;border-radius:99px;background:rgba(205,235,125,.6);font:600 13px var(--sans)}
+.bhead .lv i{width:24px;height:24px;border-radius:50%;background:var(--lime2);display:grid;place-items:center;font-style:normal;font-size:12px}
+.gauge{position:absolute;left:4vw;top:30vh;bottom:18vh;width:230px;z-index:3}
+.gauge .tick{position:absolute;left:0;display:flex;align-items:center;gap:12px;font:500 11px var(--sans);opacity:.55;transform:translateY(-50%)}
+.gauge .tick::after{content:"";width:16px;height:1.5px;background:currentColor}
+.gauge .mark{position:absolute;left:60px;transform:translateY(-50%);display:flex;align-items:center;gap:10px}
+.gauge .mark::before{content:"";border:6px solid transparent;border-right:8px solid var(--ink);margin-right:2px}
+.gauge .mark b{font:600 clamp(44px,4.2vw,68px)/1 var(--sans);letter-spacing:-.04em;color:var(--forest)}
+.gauge .mark small{display:block;font:600 10px var(--sans);letter-spacing:.18em;text-transform:uppercase;opacity:.6}
+.gauge .avg{position:absolute;left:0;right:0;border-top:1.5px dashed rgba(21,32,26,.45);font:600 9.5px var(--sans);letter-spacing:.16em;text-align:right;padding-top:4px;opacity:.6}
+#island{position:absolute;left:18%;right:26%;top:0;bottom:8vh;width:56%;height:92%}
+.bside{position:absolute;right:3.5vw;top:6vh;bottom:14vh;width:min(330px,26vw);z-index:3;display:flex;flex-direction:column;gap:12px;justify-content:center}
+.bside h4{font:600 17px var(--sans);display:flex;align-items:center;gap:8px;margin-bottom:4px}
+.bside h4 i{width:18px;height:18px;border-radius:5px;background:var(--lime2);display:inline-block}
+.stp{display:flex;gap:14px;align-items:center;padding:14px;border-radius:20px;transition:background .5s,opacity .5s;opacity:.45}
+.stp.on{opacity:1}
+.stp .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:#fff;flex:none;font-size:20px;box-shadow:0 8px 18px -10px rgba(0,0,0,.3)}
+.stp.on .ic{background:var(--lime)}
+.stp b{display:block;font:600 15px var(--sans)}
+.stp span{font:400 12.5px/1.4 var(--sans);opacity:.7}
+.stp .bar{height:2px;background:rgba(21,32,26,.12);margin-top:8px;border-radius:2px;overflow:hidden}
+.stp .bar i{display:block;height:100%;width:0;background:var(--forest)}
+.stp .n{font:400 22px var(--serif);font-style:italic;opacity:.5;margin-left:auto;align-self:flex-start}
+.bbanner{position:absolute;left:0;right:0;bottom:0;padding:16px 4vw;background:var(--lime2);font:600 15px var(--sans);display:flex;gap:10px;align-items:center;transform:translateY(100%);transition:transform .7s cubic-bezier(.2,.8,.2,1);z-index:4}
+.bbanner.on{transform:none}
+.bhint{position:absolute;left:50%;bottom:3vh;transform:translateX(-50%);font:600 10px var(--sans);letter-spacing:.2em;text-transform:uppercase;opacity:.5;z-index:3}
 
-/* imagineered rows */
-#worlds{padding:20vh 0 18vh;overflow:hidden}
-.w-head{text-align:center;padding:0 5vw;margin-bottom:10vh}
-.w-head .h2{font-size:clamp(52px,7vw,124px)}
-.w-head .lede{margin:26px auto 0;text-align:center}
-.irow{overflow:visible;margin-bottom:22px}
-.itrack{display:flex;gap:22px;width:max-content;will-change:transform}
-.it{flex:none;height:min(34vh,330px);aspect-ratio:507/315;border-radius:6px;overflow:hidden;position:relative;transition:transform .7s cubic-bezier(.2,.8,.2,1),opacity .5s,filter .5s;transform-style:preserve-3d}
-.it img{width:100%;height:100%;object-fit:cover;transition:transform 1s cubic-bezier(.2,.8,.2,1)}
-.irows:hover .it{opacity:.45;filter:saturate(.6)}
-.irows .it:hover{opacity:1;filter:none;transform:scale(1.06);z-index:2}
-.it:hover img{transform:scale(1.05)}
+/* ================= ACADEMY ================= */
+#academy{padding:16vh 0 8vh}
+.shelf{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;padding:46px 4vw 34px;margin-top:4vh;scrollbar-width:none}
+.shelf::-webkit-scrollbar{display:none}
+.bk{flex:none;width:190px;scroll-snap-align:center;perspective:800px}
+.bk .cv{height:270px;border-radius:6px 14px 14px 6px;background:var(--c);color:var(--t);padding:20px 18px;display:flex;flex-direction:column;justify-content:space-between;box-shadow:inset 8px 0 12px -6px rgba(0,0,0,.35),0 24px 40px -20px rgba(0,0,0,.45);transform:rotateY(-14deg);transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.bk:hover .cv{transform:rotateY(0) translateY(-12px)}
+.bk .cv small{font:700 9px var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.85}
+.bk .cv h4{font:400 25px/1.02 var(--serif)}
+.bk .cv i{width:34px;height:34px;border-radius:50%;border:2px solid currentColor;opacity:.7}
+.bk a{display:block;margin-top:14px;font:600 11px var(--sans);letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+.wait{display:flex;align-items:center;gap:10px;width:min(560px,92vw);margin:4vh auto 0;padding:8px 8px 8px 24px;border-radius:99px}
+.wait input{flex:1;min-width:0;border:0;background:transparent;font:400 15px var(--sans);outline:none;color:var(--ink)}
+.wait .ok{display:none;font:600 13px var(--sans);color:var(--forest);padding-right:12px}
+.wait.done input,.wait.done button{display:none}.wait.done .ok{display:block}
 
-/* cylinder (Kryntix) */
-#cyl{position:relative;height:100vh;overflow:hidden;background:radial-gradient(ellipse at 50% 60%,#221d18,#100e0c 70%)}
-.cyl-stage{position:absolute;inset:0;perspective:1000px;perspective-origin:50% 50%;touch-action:pan-y}
-.cyl-ring{position:absolute;left:50%;top:61%;transform-style:preserve-3d}
-.cp{position:absolute;left:0;top:0;width:var(--pw);transform-style:preserve-3d;backface-visibility:hidden;will-change:transform,opacity}
-.cp .card{width:100%;aspect-ratio:507/330;border-radius:14px;overflow:hidden;position:relative;background:#1c1916;border:1px solid rgba(239,233,223,.1);box-shadow:0 40px 80px -30px rgba(0,0,0,.8)}
-.cp .card img{width:100%;height:100%;object-fit:cover}
-.cp .card.txt{display:flex;flex-direction:column;justify-content:space-between;padding:7%;background:linear-gradient(140deg,#2a221b,#16130f)}
-.cp .card.txt h3{font:300 clamp(28px,2.6vw,48px)/1.02 var(--serif)}
-.cp .card.txt h3 em{color:var(--copper)}
-.cp .card.txt small{font:500 10px var(--sans);letter-spacing:.28em;text-transform:uppercase;color:var(--sky)}
-.cp .cap{display:flex;justify-content:space-between;margin-top:14px;font:500 10px var(--sans);letter-spacing:.24em;text-transform:uppercase;opacity:.6}
-.cyl-head{position:absolute;left:5vw;right:5vw;top:12vh;z-index:3;pointer-events:none;display:flex;justify-content:space-between;align-items:flex-end;gap:4vw}
-.cyl-head .h2{font-size:clamp(38px,3.8vw,68px)}
-.cyl-foot{position:absolute;left:5vw;right:5vw;bottom:6vh;z-index:3;display:flex;justify-content:space-between;align-items:center;font:500 10px var(--sans);letter-spacing:.28em;text-transform:uppercase}
-.cyl-bar{flex:1;height:1px;background:rgba(239,233,223,.15);margin:0 28px;position:relative}
-.cyl-bar i{position:absolute;inset:0;background:var(--copper);transform-origin:left;transform:scaleX(0)}
-.cyl-floor{position:absolute;left:-20%;right:-20%;bottom:-30%;height:60%;background:radial-gradient(ellipse at 50% 0%,rgba(207,122,76,.18),transparent 60%);pointer-events:none}
+/* ================= CONTACT (Railroad window) ================= */
+#contact{padding:8vh 0 110px}
+.cwin{position:relative;border-radius:40px;padding:18px;background:linear-gradient(160deg,#6c7b80,#2d3538 60%,#4a5559)}
+.cwin .win{min-height:min(80vh,720px)}
+.cwin .win img{object-position:96% 34%}
+.cwin .over{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 6vw;z-index:2;background:linear-gradient(180deg,rgba(255,255,255,.1),rgba(255,255,255,0) 40%,rgba(20,30,20,.25))}
+.cnav{position:absolute;top:26px;left:50%;transform:translateX(-50%);display:flex;gap:4px;padding:6px;border-radius:99px;z-index:3}
+.cnav a{padding:9px 18px;border-radius:99px;font:500 13px var(--sans)}
+.badge{padding:6px 14px;border-radius:99px;font:600 11px var(--sans);letter-spacing:.04em}
+.cwin h2{font:400 clamp(56px,7.6vw,132px)/.92 var(--serif);color:#16201a;margin-top:16px;letter-spacing:-.02em;text-shadow:0 2px 30px rgba(255,255,255,.35)}
+.cwin h2 em{color:#fff;text-shadow:0 4px 30px rgba(0,0,0,.25)}
+.cwin p{margin-top:16px;font:500 17px/1.5 var(--sans);color:#16201a;max-width:560px;text-shadow:0 1px 14px rgba(255,255,255,.6)}
+.cwin .wait{margin-top:30px}
+.foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;margin-top:28px;font:500 12px var(--sans);opacity:.6}
 
-/* archive (Jo Mendes) */
-#archive{position:relative;height:120vh;overflow:hidden;background:#0f0d0b}
-.arch-stage{position:absolute;inset:0;perspective:1100px;overflow:hidden}
-.arch-group{position:absolute;left:50%;top:50%;transform-style:preserve-3d}
-.at{position:absolute;left:0;top:0;height:calc(var(--s) * 1px);aspect-ratio:3/4;border-radius:10px;overflow:hidden;will-change:transform,opacity;backface-visibility:visible;box-shadow:0 20px 40px -18px rgba(0,0,0,.7)}
-.at img{width:100%;height:100%;object-fit:cover}
-.arch-head{position:absolute;left:5vw;top:14vh;z-index:3;max-width:440px;pointer-events:none}
-.arch-head .h2{font-size:clamp(44px,5vw,88px)}
-.arch-vig{position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 50% 50%,transparent 35%,#0f0d0b 82%)}
-.panel{position:absolute;right:5vw;bottom:17vh;z-index:4;width:290px;padding:18px;border-radius:16px;background:rgba(28,25,22,.72);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border:1px solid rgba(239,233,223,.1);font:500 12px var(--sans)}
-.panel .ph{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-size:13px}
-.panel .ph span{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--copper)}
-.modes{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:10px;padding:4px;border-radius:10px;background:rgba(0,0,0,.3)}
-.modes button{padding:8px;border:0;border-radius:7px;background:transparent;color:var(--paper);font:500 11px var(--sans);letter-spacing:.1em;text-transform:uppercase;opacity:.6}
-.modes button.on{background:var(--paper);color:var(--ink);opacity:1}
-.panel label{display:grid;grid-template-columns:62px 1fr 36px;align-items:center;gap:8px;margin:9px 0}
-.panel output{text-align:right;opacity:.55;font-variant-numeric:tabular-nums}
-input[type=range]{-webkit-appearance:none;appearance:none;height:2px;background:rgba(239,233,223,.2);border-radius:2px;width:100%}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;border-radius:50%;background:var(--paper);box-shadow:0 0 0 4px rgba(207,122,76,.3)}
-input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radius:50%;background:var(--paper)}
+/* reveal helper */
+.rv{opacity:0;transform:translateY(40px)}
 
-/* about */
-#about{padding:22vh 5vw 18vh}
-.manifesto{font:300 clamp(34px,4.4vw,76px)/1.12 var(--serif);max-width:1280px}
-.manifesto .w{display:inline-block;opacity:.12}
-.manifesto em{color:var(--copper)}
-.roles{display:grid;grid-template-columns:repeat(4,1fr);gap:3vw;margin-top:12vh;border-top:1px solid currentColor;padding-top:30px}
-.roles b{display:block;font:300 clamp(36px,3.4vw,60px)/1 var(--serif);font-style:italic;margin-bottom:12px}
-.roles span{font:300 15px/1.6 var(--sans);opacity:.7}
-
-/* academy */
-#academy{padding:16vh 5vw 18vh}
-.ac-head{display:flex;justify-content:space-between;align-items:flex-end;gap:4vw;flex-wrap:wrap}
-.ac-head .lede{max-width:380px}
-.shelf{display:flex;flex-wrap:wrap;gap:46px 20px;justify-content:center;margin-top:11vh;padding-bottom:30px;border-bottom:10px solid #d6cdbd;box-shadow:0 26px 40px -24px rgba(0,0,0,.35)}
-.bk{display:flex;flex-direction:column;align-items:center;gap:14px;width:122px;perspective:900px}
-.book{width:122px;height:182px;position:relative;transform-style:preserve-3d;transform:rotateY(34deg);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
-.bk:hover .book{transform:rotateY(4deg) translateZ(60px) translateY(-16px)}
-.b-front,.b-spine,.b-pages{position:absolute}
-.b-front{inset:0;transform:translateZ(14px);background:var(--c);color:var(--t);border-radius:2px 7px 7px 2px;padding:14px 12px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;box-shadow:inset 6px 0 10px -4px rgba(0,0,0,.35)}
-.b-front::after{content:"";position:absolute;inset:0;background:linear-gradient(105deg,rgba(255,255,255,0) 40%,rgba(255,255,255,.22) 50%,rgba(255,255,255,0) 60%);transform:translateX(-100%);transition:transform 1s}
-.bk:hover .b-front::after{transform:translateX(100%)}
-.b-front h4{font:400 19px/1.02 var(--serif)}
-.b-front small{font:600 8.5px/1.3 var(--sans);letter-spacing:.14em;text-transform:uppercase;opacity:.8}
-.b-front .orn{width:30px;height:30px;border-radius:50%;border:2px solid currentColor;opacity:.7}
-.b-spine{left:0;top:0;width:28px;height:100%;background:var(--c);filter:brightness(.7);transform-origin:0 50%;transform:translateZ(14px) rotateY(90deg)}
-.b-pages{right:0;top:4px;width:26px;height:calc(100% - 8px);background:repeating-linear-gradient(90deg,#fbf8f1 0 2px,#e4ddcd 2px 3px);transform-origin:100% 50%;transform:translateZ(14px) rotateY(-90deg)}
-.bk a{font:600 9.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;border-bottom:1px solid currentColor;padding-bottom:3px;opacity:.7}
-.join{margin:13vh auto 0;max-width:760px;display:grid;grid-template-columns:1fr 1fr;gap:18px}
-.join h3{grid-column:1/-1;font:300 clamp(34px,3.6vw,58px)/1 var(--serif)}
-.join h3 em{color:var(--copper)}
-.join input,.join textarea{width:100%;background:transparent;border:0;border-bottom:1px solid currentColor;padding:14px 0;font:300 16px var(--sans);color:inherit;outline:none}
-.join textarea{grid-column:1/-1;resize:none;height:90px}
-.join .full{grid-column:1/-1}
-.join .btn{justify-self:start;background:var(--ink);color:var(--paper);border-color:var(--ink)}
-.join .ok{grid-column:1/-1;font:italic 300 24px var(--serif);display:none}
-
-/* contact */
-#contact{padding:20vh 5vw 5vh;position:relative;overflow:hidden}
-.big-cta{font:300 clamp(64px,10vw,180px)/.9 var(--serif)}
-.big-cta em{color:var(--ink)}
-.cta-row{display:flex;justify-content:space-between;align-items:center;margin-top:8vh;flex-wrap:wrap;gap:30px}
-.mag{width:190px;height:190px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font:500 12px var(--sans);letter-spacing:.22em;text-transform:uppercase;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
-.mag span{transition:transform .5s cubic-bezier(.2,.8,.2,1)}
-.socials{display:flex;gap:28px;font:500 12px var(--sans);letter-spacing:.18em;text-transform:uppercase}
-.socials a{border-bottom:1px solid currentColor;padding-bottom:4px}
-.foot-name{font:300 clamp(120px,24vw,460px)/.8 var(--serif);font-style:italic;margin-top:10vh;display:flex;overflow:hidden;letter-spacing:-.02em}
-.foot-name span{display:inline-block}
-.foot-line{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;border-top:1px solid currentColor;padding-top:18px;margin-top:3vh}
-
-.static #loader{display:none}
-@media (max-width:800px){
-  nav{padding:18px 6vw}
-  .links,.chip,.hero-hint,.hero-foot{display:none}
-  /* hero: photo on top, copy underneath */
-  #heroCanvas{width:100%;height:60%;-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent);mask-image:linear-gradient(180deg,#000 62%,transparent)}
-  .hero-copy{left:6vw;right:6vw;top:auto;bottom:6vh;transform:none}
-  .hero-copy .eyebrow{font-size:9.5px;letter-spacing:.22em;margin-bottom:14px}
-  .hero-name{font-size:clamp(58px,17vw,96px)}
-  .hero-copy p{font-size:14.5px;line-height:1.6;margin-top:18px}
-  .ctas{margin-top:22px;gap:10px}
-  .btn{padding:14px 18px;font-size:10.5px;letter-spacing:.16em}
-  /* sections */
-  #worlds{padding:14vh 0 12vh}
-  .w-head{margin-bottom:6vh}
-  .it{height:21vh}
-  .irow{margin-bottom:12px}.itrack{gap:12px}
-  .cyl-head{flex-direction:column;align-items:flex-start;top:11vh}
-  .cyl-head .lede{display:none}
-  .cyl-head .h2{font-size:38px}
-  .cyl-foot{bottom:4vh}
-  #archive{height:100vh}
-  .arch-head{top:11vh;right:6vw;z-index:5}
-  .arch-head .lede{display:none}
-  .panel{left:4vw;right:4vw;width:auto;bottom:3vh;padding:12px 14px}
-  .panel .ph{display:none}
-  .panel label{margin:5px 0;grid-template-columns:52px 1fr 30px}
-  .panel label:nth-of-type(4),.panel label:nth-of-type(5){display:none}
-  #about{padding:16vh 6vw 12vh}
-  .roles{grid-template-columns:1fr 1fr;gap:28px 6vw;margin-top:8vh}
-  #academy{padding:12vh 6vw}
-  .shelf{gap:30px 12px}
-  .bk{width:94px;gap:10px}
-  .book{width:94px;height:140px}
-  .b-front{padding:10px 9px}
-  .b-front h4{font-size:14px}
-  .b-front small{font-size:6.5px}
-  .b-front .orn{width:20px;height:20px}
-  .bk a{font-size:7.5px;letter-spacing:.1em}
-  .join{grid-template-columns:1fr}
-  #contact{padding:16vh 6vw 4vh}
-  .mag{width:150px;height:150px}
-  .socials{gap:18px;flex-wrap:wrap}
+@media (max-width:900px){
+  .flinks,.fnav .right .pill.white{display:none}
+  .grid{grid-template-columns:1fr;grid-template-rows:auto;min-height:0}
+  .lime{grid-row:auto;padding:32px 24px;-webkit-mask:none;mask:none}
+  .window{grid-row:auto;grid-column:auto}
+  .win{min-height:440px}
+  .stat{grid-row:auto}
+  .s1 .in{width:92px;height:92px;font-size:12px;border-radius:22px}.s1 svg{width:22px;height:22px}
+  .s2 .in{width:104px;height:104px;font-size:17px}
+  .s3 .in{font-size:13px;padding:10px 16px}
+  .s4 .in{width:74px;height:74px;font-size:10px}
+  .s5 .in{transform:scale(.75)}
+  .nowcard{right:14px;left:14px;max-width:none}
+  .fnav{padding:4px 4px 14px}.logo{font-size:22px}
+  .fnav .pill{padding:11px 16px;font-size:12px}
+  .s1{left:62%!important;top:5%!important}
+  .s2{left:4%!important;top:36%!important}
+  .s3{left:26%!important;top:57%!important}
+  .s4{left:70%!important;top:30%!important}
+  .s5,.wintag{display:none}
+  .xdock{min-width:0;width:calc(100% - 90px);left:16px;transform:none}
+  .steps-mini{display:none}
+  .jbox,.bbox{inset:2vh 3vw}
+  .jp{width:86vw}
+  .jstage{top:20vh;bottom:24vh}
+  .jtop .ic:last-child{display:none}
+  .xc{width:64vw}
+  .xrail{display:none}
+  .xbar .b:nth-child(n+3):not(.url){display:none}
+  .xstage{top:90px;bottom:110px}
+  .gauge{left:5vw;right:5vw;top:auto;bottom:12vh;width:auto;height:70px}
+  .gauge .tick{display:none}.gauge .avg{display:none}
+  .gauge .mark{left:0;top:50%!important}
+  #island{left:0;right:0;width:100%;top:18vh;height:46vh}
+  .bside{left:5vw;right:5vw;width:auto;top:auto;bottom:22vh;flex-direction:row;gap:6px;justify-content:space-between}
+  .bside h4{display:none}
+  .stp{flex-direction:column;padding:8px 4px;gap:6px;text-align:center;flex:1}
+  .stp span,.stp .n,.stp .bar{display:none}
+  .stp b{font-size:11px}
+  .stp .ic{width:38px;height:38px;font-size:16px}
+  .bhead{left:5vw;right:5vw;top:4vh}
+  .bbanner{font-size:12.5px}
+  .cnav{display:none}
+  .cwin{padding:10px;border-radius:28px}
+  .cwin .over{padding:0 5vw;background:linear-gradient(180deg,rgba(255,255,255,.35),rgba(255,255,255,.15) 50%,rgba(20,30,20,.35))}
+  .cwin .wait{width:100%;padding:6px 6px 6px 16px}
+  .cwin .wait .pill{padding:12px 14px;font-size:12px}
 }
 </style>
 </head>
 <body>
-<div class="grain"></div>
-<div class="cur"></div><div class="ring"></div>
+<div class="clouds"><i style="width:40vw;height:16vw;top:6vh;animation-duration:90s;animation-delay:-20s"></i><i style="width:30vw;height:12vw;top:40vh;animation-duration:120s;animation-delay:-70s"></i><i style="width:46vw;height:18vw;top:70vh;animation-duration:100s;animation-delay:-45s"></i></div>
+<main>
 
-<div id="loader"><div class="ld">
-  <div class="ld-name"><span>Justin</span><span>Massion</span></div>
-  <div class="ld-line"><i></i></div><div class="ld-pct">000</div>
-</div></div>
-
-<nav id="nav">
-  <a href="#hero" class="logo" data-cursor="Top">Justin <em>Massion</em></a>
-  <div class="links"><a href="#worlds">Work</a><a href="#cyl">Worlds</a><a href="#archive">Archive</a><a href="#academy">Academy</a><a href="#contact">Contact</a></div>
-</nav>
-<div class="chip"><b></b>Concept A v2 · stand-in images from the Loom</div>
-
-<!-- HERO: pencil sketch resolves into the photo -->
-<section id="hero" data-theme="dark">
-  <canvas id="heroCanvas" data-cursor-none></canvas>
-  <div class="hero-shade"></div>
-  <div class="hero-copy">
-    <span class="eyebrow">Los Angeles · Orlando · Guatapé · Everywhere</span>
-    <h1 class="hero-name"><span class="ln">Justin</span><span class="ln">Massion</span></h1>
-    <p>An Imagineering-inspired approach to AI, spatial computing, and experience design — building worlds that feel like they were dreamed up in a theme park back room, then shipped to the cloud.</p>
-    <div class="ctas"><a href="#worlds" class="btn pri" data-cursor="Go">Explore work</a><a href="#contact" class="btn" data-cursor="Hi">Get in touch</a></div>
+<!-- ================= HERO ================= -->
+<section id="hero"><div class="wrap">
+  <div class="frame" id="frame">
+    <div class="fnav">
+      <a href="#hero" class="logo"><svg viewBox="0 0 26 26"><path d="M3 12h20l-3 4H6z" fill="#cdeb7d" stroke="#15201a" stroke-width="1.4" stroke-linejoin="round"/><path d="M6 16l7 8 7-8" fill="#4fb0c6" stroke="#15201a" stroke-width="1.4" stroke-linejoin="round"/><path d="M10 12c0-5 1.5-8 3-8s3 3 3 8" fill="#9aa09a" stroke="#15201a" stroke-width="1.4"/></svg>Justin <em>Massion</em></a>
+      <div class="flinks"><a href="#journal">Journal</a><a href="#explorer">Worlds</a><a href="#build">Build</a><a href="#academy">Academy</a><a href="#contact">Contact</a></div>
+      <div class="right"><a class="pill white" href="#academy">Academy</a><a class="pill dark" href="#contact">Get in touch</a></div>
+    </div>
+    <div class="grid">
+      <div class="lime">
+        <div class="eyebrow">Los Angeles · Orlando · Guatapé · Everywhere</div>
+        <h1>Building <span class="hl">worlds</span> you can <em>stand inside.</em></h1>
+        <p>An Imagineering-inspired approach to AI, spatial computing and experience design — dreamed up in a theme park back room, shipped to the cloud.</p>
+        <div class="ctas"><a class="pill dark" href="#journal">Open the journal <span class="ar">→</span></a><a class="pill white" href="#explorer">Explore worlds</a></div>
+      </div>
+      <div class="stat">
+        <div><div class="big">3<small>cities,</small></div><div class="lbl">one imagination — and seven worlds in the journal.</div></div>
+        <div class="row"><div class="avs" id="avs"></div><div class="cities"><span>LA</span><span>Orlando</span><span>Guatapé</span></div></div>
+      </div>
+      <div class="window" id="window">
+        <div class="win" id="win">
+          <img src="assets/img/hero-photo.jpg" alt="Justin Massion pointing, with Guatapé behind him" id="winImg">
+          <div class="glare"></div>
+          <div class="wintag glass">Window seat · Guatapé</div>
+          <div class="stk s1" style="left:58%;top:10%"><div class="in"><svg viewBox="0 0 30 30" fill="none" stroke="#15201a" stroke-width="2"><path d="M15 3l2.6 7.4L25 13l-7.4 2.6L15 23l-2.6-7.4L5 13l7.4-2.6z"/></svg>AI-native</div></div>
+          <div class="stk s2" style="left:6%;top:46%"><div class="in">Spatial<br>computing</div></div>
+          <div class="stk s3" style="left:44%;top:60%"><div class="in">Theme-park thinking</div></div>
+          <div class="stk s4" style="left:80%;top:34%"><div class="in">Guatapé,<br>Colombia</div></div>
+          <div class="stk s5" style="left:76%;top:64%"><div class="in">Ship it</div></div>
+          <a class="nowcard glass" href="#explorer"><img src="assets/img/playset-agents.jpg" alt=""><div><small>Now building</small><b>Playset Agents</b><span>Game-style AI agent interface</span></div><div class="go">↗</div></a>
+        </div>
+      </div>
+    </div>
+    <div class="steps-mini"><div><b>01</b>Sketch it in pencil</div><div><b>02</b>Blueprint the magic</div><div><b>03</b>Prototype with AI</div><div><b>04</b>Ship to the cloud</div></div>
   </div>
-  <div class="hero-hint"><b></b><span>hover to see the blueprint</span></div>
-  <div class="hero-foot"><span>LA · Orlando · Guatapé</span><span class="sh">Scroll <i></i></span></div>
-</section>
+</div></section>
 
-<!-- IMAGINEERED ACROSS WORLDS: drifting rows -->
-<section id="worlds" data-theme="dark">
-  <div class="w-head">
-    <span class="eyebrow">(01) Selected work</span>
-    <h2 class="h2">Imagineered <em>Across</em> Worlds</h2>
-    <p class="lede">From Walt Disney Imagineering's blueprint-meets-magic philosophy to AI-native platforms — building experiences that feel impossible until you're standing inside them.</p>
-  </div>
-  <div class="irows" id="irows"></div>
-</section>
-
-<!-- CYLINDER: step inside the work -->
-<section id="cyl" data-theme="dark">
-  <div class="cyl-floor"></div>
-  <div class="cyl-stage" id="cylStage"><div class="cyl-ring" id="ring"></div></div>
-  <div class="cyl-head"><div><span class="eyebrow">(02) Step inside</span><h2 class="h2">Design, motion &amp; build —<br><em>under one roof.</em></h2></div><p class="lede" style="max-width:340px">Stand in the middle of the work. Scroll to turn the room, or drag it.</p></div>
-  <div class="cyl-foot"><span id="cylNum">01 / 10</span><div class="cyl-bar"><i id="cylBar"></i></div><span>Scroll or drag</span></div>
-</section>
-
-<!-- ARCHIVE: helix / tunnel with live controls -->
-<section id="archive" data-theme="dark" style="--s:190">
-  <div class="arch-stage"><div class="arch-group" id="arch"></div></div>
-  <div class="arch-vig"></div>
-  <div class="arch-head"><span class="eyebrow">(03) The archive</span><h2 class="h2">Every world, <em>in orbit.</em></h2><p class="lede" style="margin-top:18px">Characters, blueprints, interfaces and places. Switch the layout and tune it live.</p></div>
-  <div class="panel" data-lenis-prevent>
-    <div class="ph">Size &amp; layout <span>● live</span></div>
-    <div class="modes"><button class="on" data-mode="helix" data-cursor="Helix">Helix</button><button data-mode="tunnel" data-cursor="Tunnel">Tunnel</button></div>
-    <label>Twist <input type="range" min="5" max="60" value="22" data-k="twist"><output>22</output></label>
-    <label>Radius <input type="range" min="200" max="900" value="460" data-k="radius"><output>460</output></label>
-    <label>Photo <input type="range" min="100" max="320" value="190" data-k="s"><output>190</output></label>
-    <label>Tilt <input type="range" min="-40" max="40" value="-12" data-k="tilt"><output>-12</output></label>
-    <label>Speed <input type="range" min="0" max="40" value="10" data-k="speed"><output>1.0</output></label>
+<!-- ================= JOURNAL ================= -->
+<section id="journal">
+  <div class="jbox">
+    <div class="jtop"><div class="ic"><button class="on" aria-label="Book view">▥</button><button aria-label="Grid view" id="jgrid">▦</button></div><div class="ic"><button aria-label="Search">⌕</button><button aria-label="Menu">≡</button></div></div>
+    <div class="jhead"><h2>Journal</h2><p><span>◎</span><span id="jcount">7 worlds</span> · scroll to turn the page</p></div>
+    <div class="jstage" id="jstage"></div>
+    <div class="jfoot"><div class="jcap" id="jcap"></div><div class="jbtns"><button id="jprev" aria-label="Previous page">‹</button><button aria-label="Share">⤴</button><button aria-label="Bookmark">♡</button><button id="jnext" aria-label="Next page">›</button></div></div>
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" data-theme="light">
-  <span class="eyebrow" style="color:var(--copper)">(04) About</span>
-  <p class="manifesto" id="manifesto">Every world I build starts as a <em>pencil sketch</em> and ends somewhere you can stand inside — theme-park thinking pointed at AI, spatial computing and the companies that <em>ship it.</em></p>
-  <div class="roles">
-    <div><b>Imagineer</b><span>Blueprint-meets-magic experience design for AI-native products.</span></div>
-    <div><b>Author</b><span>Writing and teaching how to learn anything — the thread behind The Academy.</span></div>
-    <div><b>Artist</b><span>Sketches, characters and worlds, from pencil to render.</span></div>
-    <div><b>Entrepreneur</b><span>JAM Studios and the ventures around it, from Los Angeles to Guatapé.</span></div>
+<!-- ================= EXPLORER ================= -->
+<section id="explorer"><div class="wrap">
+  <div class="sec-head rv"><div class="eyebrow">(02) Explorer</div><h2>Popular <em>worlds</em> to step into</h2><p>Characters, interfaces, blueprints and places — pick one up and it comes forward.</p></div>
+  <div class="xroom rv" id="xroom">
+    <div class="xbg" id="xbgA"></div><div class="xbg" id="xbgB" style="opacity:0"></div>
+    <div class="xbar glassD"><span class="b">⋮⋮</span><span class="b" id="xp2">‹</span><span class="b" id="xn2">›</span><div class="url"><i>aA</i> 🔒 justinmassion.com/worlds/<span id="xslug">pixel</span></div><span class="b">＋</span><span class="b">⤴</span></div>
+    <div class="xrail glassD"><span>🔗</span><span>♡</span><span>☺</span></div>
+    <div class="xstage" id="xstage"></div>
+    <div class="xdock glassD"><button id="xprev" aria-label="Previous world">‹</button><img id="xdImg" src="assets/img/pixel-chameleon.jpg" alt=""><div class="t"><b id="xdT">Pixel the Chameleon</b><span id="xdS">Character design</span></div><button aria-label="Favourite">♡</button><button id="xnext" aria-label="Next world">›</button></div>
+  </div>
+  <div class="xdots" id="xdots"></div>
+  <p class="xcap" id="xcap"></p>
+</div></section>
+
+<!-- ================= BUILD ================= -->
+<section id="build">
+  <div class="bbox">
+    <div class="bhead"><div class="crumb">Worlds › Building a world</div><h2>From pencil <em>to somewhere.</em></h2><div class="lv"><i>✦</i><span id="lvtxt">Stage 1 · Sketch</span></div></div>
+    <div class="gauge" id="gauge"></div>
+    <canvas id="island" aria-label="A low-poly floating island with Guatapé's rock, drawn first in pencil lines then coloured in"></canvas>
+    <div class="bside">
+      <h4><i></i>How a world gets built</h4>
+      <div class="stp" data-i="0"><div class="ic">✎</div><div style="flex:1"><b>Sketch</b><span>Pencil first. Every world starts as lines on paper.</span><div class="bar"><i></i></div></div><div class="n">01</div></div>
+      <div class="stp" data-i="1"><div class="ic">⌗</div><div style="flex:1"><b>Blueprint</b><span>Imagineering-style plans: flows, stories, systems.</span><div class="bar"><i></i></div></div><div class="n">02</div></div>
+      <div class="stp" data-i="2"><div class="ic">✦</div><div style="flex:1"><b>Prototype</b><span>AI and spatial tools turn the plan into something you can try.</span><div class="bar"><i></i></div></div><div class="n">03</div></div>
+      <div class="stp" data-i="3"><div class="ic">☁</div><div style="flex:1"><b>Ship</b><span>Cloud-scale delivery — a world people can visit.</span><div class="bar"><i></i></div></div><div class="n">04</div></div>
+    </div>
+    <div class="bhint" id="bhint">Scroll to build · drag to spin</div>
+    <div class="bbanner" id="bbanner">☺ This world is ready for visitors.</div>
   </div>
 </section>
 
-<!-- ACADEMY -->
-<section id="academy" data-theme="light">
-  <div class="ac-head"><div><span class="eyebrow" style="color:var(--copper)">(05) Introducing</span><h2 class="h2">The <em>Academy</em></h2></div><p class="lede">"The new school of learning anything." The reading list behind the work — pick a book up and it turns toward you.</p></div>
+<!-- ================= ACADEMY ================= -->
+<section id="academy">
+  <div class="sec-head rv"><div class="eyebrow">(04) The Academy</div><h2>The new school of <em>learning anything</em></h2><p>The reading list behind the work. Swipe the shelf, then join the waitlist.</p></div>
   <div class="shelf" id="shelf"></div>
-  <form class="join" id="join">
-    <h3>Join the <em>Academy</em></h3>
-    <input placeholder="First name" aria-label="First name"><input placeholder="Last name" aria-label="Last name">
-    <input class="full" placeholder="Email address" aria-label="Email address">
-    <textarea placeholder="What are your learning goals?" aria-label="Learning goals"></textarea>
-    <button class="btn" data-cursor="Send">Submit →</button>
-    <p class="ok">Thanks — you're on the list. (Demo form, nothing is sent.)</p>
-  </form>
+  <form class="wait glass rv" id="wait1"><input type="email" placeholder="Enter your email" aria-label="Email for the Academy waitlist"><button class="pill dark" type="submit">Join waitlist</button><span class="ok">You're on the list — demo form, nothing is sent.</span></form>
 </section>
 
-<!-- CONTACT -->
-<section id="contact" data-theme="copper">
-  <span class="eyebrow" style="color:var(--ink)">(06) Contact</span>
-  <h2 class="big-cta">Let's build<br>a <em>world.</em></h2>
-  <div class="cta-row">
-    <a href="#contact" class="mag" data-cursor="Go"><span>Get in touch →</span></a>
-    <div class="socials"><a href="#" data-cursor="↗">Instagram</a><a href="#" data-cursor="↗">YouTube</a><a href="#" data-cursor="↗">LinkedIn</a><a href="#" data-cursor="↗">Email</a></div>
+<!-- ================= CONTACT ================= -->
+<section id="contact"><div class="wrap">
+  <div class="cwin rv">
+    <div class="win"><img src="assets/img/hero-photo.jpg" alt="Guatapé landscape through a window"><div class="glare"></div>
+      <div class="cnav glass"><a href="#journal">Journal</a><a href="#explorer">Worlds</a><a href="#build">Build</a><a href="#academy">Academy</a></div>
+      <div class="over"><span class="badge glass">Booking new worlds for 2027</span><h2>Let's build <em>a world.</em></h2><p>Tell me about the idea that won't sit still — a park, a product, a platform.</p>
+        <form class="wait glass" id="wait2"><input type="email" placeholder="Enter your email" aria-label="Your email"><button class="pill dark" type="submit">Get in touch</button><span class="ok">Thanks — demo form, nothing is sent.</span></form></div>
+    </div>
   </div>
-  <div class="foot-name" id="footName"><span>M</span><span>a</span><span>s</span><span>s</span><span>i</span><span>o</span><span>n</span></div>
-  <div class="foot-line"><span>JAM Studios · Los Angeles · Orlando · Guatapé</span><span>© 2026 Justin Massion</span><span>Concept A v2</span></div>
-</section>
+  <div class="foot"><span>JAM Studios · Los Angeles · Orlando · Guatapé</span><span>© 2026 Justin Massion</span><span>Concept B · stand-in images from the Loom</span></div>
+</div></section>
+</main>
 
+<script src="switcher.js" data-root="" data-current="b"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js"}}</script>
 <script>
 (()=>{
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
-const HAS=!!(window.gsap&&window.ScrollTrigger);
-if(!HAS)document.documentElement.classList.add('static');
-const IMG='assets/img/';
-const WORK=[['pixel-chameleon','Pixel the Chameleon','Character design'],['playset-blueprint','Playset','Blueprint'],['aluzina-os','Aluzina OS','After state'],['enterprise-workflow','Playset','Enterprise workflow'],['las-palmas','Las Palmas','Morning mode'],['justin-guatape','Justin Massion','Guatapé'],['playset-agents','Playset Agents','Game UI']];
-const lerp=(a,b,t)=>a+(b-a)*t,clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const IMG='assets/img/',clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t;
+const W=[
+ {k:'pixel-chameleon',slug:'pixel',t:'Pixel the Chameleon',s:'Character design',d:'A high-end 3D character: turnarounds, expression sheet, action poses and colour variations.',note:'Gave him a tongue attack. Kids loved the purple one most!',em:'🦎',flag:'playset-agents'},
+ {k:'playset-blueprint',slug:'playset-blueprint',t:'Playset',s:'Blueprint',d:'An arcade cabinet drawn the Imagineering way — measured, annotated and ready to build.',note:'1530 tall. Joystick at elbow height, always.',em:'🕹️',flag:'enterprise-workflow'},
+ {k:'aluzina-os',slug:'aluzina',t:'Aluzina OS',s:'After state',d:'An interface concept shown in its "after" state: cards of state machines and creators floating in the clouds.',note:'The after state should feel like stepping into the sky.',em:'☁️',flag:'pixel-chameleon'},
+ {k:'enterprise-workflow',slug:'workflow',t:'Playset',s:'Enterprise workflow',d:'A ten-station enterprise transformation, staged like a theme-park queue line.',note:'Ten stations, one story. Assessment → launch.',em:'🏭',flag:'aluzina-os'},
+ {k:'las-palmas',slug:'las-palmas',t:'Las Palmas',s:'Morning mode',d:'A morning-mode dashboard for a place to stay — weather, plans and the view, all at once.',note:'Buenos días! Sunrise first, then the schedule.',em:'🌅',flag:'justin-guatape'},
+ {k:'justin-guatape',slug:'guatape',t:'Justin Massion',s:'Guatapé',d:'Home base in Colombia, under El Peñol — where a lot of these worlds get sketched.',note:'740 steps up the rock. Worth every one.',em:'⛰️',flag:'las-palmas'},
+ {k:'playset-agents',slug:'agents',t:'Playset Agents',s:'Game UI',d:'Choose your team member: AI agents presented like characters on a game select screen.',note:'Select your agent. Each one has a job and a glow.',em:'🎮',flag:'playset-blueprint'}];
+const N=W.length;
 
-/* ================= HERO: sketch -> photo reveal ================= */
-const cv=$('#heroCanvas'),cx=cv.getContext('2d'),mk=document.createElement('canvas'),mx2=mk.getContext('2d');
-const photo=new Image(),sketch=new Image();photo.src=IMG+'hero-photo.jpg';sketch.src=IMG+'hero-sketch.jpg';
-const H={intro:0,scroll:0,brush:{x:0,y:0,r:0,tr:0},t:0,fit:null,W:0,Hh:0,dpr:1};
-const BL=Array.from({length:34},(_,i)=>({a:i*2.399+Math.random()*.6,d:Math.pow(Math.random(),.7),s:.32+Math.random()*.42,w:Math.random()*6.28,ws:.6+Math.random()*1.2}));
-const SP=Array.from({length:46},()=>({a:Math.random()*6.28,o:Math.random(),s:.4+Math.random()*1.4}));
-function sizeHero(){
-  H.dpr=Math.min(devicePixelRatio||1,1.6);const r=cv.getBoundingClientRect();H.W=cv.width=Math.round(r.width*H.dpr);H.Hh=cv.height=Math.round(r.height*H.dpr);mk.width=H.W;mk.height=H.Hh;
-  const iw=1114,ih=1026,s=Math.max(H.W/iw,H.Hh/ih),dw=iw*s,dh=ih*s;
-  // wide screens: anchor right; narrow (portrait) screens: centre on Justin and his pointing hand
-  const fx=H.W/H.Hh<1?clamp(H.W*.5-520*s,H.W-dw,0):H.W-dw;
-  H.fit={x:fx,y:(H.Hh-dh)*.35,w:dw,h:dh,s};
-  H.ox=H.fit.x+735*s;H.oy=H.fit.y+300*s; // reveal starts at the pointing hand
-}
-function drawHero(){
-  if(!H.fit||!photo.complete||!sketch.complete)return;
-  const {x,y,w,h}=H.fit,W=H.W,HH=H.Hh,t=H.t;
-  const rev=clamp(H.intro*(1-H.scroll),0,1);
-  cx.globalCompositeOperation='source-over';cx.clearRect(0,0,W,HH);cx.drawImage(sketch,x,y,w,h);
-  // mask of soft cloud blobs around the hand
-  mx2.globalCompositeOperation='source-over';mx2.clearRect(0,0,W,HH);
-  const R=rev*Math.hypot(W,HH)*1.15;
-  if(R>2){for(const b of BL){const wob=Math.sin(t*b.ws+b.w)*.08;const d=b.d*R*.62*(1+wob),px=H.ox+Math.cos(b.a)*d,py=H.oy+Math.sin(b.a)*d*.9,r=b.s*R*(1+wob*.6);
-    const g=mx2.createRadialGradient(px,py,0,px,py,r);g.addColorStop(0,'#000');g.addColorStop(.55,'rgba(0,0,0,.95)');g.addColorStop(1,'rgba(0,0,0,0)');mx2.fillStyle=g;mx2.beginPath();mx2.arc(px,py,r,0,7);mx2.fill()}}
-  // cursor brush: reveals the photo over the sketch, or the blueprint through the photo
-  const B=H.brush;if(B.r>1){mx2.globalCompositeOperation=rev>.5?'destination-out':'source-over';const g=mx2.createRadialGradient(B.x,B.y,0,B.x,B.y,B.r);g.addColorStop(0,'#000');g.addColorStop(.5,'rgba(0,0,0,.9)');g.addColorStop(1,'rgba(0,0,0,0)');mx2.fillStyle=g;mx2.beginPath();mx2.arc(B.x,B.y,B.r,0,7);mx2.fill()}
-  mx2.globalCompositeOperation='source-in';mx2.drawImage(photo,x,y,w,h);
-  cx.drawImage(mk,0,0);
-  // copper ring + sparks at the reveal front
-  const glow=Math.sin(rev*Math.PI);
-  if(glow>.02){cx.save();cx.globalCompositeOperation='lighter';const rr=R*.5;
-    cx.strokeStyle=`rgba(232,140,84,${.55*glow})`;cx.lineWidth=2*H.dpr;cx.shadowColor='#e88c54';cx.shadowBlur=26*H.dpr;
-    cx.beginPath();for(let k=0;k<=80;k++){const a=k/80*6.283,j=1+Math.sin(a*5+t*1.6)*.035+Math.sin(a*9-t)*.02;const px=H.ox+Math.cos(a)*rr*j,py=H.oy+Math.sin(a)*rr*j*.9;k?cx.lineTo(px,py):cx.moveTo(px,py)}cx.stroke();
-    cx.shadowBlur=0;for(const p of SP){const a=p.a+t*.15*p.s,j=rr*(.95+((p.o+t*.3*p.s)%1)*.18);const px=H.ox+Math.cos(a)*j,py=H.oy+Math.sin(a)*j*.9;cx.fillStyle=`rgba(255,190,140,${glow*(1-((p.o+t*.3*p.s)%1))})`;cx.beginPath();cx.arc(px,py,1.6*H.dpr*p.s,0,7);cx.fill()}
-    cx.restore()}
-  if(B.r>4){cx.save();cx.globalCompositeOperation='lighter';cx.strokeStyle='rgba(232,140,84,.5)';cx.lineWidth=1.5*H.dpr;cx.shadowColor='#e88c54';cx.shadowBlur=18*H.dpr;cx.beginPath();cx.arc(B.x,B.y,B.r*.62,0,7);cx.stroke();cx.restore()}
-}
-let heroIn=false;
-cv.addEventListener('mousemove',e=>{const r=cv.getBoundingClientRect();H.brush.x=(e.clientX-r.left)*H.dpr;H.brush.y=(e.clientY-r.top)*H.dpr;H.brush.tr=150*H.dpr;heroIn=true});
-cv.addEventListener('mouseleave',()=>{H.brush.tr=0;heroIn=false});
+/* ---------- hero: avatars + draggable stickers ---------- */
+$('#avs').innerHTML=W.slice(0,5).map(w=>`<img src="${IMG+w.k}.jpg" alt="">`).join('');
+$$('.stk').forEach(s=>{let sx,sy,ox,oy,drag=false;
+  s.addEventListener('pointerdown',e=>{drag=true;s.setPointerCapture(e.pointerId);sx=e.clientX;sy=e.clientY;const m=new DOMMatrix(getComputedStyle(s).transform);ox=m.e;oy=m.f;s.style.zIndex=9});
+  s.addEventListener('pointermove',e=>{if(!drag)return;s.style.transform=`translate(${ox+e.clientX-sx}px,${oy+e.clientY-sy}px) rotate(${(e.clientX-sx)*.05}deg)`});
+  s.addEventListener('pointerup',()=>{drag=false;s.style.transform=s.style.transform.replace(/rotate\([^)]*\)/,'rotate(0deg)')});});
+const win=$('#win'),winImg=$('#winImg');
+win.addEventListener('mousemove',e=>{const b=win.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;winImg.style.transform=`scale(1.1) translate(${x*-18}px,${y*-12}px)`;
+  $$('.stk .in').forEach((el,i)=>el.style.translate=`${x*(10+i*6)}px ${y*(8+i*5)}px`)});
 
-/* ================= WORLDS: two drifting rows ================= */
-const rowsEl=$('#irows'),rows=[];
-[[0,1,2,3,4,5,6],[4,5,6,0,1,2,3]].forEach((ord,ri)=>{
-  const row=document.createElement('div');row.className='irow';const tr=document.createElement('div');tr.className='itrack';
-  let h='';for(let k=0;k<3;k++)ord.forEach(i=>{const w=WORK[i];h+=`<figure class="it" data-cursor="View"><img src="${IMG+w[0]}.jpg" alt="${w[1]} — ${w[2]}" loading="lazy"></figure>`});
-  tr.innerHTML=h;row.appendChild(tr);rowsEl.appendChild(row);rows.push({tr,dir:ri?1:-1,off:ri*300,third:0,hover:1,extra:0});
-});
-rows.forEach(o=>{o.tr.addEventListener('mouseenter',()=>o.hover=.15);o.tr.addEventListener('mouseleave',()=>o.hover=1)});
-const measure=()=>rows.forEach(o=>o.third=o.tr.scrollWidth/3);
+/* ---------- journal pages ---------- */
+const COLORS=['#f6c64a','#e8766b','#7fc4dd','#b5d86a','#c79be0'];
+$('#jstage').innerHTML=W.map((w,i)=>`<div class="jp" data-i="${i}"><div class="pg"><div class="num">${String(i+1).padStart(2,'0')}</div>
+ <div class="sp"><div class="L"><div class="polar"><div class="tape"></div><img src="${IMG+w.flag}.jpg" alt=""></div><div class="note">${w.note}</div>
+  <div class="dot" style="width:16%;aspect-ratio:1;background:${COLORS[i%5]};left:62%;top:62%">${w.em}</div><div class="dot" style="width:10%;aspect-ratio:1;background:${COLORS[(i+2)%5]};left:76%;top:74%">✦</div>
+  <div class="ttl"><small>${w.s}</small>${w.t}</div></div><div class="R"><img src="${IMG+w.k}.jpg" alt="${w.t} — ${w.s}"></div></div></div><div class="shade"></div></div>`).join('');
+const jps=$$('.jp');let jPos=0,jT=0;
+function drawJournal(){jPos=lerp(jPos,jT,.1);const wpx=jps[0].offsetWidth;
+  jps.forEach((p,i)=>{const d=i-jPos,a=Math.abs(d),sg=Math.sign(d),c=Math.min(a,1);
+    const x=a<1?d*wpx*.62:sg*(wpx*.62+(a-1)*22),ry=-sg*c*76,z=-c*120-Math.max(0,a-1)*6,sc=1-c*.08;
+    p.style.transform=`translate(-50%,-50%) translate3d(${x}px,0,${z}px) rotateY(${ry}deg) scale(${sc})`;
+    p.style.zIndex=100-Math.round(a*10);p.style.opacity=a>8?0:1;p.lastElementChild.style.opacity=(c*.55).toFixed(3)});
+  const i=clamp(Math.round(jPos),0,N-1);$('#jcap').textContent=`${String(i+1).padStart(2,'0')} · ${W[i].t} — ${W[i].s}`}
+$('#jprev').onclick=()=>jumpJournal(-1);$('#jnext').onclick=()=>jumpJournal(1);
 
-/* ================= CYLINDER (concave carousel) ================= */
-const PANELS=[{img:'justin-guatape',t:'Justin Massion',c:'Guatapé'},{txt:'Theme-park thinking,<br><em>cloud-scale</em> delivery.',k:'Approach'},{img:'aluzina-os',t:'Aluzina OS',c:'After state'},{img:'playset-blueprint',t:'Playset',c:'Blueprint'},{img:'pixel-chameleon',t:'Pixel the Chameleon',c:'Character'},{txt:'From pencil sketch<br>to <em>somewhere you can stand.</em>',k:'Process'},{img:'las-palmas',t:'Las Palmas',c:'Morning mode'},{img:'playset-agents',t:'Playset Agents',c:'Game UI'},{img:'enterprise-workflow',t:'Playset',c:'Enterprise workflow'},{txt:'Los Angeles · Orlando<br><em>Guatapé · Everywhere</em>',k:'Studios'}];
-const ring=$('#ring');
-ring.innerHTML=PANELS.map(p=>`<div class="cp">${p.img?`<div class="card" data-cursor="Open"><img src="${IMG+p.img}.jpg" alt="${p.t}"></div><div class="cap"><span>${p.t}</span><span>${p.c}</span></div>`:`<div class="card txt"><small>${p.k}</small><h3>${p.txt}</h3></div><div class="cap"><span>&nbsp;</span></div>`}</div>`).join('');
-const cps=$$('.cp',ring);const C={R:1300,pw:480,step:.4,theta:0,target:0,drag:0,dragT:0};
-function sizeCyl(){C.pw=Math.min(520,Math.max(280,innerWidth*.3));C.R=Math.max(950,innerWidth*.95);C.step=(C.pw+70)/C.R;ring.style.setProperty('--pw',C.pw+'px');$('#cylStage').style.perspective=Math.round(C.R*.78)+'px'}
-let dragging=false,dx0=0,d0=0;
-$('#cylStage').addEventListener('pointerdown',e=>{dragging=true;dx0=e.clientX;d0=C.dragT;e.target.setPointerCapture&&e.target.setPointerCapture(e.pointerId)});
-addEventListener('pointermove',e=>{if(dragging)C.dragT=d0+(e.clientX-dx0)/C.R*1.4});
-addEventListener('pointerup',()=>dragging=false);
-function drawCyl(){
-  C.theta=lerp(C.theta,C.target,.08);C.drag=lerp(C.drag,C.dragT,.1);const th=C.theta-C.drag;let best=0,bd=9;
-  cps.forEach((p,i)=>{const phi=i*C.step+th;const a=Math.abs(phi);if(a<bd){bd=a;best=i}
-    if(a>.92){p.style.opacity=0;p.style.visibility='hidden';return}
-    p.style.visibility='visible';p.style.opacity=clamp(1.5-a*1.6,0,1);
-    p.style.transform=`translate(-50%,-50%) translate3d(${C.R*Math.sin(phi)}px,0,${C.R-C.R*Math.cos(phi)}px) rotateY(${-phi}rad)`});
-  $('#cylNum').textContent=String(best+1).padStart(2,'0')+' / '+String(PANELS.length).padStart(2,'0');
-}
+/* ---------- explorer arc ---------- */
+$('#xstage').innerHTML=W.map((w,i)=>`<div class="xc" data-i="${i}"><img src="${IMG+w.k}.jpg" alt="${w.t} — ${w.s}"><div class="exp glassD">⤢ Expand</div><div class="info glassD"><h3>${w.t}</h3><div class="meta"><span>${w.s}</span><span>${i+1} / ${N}</span></div><p>${w.d}</p></div></div>`).join('');
+$('#xdots').innerHTML=W.map((w,i)=>`<button aria-label="Show ${w.t}"></button>`).join('');
+const xcs=$$('.xc'),dots=$$('#xdots button');let xI=0,xPos=0,bgFlip=false;
+function setX(i){xI=(i+N)%N;const w=W[xI];$('#xslug').textContent=w.slug;$('#xdImg').src=IMG+w.k+'.jpg';$('#xdT').textContent=w.t;$('#xdS').textContent=w.s;$('#xcap').textContent=w.d;
+  dots.forEach((d,k)=>d.classList.toggle('on',k===xI));xcs.forEach((c,k)=>c.classList.toggle('on',k===xI));
+  const A=$('#xbgA'),B=$('#xbgB'),[show,hide]=bgFlip?[A,B]:[B,A];bgFlip=!bgFlip;show.style.backgroundImage=`url(${IMG+w.k}.jpg)`;show.style.opacity=1;hide.style.opacity=0}
+function drawX(){let target=xI;const dd=((target-xPos)%N+N*1.5)%N-N/2;xPos+=dd*.12;const cw=xcs[0].offsetWidth;
+  xcs.forEach((c,k)=>{let d=((k-xPos)%N+N*1.5)%N-N/2;const a=Math.abs(d);
+    c.style.transform=`translate(-50%,-50%) translate3d(${d*cw*.74}px,0,${-a*170}px) rotateY(${-d*24}deg) scale(${a<.5?1.06-a*.12:1-Math.min(a,3)*.04})`;
+    c.style.opacity=a>3.2?0:1-Math.max(0,a-2.2)*.8;c.style.zIndex=100-Math.round(a*10);c.style.pointerEvents=a>3?'none':'auto';
+    c.style.filter=a>.5?`brightness(${1-Math.min(a,3)*.12})`:'none'})}
+xcs.forEach(c=>c.addEventListener('click',()=>{setX(+c.dataset.i);bumpAuto()}));
+dots.forEach((d,k)=>d.addEventListener('click',()=>{setX(k);bumpAuto()}));
+['xprev','xp2'].forEach(id=>$('#'+id).addEventListener('click',()=>{setX(xI-1);bumpAuto()}));
+['xnext','xn2'].forEach(id=>$('#'+id).addEventListener('click',()=>{setX(xI+1);bumpAuto()}));
+let sx0=null;$('#xroom').addEventListener('pointerdown',e=>sx0=e.clientX);addEventListener('pointerup',e=>{if(sx0!==null&&Math.abs(e.clientX-sx0)>50){setX(xI+(e.clientX<sx0?1:-1));bumpAuto()}sx0=null});
+addEventListener('keydown',e=>{const r=$('#xroom').getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0){if(e.key==='ArrowRight')setX(xI+1);if(e.key==='ArrowLeft')setX(xI-1)}});
+let auto=setInterval(()=>setX(xI+1),5000);function bumpAuto(){clearInterval(auto);auto=setInterval(()=>setX(xI+1),7000)}
+$('#xroom').addEventListener('mouseenter',()=>clearInterval(auto));$('#xroom').addEventListener('mouseleave',bumpAuto);
+setX(0);
 
-/* ================= ARCHIVE: helix / tunnel ================= */
-const arch=$('#arch'),AN=64,A={mode:'helix',twist:22,radius:460,s:190,tilt:-12,speed:1,t:0,mix:0,mixT:0};
-const pool=[...WORK.map(w=>w[0]),'hero-photo','hero-sketch'];
-arch.innerHTML=Array.from({length:AN},(_,i)=>`<div class="at"><img src="${IMG+pool[(i*3)%pool.length]}.jpg" alt="" loading="lazy"></div>`).join('');
-const ats=$$('.at',arch);
-if(innerWidth<800){Object.assign(A,{radius:230,s:120,twist:26});
-  [['radius',230],['s',120],['twist',26]].forEach(([k,v])=>{const i=$(`.panel input[data-k=${k}]`);i.value=v;i.nextElementSibling.textContent=v});
-  $('#archive').style.setProperty('--s',120)}
-$$('.panel input').forEach(inp=>inp.addEventListener('input',()=>{const k=inp.dataset.k,v=+inp.value,o=inp.nextElementSibling;
-  if(k==='speed'){A.speed=v/10;o.textContent=A.speed.toFixed(1)}else{A[k]=v;o.textContent=v;if(k==='s')$('#archive').style.setProperty('--s',v)}}));
-$$('.modes button').forEach(b=>b.addEventListener('click',()=>{$$('.modes button').forEach(x=>x.classList.toggle('on',x===b));A.mode=b.dataset.mode;A.mixT=A.mode==='tunnel'?1:0}));
-function drawArch(dt){
-  A.t+=dt*A.speed;A.mix=lerp(A.mix,A.mixT,.06);const m=A.mix,tw=A.twist*Math.PI/180,R=A.radius,s=A.s,w=s*.75;
-  arch.style.transform=`rotateX(${A.tilt*(1-m)}deg)`;
-  const K=8,J=AN/K,S=s*1.5,L=J*S;
-  ats.forEach((el,i)=>{
-    // helix
-    const ha=i*tw+A.t*.6,hy=(i-AN/2)*s*.16,hx=Math.sin(ha)*R,hz=Math.cos(ha)*R,hr=ha;
-    // tunnel (concentric rings receding)
-    const j=Math.floor(i/K),k=i%K,phi=k/K*6.2832+j*tw*.5+A.t*.15;let tz=((j*S+A.t*120)%L);tz=tz-L+S*1.5;
-    const tx=Math.sin(phi)*R*.9,ty=-Math.cos(phi)*R*.9;
-    const X=lerp(hx,tx,m),Y=lerp(hy,ty,m),Z=lerp(hz,tz,m),RY=lerp(hr,0,m),RZ=lerp(0,phi,m);
-    el.style.transform=`translate(-50%,-50%) translate3d(${X}px,${Y}px,${Z}px) rotateY(${RY}rad) rotateZ(${RZ}rad)`;
-    const op=m<.5?(.35+.65*(Math.cos(ha)*.5+.5)):clamp(1-(-tz)/L*1.1,0,1)*clamp((S*1.5-tz)/S,0,1);
-    el.style.opacity=op.toFixed(3)});
-}
+/* ---------- gauge ---------- */
+const g=$('#gauge');g.innerHTML=[100,90,80,70,60,50,40,30,20,10,0].map(v=>`<div class="tick" style="top:${100-v}%">${v}</div>`).join('')+`<div class="avg" style="top:50%">HALFWAY</div><div class="mark" id="gmark" style="top:100%"><div><small>Build progress</small><b id="gval">0</b></div></div>`;
+const STAGES=['Stage 1 · Sketch','Stage 2 · Blueprint','Stage 3 · Prototype','Stage 4 · Ship'];
+window.__build={p:0};
+function drawBuild(){const p=window.__build.p;$('#gmark').style.top=(100-p*100)+'%';$('#gval').textContent=Math.round(p*100);
+  $$('.stp').forEach((s,i)=>{const f=clamp(p*4-i,0,1);s.classList.toggle('on',p*4>=i-.02);s.querySelector('.bar i').style.width=(f*100)+'%'});
+  $('#lvtxt').textContent=STAGES[clamp(Math.floor(p*4),0,3)];$('#bbanner').classList.toggle('on',p>.985)}
 
-/* ================= BOOKS + FORM ================= */
-const BOOKS=[["Whole Brain Power","Michael J. Gelb","#8c2f1b","#f6e7c8"],["Money: Master the Game","Tony Robbins","#1f3b2c","#e8c766"],["Secret Knowledge","David Hockney","#151515","#cf7a4c"],["The Sketchnote Handbook","Mike Rohde","#f2ede3","#c0392b"],["Business Model Generation","Osterwalder & Pigneur","#ffffff","#1d3557"],["Rebel Without a Crew","Robert Rodriguez","#c9a227","#151515"],["Think Outside the Box Office","Jon Reiss","#d62828","#ffffff"],["Film Production Management 101","Deborah Patz","#2b2d42","#f4a261"],["Watchmaking","George Daniels","#8d7b4c","#f2ede3"]];
-$('#shelf').innerHTML=BOOKS.map(b=>`<div class="bk" data-cursor="Read"><div class="book" style="--c:${b[2]};--t:${b[3]}"><div class="b-spine"></div><div class="b-pages"></div><div class="b-front"><small>${b[1]}</small><h4>${b[0]}</h4><div class="orn"></div></div></div><a href="#">Buy on Amazon</a></div>`).join('');
-$('#join').addEventListener('submit',e=>{e.preventDefault();$('#join .ok').style.display='block'});
+/* ---------- academy ---------- */
+const BOOKS=[["Whole Brain Power","Michael J. Gelb","#8c2f1b","#f6e7c8"],["Money: Master the Game","Tony Robbins","#1f3b2c","#e8c766"],["Secret Knowledge","David Hockney","#151515","#d0673f"],["The Sketchnote Handbook","Mike Rohde","#f2ede3","#c0392b"],["Business Model Generation","Osterwalder & Pigneur","#ffffff","#1d3557"],["Rebel Without a Crew","Robert Rodriguez","#c9a227","#151515"],["Think Outside the Box Office","Jon Reiss","#d62828","#ffffff"],["Film Production Management 101","Deborah Patz","#2b2d42","#f4a261"],["Watchmaking","George Daniels","#8d7b4c","#f2ede3"]];
+$('#shelf').innerHTML=BOOKS.map(b=>`<div class="bk"><div class="cv" style="--c:${b[2]};--t:${b[3]}"><small>${b[1]}</small><h4>${b[0]}</h4><i></i></div><a href="#">Buy on Amazon →</a></div>`).join('');
+$$('.wait').forEach(f=>f.addEventListener('submit',e=>{e.preventDefault();f.classList.add('done')}));
 
-/* ================= text splits, cursor, magnetic ================= */
-$$('.hero-name .ln').forEach(l=>{l.innerHTML=[...l.textContent].map(c=>`<span class="ch">${c}</span>`).join('')});
-const mani=$('#manifesto');
-mani.innerHTML=mani.innerHTML.replace(/(<em>.*?<\/em>)|([^\s<]+)/g,(m,em,w)=>em?em.replace(/<em>(.*?)<\/em>/,(q,t)=>`<em>${t.split(' ').map(x=>`<span class="w">${x}</span>`).join(' ')}</em>`):`<span class="w">${w}</span>`);
-const cur=$('.cur'),ringC=$('.ring');let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
-addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
-document.addEventListener('mouseover',e=>{const t=e.target.closest('[data-cursor]');ringC.classList.toggle('big',!!t);ringC.dataset.label=t?t.dataset.cursor:''});
-$$('.mag').forEach(m=>{const s=m.firstElementChild;
-  m.addEventListener('mousemove',e=>{const b=m.getBoundingClientRect(),dx=e.clientX-b.left-b.width/2,dy=e.clientY-b.top-b.height/2;m.style.transform=`translate(${dx*.35}px,${dy*.35}px)`;s.style.transform=`translate(${dx*.18}px,${dy*.18}px)`});
-  m.addEventListener('mouseleave',()=>{m.style.transform='';s.style.transform=''})});
-
-/* ================= frame loop ================= */
-let lenis=null,lastY=scrollY,vel=0,last=performance.now();
-const vis={hero:true,cyl:false,arch:false},secs={hero:$('#hero'),cyl:$('#cyl'),arch:$('#archive')};
-const onScreen=el=>{const b=el.getBoundingClientRect();return b.bottom>-50&&b.top<innerHeight+50};
-function frame(){
-  for(const k in secs)vis[k]=onScreen(secs[k]);
-  const now=performance.now(),dt=Math.min(.05,(now-last)/1000);last=now;
-  const y=lenis?lenis.scroll:scrollY,v=lenis?lenis.velocity:(y-lastY);lastY=y;vel+=(v-vel)*.12;
-  cur.style.transform=`translate(${mx}px,${my}px)`;rx+=(mx-rx)*.16;ry+=(my-ry)*.16;ringC.style.transform=`translate(${rx}px,${ry}px)`;
-  ringC.style.opacity=heroIn?0:1;
-  if(vis.hero){H.t+=dt;H.brush.r=lerp(H.brush.r,H.brush.tr,.12);drawHero()}
-  rows.forEach(o=>{if(!o.third)return;o.off+=o.dir*(.55+Math.abs(vel)*.08)*o.hover*60*dt;const xx=((o.off+o.extra)%o.third+o.third)%o.third;o.tr.style.transform=`translate3d(${-xx}px,0,0)`});
-  if(vis.cyl)drawCyl();
-  if(vis.arch)drawArch(dt);
-}
-function onResize(){sizeHero();sizeCyl();measure()}
-onResize();addEventListener('resize',onResize);
-photo.onload=sketch.onload=()=>drawHero();
-
-const THEMES={dark:['#141210','#efe9df'],light:['#efe9df','#141210'],copper:['#cf7a4c','#141210']};
-const setTheme=t=>{const [b,f]=THEMES[t];document.body.style.setProperty('--bg',b);document.body.style.setProperty('--fg',f)};
-
-if(!HAS){H.intro=1;vis.cyl=vis.arch=true;(function l(){frame();requestAnimationFrame(l)})();return}
-
-/* ================= GSAP / scroll ================= */
+/* ---------- loop + scroll ---------- */
+let lenis=null;
+const onScreen=el=>{const b=el.getBoundingClientRect();return b.bottom>-40&&b.top<innerHeight+40};
+function frame(){if(onScreen($('#journal')))drawJournal();if(onScreen($('#xroom')))drawX();if(onScreen($('#build')))drawBuild()}
+let jumpJournal=d=>{jT=clamp(Math.round(jT)+d,0,N-1)};
+if(!(window.gsap&&window.ScrollTrigger)){$$('.rv').forEach(e=>{e.style.opacity=1;e.style.transform='none'});(function l(){frame();requestAnimationFrame(l)})();return}
 gsap.registerPlugin(ScrollTrigger);
-if(window.Lenis){lenis=new Lenis({lerp:.085,smoothWheel:true});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0);lenis.stop()}
+if(window.Lenis){lenis=new Lenis({lerp:.09});lenis.on('scroll',ScrollTrigger.update);gsap.ticker.add(t=>lenis.raf(t*1000));gsap.ticker.lagSmoothing(0)}
 gsap.ticker.add(frame);
-$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1&&lenis){e.preventDefault();lenis.scrollTo(id==='#hero'?0:id,{duration:1.6})}}));
-ScrollTrigger.create({start:80,end:'max',onToggle:s=>$('#nav').classList.toggle('solid',s.isActive)});
-
-// hero: scrolling dissolves the photo back into the sketch, copy lifts away
-const htl=gsap.timeline({scrollTrigger:{trigger:'#hero',start:'top top',end:'+=130%',scrub:1,pin:true}});
-htl.to(H,{scroll:1,ease:'power1.inOut',duration:1},0)
-   .to('.hero-copy',{y:-120,opacity:0,ease:'power2.in',duration:.55},0)
-   .to('.hero-foot,.hero-hint',{opacity:0,duration:.25},0)
-   .to('#heroCanvas',{scale:1.08,xPercent:innerWidth<800?0:-12,ease:'power1.inOut',duration:1},0);
-
-// rows enter from opposite sides
-ScrollTrigger.create({trigger:'#worlds',start:'top bottom',end:'bottom top',onUpdate:s=>{rows[0].extra=(1-s.progress)*-500;rows[1].extra=(1-s.progress)*500}});
-
-// cylinder: pinned, scroll turns the ring
-ScrollTrigger.create({trigger:'#cyl',start:'top top',end:'+=220%',pin:true,scrub:true,onUpdate:s=>{C.target=-s.progress*(PANELS.length-1)*C.step;gsap.set('#cylBar',{scaleX:s.progress})}});
-
-// reveals
-gsap.to('#manifesto .w',{opacity:1,stagger:.05,ease:'none',scrollTrigger:{trigger:'#manifesto',start:'top 80%',end:'bottom 45%',scrub:true}});
-gsap.from('.roles > div',{y:60,opacity:0,stagger:.1,duration:1,ease:'power3.out',scrollTrigger:{trigger:'.roles',start:'top 85%'}});
-gsap.from('.bk',{y:120,rotateZ:()=>gsap.utils.random(-14,14),opacity:0,stagger:.07,duration:1.1,ease:'back.out(1.6)',scrollTrigger:{trigger:'#shelf',start:'top 80%'}});
-$$('.h2,.big-cta').forEach(h=>gsap.from(h,{y:80,opacity:0,duration:1.2,ease:'power4.out',scrollTrigger:{trigger:h,start:'top 88%'}}));
-gsap.fromTo('#footName span',{yPercent:100},{yPercent:0,stagger:.06,ease:'none',scrollTrigger:{trigger:'#footName',start:'top bottom',end:'bottom bottom',scrub:1}});
-$$('[data-theme]').forEach(s=>ScrollTrigger.create({trigger:s,start:'top 55%',end:'bottom 55%',onToggle:st=>{if(st.isActive)setTheme(s.dataset.theme)}}));
+$$('a[href^="#"]').forEach(a=>a.addEventListener('click',e=>{const id=a.getAttribute('href');if(id.length>1&&lenis){e.preventDefault();lenis.scrollTo(id==='#hero'?0:id,{duration:1.5})}}));
+// hero: frame tilts back a touch, window image zooms as you leave
+gsap.to('#frame',{scale:.94,y:60,rotateX:6,transformPerspective:1400,ease:'none',scrollTrigger:{trigger:'#hero',start:'top top',end:'bottom top',scrub:true}});
+gsap.from('.lime > *, .stat, .steps-mini > div',{y:40,opacity:0,stagger:.08,duration:1,ease:'power3.out',delay:.15});
+gsap.from('.window',{scale:.92,opacity:0,duration:1.2,ease:'expo.out',delay:.1});
+gsap.from('.stk',{scale:0,rotate:-40,stagger:.09,duration:1,ease:'back.out(1.8)',delay:.6});
+// journal: pinned, scroll turns pages
+const jst=ScrollTrigger.create({trigger:'#journal',start:'top top',end:'+='+(N*45)+'%',pin:true,scrub:true,onUpdate:s=>{jT=s.progress*(N-1)}});
+jumpJournal=d=>{const i=clamp(Math.round(jT)+d,0,N-1);const y=jst.start+(jst.end-jst.start)*i/(N-1);lenis?lenis.scrollTo(y,{duration:1}):scrollTo(0,y)};
+// build: pinned, scroll builds the island
+ScrollTrigger.create({trigger:'#build',start:'top top',end:'+=220%',pin:true,scrub:.6,onUpdate:s=>{window.__build.p=s.progress}});
+$$('.rv').forEach(el=>gsap.to(el,{opacity:1,y:0,duration:1.1,ease:'power3.out',scrollTrigger:{trigger:el,start:'top 88%'}}));
+gsap.from('.bk',{y:60,opacity:0,stagger:.06,duration:.9,ease:'power3.out',scrollTrigger:{trigger:'#shelf',start:'top 85%'}});
 ScrollTrigger.sort();ScrollTrigger.refresh();
-
-/* ================= loader + intro ================= */
-gsap.set('.ch',{yPercent:110});gsap.set('.hero-copy .eyebrow,.hero-copy p,.ctas',{opacity:0,y:30});
-const cnt={v:0},skip=/[?&]nointro/.test(location.search);
-const ready=Promise.all([photo,sketch].map(im=>im.complete?1:new Promise(r=>{im.onload=im.onerror=()=>{drawHero();r()}})));
-const intro=gsap.timeline({paused:true})
-  .to('.ld-name span',{y:0,stagger:.1,duration:.9,ease:'power4.out'},0)
-  .to(cnt,{v:100,duration:1.5,ease:'power2.inOut',onUpdate:()=>{$('.ld-pct').textContent=String(Math.round(cnt.v)).padStart(3,'0');$('.ld-line i').style.transform=`scaleX(${cnt.v/100})`}},0)
-  .to('.ld-name span',{yPercent:-110,stagger:.06,duration:.6,ease:'power3.in'},'+=.1')
-  .to('#loader',{opacity:0,duration:.7,ease:'power2.inOut'},'-=.2')
-  .add(()=>{$('#loader').style.display='none'})
-  .to('.ch',{yPercent:0,stagger:.03,duration:1.2,ease:'expo.out'},'-=.3')
-  .to('.hero-copy .eyebrow,.hero-copy p,.ctas',{opacity:1,y:0,stagger:.1,duration:1,ease:'power3.out'},'<.2')
-  .to(H,{intro:1,duration:3.2,ease:'power2.inOut'},'<-.4')
-  .to('.hero-hint',{opacity:.85,duration:.8},'-=.6')
-  .add(()=>{lenis&&lenis.start()});
-ready.then(()=>{if(skip){intro.progress(1)}else intro.play();
-  // preview hook: ?scroll=N jumps to a scroll position (used for screenshots)
-  const sm=location.search.match(/[?&]scroll=(\d+)/);if(sm){const go=+sm[1];setTimeout(()=>{lenis?lenis.scrollTo(go,{immediate:true}):scrollTo(0,go);ScrollTrigger.update()},300)}});
 })();
+</script>
+
+<!-- three.js floating island: pencil wireframe that fills with colour as the build progresses -->
+<script type="module">
+import * as THREE from 'three';
+const cv=document.getElementById('island');
+const renderer=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+const scene=new THREE.Scene();
+const cam=new THREE.PerspectiveCamera(32,1,.1,100);
+scene.add(new THREE.HemisphereLight(0xffffff,0x9cc0a8,1.25));
+const sun=new THREE.DirectionalLight(0xfff0d8,1.6);sun.position.set(5,9,6);scene.add(sun);
+const island=new THREE.Group();scene.add(island);
+const parts=[];let seed=7;const rnd=()=>(seed=(seed*16807)%2147483647)/2147483647;
+function jitter(geo,amt,keepTop){const p=geo.attributes.position,map={};
+  for(let i=0;i<p.count;i++){const k=[p.getX(i),p.getY(i),p.getZ(i)].map(v=>v.toFixed(3)).join();
+    if(!map[k])map[k]=[(rnd()-.5)*amt,(rnd()-.5)*amt,(rnd()-.5)*amt];const o=map[k];
+    p.setXYZ(i,p.getX(i)+o[0],p.getY(i)+(keepTop&&p.getY(i)>0?0:o[1]),p.getZ(i)+o[2])}
+  geo.computeVertexNormals();return geo}
+function add(geo,color,stage,opts={}){
+  const m=new THREE.Mesh(geo,new THREE.MeshStandardMaterial({color,flatShading:true,roughness:.85,transparent:true,opacity:0}));
+  const e=new THREE.LineSegments(new THREE.EdgesGeometry(geo,12),new THREE.LineBasicMaterial({color:0x3a3f3c,transparent:true,opacity:.85}));
+  m.add(e);if(opts.pos)m.position.set(...opts.pos);if(opts.rot)m.rotation.set(...opts.rot);if(opts.scl)m.scale.set(...opts.scl);
+  (opts.parent||island).add(m);parts.push({m,e,stage,grow:opts.grow,base:m.scale.clone()});return m}
+// base: grass top, soil band, crystal underside
+add(jitter(new THREE.CylinderGeometry(3.2,3.05,.42,11,1),.18,true),0x8cc152,[0,.22],{pos:[0,0,0]});
+add(jitter(new THREE.CylinderGeometry(3.05,2.75,.4,11,1),.15),0x9a7b55,[0,.22],{pos:[0,-.4,0]});
+add(jitter(new THREE.ConeGeometry(2.75,3.8,11,3),.35),0x4fb0c6,[.05,.27],{pos:[0,-2.5,0],rot:[Math.PI,0,0]});
+// El Peñol (Guatapé rock) with its zig-zag stair
+const rock=add(jitter(new THREE.SphereGeometry(.9,9,7),.08),0x8f918a,[.22,.45],{pos:[-1.15,1.2,-.7],scl:[.85,1.55,.85]});
+const pts=[];for(let i=0;i<12;i++){const y=-.95+i*.165;pts.push(new THREE.Vector3(i%2?.18:-.18,y,.86-Math.abs(y)*.18))}
+const stair=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),new THREE.LineBasicMaterial({color:0xffffff,transparent:true,opacity:0}));rock.add(stair);
+// trees
+const treeSpots=[[1.6,-1.2],[2.1,.2],[.6,-2.1],[-2.2,1.1],[-.2,1.9],[1.2,1.7],[-2.4,-.8],[.2,-.9]];
+treeSpots.forEach(([x,z],i)=>{const g=new THREE.Group();g.position.set(x,.21,z);island.add(g);
+  add(new THREE.CylinderGeometry(.06,.09,.38,5),0x7a5634,[.42+i*.02,.62+i*.02],{pos:[0,.19,0],parent:g,grow:true});
+  add(jitter(new THREE.ConeGeometry(.34+rnd()*.12,.9+rnd()*.4,6),.05),i%2?0x3f8f4a:0x5aa95a,[.45+i*.02,.66+i*.02],{pos:[0,.85,0],parent:g,grow:true})});
+// village (terracotta roofs, like Guatapé)
+[[.9,.6],[1.35,.95],[.55,1.05],[1.7,-.35],[.1,.35]].forEach(([x,z],i)=>{const g=new THREE.Group();g.position.set(x,.21,z);g.rotation.y=rnd()*2;island.add(g);
+  add(new THREE.BoxGeometry(.36,.3,.32),[0xffffff,0xf2d06b,0x9fd0e8,0xffffff,0xf4a6a0][i],[.55+i*.03,.74+i*.03],{pos:[0,.15,0],parent:g,grow:true});
+  add(new THREE.ConeGeometry(.3,.24,4),0xd0673f,[.58+i*.03,.78+i*.03],{pos:[0,.42,0],rot:[0,Math.PI/4,0],parent:g,grow:true})});
+// lake + clouds
+add(new THREE.CylinderGeometry(.75,.75,.05,12),0x5fb7d9,[.72,.88],{pos:[-.3,.23,-1.9],scl:[1.4,1,.8]});
+const clouds=new THREE.Group();scene.add(clouds);
+[[-2.6,3.1,.5],[2.4,3.4,-.8],[.4,3.9,-1.6]].forEach(([x,y,z],i)=>{const g=new THREE.Group();g.position.set(x,y,z);clouds.add(g);
+  [[0,0,0,.45],[.42,-.06,.1,.34],[-.4,-.08,0,.32]].forEach(([a,b,c,r])=>add(jitter(new THREE.IcosahedronGeometry(r,0),.04),0xffffff,[.84+i*.04,.98],{pos:[a,b,c],parent:g,grow:true}))});
+const ease=t=>t<.5?2*t*t:1-Math.pow(-2*t+2,2)/2;
+let rotY=-.5,vel=0,drag=false,lx=0,last=performance.now();
+cv.addEventListener('pointerdown',e=>{drag=true;lx=e.clientX;cv.setPointerCapture(e.pointerId)});
+cv.addEventListener('pointermove',e=>{if(drag){vel=(e.clientX-lx)*.006;rotY+=vel;lx=e.clientX}});
+cv.addEventListener('pointerup',()=>drag=false);
+function size(){const w=cv.clientWidth,h=cv.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);cam.aspect=w/h;
+  const narrow=w/h<1;cam.position.set(0,narrow?5.4:4.6,narrow?19:14.5);cam.lookAt(0,narrow?-.2:-.35,0);cam.updateProjectionMatrix()}
+size();addEventListener('resize',size);
+function tick(now){requestAnimationFrame(tick);const dt=Math.min(.05,(now-last)/1000);last=now;
+  const r=cv.getBoundingClientRect();if(r.bottom<0||r.top>innerHeight)return;
+  if(cv.width!==Math.round(cv.clientWidth*renderer.getPixelRatio()))size();
+  const p=(window.__build&&window.__build.p)||0;
+  for(const o of parts){const t=ease(Math.min(1,Math.max(0,(p-o.stage[0])/(o.stage[1]-o.stage[0]))));
+    o.m.material.opacity=t;o.m.material.depthWrite=t>.5;o.e.material.opacity=.85*(1-t)+.06;
+    if(o.grow){const s=Math.max(.001,.25+.75*t);o.m.scale.set(o.base.x*s,o.base.y*s,o.base.z*s)}}
+  stair.material.opacity=Math.min(1,Math.max(0,(p-.4)/.1));
+  if(!drag){vel*=.95;rotY+=vel+dt*.12}
+  island.rotation.y=rotY;clouds.rotation.y=rotY*.6;island.position.y=Math.sin(now/1300)*.12;clouds.position.y=Math.sin(now/1700)*.08;
+  renderer.render(scene,cam)}
+requestAnimationFrame(tick);
 </script>
 </body>
 </html>
