@@ -1,4 +1,6 @@
 # Publishes the repository as-is (static files, no build) to GitHub Pages.
+# JustinMassion repo copy: uses the current major versions of the Pages actions
+# (deploy-pages v4 intermittently failed with "No artifacts named github-pages were found").
 name: Deploy to GitHub Pages
 
 on:
@@ -24,8 +26,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/configure-pages@v5
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: .
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
