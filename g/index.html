@@ -246,6 +246,38 @@ form.sent .ok{display:block}form.sent>*:not(.ok){display:none}
 .live .ov{position:absolute;inset:0;mix-blend-mode:multiply;transition:background 1s}
 .live .t{position:absolute;left:16px;bottom:14px;color:#fff;font:400 44px/1 'Gochi Hand',cursive;text-shadow:0 2px 12px rgba(0,0,0,.5)}
 .live .t small{display:block;font:600 11px/1.3 'JetBrains Mono',monospace;letter-spacing:.12em;text-transform:uppercase;opacity:.9;margin-top:6px}
+/* ---------- personality.js inside the taped panels ---------- */
+#jmStash{display:none}
+/* every panel button is a chunky key that physically presses down */
+.sheet .pbtn[data-jm=press]{--jm-key:var(--gold);--jm-key-ink:var(--ink);--jm-d:5px;min-width:0;font:400 21px/1 'Gochi Hand',cursive;padding:11px 20px 12px;border:2px solid var(--ink);background:var(--jm-key);color:var(--ink);
+  box-shadow:0 var(--jm-d) 0 var(--ink),0 14px 18px -10px rgba(60,30,10,.55),inset 0 2px 0 rgba(255,255,255,.55);transform:translateY(0);transition:transform .08s,box-shadow .08s}
+.sheet .pbtn.ghost[data-jm=press]{--jm-key:#fffaf0}
+.sheet .pbtn[data-jm=press]:hover{transform:translateY(-1px) rotate(-1deg);box-shadow:0 calc(var(--jm-d) + 1px) 0 var(--ink),0 16px 20px -10px rgba(60,30,10,.55),inset 0 2px 0 rgba(255,255,255,.55)}
+.sheet .pbtn[data-jm=press]:active{transform:translateY(calc(var(--jm-d) - 1px));scale:1;box-shadow:0 1px 0 var(--ink),0 4px 8px -6px rgba(60,30,10,.5),inset 0 2px 0 rgba(255,255,255,.4)}
+/* projects: sheets pegged on a string */
+.sheet #jm-line{--jm-cord:#a0643e;--jm-frame-bg:#fffdf7;--jm-frame-w:104px;gap:18px;margin:26px 0 0}
+.sheet #jm-line::before{height:2px;left:-10px;right:-10px;opacity:.9;background:repeating-linear-gradient(90deg,#a0643e 0 6px,#c48f5c 6px 10px)}
+.sheet #jm-line .jm-frame{padding:6px 6px 8px;border:0;border-radius:1px;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 1px 0 #e5d6b8,0 16px 20px -12px rgba(60,30,10,.5)}
+.sheet #jm-line .jm-frame::before,.sheet #jm-line .jm-frame::after{display:none}
+.sheet #jm-line .jm-frame>img{border-radius:0;aspect-ratio:.82}
+.sheet #jm-line .jm-pin{width:8px;height:20px;margin-left:-4px;top:-9px;border-radius:2px;background:linear-gradient(90deg,#e8c890,#c99a5c);box-shadow:0 2px 3px rgba(60,30,10,.3);z-index:2}
+.sheet #jm-line .jm-hanger:nth-child(even) .jm-pin{background:linear-gradient(90deg,#9fd0c8,#5fa59c)}
+.sheet #jm-line .jm-cap{font:400 18px/1 'Gochi Hand',cursive;letter-spacing:0;text-transform:none;color:var(--ink);opacity:.9;margin-top:6px}
+/* peelable sticky note + Pixel sticker */
+.g-fig{position:relative}
+.g-fig [data-slot=note]{position:absolute;left:-22px;bottom:-52px;z-index:3}
+.sheet #jm-line{user-select:none;-webkit-user-select:none}
+#jm-note .n{width:146px;padding:16px 14px 16px;background:linear-gradient(170deg,#ffe98a,#ffdc5e);color:var(--ink);font:400 20px/1.08 'Gochi Hand',cursive;box-shadow:0 12px 16px -8px rgba(60,30,10,.5);transform:rotate(5deg)}
+#jm-note .n small{display:block;margin-top:6px;font:600 9.5px/1 'JetBrains Mono',monospace;letter-spacing:.1em;color:#a0643e}
+.sheet [data-slot=pix]{float:right;margin:2px 52px 0 12px}
+#jm-pix .s{display:grid;place-items:center;width:86px;height:86px;border-radius:50%;background:radial-gradient(circle at 40% 35%,#fffdf7,#f4ead6);box-shadow:0 0 0 4px #fff,0 0 0 5.5px #e5d3b2,0 10px 16px -6px rgba(60,30,10,.45);transform:rotate(-8deg)}
+#jm-pix .s img{width:84%;pointer-events:none;-webkit-user-drag:none}
+.sheet [data-jm=peel]{z-index:3}
+/* worlds: hovering a postcard washes the panel in that city's colour */
+@property --wash{syntax:'<color>';inherits:true;initial-value:rgba(0,0,0,0)}
+.sheet{--wash:rgba(0,0,0,0);transition:--wash .8s}
+.sheet .scroll{background:radial-gradient(90% 55% at 100% 0,color-mix(in srgb,var(--wash) 34%,transparent),transparent 72%),radial-gradient(80% 50% at 0 100%,color-mix(in srgb,var(--wash) 22%,transparent),transparent 70%)}
+.sheet .chip b{transition:color .6s}.sheet.washed .chip b{color:var(--wash)}
 .sheet .fade{animation:fadeIn .5s ease both}
 @keyframes fadeIn{from{opacity:0;transform:translateY(10px)}}
 
@@ -278,6 +310,9 @@ html.pan .scrim{background:rgba(8,10,28,.35)}
   .pc{grid-template-columns:1fr}.pc img{height:150px}.pc .tx{border-left:0;margin-left:0;padding:12px 4px 4px}
   .row2{grid-template-columns:1fr}
   .shelf{height:200px;padding:0 6px;gap:3px}.sp{font-size:14px}
+  .sheet #jm-line{--jm-frame-w:70px;gap:10px}.sheet #jm-line .jm-cap{font-size:15px}
+  .g-fig [data-slot=note]{left:auto;right:-4px;bottom:-34px}
+  .sheet [data-slot=pix]{margin-right:44px}#jm-pix .s{width:66px;height:66px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation:none!important}
@@ -378,9 +413,22 @@ html.pan .scrim{background:rgba(8,10,28,.35)}
   <div class="scroll" id="sheetBody"></div>
 </div>
 
+<!-- personality.js components: set up once here, then moved into the panels when they open -->
+<div id="jmStash" aria-hidden="true">
+  <div id="jm-line" data-jm="hang">
+    <img src="../assets/img/hero-sketch.jpg" alt="Pencil sketch of Guatapé" data-cap="sketch">
+    <img src="../assets/img/playset-blueprint.jpg" alt="Playset blueprint" data-cap="blueprint">
+    <img src="../assets/img/playset-agents.jpg" alt="Playset Agents" data-cap="prototype">
+    <img src="../assets/img/aluzina-os.jpg" alt="Aluzina OS" data-cap="ship!">
+  </div>
+  <div id="jm-note" data-jm="peel" title="Peel me off and stick me anywhere (double-click to put me back)"><div class="n">P.S. the 740 steps are worth it. Bring water ✦<small>— J., stuck on the frame</small></div></div>
+  <div id="jm-pix" data-jm="peel" title="A Pixel sticker: peel him off (double-click to put him back)"><div class="s"><img src="../assets/3d/pixel-peek.webp" alt="Pixel sticker" draggable="false"></div></div>
+</div>
+
 <script src="../switcher.js?v=20261126" data-root="../" data-current="g"></script>
 <script src="../fun.js?v=20261126" data-root="../" data-page="g"></script>
 <script src="../stock.js?v=20261126"></script>
+<script src="../personality.js?v=2" data-root="../"></script>
 <script>
 (() => {
 'use strict';
@@ -782,10 +830,11 @@ const STEP_ICO = [
 const PANELS = {
   projects: () => `<div class="kick">On the drafting table · 7 worlds</div><h2 id="sheetTitle"><span class="u">Projects</span></h2>
     <p class="lead">Sketched in pencil, blueprinted, prototyped with AI, shipped to the cloud. Tap a sheet to look closer.</p>
+    <div data-slot="line"></div>
     <div class="cards">${PROJECTS.map(([img, t, k, d]) => `<button class="card" type="button"><img src="${A}img/${img}" alt="${t} — ${k}" loading="lazy"><div class="meta"><span class="tg">${k}</span><h3 style="margin-top:8px">${t}</h3><p>${d}</p></div></button>`).join('')}</div>
     <div class="btnrow"><button class="pbtn" data-go="contact">Start a world with Justin ☎</button><button class="pbtn ghost" data-go="process">How it gets built →</button></div>`,
   about: () => `<div class="kick">The portrait on the wall</div><h2 id="sheetTitle">Hola, I'm <span class="u">Justin</span>.</h2>
-    <div class="about-top"><figure class="framed"><img src="${A}img/hero-photo.jpg" alt="Justin Massion smiling and pointing at the viewer, Guatapé lake and El Peñol behind him"><figcaption>Home base · Guatapé</figcaption></figure>
+    <div class="about-top"><div class="g-fig"><figure class="framed"><img src="${A}img/hero-photo.jpg" alt="Justin Massion smiling and pointing at the viewer, Guatapé lake and El Peñol behind him"><figcaption>Home base · Guatapé</figcaption></figure><div data-slot="note"></div></div>
     <div><p class="lead">Imagineer. An experience designer working where theme-park storytelling meets AI and spatial computing.</p>
     <p>I build worlds that feel like they were dreamed up in a theme-park back room, then shipped to the cloud. Every project starts the old way, as a pencil sketch, and ends somewhere new.</p>
     <p>My studio is <b>JAM Studios</b>. I split my time between Los Angeles, Orlando and Guatapé, the little lakeside town in Colombia where this room lives.</p></div></div>
@@ -814,7 +863,7 @@ const PANELS = {
       ${[['la', 'Los Angeles', 'LA', '#e0703f', 'Story rooms, studio sessions and long golden sunsets.', '-1deg'], ['orlando', 'Orlando', 'ORL', '#2f7f7a', 'Where theme parks are the neighbourhood, and every ride is research.', '.8deg'], ['guatapeRock', 'Guatapé', 'GUA', '#c8453b', 'Home base. A colourful lake town under El Peñol, 740 steps above the water. This room is here.', '-.6deg']].map(([k, n, s, c, d, r]) => `<div class="pc" style="--r:${r}"><img src="${stock(k, 700)}" alt="${n}" loading="lazy"><div class="tx"><span class="stamp" style="--sc:${c}">${s}</span><span class="kick">Greetings from</span><h3>${n}</h3><p>${d}</p></div></div>`).join('')}
     </div>
     <div class="btnrow"><button class="pbtn" data-go="window">Look out the window →</button></div>`,
-  art: () => `<div class="kick">The easel · characters & art</div><h2 id="sheetTitle">Meet <span class="u">Pixel</span></h2>
+  art: () => `<div class="kick">The easel · characters & art</div><div data-slot="pix"></div><h2 id="sheetTitle">Meet <span class="u">Pixel</span></h2>
     <p class="lead">The studio's chameleon: a high-end 3D character with turnarounds, expressions, action poses and colour variations.</p>
     <div class="artstage" id="artstage"><img src="${A}3d/pixel.webp" alt="Pixel the chameleon, green with googly eyes, on a branch"><span class="sig">— J.M.</span></div>
     <div class="swatches"><span>Recolour him:</span>${[['#7fd36b', 0], ['#4fb3e0', 110], ['#b78be8', 200], ['#f08fb0', 250], ['#f2a24e', 300], ['#e8d35a', 330]].map(([c, h], i) => `<button style="background:${c}" data-h="${h}" class="${i ? '' : 'on'}" aria-label="Colour variation ${i + 1}"></button>`).join('')}</div>
@@ -835,7 +884,23 @@ const PANELS = {
     <div class="btnrow"><button class="pbtn" data-go="worlds">All three cities →</button><button class="pbtn ghost" data-go="about">Who lives here?</button></div>`,
 };
 const sheet = $('#sheet'), body = $('#sheetBody'), scrim = $('#scrim');
+/* personality.js parts live in #jmStash and get lent to a panel while it is open */
+const jmStash = $('#jmStash'), JM_PARTS = ['jm-line', 'jm-note', 'jm-pix'];
+function jmHome() {
+  JM_PARTS.forEach(id => { const el = document.getElementById(id); if (el && el.parentNode !== jmStash) { jmStash.appendChild(el); if (el.dataset.jm === 'peel') el.dispatchEvent(new MouseEvent('dblclick')); } });
+  sheet.style.removeProperty('--wash'); sheet.classList.remove('washed');
+}
+function jmLend() {
+  body.querySelectorAll('[data-slot]').forEach(s => { const el = document.getElementById('jm-' + s.dataset.slot); if (el) s.appendChild(el); });
+  body.querySelectorAll('.pbtn').forEach(b => b.setAttribute('data-jm', 'press'));
+}
 function wireSheet(name) {
+  jmLend();
+  if (name === 'worlds') body.querySelectorAll('.pc').forEach(pc => {
+    const c = getComputedStyle(pc.querySelector('.stamp')).getPropertyValue('--sc').trim();
+    const go = () => { sheet.style.setProperty('--wash', c); sheet.classList.add('washed'); };
+    pc.addEventListener('pointerenter', go); pc.addEventListener('click', go);
+  });
   body.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => openPanel(b.dataset.go)));
   body.querySelectorAll('.card').forEach(c => c.addEventListener('click', () => c.classList.toggle('big')));
   body.querySelectorAll('form[data-demo]').forEach(f => f.addEventListener('submit', e => { e.preventDefault(); f.classList.add('sent'); const r = f.getBoundingClientRect(); window.funBurst && funBurst(r.left + r.width / 2, r.top + 30, 60); }));
@@ -869,7 +934,7 @@ function openPanel(name) {
   if (!swap) openFrom = document.activeElement;
   const objEl = document.getElementById(TARGET[name]); const r0 = objEl.getBoundingClientRect();
   camTo(TARGET[name]);
-  body.innerHTML = `<div class="fade">${PANELS[name]()}</div>`; body.scrollTop = 0; wireSheet(name);
+  jmHome(); body.innerHTML = `<div class="fade">${PANELS[name]()}</div>`; body.scrollTop = 0; wireSheet(name);
   scrim.classList.add('on'); sheet.classList.add('on'); root.classList.add('sheet-open');
   if (!swap && !reduce) {
     const sr = sheet.getBoundingClientRect(), dx = (r0.left + r0.width / 2) - (sr.left + sr.width / 2), dy = (r0.top + r0.height / 2) - (sr.top + sr.height / 2);
@@ -880,7 +945,7 @@ function openPanel(name) {
 function closePanel() {
   if (!openName) return; const name = openName; openName = null;
   history.replaceState(null, '', location.pathname + location.search);
-  const finish = () => { sheet.classList.remove('on'); body.innerHTML = ''; };
+  const finish = () => { sheet.classList.remove('on'); jmHome(); body.innerHTML = ''; };
   scrim.classList.remove('on'); root.classList.remove('sheet-open');
   room.style.transform = baseTransform();
   setTimeout(() => { room.classList.remove('cam'); stage.classList.remove('lock'); }, 1000);

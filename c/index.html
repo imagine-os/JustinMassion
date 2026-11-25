@@ -220,7 +220,32 @@ footer{position:relative;margin-top:180px;background:#151517;border-radius:26px 
 .circle{width:26px;height:26px;border-radius:50%;border:2px solid #fff;margin-bottom:60px}
 .fbot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:60px;font:500 11px var(--mono);color:var(--mut)}
 
-.rv{opacity:0;transform:translateY(40px)}
+/* ===== personality: fact/fiction press keys + glowing skills keyboard ===== */
+.ac.a .ff{position:absolute;left:24px;right:24px;bottom:24px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;z-index:2}
+.ac.a .ff .fact{position:static;font:400 30px/1 var(--serif);transition:color .3s}
+.ac.a .ff .fact.ok{color:#8ff5c0}.ac.a .ff .fact.no{color:#ff8a6a}
+.ac.a .keys{display:flex;gap:10px}
+.ac.a [data-jm=press]{--jm-d:7px;min-width:0;padding:13px 18px;font:700 14px var(--sans);gap:8px}
+.ac.a [data-jm=press] i{font-style:normal;font-size:17px;line-height:1}
+.ac.a .no{--jm-key:#34343b;--jm-key-ink:#f2f2f0}
+.ac.a .yes{--jm-key:#ff5a1f;--jm-key-ink:#1a0a04}
+@property --ga{syntax:'<color>';inherits:true;initial-value:#ff8a3d}
+@property --gb{syntax:'<color>';inherits:true;initial-value:#ff3d9a}
+.ac.kb{grid-column:1/-1;min-height:0;display:grid;grid-template-columns:minmax(260px,.8fr) 1.4fr;gap:3vw;align-items:center;background:var(--card);border:1px solid var(--line);--ga:#ff8a3d;--gb:#ff3d9a;transition:--ga .7s,--gb .7s}
+.ac.kb::before{content:"";position:absolute;right:-10%;top:-30%;width:70%;height:160%;background:radial-gradient(closest-side,color-mix(in srgb,var(--gb) 22%,transparent),transparent);pointer-events:none}
+.kb .ro{position:relative;z-index:1}
+.kb .ro .lbl{color:var(--ga)}
+.kb .ro h4{font:700 clamp(34px,3.4vw,56px)/.95 var(--sans);letter-spacing:-.045em;margin-top:12px}
+.kb .ro h4 em{font:400 italic 1.05em/1 var(--serif);color:var(--ga)}
+.kb .ro p{margin-top:14px;font:400 14.5px/1.6 var(--sans);color:var(--mut);min-height:4.8em;max-width:380px}
+.kb .ro .k{display:inline-flex;align-items:center;gap:10px;margin-top:6px;padding:8px 14px;border-radius:99px;background:linear-gradient(135deg,var(--ga),var(--gb));color:#140a0a;font:700 13px var(--sans)}
+.kb [data-jm=hex]{position:relative;z-index:1;--jm-hex-a:var(--ga);--jm-hex-b:var(--gb);--jm-hex-key:#1c1c20;--jm-hex-ink:rgba(242,242,240,.82);--s:clamp(46px,4.3vw,64px)}
+.kb .jm-key{box-shadow:inset 0 0 0 1px rgba(255,255,255,.06)}
+.kb .jm-key span{font-family:var(--sans)}
+@media (max-width:980px){
+  .ac.kb{grid-template-columns:1fr;padding:22px 14px 10px}
+  .kb .ro{padding:0 8px}
+}.rv{opacity:0;transform:translateY(40px)}
 
 @media (max-width:980px){
   .screen{margin:8px;border-radius:22px}
@@ -332,10 +357,13 @@ footer{position:relative;margin-top:180px;background:#151517;border-radius:26px 
     <div class="abHead"><div class="paren">(About Me)</div><p class="lbl" style="margin-top:12px;max-width:380px;line-height:1.7">Sketches, renders, rooms and rides — everything starts in one pile on the desk. Scroll to throw it across the table.</p></div>
   </div>
   <div class="abCards">
-    <div class="ac a rv"><h4>Imagineering is 20% blueprint, 80% magic</h4><div class="halftone"></div><div class="fact">#Fact</div></div>
+    <div class="ac a rv"><h4>Imagineering is 20% blueprint, 80% magic</h4><div class="halftone"></div><div class="ff"><div class="fact" id="factTxt">Fact or fiction?</div><div class="keys"><button type="button" class="no" data-jm="press" aria-label="Fiction"><i>✕</i>Fiction</button><button type="button" class="yes" data-jm="press" aria-label="Fact"><i>✓</i>Fact</button></div></div></div>
     <div class="ac b rv"><div class="rib"><img src="../assets/img/hero-photo.jpg" alt=""></div><div class="info"><div>Based<small>LA · Orlando · Guatapé</small></div><div>Hours<small>Whenever the idea shows up</small></div><div>Studio<small>JAM Studios</small></div><div>Medium<small>Pencil → AI → cloud</small></div></div></div>
     <div class="ac c rv" id="vfCard"><img src="../assets/img/hero-sketch.jpg" alt=""><div class="vf" id="vf"></div><h4>What's the point of a world you can't step into?</h4></div>
-  </div>
+    <div class="ac kb rv" id="kb">
+      <div class="ro"><div class="lbl">(Toolkit) — press a key</div><h4>One keyboard,<br><em>every world.</em></h4><p id="kbDesc">Twelve keys: the process, the craft and the places. Hover to light them up, press one to read it.</p><span class="k" id="kbKey">✎ Sketch</span></div>
+      <div data-jm="hex" id="kbHex" data-cols="8" data-rows="4" data-items="Sketch,Blueprint,Prototype,Ship,Pixel,Story,AI,Spatial,Guatapé,Orlando,LA,Academy" data-glyphs="✎,⌗,✦,☁,◉,❝,⚙,◎,⛰,✺,☼,❖"></div>
+    </div>  </div>
 </section>
 
 <!-- ================= FOOTER (polaroid pile) ================= -->
@@ -485,6 +513,20 @@ $$('.rv').forEach(el=>gsap.to(el,{opacity:1,y:0,duration:1.1,ease:'power3.out',s
 gsap.from('.st',{y:80,opacity:0,stagger:.06,duration:1,ease:'power3.out',scrollTrigger:{trigger:'#strips',start:'top 85%'}});
 gsap.from('.pol',{y:140,opacity:0,stagger:.05,duration:1,ease:'back.out(1.4)',scrollTrigger:{trigger:'footer',start:'top 95%'}});
 ScrollTrigger.sort();ScrollTrigger.refresh();setTimeout(placePop,400);
+})();
+</script>
+<script>if(innerWidth<700){const h=document.getElementById('kbHex');if(h)h.dataset.cols=6}</script>
+<script src="../personality.js?v=2" data-root="../"></script>
+<script>
+/* skills keyboard readout + per-key glow (reel 1) and the fact/fiction keys */
+(()=>{const $=s=>document.querySelector(s),kb=$('#kb');
+  const K={Sketch:['✎','Pencil first. Every world starts as lines on paper.','#ff8a3d','#ff3d9a'],Blueprint:['⌗','Imagineering-style plans: flows, stories, systems, measured and annotated.','#4f8cff','#7c4dff'],Prototype:['✦','AI and spatial tools turn the plan into something you can try today.','#ffb21a','#ff5a1f'],Ship:['☁','Cloud-scale delivery — a world people can actually visit.','#4fffa0','#4f8cff'],
+    Pixel:['◉','Pixel the Chameleon — the character who keeps sneaking into every project.','#7ddc3a','#1fb88a'],Story:['❝','Theme-park thinking: every screen is a scene, every flow a queue line.','#ff3d9a','#c2185b'],AI:['⚙','AI-native from the first sketch — agents with jobs, faces and a glow.','#9b6bff','#ff3d9a'],Spatial:['◎','Spatial computing: rooms, rides and interfaces you stand inside.','#4fd2ff','#4f8cff'],
+    'Guatapé':['⛰','Home base under El Peñol, Colombia — 740 steps up the rock.','#1fb88a','#ffb21a'],Orlando:['✺','Theme-park country, where the Imagineering habit started.','#ffb21a','#ff3d9a'],LA:['☼','Los Angeles: film, studios and the JAM Studios crew.','#ff5a1f','#ffb21a'],Academy:['❖','The Academy — the new school of learning anything.','#e8c766','#ff8a3d']};
+  addEventListener('jm:tap',e=>{const l=e.detail&&e.detail.label;
+    if(kb&&K[l]&&kb.contains(e.detail.el)){const [g,d,a,b]=K[l];$('#kbDesc').textContent=d;$('#kbKey').textContent=g+' '+l;kb.style.setProperty('--ga',a);kb.style.setProperty('--gb',b);return}
+    const f=$('#factTxt');if(!f)return;
+    if(l==='Fact'){f.textContent='#Fact ✓';f.className='fact ok'}else if(l==='Fiction'){f.textContent='Nope — #Fact';f.className='fact no'}});
 })();
 </script>
 </body>

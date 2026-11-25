@@ -84,11 +84,37 @@ section{position:relative}
 .win .s6:active img{transform:scale(1.08,.92)}
 .s6 .say{position:absolute;left:58%;top:-6px;padding:6px 11px;border-radius:12px 12px 12px 3px;background:#fff;font:600 12px var(--sans);white-space:nowrap;box-shadow:0 8px 18px -8px rgba(0,0,0,.4)}
 @media (max-width:760px){.s6 .in{width:120px}}
-.s1 .in{width:128px;height:128px;border-radius:30px;background:var(--lime);rotate:-10deg;gap:6px}
+/* peelable vinyl stickers (personality.js data-jm=peel): the .in keeps the bob + tilt, the .pz is the die-cut sticker.
+   --S = sticker size, --r = corner radius, --o = how far the rounded corner sits from the box corner (2*.293*r) */
+.stk .in:has(.pz){box-shadow:none}
+.stk .pz{display:block;border-radius:var(--r);overflow:hidden;filter:drop-shadow(0 12px 12px rgba(20,40,30,.32))}
+.stk .pz .jm-peel-in{width:100%;height:100%;display:grid;place-items:center;align-content:center;gap:6px;background:var(--bg);border:3px solid #fff;border-radius:var(--r);
+  clip-path:polygon(0 0,100% 0,100% calc(100% - var(--o) - var(--p)*var(--S)),calc(100% - var(--o) - var(--p)*var(--S)) 100%,0 100%)}
+.stk .pz .jm-curl{width:calc(var(--p)*var(--S)*3);height:calc(var(--p)*var(--S)*3);right:calc(var(--o)/2 - var(--p)*var(--S));bottom:calc(var(--o)/2 - var(--p)*var(--S));border-radius:0 0 40% 0;
+  background:linear-gradient(135deg,#cfd6c8 0,#f3f5ee 30%,#fff 44%,#e9ece4 49%,rgba(0,0,0,.22) 50%,rgba(0,0,0,0) 54%);filter:drop-shadow(-2px -2px 3px rgba(0,0,0,.18))}
+.stk [data-jm=peel]{translate:none!important;rotate:none!important}
+.s1 .in{rotate:-10deg}
+.s1 .pz{--S:100px;--r:30px;--o:17.6px;--bg:var(--lime);width:128px;height:128px}
 .s1 svg{width:30px;height:30px}
-.s2 .in{width:150px;height:150px;border-radius:50%;background:var(--forest);color:var(--lime);font:400 24px/1 var(--serif);font-style:italic;rotate:-18deg;animation-delay:-1.5s}
-.s3 .in{padding:14px 22px;border-radius:99px;background:#fff;font:600 17px var(--sans);rotate:-8deg;animation-delay:-3s}
-.s4 .in{width:96px;height:96px;border-radius:50%;background:#fff;font:600 12px/1.2 var(--sans);rotate:22deg;animation-delay:-2s}
+.s2 .in{color:var(--lime);font:400 24px/1 var(--serif);font-style:italic;rotate:-18deg;animation-delay:-1.5s}
+.s2 .pz{--S:150px;--r:50%;--o:44px;--bg:var(--forest);width:150px;height:150px}
+.s3 .in{font:600 17px var(--sans);rotate:-8deg;animation-delay:-3s}
+.s3 .pz{--S:52px;--r:99px;--o:14.6px;--bg:#fff}
+.s3 .pz .jm-peel-in{padding:12px 20px;white-space:nowrap}
+.s4 .in{font:600 12px/1.2 var(--sans);rotate:22deg;animation-delay:-2s}
+.s4 .pz{--S:96px;--r:50%;--o:28px;--bg:#fff;width:96px;height:96px}
+/* hero CTAs as chunky press keys (data-jm=press) */
+.lime .ctas [data-jm=press]{--jm-key:#24342b;--jm-key-ink:#fff;--jm-d:6px;padding:15px 22px;font:600 13px var(--sans);letter-spacing:.01em;white-space:nowrap;text-decoration:none}
+.lime .ctas [data-jm=press].lt{--jm-key:#ffffff;--jm-key-ink:var(--ink)}
+.lime .ctas [data-jm=press] .ar{width:22px;height:22px;border-radius:50%;display:grid;place-items:center;background:var(--lime);color:var(--ink);font-size:12px}
+/* explorer: the picked world recolours the section (reel 1) */
+@property --wc{syntax:'<color>';inherits:true;initial-value:#1f3d2b}
+#explorer{--wc:#1f3d2b;transition:--wc .9s ease}
+#explorer::before{content:"";position:absolute;inset:4vh 0 0;background:radial-gradient(55% 48% at 50% 58%,color-mix(in srgb,var(--wc) 34%,transparent),transparent 72%);pointer-events:none}
+#explorer>.wrap{position:relative}
+#explorer .sec-head h2 em{color:var(--wc)}
+#explorer .xroom{box-shadow:0 50px 90px -40px color-mix(in srgb,var(--wc) 80%,transparent),0 0 0 3px color-mix(in srgb,var(--wc) 55%,transparent)}
+#explorer .xdots button.on{background:var(--wc)}
 .s5 .in{width:120px;height:110px;background:var(--lime);clip-path:path('M60 6 Q66 0 72 8 L116 88 Q120 100 108 102 L12 102 Q0 100 4 88 L48 8 Q54 0 60 6Z');font:600 15px var(--sans);padding-top:34px;rotate:12deg;animation-delay:-4s}
 .nowcard{position:absolute;left:18px;bottom:18px;z-index:2;display:flex;align-items:center;gap:14px;padding:12px 14px 12px 12px;border-radius:22px;max-width:330px}
 .nowcard img{width:62px;height:62px;border-radius:14px;object-fit:cover}
@@ -242,10 +268,11 @@ section{position:relative}
   .window{grid-row:auto;grid-column:auto}
   .win{min-height:440px}
   .stat{grid-row:auto}
-  .s1 .in{width:92px;height:92px;font-size:12px;border-radius:22px}.s1 svg{width:22px;height:22px}
-  .s2 .in{width:104px;height:104px;font-size:17px}
-  .s3 .in{font-size:13px;padding:10px 16px}
-  .s4 .in{width:74px;height:74px;font-size:10px}
+  .s1 .in{font-size:12px}.s1 .pz{width:92px;height:92px;--S:92px;--r:22px;--o:12.9px}.s1 svg{width:22px;height:22px}
+  .s2 .in{font-size:17px}.s2 .pz{width:104px;height:104px;--S:104px;--o:30.5px}
+  .s3 .in{font-size:13px}.s3 .pz{--S:40px;--o:11px}.s3 .pz .jm-peel-in{padding:8px 14px}
+  .s4 .in{font-size:10px}.s4 .pz{width:74px;height:74px;--S:74px;--o:21.7px}
+  .lime .ctas [data-jm=press]{padding:13px 18px;font-size:12.5px}
   .s5 .in{transform:scale(.75)}
   .nowcard{right:14px;left:14px;max-width:none}
   .fnav{padding:4px 4px 14px}.logo{font-size:22px}
@@ -302,7 +329,7 @@ section{position:relative}
         <div class="eyebrow">Los Angeles · Orlando · Guatapé · Everywhere</div>
         <h1>Building <span class="hl">worlds</span> you can <em>stand inside.</em></h1>
         <p>An Imagineering-inspired approach to AI, spatial computing and experience design — dreamed up in a theme park back room, shipped to the cloud.</p>
-        <div class="ctas"><a class="pill dark" href="#journal">Open the journal <span class="ar">→</span></a><a class="pill white" href="#explorer">Explore worlds</a></div>
+        <div class="ctas"><a data-jm="press" href="#journal">Open the journal <span class="ar">→</span></a><a class="lt" data-jm="press" href="#explorer">Explore worlds</a></div>
       </div>
       <div class="stat">
         <div><div class="big">3<small>cities,</small></div><div class="lbl">one imagination — and seven worlds in the journal.</div></div>
@@ -313,10 +340,10 @@ section{position:relative}
           <img src="assets/img/hero-photo.jpg" alt="Justin Massion pointing, with Guatapé behind him" id="winImg">
           <div class="glare"></div>
           <div class="wintag glass">Window seat · Guatapé</div>
-          <div class="stk s1" style="left:58%;top:10%"><div class="in"><svg viewBox="0 0 30 30" fill="none" stroke="#15201a" stroke-width="2"><path d="M15 3l2.6 7.4L25 13l-7.4 2.6L15 23l-2.6-7.4L5 13l7.4-2.6z"/></svg>AI-native</div></div>
-          <div class="stk s2" style="left:6%;top:46%"><div class="in">Spatial<br>computing</div></div>
-          <div class="stk s3" style="left:44%;top:60%"><div class="in">Theme-park thinking</div></div>
-          <div class="stk s4" style="left:80%;top:34%"><div class="in">Guatapé,<br>Colombia</div></div>
+          <div class="stk s1" style="left:58%;top:10%" title="Peel me off"><div class="in"><div class="pz" data-jm="peel"><svg viewBox="0 0 30 30" fill="none" stroke="#15201a" stroke-width="2"><path d="M15 3l2.6 7.4L25 13l-7.4 2.6L15 23l-2.6-7.4L5 13l7.4-2.6z"/></svg>AI-native</div></div></div>
+          <div class="stk s2" style="left:6%;top:46%" title="Peel me off"><div class="in"><div class="pz" data-jm="peel"><span>Spatial<br>computing</span></div></div></div>
+          <div class="stk s3" style="left:44%;top:60%" title="Peel me off"><div class="in"><div class="pz" data-jm="peel">Theme-park thinking</div></div></div>
+          <div class="stk s4" style="left:80%;top:34%" title="Peel me off"><div class="in"><div class="pz" data-jm="peel"><span>Guatapé,<br>Colombia</span></div></div></div>
           <div class="stk s5" style="left:76%;top:64%"><div class="in">Ship it</div></div>
           <div class="stk s6" style="left:3%;top:9%" title="Pixel · drag me"><div class="in"><img src="assets/3d/pixel.webp" alt="Pixel, Justin's chameleon character" draggable="false"><span class="say">drag me!</span></div></div>
           <a class="nowcard glass" href="#explorer"><img src="assets/img/playset-agents.jpg" alt=""><div><small>Now building</small><b>Playset Agents</b><span>Game-style AI agent interface</span></div><div class="go">↗</div></a>
@@ -391,6 +418,7 @@ section{position:relative}
 
 <script src="switcher.js?v=20261126" data-root="" data-current="b"></script>
 <script src="fun.js?v=20261126" data-root="" data-page="b"></script>
+<script src="personality.js?v=2" data-root=""></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
@@ -400,13 +428,13 @@ section{position:relative}
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
 const IMG='assets/img/',clamp=(v,a,b)=>Math.max(a,Math.min(b,v)),lerp=(a,b,t)=>a+(b-a)*t;
 const W=[
- {k:'pixel-chameleon',slug:'pixel',t:'Pixel the Chameleon',s:'Character design',d:'A high-end 3D character: turnarounds, expression sheet, action poses and colour variations.',note:'Gave him a tongue attack. Kids loved the purple one most!',em:'🦎',flag:'playset-agents'},
- {k:'playset-blueprint',slug:'playset-blueprint',t:'Playset',s:'Blueprint',d:'An arcade cabinet drawn the Imagineering way — measured, annotated and ready to build.',note:'1530 tall. Joystick at elbow height, always.',em:'🕹️',flag:'enterprise-workflow'},
- {k:'aluzina-os',slug:'aluzina',t:'Aluzina OS',s:'After state',d:'An interface concept shown in its "after" state: cards of state machines and creators floating in the clouds.',note:'The after state should feel like stepping into the sky.',em:'☁️',flag:'pixel-chameleon'},
- {k:'enterprise-workflow',slug:'workflow',t:'Playset',s:'Enterprise workflow',d:'A ten-station enterprise transformation, staged like a theme-park queue line.',note:'Ten stations, one story. Assessment → launch.',em:'🏭',flag:'aluzina-os'},
- {k:'las-palmas',slug:'las-palmas',t:'Las Palmas',s:'Morning mode',d:'A morning-mode dashboard for a place to stay — weather, plans and the view, all at once.',note:'Buenos días! Sunrise first, then the schedule.',em:'🌅',flag:'justin-guatape'},
- {k:'justin-guatape',slug:'guatape',t:'Justin Massion',s:'Guatapé',d:'Home base in Colombia, under El Peñol — where a lot of these worlds get sketched.',note:'740 steps up the rock. Worth every one.',em:'⛰️',flag:'las-palmas'},
- {k:'playset-agents',slug:'agents',t:'Playset Agents',s:'Game UI',d:'Choose your team member: AI agents presented like characters on a game select screen.',note:'Select your agent. Each one has a job and a glow.',em:'🎮',flag:'playset-blueprint'}];
+ {k:'pixel-chameleon',slug:'pixel',t:'Pixel the Chameleon',s:'Character design',d:'A high-end 3D character: turnarounds, expression sheet, action poses and colour variations.',note:'Gave him a tongue attack. Kids loved the purple one most!',em:'🦎',flag:'playset-agents',c:'#5fae4a'},
+ {k:'playset-blueprint',slug:'playset-blueprint',t:'Playset',s:'Blueprint',d:'An arcade cabinet drawn the Imagineering way — measured, annotated and ready to build.',note:'1530 tall. Joystick at elbow height, always.',em:'🕹️',flag:'enterprise-workflow',c:'#3f6fb5'},
+ {k:'aluzina-os',slug:'aluzina',t:'Aluzina OS',s:'After state',d:'An interface concept shown in its "after" state: cards of state machines and creators floating in the clouds.',note:'The after state should feel like stepping into the sky.',em:'☁️',flag:'pixel-chameleon',c:'#6fb2e8'},
+ {k:'enterprise-workflow',slug:'workflow',t:'Playset',s:'Enterprise workflow',d:'A ten-station enterprise transformation, staged like a theme-park queue line.',note:'Ten stations, one story. Assessment → launch.',em:'🏭',flag:'aluzina-os',c:'#e0843a'},
+ {k:'las-palmas',slug:'las-palmas',t:'Las Palmas',s:'Morning mode',d:'A morning-mode dashboard for a place to stay — weather, plans and the view, all at once.',note:'Buenos días! Sunrise first, then the schedule.',em:'🌅',flag:'justin-guatape',c:'#ef9c4b'},
+ {k:'justin-guatape',slug:'guatape',t:'Justin Massion',s:'Guatapé',d:'Home base in Colombia, under El Peñol — where a lot of these worlds get sketched.',note:'740 steps up the rock. Worth every one.',em:'⛰️',flag:'las-palmas',c:'#2f8a68'},
+ {k:'playset-agents',slug:'agents',t:'Playset Agents',s:'Game UI',d:'Choose your team member: AI agents presented like characters on a game select screen.',note:'Select your agent. Each one has a job and a glow.',em:'🎮',flag:'playset-blueprint',c:'#8b5cf6'}];
 const N=W.length;
 
 /* ---------- hero: avatars + draggable stickers ---------- */
@@ -414,7 +442,10 @@ $('#avs').innerHTML=W.slice(0,5).map(w=>`<img src="${IMG+w.k}.jpg" alt="">`).joi
 $$('.stk').forEach(s=>{let sx,sy,ox,oy,drag=false;
   s.addEventListener('pointerdown',e=>{drag=true;s.setPointerCapture(e.pointerId);sx=e.clientX;sy=e.clientY;const m=new DOMMatrix(getComputedStyle(s).transform);ox=m.e;oy=m.f;s.style.zIndex=9});
   s.addEventListener('pointermove',e=>{if(!drag)return;s.style.transform=`translate(${ox+e.clientX-sx}px,${oy+e.clientY-sy}px) rotate(${(e.clientX-sx)*.05}deg)`});
-  s.addEventListener('pointerup',()=>{drag=false;s.style.transform=s.style.transform.replace(/rotate\([^)]*\)/,'rotate(0deg)');
+  // the sticker's own drag captures the pointer, so hand the release to the peel (personality.js) to un-curl + pop
+  const peelUp=()=>{const pz=s.querySelector('[data-jm=peel]');if(pz)pz.dispatchEvent(new PointerEvent('pointerup'))};
+  s.addEventListener('pointercancel',()=>{drag=false;peelUp()});
+  s.addEventListener('pointerup',()=>{drag=false;peelUp();s.style.transform=s.style.transform.replace(/rotate\([^)]*\)/,'rotate(0deg)');
     const say=s.querySelector('.say');if(say){const L=['wheee!','again!','put me by the lake','I can see my house','that tickles'];say.textContent=L[(+say.dataset.n||0)%L.length];say.dataset.n=(+say.dataset.n||0)+1}});});
 const win=$('#win'),winImg=$('#winImg');
 win.addEventListener('mousemove',e=>{const b=win.getBoundingClientRect(),x=(e.clientX-b.left)/b.width-.5,y=(e.clientY-b.top)/b.height-.5;winImg.style.transform=`scale(1.1) translate(${x*-18}px,${y*-12}px)`;
@@ -440,6 +471,7 @@ $('#xstage').innerHTML=W.map((w,i)=>`<div class="xc" data-i="${i}"><img src="${I
 $('#xdots').innerHTML=W.map((w,i)=>`<button aria-label="Show ${w.t}"></button>`).join('');
 const xcs=$$('.xc'),dots=$$('#xdots button');let xI=0,xPos=0,bgFlip=false;
 function setX(i){xI=(i+N)%N;const w=W[xI];$('#xslug').textContent=w.slug;$('#xdImg').src=IMG+w.k+'.jpg';$('#xdT').textContent=w.t;$('#xdS').textContent=w.s;$('#xcap').textContent=w.d;
+  $('#explorer').style.setProperty('--wc',w.c);
   dots.forEach((d,k)=>d.classList.toggle('on',k===xI));xcs.forEach((c,k)=>c.classList.toggle('on',k===xI));
   const A=$('#xbgA'),B=$('#xbgB'),[show,hide]=bgFlip?[A,B]:[B,A];bgFlip=!bgFlip;show.style.backgroundImage=`url(${IMG+w.k}.jpg)`;show.style.opacity=1;hide.style.opacity=0}
 function drawX(){let target=xI;const dd=((target-xPos)%N+N*1.5)%N-N/2;xPos+=dd*.12;const cw=xcs[0].offsetWidth;

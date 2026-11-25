@@ -81,7 +81,37 @@ footer{position:relative;background:var(--k);color:#fff;padding:12vh 2.4vw 4vh;o
 .fword sup{font-size:.16em;vertical-align:top;position:relative;top:.4em;color:var(--or)}
 .fl{display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:3vh;color:var(--g);padding-bottom:70px}
 
+/* ===== PERSONALITY: glass frames on cords + orange press keys (personality.js) ===== */
+@property --glow{syntax:'<color>';inherits:true;initial-value:#ff4d1a}
+footer{--glow:var(--or);transition:--glow .8s}
+.mail span,.fword sup{background:var(--glow);transition:background .6s}.fword sup{background:none;color:var(--glow);transition:color .6s}
+.hangHd{display:flex;justify-content:space-between;gap:20px;color:var(--g);margin-bottom:8vh}
+.hangWrap{position:relative;margin:0 -2.4vw 10vh;padding:0 2.4vw}
+.hangWrap::before{content:'';position:absolute;left:50%;top:36%;width:min(70vw,1000px);height:min(36vw,480px);transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,color-mix(in srgb,var(--glow) 70%,transparent),transparent);filter:blur(30px);opacity:.75;pointer-events:none}
+#frames{--jm-cord:rgba(255,255,255,.7);--jm-frame-w:clamp(130px,13vw,210px);--jm-frame-bg:repeating-linear-gradient(90deg,rgba(255,255,255,.26) 0 2px,rgba(255,255,255,.07) 2px 7px,rgba(0,0,0,.1) 7px 9px,rgba(255,255,255,.12) 9px 14px);gap:clamp(14px,2.6vw,44px);user-select:none;-webkit-user-select:none}
+#frames::before{height:1px;left:0;right:0;opacity:.45}
+#frames .jm-cord{width:1px}
+#frames .jm-pin{background:var(--glow);width:8px;height:8px;margin-left:-4px;top:-4px}
+#frames .jm-frame{padding:10px;border-radius:4px;border-color:rgba(255,255,255,.4)}
+#frames .jm-frame::before{background:rgba(255,255,255,.75);height:6px}
+#frames .jm-frame::after{inset:10px;border-radius:2px}
+#frames .gf{position:relative;aspect-ratio:4/5;overflow:hidden;border-radius:2px;background:#222}
+#frames .gf img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
+#frames .gf i{position:absolute;inset:0;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);background:repeating-linear-gradient(90deg,rgba(255,255,255,.2) 0 2px,rgba(255,255,255,0) 2px 8px,rgba(0,0,0,.1) 8px 10px);transition:opacity .7s}
+#frames .jm-hanger:hover .gf i,#frames .jm-hanger.on .gf i{opacity:0}
+#frames .jm-cap{font:400 11px/1.4 var(--mono);letter-spacing:.02em;text-transform:none;color:#fff;opacity:.75}
+#frames .jm-cap b{color:var(--glow);font-weight:500}
+.keys{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin:-1vh 0 2vh}
+.keys [data-jm=press]{--jm-d:8px;font:600 15px var(--sans);letter-spacing:-.01em;padding:18px 28px}
+.keys .kYes{--jm-key:#ff4d1a;--jm-key-ink:#fff}
+.keys .kNo{--jm-key:#2a2a28;--jm-key-ink:#f4f4f2;padding:18px 22px}
+.keys .say{color:var(--g);min-height:1.5em}
+.keys .say b{color:#fff;font-weight:500}
+
 @media (max-width:900px){
+  #frames{--jm-frame-w:100px;gap:14px}#frames .jm-hanger:nth-child(n+4){display:none}
+  .hangHd{flex-direction:column;gap:4px}
+  .keys [data-jm=press]{padding:15px 20px}
   .top{grid-template-columns:1fr 1fr}.top .hide-m{display:none}
   .stageH{left:0;right:0}
   .hcol.l1{top:auto;bottom:22vh;width:60vw;color:#fff;mix-blend-mode:difference}.hcol.r1{display:none}
@@ -133,8 +163,17 @@ footer{position:relative;background:var(--k);color:#fff;padding:12vh 2.4vw 4vh;o
 
 <!-- FOOTER -->
 <footer id="contact">
+  <div class="hangHd m"><span>(04) — Hanging in the studio</span><span>Glass frames on cords. Flick one, it clears when you look.</span></div>
+  <div class="hangWrap"><div id="frames" data-jm="hang">
+    <div class="gf" data-cap="01 — Pixel" data-c="#5fd068"><img src="../assets/img/pixel-chameleon.jpg" alt="Pixel the Chameleon" loading="lazy"><i></i></div>
+    <div class="gf" data-cap="02 — Playset" data-c="#3f7fe0"><img src="../assets/img/playset-blueprint.jpg" alt="Playset blueprint" loading="lazy"><i></i></div>
+    <div class="gf" data-cap="03 — Aluzina OS" data-c="#9a7cff"><img src="../assets/img/aluzina-os.jpg" alt="Aluzina OS" loading="lazy"><i></i></div>
+    <div class="gf" data-cap="04 — Las Palmas" data-c="#ffb21a"><img src="../assets/img/las-palmas.jpg" alt="Las Palmas dashboard" loading="lazy"><i></i></div>
+    <div class="gf" data-cap="05 — Guatapé" data-c="#ff4d1a"><img src="../assets/img/justin-guatape.jpg" alt="Justin in Guatapé" loading="lazy"><i></i></div>
+  </div></div>
   <div class="fgrid m"><div><div class="lbl">(04) — Contact</div>New worlds for 2027</div><div><div class="lbl">Studio</div>JAM Studios</div><div><div class="lbl">Elsewhere</div><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">YouTube</a></div><div><div class="lbl">Other concepts</div>Use the switcher ↘</div></div>
   <a class="mail" href="#contact"><span></span>Start a world with Justin</a>
+  <div class="keys m"><button data-jm="press" class="kYes" id="kYes">✓ Yes, let's build</button><button data-jm="press" class="kNo" id="kNo" aria-label="Not yet">✕</button><span class="say" id="kSay">Booking 2027 — one press.</span></div>
   <div class="fword">MASSION<sup>®</sup></div>
   <div class="fl m"><span>© 2026 Justin Massion</span><span>Concept F · work images from the Loom · atmosphere photos: Unsplash</span></div>
 </footer>
@@ -142,6 +181,7 @@ footer{position:relative;background:var(--k);color:#fff;padding:12vh 2.4vw 4vh;o
 <script src="../switcher.js?v=20261126" data-root="../" data-current="f"></script>
 <script src="../fun.js?v=20261126" data-root="../" data-page="f"></script>
 <script src="../stock.js?v=20261126"></script>
+<script src="../personality.js?v=2" data-root="../"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
@@ -193,6 +233,15 @@ $('#grid').innerHTML=WK.map((w,i)=>`<div class="c${w[3]?' wide':''}"><div class=
 // the glass also clears by itself when a card reaches the middle of the screen (touch screens have no hover)
 const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('on',e.isIntersecting)),{rootMargin:'-38% 0px -38% 0px'});
 $$('#grid .c').forEach(c=>io.observe(c));
+
+/* ---------- personality: glass frames recolour the footer; orange yes/no keys ---------- */
+const ft=$('#contact'),frames=$('#frames');
+frames.addEventListener('pointerover',e=>{const h=e.target.closest('.jm-hanger');if(!h)return;const g=h.querySelector('.gf');ft.style.setProperty('--glow',g.dataset.c);
+  $$('#frames .jm-hanger').forEach(x=>x.classList.toggle('on',x===h))});
+frames.addEventListener('pointerleave',e=>{if(e.pointerType==='mouse'){ft.style.removeProperty('--glow');$$('#frames .jm-hanger').forEach(x=>x.classList.remove('on'))}});
+let yes=0;$('#kYes').addEventListener('click',e=>{yes++;const r=e.currentTarget.getBoundingClientRect();window.funBurst&&funBurst(r.left+r.width/2,r.top,yes>1?30:60);
+  $('#kSay').innerHTML=yes>1?'<b>Still noted.</b> Justin likes the enthusiasm.':'<b>Noted.</b> A world for 2027 — Justin will be in touch (demo).'});
+$('#kNo').addEventListener('click',()=>{$('#kSay').innerHTML='<b>No rush.</b> The glasses will wait in The Program.'});
 
 /* ---------- loop + scroll ---------- */
 window.__vis={p:0};

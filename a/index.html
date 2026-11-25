@@ -188,7 +188,32 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radiu
 .foot-name span{display:inline-block}
 .foot-line{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font:500 11px var(--sans);letter-spacing:.16em;text-transform:uppercase;border-top:1px solid currentColor;padding-top:18px;margin-top:3vh}
 
-.static #loader{display:none}
+/* ===== personality: studio wall (hanging frames) + press-key contact ===== */
+@property --tint{syntax:'<color>';inherits:true;initial-value:#cf7a4c}
+#wall{position:relative;padding:18vh 5vw 14vh;overflow:hidden;--tint:#cf7a4c;transition:--tint .9s ease}
+#wall::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(46% 42% at 50% 66%,color-mix(in srgb,var(--tint) 24%,transparent),transparent 75%)}
+.wall-head{position:relative;text-align:center;max-width:720px;margin:0 auto 9vh}
+.wall-head .lede{margin:22px auto 0}
+#wall .wall{--jm-cord:#cf7a4c;--jm-frame-bg:rgba(32,27,23,.5);--jm-frame-w:clamp(150px,14.5vw,236px)}
+.wall[data-jm]::before{height:2px!important;opacity:.55!important;box-shadow:0 0 18px rgba(207,122,76,.6)}
+.wall .jm-pin{background:radial-gradient(circle at 35% 35%,#f0b58e,#9b4f2a);box-shadow:0 0 10px rgba(207,122,76,.7)}
+.wall .jm-frame{padding:10px;border-radius:3px;border:1px solid rgba(239,233,223,.16);box-shadow:0 40px 50px -22px rgba(0,0,0,.85),inset 0 1px 0 rgba(239,233,223,.18)}
+.wall .jm-frame::before{background:#cf7a4c;width:18px;height:6px;margin-left:-9px}
+.wall .jm-frame>img{border-radius:1px;filter:saturate(.85) contrast(1.05)}
+.wall .jm-frame::after{inset:10px;border-radius:1px}
+.wall .jm-cap{margin-top:14px;font:500 10px var(--sans);letter-spacing:.3em;color:var(--paper);opacity:.65}
+.wall .jm-cap::first-letter{color:var(--copper)}
+.mag.keyhold{width:auto;height:auto;background:none;border-radius:50%}
+.mag .key{width:190px;height:190px;padding:0;border-radius:50%;--jm-key:#221e1a;--jm-key-ink:var(--paper);--jm-d:12px;font:500 12px var(--sans);letter-spacing:.22em;text-transform:uppercase}
+.mag .key::after{content:"";position:absolute;inset:14px;border-radius:50%;border:1px solid rgba(239,233,223,.14);pointer-events:none}
+@media (max-width:800px){
+  #wall{padding:14vh 4vw 10vh}
+  #wall .wall{--jm-frame-w:19vw;gap:3vw}
+  .wall .jm-hanger:nth-child(n+5){display:none}
+  .wall .jm-frame{padding:5px}.wall .jm-frame::after{inset:5px}
+  .wall .jm-cap{font-size:8px;letter-spacing:.16em}
+  .mag .key{width:150px;height:150px;--jm-d:10px}
+}.static #loader{display:none}
 @media (max-width:800px){
   nav{padding:18px 6vw}
   .links,.chip,.hero-hint,.hero-foot{display:none}
@@ -296,8 +321,19 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radiu
   </div>
 </section>
 
-<!-- ABOUT -->
-<section id="about" data-theme="light">
+<!-- INTERLUDE: the studio wall — frames hanging on copper wire (personality.js data-jm=hang) -->
+<section id="wall" data-theme="dark">
+  <div class="wall-head"><span class="eyebrow">Interlude · The studio wall</span><h2 class="h2">Pencil to <em>somewhere.</em></h2><p class="lede">Every world goes up on the wall in the same four frames. Flick one — they swing when you scroll past.</p></div>
+  <div class="wall" data-jm="hang" data-cursor="Flick">
+    <img src="../assets/img/hero-sketch.jpg" alt="Pencil sketch of Justin pointing" data-cap="01 · Sketch" data-tint="#b8a07e">
+    <img src="../assets/img/playset-blueprint.jpg" alt="Playset arcade cabinet blueprint" data-cap="02 · Blueprint" data-tint="#3f6fb5">
+    <img src="../assets/img/pixel-chameleon.jpg" alt="Pixel the Chameleon character sheet" data-cap="03 · Prototype" data-tint="#5fae4a">
+    <img src="../assets/img/playset-agents.jpg" alt="Playset Agents game UI" data-cap="04 · Ship" data-tint="#8b5cf6">
+    <img src="../assets/img/justin-guatape.jpg" alt="Justin in Guatapé" data-cap="∞ · Guatapé" data-tint="#cf7a4c">
+  </div>
+</section>
+
+<!-- ABOUT --><section id="about" data-theme="light">
   <span class="eyebrow" style="color:var(--copper)">(04) About</span>
   <p class="manifesto" id="manifesto">Every world I build starts as a <em>pencil sketch</em> and ends somewhere you can stand inside — theme-park thinking pointed at AI, spatial computing and the companies that <em>ship it.</em></p>
   <div class="roles">
@@ -328,7 +364,7 @@ input[type=range]::-moz-range-thumb{width:14px;height:14px;border:0;border-radiu
   <span class="eyebrow" style="color:var(--ink)">(06) Contact</span>
   <h2 class="big-cta">Let's build<br>a <em>world.</em></h2>
   <div class="cta-row">
-    <a href="#contact" class="mag" data-cursor="Go"><span>Get in touch →</span></a>
+    <a href="#contact" class="mag keyhold" data-cursor="Go"><span><b class="key" data-jm="press">Get in touch →</b></span></a>
     <div class="socials"><a href="#" data-cursor="↗">Instagram</a><a href="#" data-cursor="↗">YouTube</a><a href="#" data-cursor="↗">LinkedIn</a><a href="#" data-cursor="↗">Email</a></div>
   </div>
   <div class="foot-name" id="footName"><span>M</span><span>a</span><span>s</span><span>s</span><span>i</span><span>o</span><span>n</span></div>
@@ -535,6 +571,13 @@ ready.then(()=>{if(skip){intro.progress(1)}else intro.play();
   // preview hook: ?scroll=N jumps to a scroll position (used for screenshots)
   const sm=location.search.match(/[?&]scroll=(\d+)/);if(sm){const go=+sm[1];setTimeout(()=>{lenis?lenis.scrollTo(go,{immediate:true}):scrollTo(0,go);ScrollTrigger.update()},300)}});
 })();
+</script>
+<script src="../personality.js?v=2" data-root="../"></script>
+<script>
+/* studio wall: the frame you touch tints the room (reel 1) */
+(()=>{const w=document.querySelector('#wall');if(!w)return;const set=c=>w.style.setProperty('--tint',c);
+  w.addEventListener('pointerover',e=>{const h=e.target.closest('.jm-hanger');const im=h&&h.querySelector('img[data-tint]');if(im)set(im.dataset.tint)});
+  w.querySelector('.wall').addEventListener('pointerleave',()=>set('#cf7a4c'))})();
 </script>
 </body>
 </html>

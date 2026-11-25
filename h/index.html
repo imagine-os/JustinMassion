@@ -371,6 +371,26 @@ html.has-cur input,html.has-cur textarea{cursor:text}
 .legal a:hover{color:var(--ink)}
 @media (max-width:760px){.contact{padding-top:110px}.cta-row{flex-direction:column;align-items:flex-start}.go-btn{width:150px;height:150px;align-self:flex-end}.cform{grid-template-columns:1fr}.wordmark{-webkit-text-stroke:1px var(--red)}}
 
+/* personality: red honeycomb keyboard (Skill {set}) + press-key "Get in touch" */
+.hexwrap{position:relative;padding:0 var(--gut) 30px}
+.hex-cap{display:flex;justify-content:space-between;gap:20px;max-width:1000px;margin:0 auto;padding-bottom:4px;font-size:11px;color:var(--mute)}
+.hex-cap b{color:var(--ink);font-weight:500}
+.hexwrap [data-jm=hex]{--jm-hex-a:#ff6b80;--jm-hex-b:#c4102c;--jm-hex-key:#141417;--jm-hex-ink:#6f6e74;--s:clamp(44px,4.4vw,64px);max-width:1000px;margin:0 auto;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);mask:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent)}
+.hexwrap .jm-key{background:linear-gradient(180deg,#1c1c20,#101012)}
+.hexwrap .jm-key span{font-family:var(--ff)}
+.hexwrap .jm-hex-label{background:var(--red);color:#0b0b0c;font:600 12px/1 var(--ff);letter-spacing:-.01em}
+html.has-cur .jm-key{cursor:none}
+.pill.zap,.pill.sm.zap{background:var(--red);border-color:var(--red);color:#0b0b0c;box-shadow:0 0 44px -4px rgba(255,31,61,.75)}
+.pill.zap sup{color:#0b0b0c}
+.go-wrap{flex:none;will-change:transform}
+.go-btn[data-jm=press]{--jm-key:var(--red);--jm-key-ink:#0b0b0c;--jm-d:12px;width:190px;height:190px;min-width:0;padding:0;border-radius:50%;display:grid;font-size:17px;font-weight:600;letter-spacing:-.02em;
+  background:radial-gradient(circle at 50% 30%,color-mix(in srgb,var(--jm-key),#fff 22%),var(--jm-key) 62%);
+  box-shadow:0 var(--jm-d) 0 color-mix(in srgb,var(--jm-key),#000 52%),0 calc(var(--jm-d) + 22px) 46px -12px rgba(255,31,61,.5),inset 0 3px 0 rgba(255,255,255,.38),inset 0 -5px 0 rgba(0,0,0,.14)}
+.go-btn[data-jm=press]:hover{--jm-key:var(--ink);background:radial-gradient(circle at 50% 30%,#fff,var(--ink) 62%)}
+.go-btn[data-jm=press].jm-down,.go-btn[data-jm=press]:active{transform:translateY(calc(var(--jm-d) - 2px));box-shadow:0 2px 0 color-mix(in srgb,var(--jm-key),#000 52%),0 8px 16px -8px rgba(0,0,0,.7),inset 0 3px 0 rgba(255,255,255,.25),inset 0 -2px 0 rgba(0,0,0,.14)}
+@media (max-width:760px){.hexwrap{padding-bottom:20px}.hex-cap span:last-child{display:none}.go-wrap{align-self:flex-end}.go-btn[data-jm=press]{width:150px;height:150px;--jm-d:9px}}
+
 @media (prefers-reduced-motion:reduce){.hero-wel .arr,.clock i{animation:none}}
 </style>
 </head>
@@ -519,6 +539,12 @@ html.has-cur input,html.has-cur textarea{cursor:text}
     <span class="pill big" data-cursor="Drag">Story worlds<sup>05</sup></span>
     <span class="pill sm">Learning anything</span>
   </div>
+  <div class="hexwrap">
+    <div class="hex-cap"><span>( Or type one. <b>Tap a key</b> — its pill jumps. )</span><span>JAM keyboard · 11 skills</span></div>
+    <div data-jm="hex" id="skillHex" data-rows="4"
+      data-items="Theme parks,Imagineering,Sketchnotes,AI-native prototyping,Blender,Spatial computing,Film,Character design,Watchmaking,Story worlds,Learning anything"
+      data-glyphs="☼,✦,✎,⚙,◆,◎,▷,◉,◷,❝,∞"></div>
+  </div>
   <div class="skills-title">
     <h2 class="mega drift">Skill {set}<sup>(5)</sup></h2>
     <p>&amp; interests</p>
@@ -584,7 +610,7 @@ html.has-cur input,html.has-cur textarea{cursor:text}
   <h2 class="cta-big">Let's build<br>a <em>world.</em></h2>
   <div class="cta-row">
     <p>Got a story that needs a place to live? A character that needs a world, or a world that needs a ride? Tell Justin about it.</p>
-    <button class="go-btn" id="openForm" aria-expanded="false" aria-controls="cform"><span>Get in touch<br>↘</span></button>
+    <div class="go-wrap" id="goWrap"><button class="go-btn" id="openForm" data-jm="press" aria-expanded="false" aria-controls="cform"><span>Get in touch<br>↘</span></button></div>
   </div>
   <form class="cform" id="cform">
     <label>Your name<input name="n" autocomplete="name" required></label>
@@ -870,6 +896,13 @@ html.has-cur input,html.has-cur textarea{cursor:text}
     });
   });
   gsap.from('.pill', { opacity: 0, y: 80, rotate: () => gsap.utils.random(-25, 25), duration: 1.2, stagger: .05, ease: 'elastic.out(1,.6)', scrollTrigger: { trigger: '#pills', start: 'top 80%' }, clearProps: 'transform' });
+  /* honeycomb keyboard: tapping a skill key makes its pill jump and flash red */
+  addEventListener('jm:tap', e => {
+    const k = e.detail && e.detail.el; if (!k || !k.closest('#skillHex')) return;
+    const p = P.find(q => q.el.textContent.replace(/\d+$/, '').trim() === e.detail.label); if (!p) return;
+    p.vy -= reduce ? 4 : 16; p.vx += (Math.random() - .5) * (reduce ? 4 : 20);
+    p.el.classList.add('zap'); clearTimeout(p.zt); p.zt = setTimeout(() => p.el.classList.remove('zap'), 900);
+  });
 
   /* ---------- process + academy hover previews ---------- */
   const hov = $('#hov'), hovImg = hov.querySelector('img'), hovb = $('#hovb'), hovbIn = hovb.querySelector('.in');
@@ -920,9 +953,11 @@ html.has-cur input,html.has-cur textarea{cursor:text}
     setTimeout(() => { ScrollTrigger.refresh(); if (open) cform.querySelector('input').focus({ preventScroll: true }) }, 950);
   });
   cform.addEventListener('submit', e => { e.preventDefault(); const n = $('#cNote'); n.textContent = 'Thanks! Demo form — nothing was actually sent.'; n.classList.add('ok'); cform.reset() });
+  /* the magnet moves the wrapper so the press key keeps its own transform */
+  const goWrap = $('#goWrap');
   if (fine && !reduce) {
-    const bx = gsap.quickTo(openBtn, 'x', { duration: .8, ease: 'elastic.out(1,.5)' }), by = gsap.quickTo(openBtn, 'y', { duration: .8, ease: 'elastic.out(1,.5)' });
-    addEventListener('pointermove', e => { const r = openBtn.getBoundingClientRect(), cx = r.left + r.width / 2 - gsap.getProperty(openBtn, 'x'), cy = r.top + r.height / 2 - gsap.getProperty(openBtn, 'y'), dx = e.clientX - cx, dy = e.clientY - cy, d = Math.hypot(dx, dy);
+    const bx = gsap.quickTo(goWrap, 'x', { duration: .8, ease: 'elastic.out(1,.5)' }), by = gsap.quickTo(goWrap, 'y', { duration: .8, ease: 'elastic.out(1,.5)' });
+    addEventListener('pointermove', e => { const r = goWrap.getBoundingClientRect(), cx = r.left + r.width / 2 - gsap.getProperty(goWrap, 'x'), cy = r.top + r.height / 2 - gsap.getProperty(goWrap, 'y'), dx = e.clientX - cx, dy = e.clientY - cy, d = Math.hypot(dx, dy);
       if (d < 220) { bx(dx * .3); by(dy * .3) } else { bx(0); by(0) } }, { passive: true });
   }
 
@@ -1021,5 +1056,6 @@ if (renderer) {
   });
 }
 </script>
+<script src="../personality.js?v=2" data-root="../"></script>
 </body>
 </html>

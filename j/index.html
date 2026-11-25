@@ -337,6 +337,39 @@ form.cf{display:grid;gap:12px;background:#fff;border:2px solid #1a1814;box-shado
   .sheet .stab{font-size:11px;padding:12px 18px 8px}
   .sheet .sbody{padding:10px}
 }
+/* ---------- personality: peelable stickers, hanging polaroids, chunky keys ---------- */
+.sticker-slot{position:absolute;top:-24px;left:50%;z-index:3;transform:translateX(-50%) rotate(-6deg);transition:transform .4s var(--ease)}
+.numbers:hover .sticker-slot{transform:translateX(-50%) rotate(5deg) scale(1.08)}
+.sticker-slot [data-jm=peel],.numbers [data-jm=peel]{filter:drop-shadow(0 6px 8px rgba(0,0,0,.35))}
+.sticker{position:static;transform:none;display:block;border-radius:14px;border:3px solid #fff;box-shadow:none;padding:11px 22px;cursor:inherit}
+.numbers:hover .sticker{transform:none}
+.sticker.s2{background:var(--pink);color:#1a1814;font:700 21px/1 Caveat,cursive;padding:8px 16px 9px;border-radius:12px}
+.sticker.s3{background:var(--green);color:#1a1814;font:700 13px/1.05 "DM Sans";padding:9px 12px;border-radius:12px;text-align:center}
+.s2-slot{position:absolute;left:26px;bottom:-22px;z-index:3;transform:rotate(-8deg)}
+.s3-slot{position:absolute;right:-18px;bottom:30px;z-index:3;transform:rotate(12deg)}
+.peel-hint{display:block;text-align:center;margin-top:34px;font:700 20px/1 Caveat,cursive;color:var(--bandMuted);transform:rotate(-1.5deg)}
+.pols[data-jm=hang]{--jm-cord:#6d675c;--jm-frame-bg:#fff;--jm-frame-w:96px;height:auto;min-height:0;margin-top:22px;padding-top:2px;gap:14px}
+.pols .jm-frame{padding:6px 6px 26px;border-radius:3px;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:0 16px 22px -12px rgba(0,0,0,.5)}
+.pols .jm-frame::before{width:12px;height:16px;margin-left:-6px;top:-9px;border-radius:2px;background:#c99a5b;box-shadow:inset 0 -2px 0 rgba(0,0,0,.2)}
+.pols .jm-frame::after{inset:6px 6px 26px;border-radius:2px}
+.pols .jm-frame>img{aspect-ratio:1;border-radius:2px;background:#ddd}
+.pols .jm-hanger .jm-pin{width:6px;height:6px;margin-left:-3px;top:-3px}
+.pols .jm-cap{position:absolute;left:0;right:0;bottom:6px;margin:0;font:700 16px/1 Caveat,cursive;letter-spacing:0;text-transform:none;color:#3b352c;opacity:1}
+.ocard{cursor:default}
+.ride{display:flex;justify-content:center;align-items:center;gap:16px;margin-top:30px;flex-wrap:wrap}
+.ride>span{font:700 22px/1 Caveat,cursive;color:var(--muted);transform:rotate(-2deg)}
+.key-x[data-jm=press],.key-ok[data-jm=press]{--jm-d:8px;min-width:0;height:58px;padding:0 24px;font:700 19px/1 "DM Sans";border:2.5px solid #1a1814;
+  box-shadow:0 var(--jm-d) 0 #1a1814,0 calc(var(--jm-d) + 12px) 22px -10px rgba(0,0,0,.55),inset 0 3px 0 rgba(255,255,255,.55)}
+.key-x[data-jm=press]{--jm-key:#ff5a5f;--jm-key-ink:#fff;width:58px;padding:0;font-size:22px}
+.key-ok[data-jm=press]{--jm-key:var(--green);--jm-key-ink:#1a1814}
+.key-x[data-jm=press].jm-down,.key-x[data-jm=press]:active,.key-ok[data-jm=press].jm-down,.key-ok[data-jm=press]:active,.cf .send-key.jm-down,.cf .send-key:active{transform:translateY(calc(var(--jm-d) - 1px));box-shadow:0 1px 0 #1a1814,0 4px 10px -6px rgba(0,0,0,.5),inset 0 2px 0 rgba(255,255,255,.4)}
+.cf .send-key[data-jm=press]{--jm-key:#1a1814;--jm-key-ink:#fbf2d9;--jm-d:7px;height:52px;width:100%;font:700 15.5px "DM Sans";background:linear-gradient(180deg,#3a3630,#1a1814);box-shadow:0 var(--jm-d) 0 #000,0 calc(var(--jm-d) + 10px) 20px -10px rgba(0,0,0,.5),inset 0 2px 0 rgba(255,255,255,.18)}
+.cf .send-key[data-jm=press]:not(.jm-down):not(:active):hover{transform:translateY(-1px)}
+.close[data-jm=press]{--jm-key:#fbf2d9;--jm-key-ink:#151412;--jm-d:6px;position:absolute;right:10px;top:-4px;min-width:0;padding:0;width:48px;height:48px;font-size:20px}
+.close[data-jm=press]:not(.jm-down):not(:active):hover{transform:translateY(-1px)}
+.close[data-jm=press].jm-down,.close[data-jm=press]:active{transform:translateY(5px)}
+@media (max-width:600px){.s3-slot{right:12px;bottom:-24px;transform:rotate(8deg)}.s2-slot{left:12px}.ride{gap:12px}.ride>span{width:100%;text-align:center}}
+
 @media (prefers-reduced-motion:reduce){
   .float3d,.wave,.doodle img{animation:none}
   .ch.in0{animation:none}
@@ -386,11 +419,14 @@ form.cf{display:grid;gap:12px;background:#fff;border:2px solid #1a1814;box-shado
   <div class="wrap">
     <div class="numbers reveal">
       <img class="peek" src="../assets/3d/pixel-peek.webp" alt="Pixel the Chameleon peeking over the card">
-      <span class="sticker">Numbers</span>
+      <span class="sticker-slot"><span data-jm="peel" title="Peel me off"><span class="sticker">Numbers</span></span></span>
+      <span class="s2-slot"><span data-jm="peel" title="Peel me off"><span class="sticker s2">80% magic ✦</span></span></span>
+      <span class="s3-slot"><span data-jm="peel" title="Peel me off"><span class="sticker s3">740<br>steps!</span></span></span>
       <div class="stat"><div class="n"><span class="cnt" data-to="3">0</span></div><div class="lab">Cities</div><div class="det">LA · Orlando · Guatapé</div></div>
       <div class="stat"><div class="n"><span class="cnt" data-to="7">0</span><sup>+</sup></div><div class="lab">Worlds built</div><div class="det">in the portfolio</div></div>
       <div class="stat"><div class="n"><span class="cnt" data-to="9">0</span></div><div class="lab">Books</div><div class="det">on the Academy shelf</div></div>
     </div>
+    <span class="peel-hint">psst — the stickers peel off. Drag one somewhere ↗ (double-click puts it back)</span>
 
     <div class="writings" id="academy">
       <h2 class="sec reveal">Sketches &amp; Writings<br>from the Back Room</h2>
@@ -466,6 +502,7 @@ form.cf{display:grid;gap:12px;background:#fff;border:2px solid #1a1814;box-shado
     <div class="qrole" id="qrole"></div>
   </div>
   <div class="avrow" id="avrow"></div>
+  <div class="ride"><span>So… would you ride with Justin?</span><button class="key-x" data-jm="press" id="rideNo" aria-label="Nope">✕</button><button class="key-ok" data-jm="press" id="rideYes">✓ Yes, let's ride</button></div>
 </section>
 
 <section class="about wrap" id="about">
@@ -499,12 +536,12 @@ form.cf{display:grid;gap:12px;background:#fff;border:2px solid #1a1814;box-shado
       <p><b class="hl-o">Most</b> mornings start under El Peñol, the giant rock above Guatapé, Colombia — my home base. It's 740 steps to the top, and the view of the lake is the best brainstorm I know.</p>
       <p>The town is painted in every colour a set designer could wish for. Living inside it keeps reminding me that the best worlds start with a feeling, not a feature list.</p>
     </div>
-    <div class="ocard reveal" id="ocard" tabindex="0" aria-label="Outside work photos — hover or tap to fan them out">
+    <div class="ocard reveal" id="ocard" aria-label="Outside work polaroids hanging on a string — flick them">
       <h3>Outside<br>work <span>→</span></h3>
-      <div class="pols">
-        <div class="pol"><img data-stock="guatape" alt="Guatapé lake and islands from above"><span>the lake</span></div>
-        <div class="pol"><img data-stock="guatapeStreet" alt="Colourful stairs in Guatapé"><span>calle colours</span></div>
-        <div class="pol"><img data-stock="guatapeRock" alt="El Peñol rock with its stairs"><span>740 steps!</span></div>
+      <div class="pols" data-jm="hang">
+        <img data-stock="guatape" alt="Guatapé lake and islands from above" data-cap="the lake">
+        <img data-stock="guatapeStreet" alt="Colourful stairs in Guatapé" data-cap="calle colours">
+        <img data-stock="guatapeRock" alt="El Peñol rock with its stairs" data-cap="740 steps!">
       </div>
     </div>
   </div>
@@ -550,7 +587,7 @@ form.cf{display:grid;gap:12px;background:#fff;border:2px solid #1a1814;box-shado
           <select name="t"><option>A world / attraction</option><option>An AI product with a story</option><option>A character (like Pixel)</option><option>JAM Academy waitlist</option><option>Just saying hi 👋</option></select>
         </label>
         <label>The idea, in a sentence or two<textarea name="m" placeholder="A rollercoaster that runs through a cloud OS…"></textarea></label>
-        <button type="submit" id="send">Send it ✈️</button>
+        <button type="submit" id="send" class="send-key" data-jm="press">Send it ✈️</button>
         <div class="ok">Woohoo! Got it ✨ (well — pretend I did)</div>
         <div class="note">Demo form — nothing is sent.</div>
       </form>
@@ -583,7 +620,7 @@ form.cf{display:grid;gap:12px;background:#fff;border:2px solid #1a1814;box-shado
         </div>
       </div>
     </div>
-    <button class="close" data-close aria-label="Close">✕</button>
+    <button class="close" data-close data-jm="press" aria-label="Close">✕</button>
   </div>
 </div>
 <div class="toast" id="toast" role="status"></div>
@@ -785,6 +822,15 @@ function showQ(i, instant) {
 $$('.av', avrow).forEach((a, i) => a.addEventListener('click', () => { showQ(i); restartQ(); }));
 function restartQ() { clearInterval(qTimer); qTimer = setInterval(() => showQ(qi + 1), 6500); }
 showQ(0, true); restartQ();
+/* ride check: chunky ✕ / ✓ keys */
+$('#rideYes').addEventListener('click', e => {
+  const r = e.currentTarget.getBoundingClientRect(); if (window.funBurst) window.funBurst(r.left + r.width / 2, r.top, 40);
+  toast('🎢 Good call. The form at the bottom is warmed up.');
+});
+$('#rideNo').addEventListener('click', e => {
+  if (!reduce) e.currentTarget.animate([{ translate: '0 0' }, { translate: '-6px 0' }, { translate: '6px 0' }, { translate: '-3px 0' }, { translate: '0 0' }], { duration: 380 });
+  toast('🦎 Pixel is mildly offended. The ✓ key is right there.');
+});
 
 /* ---------- about carousel ---------- */
 const slides = $$('#slides img'), dots = $$('#dots i'), caps = ['hola from Guatapé!', 'home base, El Peñol', 'same pose, in pencil ✏️'];
@@ -995,5 +1041,6 @@ $('#cf').addEventListener('submit', e => {
 });
 })();
 </script>
+<script src="../personality.js?v=2" data-root="../"></script>
 </body>
 </html>

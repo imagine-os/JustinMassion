@@ -314,6 +314,41 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border:0;border-radiu
 .di.bounce .ic{animation:bounce .9s var(--ease)}
 @keyframes bounce{0%,100%{transform:none}25%{transform:translateY(-38%)}50%{transform:none}70%{transform:translateY(-16%)}}
 
+/* ============ personality: Keys app, desk stickers, Send key ============ */
+@property --kc{syntax:'<color>';inherits:true;initial-value:#e9e6e2}
+.keys .wb{padding:14px 16px 12px;background:radial-gradient(120% 90% at 50% 115%,color-mix(in srgb,var(--kc) 42%,#f7f6f4) 0%,#f7f6f4 72%);transition:--kc .45s var(--ease)}
+.khead{display:flex;align-items:baseline;gap:10px;padding:0 4px;min-height:22px}
+.khead b{font:500 16px/1 var(--pix);color:#1f1d1b;white-space:nowrap}
+.khead span{font:400 13px/1.35 var(--geist);color:var(--ink2);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.keys [data-jm=hex]{--jm-hex-key:#1f1d1b;--s:clamp(46px,5vw,70px);font-family:var(--pix);margin:6px 0 0}
+.keys .jm-key{box-shadow:none}
+.keys .jm-key span{font-weight:500;letter-spacing:-.02em}
+.keys .jm-key.jm-hot span{color:#1f1d1b;filter:none}
+.keys .jm-hex-label{font:500 12px/1 var(--pix);background:rgba(31,29,27,.82)}
+.kfoot{display:flex;justify-content:space-between;gap:10px;padding:2px 4px 0;font:400 11.5px/1.3 var(--pix);letter-spacing:.04em;color:var(--ink2)}
+.ic.keys{background:linear-gradient(160deg,#2b2926,#161513);box-shadow:inset 0 0 0 1.5px rgba(255,200,111,.5),0 2px 5px -1px rgba(0,0,0,.35)}
+.ic.keys svg{width:64%;height:64%}
+.di.kpeek .ic{transform:translateY(-22%);transition:transform .25s var(--ease)}
+.di .ic{transition:opacity .3s,filter .3s,transform .25s var(--ease)}
+/* laptop-style stickers stuck on the wallpaper: peel them off and re-stick them anywhere */
+.stk{position:absolute;inset:0;pointer-events:none}
+.stk [data-jm=peel]{position:absolute;z-index:1;pointer-events:auto}
+.stk [data-jm=peel].jm-drag{z-index:100000}
+.stk [data-jm=peel]{transform:rotate(var(--r,0deg));filter:drop-shadow(0 1px 0 rgba(0,0,0,.08)) drop-shadow(0 6px 7px rgba(40,30,20,.22))}
+.sk{display:block;border:3px solid #fff;border-radius:14px;user-select:none}
+.sk-quote{padding:11px 14px 10px;background:#fbf6e9;font:500 15px/1.12 var(--pix);color:#2a2826;text-align:center}
+.sk-quote em{display:block;font-style:normal;color:#e4572e}
+.sk-jam{padding:10px 14px;background:#1f1d1b;font:600 17px/1 var(--pix);letter-spacing:.02em;color:#ffc66f}
+.sk-jam i{font-style:normal;color:#8be384}
+.sk-pix{width:104px;height:104px;border-radius:26px;background:radial-gradient(circle at 50% 120%,#bfeec2,#e9f6e5 60%,#fafaf6);overflow:hidden;position:relative}
+.sk-pix img{position:absolute;width:150%;max-width:none;left:-12%;top:-4%;pointer-events:none}
+.sk-city{padding:9px 13px;border-radius:999px;background:#ffa6d6;font:500 13px/1 var(--pix);letter-spacing:.06em;color:#3a1730}
+.sk-me{width:96px;height:112px;border-radius:18px;background:linear-gradient(170deg,#7dbdff,#2f7ff0);overflow:hidden;position:relative}
+.sk-me img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 0;transform:scale(1.7);transform-origin:62% 6%;pointer-events:none}
+.sk-me b{position:absolute;left:6px;bottom:6px;z-index:1;padding:4px 6px;border-radius:6px;background:#2f7ff0;font:500 11px/1 var(--pix);color:#fff}
+/* Mail send = a chunky blue key */
+.mbar [data-jm=press]{--jm-key:#2f7ff0;--jm-key-ink:#fff;--jm-d:6px;padding:13px 22px;font:600 14px/1 var(--geist);margin-bottom:6px}
+
 /* mobile-only bits hidden on desktop */
 .sbar,.home{display:none}
 
@@ -379,6 +414,11 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border:0;border-radiu
   body.sheet .dock{transform:translateX(-50%) translateY(160%)}
   .pop{max-width:calc(100vw - 24px)}
   .voice{width:calc(100vw - 32px)}
+  .home .stk{position:relative;inset:auto;grid-column:1/-1;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:16px 18px;padding:8px 0 0;pointer-events:auto}
+  .home .stk [data-jm=peel]{position:relative;left:auto!important;top:auto!important;right:auto!important;bottom:auto!important}
+  .keys .khead span{white-space:normal}
+  .keys [data-jm=hex]{--s:50px}
+  .home .stk .sk-pix{width:88px;height:88px}.home .stk .sk-me{width:84px;height:98px}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
@@ -461,6 +501,14 @@ input[type=range]::-moz-range-thumb{width:18px;height:18px;border:0;border-radiu
         <path d="M19 22h20M19 27h26M19 32h14" stroke="#d6d1cb" stroke-width="2" stroke-linecap="round"/></svg>
       <span>resume.pdf</span></button>
   </div>
+  <!-- laptop stickers on the wallpaper (peel + re-stick; double-click puts one back) -->
+  <div class="stk" id="stk" aria-label="Desk stickers — drag to peel one off">
+    <div data-jm="peel" style="left:22px;bottom:262px;--r:-5deg" title="Drag to peel"><span class="sk sk-quote">20% blueprint<em>80% magic</em></span></div>
+    <div data-jm="peel" style="left:120px;bottom:150px;--r:7deg" title="Drag to peel"><span class="sk sk-pix"><img src="../assets/3d/pixel.webp" alt="Pixel the chameleon sticker" draggable="false"></span></div>
+    <div data-jm="peel" style="right:40px;bottom:232px;--r:4deg" title="Drag to peel"><span class="sk sk-jam">JAM<i>·</i>Studios</span></div>
+    <div data-jm="peel" style="left:16px;bottom:118px;--r:-6deg" title="Drag to peel"><span class="sk sk-me"><b>hi!</b><img src="../assets/img/justin-sticker.png" alt="Justin sticker" draggable="false"></span></div>
+    <div data-jm="peel" style="right:30px;bottom:178px;--r:3deg" title="Drag to peel"><span class="sk sk-city">LA · ORL · GUATAPÉ</span></div>
+  </div>
 </main>
 
 <!-- ============ dock ============ -->
@@ -535,12 +583,19 @@ const iconHTML = id => {
   if (id === 'books') return `<span class="ic books">${SVG.book}</span>`;
   if (id === 'mail') return `<span class="ic mail">${SVG.mail}</span>`;
   if (id === 'pixel') return `<span class="ic pix"><img src="${R3D}pixel.webp" alt="" draggable="false"></span>`;
+  if (id === 'keys') return `<span class="ic keys"><svg viewBox="0 0 24 24"><g fill="#ffc66f"><path d="M7 3.5l3 1.7v3.5L7 10.5 4 8.7V5.2z"/><path d="M14 3.5l3 1.7v3.5l-3 1.8-3-1.8V5.2z" opacity=".55"/><path d="M10.5 9.6l3 1.7v3.5l-3 1.8-3-1.8v-3.5z" opacity=".8"/><path d="M17.5 9.6l3 1.7v3.5l-3 1.8-3-1.8v-3.5z" fill="#8be384"/><path d="M7 15.7l3 1.7v3.5l-3 1.8-3-1.8v-3.5z" fill="#7dbdff"/><path d="M14 15.7l3 1.7v3.5l-3 1.8-3-1.8v-3.5z" opacity=".4"/></g></svg></span>`;
   return '';
 };
-const APPS = { notes: 'Notes — About Justin', books: 'Books — JAM Academy', mail: 'Mail — Get in touch', pixel: 'Pixel' };
+const APPS = { notes: 'Notes — About Justin', books: 'Books — JAM Academy', mail: 'Mail — Get in touch', pixel: 'Pixel', keys: 'Keys — a keyboard of worlds' };
+/* Keys app: one honeycomb key per world / app (glyph, colour, label → window id) */
+const KEYS = [...WORLDS.map(w => ({ id: w.id, g: w.ab, c: w.c, label: w.short, line: w.line })),
+  { id: 'notes', g: '✎', c: '#ffd84d', label: 'Notes', line: 'About Justin, how he builds worlds, three cities.' },
+  { id: 'books', g: 'Bk', c: '#ffae3a', label: 'Books', line: 'JAM Academy — nine books on the art of learning anything.' },
+  { id: 'mail', g: '@', c: '#62c6ff', label: 'Mail', line: 'Commission a world. Booking 2027.' },
+  { id: 'finder', g: '▦', c: '#8cc8ff', label: 'Worlds', line: 'Every world in one folder.' }];
 
 /* == dock == */
-const DOCK_IDS = [...WORLDS.map(w => w.id), '|', 'notes', 'books', 'mail', 'pixel'];
+const DOCK_IDS = [...WORLDS.map(w => w.id), '|', 'notes', 'books', 'mail', 'pixel', 'keys'];
 dock.innerHTML = DOCK_IDS.map(id => id === '|' ? '<span class="dsep"></span>' :
   `<button class="di" data-app="${id}" aria-label="${W[id] ? W[id].name : APPS[id]}">${iconHTML(id)}<span class="tip">${W[id] ? W[id].name : APPS[id].split(' — ')[0]}</span></button>`).join('');
 const dockIcon = id => $(`.di[data-app="${id}"]`, dock);
@@ -572,7 +627,12 @@ function placeDock() {
 home.innerHTML = WORLDS.map(w => `<button class="happ" data-app="${w.id}"><span class="hi">${iconHTML(w.id)}</span><b class="lb">${w.short}</b></button>`).join('') +
   `<button class="happ" data-app="finder"><span class="hi"><span class="hfold">${SVG.folder}</span></span><b class="lb">Worlds</b></button>
    <button class="happ" data-app="resume"><span class="hi"><span class="hpdf">PDF</span></span><b class="lb">resume.pdf</b></button>
-   <button class="happ" data-app="code"><span class="hi"><span class="ic w" style="--c:#e9e6e2">&lt;/&gt;</span></span><b class="lb">Source</b></button>`;
+   <button class="happ" data-app="code"><span class="hi"><span class="ic w" style="--c:#e9e6e2">&lt;/&gt;</span></span><b class="lb">Source</b></button>
+   <button class="happ" data-app="keys"><span class="hi">${iconHTML('keys')}</span><b class="lb">Keys</b></button>`;
+// the wallpaper stickers live on the desk on desktop, and under the app grid on the phone home screen
+const stk = $('#stk');
+const homeStickers = () => { if (mobile()) { if (stk.parentNode !== home) home.appendChild(stk) } else if (stk.parentNode !== desk) desk.insertBefore(stk, $('.dicons', desk).nextSibling) };
+homeStickers(); mq.addEventListener && mq.addEventListener('change', homeStickers);
 home.addEventListener('click', e => { const b = e.target.closest('.happ'); if (b) launch(b.dataset.app, b) });
 
 /* == window builders == */
@@ -652,7 +712,7 @@ const BUILD = {
         <div class="mfield"><label for="mFrom">From:</label><input id="mFrom" type="email" placeholder="you@studio.com" autocomplete="off"></div>
         <div class="mfield"><label for="mSub">Subject:</label><select id="mSub"><option>Commission a world</option><option>JAM Academy waitlist</option><option>Booking 2027</option><option>Just saying hi</option></select></div>
         <textarea id="mBody" aria-label="Message" placeholder="Tell Justin about the world you want to build…"></textarea>
-        <div class="mbar"><small>Demo form — nothing is sent.</small><button class="btn" id="send" type="submit">Send ↗</button></div>
+        <div class="mbar"><small>Demo form — nothing is sent.</small><button id="send" type="submit" data-jm="press">Send ↗</button></div>
       </form>
       <div class="sent"><img src="${R3D}paper-plane.webp" alt=""><h3>Off it goes (pretend)</h3><p>This is a demo form, so nothing actually left your browser. Justin's real inbox goes here soon.</p><button class="btn ghost" id="mAgain">Write another</button></div>`);
     $('#mform', el).addEventListener('submit', e => {
@@ -677,6 +737,13 @@ const BUILD = {
     });
     return el;
   },
+  keys() {
+    // the honeycomb is built by personality.js ([data-jm=hex]); we colour each key and wire it up in decorateKeys()
+    const el = shell('keys', 'Keys', 'keys', `<div class="khead"><b id="kName">Keys</b><span id="kLine">Hover a key to light a world — press it to open the window.</span></div>
+      <div data-jm="hex" data-cols="6" data-rows="2" data-items="${KEYS.map(k => k.label).join(',')}" data-glyphs="${KEYS.map(k => k.g).join(',')}"></div>
+      <div class="kfoot"><span>Sketch → Blueprint → Prototype → Ship</span><span>11 keys</span></div>`);
+    return el;
+  },
   code() {
     const el = shell('code', 'index.html — View code', 'code', `<div class="ctree"><h5>Justin OS</h5></div>
       <div class="cview"><div class="cpath"><span>justin-massion-site / l / index.html</span><span id="cLines">loading…</span></div>
@@ -694,8 +761,8 @@ const BUILD = {
 
 /* == window manager == */
 const wins = {}; let z = 20, cascade = 0;
-const SIZES = { notes: [640, 450], books: [760, 440], mail: [540, 470], pixel: [340, 0], code: [800, 540], finder: [640, 420] };
-const PREF = { notes: [.1, .12], books: [.42, .62], mail: [.55, .2], pixel: [.97, .9], code: [.3, .1], finder: [.2, .3] };
+const SIZES = { notes: [640, 450], books: [760, 440], mail: [540, 470], pixel: [340, 0], code: [800, 540], finder: [640, 420], keys: [520, 0] };
+const PREF = { notes: [.1, .12], books: [.42, .62], mail: [.55, .2], pixel: [.97, .9], code: [.3, .1], finder: [.2, .3], keys: [.97, .66] };
 function deskBox() {
   const d = desk.getBoundingClientRect(), dr = dock.getBoundingClientRect();
   return { w: d.width, h: Math.max(320, dr.top - d.top - 14) };
@@ -1048,10 +1115,37 @@ function tick() {
 }
 tick(); setInterval(tick, 1000);
 
+/* == personality: Keys app + tactile bits (components come from ../personality.js) == */
+// build these windows now (hidden) so personality.js finds their [data-jm] parts when it initialises
+get('keys'); get('mail');
+function decorateKeys() {
+  const kw = wins.keys; if (!kw || kw.dataset.deco) return;
+  const keys = $$('.jm-key', kw); if (!keys.length) return; kw.dataset.deco = 1;
+  keys.forEach(k => { const K = KEYS.find(x => x.label === k.dataset.label); if (!K) return; k.dataset.id = K.id;
+    k.style.cssText += `;--jm-hex-ink:${K.c};--jm-hex-a:${K.c};--jm-hex-b:color-mix(in srgb,${K.c},#fff 45%)` });
+  let cur = null; const HINT = matchMedia('(hover:none)').matches ? 'Tap a key — its world opens, lit in its own colour.' : 'Hover a key to light a world — press it to open the window.';
+  $('#kLine', kw).textContent = HINT;
+  const light = K => { // reel-style: the whole Keys window takes on the colour of the world under your finger, and its dock icon peeks up
+    if (K === cur) return; cur = K; $$('.di.kpeek', dock).forEach(d => d.classList.remove('kpeek'));
+    if (!K) { kw.style.setProperty('--kc', '#e9e6e2'); $('#kName', kw).textContent = 'Keys'; $('#kLine', kw).textContent = HINT; return }
+    kw.style.setProperty('--kc', K.c); $('#kName', kw).textContent = K.label; $('#kLine', kw).textContent = K.line;
+    const d = dockIcon(K.id); if (d && !mobile()) d.classList.add('kpeek');
+  };
+  const hex = $('[data-jm=hex]', kw);
+  hex.addEventListener('pointermove', e => { const k = e.target.closest('.jm-key'); if (k) light(KEYS.find(x => x.id === k.dataset.id)) });
+  hex.addEventListener('pointerleave', () => light(null));
+  addEventListener('jm:tap', e => {
+    const k = e.detail.el; if (!k || !k.closest || !kw.contains(k) || !k.dataset.id) return;
+    const K = KEYS.find(x => x.id === k.dataset.id); light(K);
+    setTimeout(() => { launch(K.id, dockIcon(K.id)); if (!mobile()) focus(kw) }, 140); // open the world behind, keep typing
+  });
+}
+document.addEventListener('DOMContentLoaded', () => setTimeout(decorateKeys));
+
 /* == boot == */
 function boot() {
-  placeDock();
-  if (!mobile()) work();
+  placeDock(); decorateKeys();
+  if (!mobile()) { work(); open('keys', null, { delay: 380 }); setNav('work') }
 }
 const ready = () => { placeDock(); requestAnimationFrame(boot) };
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(ready); else addEventListener('load', ready);
@@ -1060,5 +1154,6 @@ setTimeout(placeDock, 600);
 window.JustinOS = { open: launch, close: id => wins[id] && close(wins[id]), wins };
 })();
 </script>
+<script src="../personality.js?v=2" data-root="../"></script>
 </body>
 </html>

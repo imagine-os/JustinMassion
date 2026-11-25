@@ -419,7 +419,34 @@ footer{padding:40px 16px 150px;text-align:center}
   .lb-i p{font-size:14.5px}
   footer{padding-bottom:190px}
 }
+/* ---------- personality: refined press keys + worlds in orbit ---------- */
+.btn[data-jm=press]{--jm-key:#3a3a3f;--jm-key-ink:#fff;--jm-d:4px;height:40px;min-width:0;padding:0 16px;border-radius:10px;gap:9px;font:500 14.5px/1 var(--sans);letter-spacing:-.005em;
+  background:linear-gradient(180deg,#4a4a50,#2d2d32);
+  box-shadow:0 var(--jm-d) 0 #151518,0 calc(var(--jm-d) + 12px) 22px -10px rgba(0,0,0,.95),inset 0 1px 0 rgba(255,255,255,.2),inset 0 -1px 0 rgba(0,0,0,.35)}
+.btn[data-jm=press]:hover{background:linear-gradient(180deg,#56565c,#333338)}
+.btn[data-jm=press].jm-down,.btn[data-jm=press]:active{transform:translateY(calc(var(--jm-d) - 1px));box-shadow:0 1px 0 #151518,0 4px 10px -6px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.1),inset 0 -1px 0 rgba(0,0,0,.35)}
+@property --orb{syntax:'<color>';inherits:true;initial-value:rgba(150,180,255,.16)}
+@property --orb-s{syntax:'<color>';inherits:true;initial-value:rgb(150,180,255)}
+#about .pbox{position:relative;overflow:hidden;isolation:isolate;transition:--orb 1.2s var(--ease),--orb-s 1.2s var(--ease)}
+#about .pbox::before{content:"";position:absolute;left:-10%;right:-10%;bottom:-30%;height:80%;z-index:-1;pointer-events:none;background:radial-gradient(52% 62% at 50% 100%,var(--orb),transparent 74%)}
+#about .eyebrow:before{background:var(--orb-s);box-shadow:0 0 10px var(--orb-s)}
+.orbit{margin-top:56px;border-top:1px solid var(--line);padding-top:22px}
+.orbit-h{display:flex;align-items:center;justify-content:space-between;gap:16px;font:500 11.5px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+.orbit-now{display:inline-flex;align-items:center;gap:8px;color:#f4f4f5}
+.orbit-now i{width:6px;height:6px;border-radius:50%;background:var(--orb-s);box-shadow:0 0 10px var(--orb-s)}
+.orbit-h .hint{color:var(--mute)}
+.orbit [data-jm=arc]{height:clamp(250px,27vw,360px);margin:6px -56px -56px;-webkit-mask:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent);mask:linear-gradient(90deg,transparent,#000 14%,#000 86%,transparent)}
+.orbit .jm-arc-item{width:clamp(104px,11vw,156px);margin-left:calc(clamp(104px,11vw,156px)/-2);filter:brightness(.5) saturate(.6)}
+.orbit .jm-arc-item.on{filter:none}
+.orbit .jm-arc-item img{border-radius:8px;border:1px solid var(--line2);box-shadow:0 24px 40px -18px rgba(0,0,0,.95)}
+.orbit .jm-cap{font:500 10px/1.3 var(--mono);letter-spacing:.1em;color:var(--soft)}
+@media (max-width:760px){
+  .btn[data-jm=press]{height:38px;padding:0 13px;font-size:14px}
+  .orbit{margin-top:34px}.orbit-h .hint{display:none}
+  .orbit [data-jm=arc]{margin:4px -20px -30px}
+}
 @media (prefers-reduced-motion:reduce){
+  #about .pbox{transition:none}
   .t-render .rimg,.t-render .floor,.ratio .mg,.pulse:after{animation:none}
   .tile{transition:opacity .4s;transform:none}
 }
@@ -446,7 +473,7 @@ footer{padding:40px 16px 150px;text-align:center}
     <div class="role">IMAGINEER</div>
     <p class="pitch" data-i18n="pitch">I design worlds where theme-park storytelling meets AI and spatial computing — sketched in pencil, blueprinted like a ride, prototyped with AI and shipped to the cloud.</p>
     <div class="cta">
-      <button class="btn fill" data-go="contact"><span data-i18n="book">Book a call</span>
+      <button class="btn fill" data-jm="press" data-go="contact"><span data-i18n="book">Book a call</span>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M8 3v4M16 3v4M3 10h18"/></svg></button>
       <button class="btn line" id="audit"><span data-i18n="audit">World audit</span> <small data-i18n="free">FREE</small></button>
     </div>
@@ -500,6 +527,19 @@ footer{padding:40px 16px 150px;text-align:center}
       <div><i>03</i><b data-i18n="f3">Prototype with AI</b></div>
       <div><i>04</i><b data-i18n="f4">Ship to the cloud</b></div>
     </div>
+    <div class="orbit" aria-label="Worlds in orbit">
+      <div class="orbit-h"><span data-i18n="orbK">Worlds in orbit</span><span class="orbit-now"><i></i><b id="orbNow">Aluzina OS</b></span><span class="hint" data-i18n="orbHint">Drag to spin</span></div>
+      <div data-jm="arc" id="orbArc">
+        <img src="../assets/img/aluzina-os.jpg" alt="Aluzina OS" data-cap="Aluzina OS" data-tint="150,180,255" loading="lazy">
+        <img src="../assets/img/playset-blueprint.jpg" alt="Playset blueprint" data-cap="Playset" data-tint="90,150,255" loading="lazy">
+        <img src="../assets/img/pixel-chameleon.jpg" alt="Pixel the Chameleon" data-cap="Pixel" data-tint="110,240,150" loading="lazy">
+        <img src="../assets/img/las-palmas.jpg" alt="Las Palmas dashboard" data-cap="Las Palmas" data-tint="255,150,90" loading="lazy">
+        <img src="../assets/img/justin-guatape.jpg" alt="Justin at Guatapé" data-cap="Guatapé" data-tint="120,220,200" loading="lazy">
+        <img src="../assets/img/playset-agents.jpg" alt="Playset Agents" data-cap="Agents" data-tint="160,130,255" loading="lazy">
+        <img src="../assets/img/enterprise-workflow.jpg" alt="Enterprise workflow" data-cap="Workflow" data-tint="255,200,120" loading="lazy">
+        <img src="../assets/img/hero-sketch.jpg" alt="Pencil sketch of Justin" data-cap="Sketch" data-tint="255,214,120" loading="lazy">
+      </div>
+    </div>
   </div></div>
 </section>
 
@@ -535,7 +575,7 @@ footer{padding:40px 16px 150px;text-align:center}
           <button type="button" data-k="academy" data-i18n="k6">Academy waitlist</button>
         </div></div>
       <label class="full"><span data-i18n="fMsg">The world in a few lines</span><textarea name="m" placeholder="A ride, an app, a character…" data-ph="phMsg"></textarea></label>
-      <div class="full fend"><p data-i18n="demo">Demo form — nothing is sent.</p><button class="btn fill" type="submit" id="send"><span data-i18n="send">Send to Justin</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+      <div class="full fend"><p data-i18n="demo">Demo form — nothing is sent.</p><button class="btn fill" data-jm="press" type="submit" id="send"><span data-i18n="send">Send to Justin</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
     </form>
   </div></div>
 </section>
@@ -619,7 +659,7 @@ const I18N = {
   nAsk: 'Ask', nWorks: 'Works', nAbout: 'About', nServices: 'Services', nContact: 'Contact',
   pxName: 'Pixel', pxSub: "Justin's sidekick · usually online", lbGo: 'Build one like this',
   auditMsg: "I'd love a free World audit of my project: ", acadMsg: 'Please add me to the JAM Academy waitlist.', toastLang: 'Hola — ahora en español',
-  dtWorld: 'World', dtType: 'Type', dtStep: 'Stage'
+  dtWorld: 'World', dtType: 'Type', dtStep: 'Stage', orbK: 'Worlds in orbit', orbHint: 'Drag to spin'
  },
  es: {
   home: '· base', pitch: 'Diseño mundos donde la narrativa de los parques temáticos se cruza con la IA y la computación espacial — dibujados a lápiz, planificados como una atracción, prototipados con IA y lanzados a la nube.',
@@ -638,7 +678,7 @@ const I18N = {
   nAsk: 'Pregunta', nWorks: 'Obras', nAbout: 'Sobre mí', nServices: 'Servicios', nContact: 'Contacto',
   pxName: 'Pixel', pxSub: 'El compañero de Justin · casi siempre en línea', lbGo: 'Construyamos uno así',
   auditMsg: 'Me encantaría una auditoría de mundo gratis de mi proyecto: ', acadMsg: 'Por favor añádeme a la lista de espera de JAM Academy.', toastLang: 'Hello — back in English',
-  dtWorld: 'Mundo', dtType: 'Tipo', dtStep: 'Etapa'
+  dtWorld: 'Mundo', dtType: 'Tipo', dtStep: 'Etapa', orbK: 'Mundos en órbita', orbHint: 'Arrastra para girar'
  }
 };
 const t = k => I18N[lang][k] ?? I18N.en[k];
@@ -1266,6 +1306,26 @@ function init() {
   }
   frame();
 }
+</script>
+<script src="../personality.js?v=2" data-root="../"></script>
+<script>
+/* worlds in orbit: the world at the top of the arc tints the About panel */
+(() => {
+  const arc = document.getElementById('orbArc'), box = arc && arc.closest('.pbox'), now = document.getElementById('orbNow');
+  if (!arc || !box) return;
+  let vis = false, cur = null;
+  new IntersectionObserver(([e]) => vis = e.isIntersecting).observe(arc);
+  setInterval(() => {
+    if (!vis) return;
+    const R = arc.getBoundingClientRect(), mid = R.left + R.width / 2; let best = null, bd = 1e9;
+    arc.querySelectorAll('.jm-arc-item').forEach(it => { if (+it.style.opacity === 0) return; const r = it.getBoundingClientRect(), d = Math.abs(r.left + r.width / 2 - mid); if (d < bd) { bd = d; best = it } });
+    if (!best || best === cur) return;
+    cur && cur.classList.remove('on'); cur = best; cur.classList.add('on');
+    const im = cur.querySelector('img'), c = im.dataset.tint || '150,180,255';
+    box.style.setProperty('--orb', `rgba(${c},.3)`); box.style.setProperty('--orb-s', `rgb(${c})`);
+    now.textContent = im.dataset.cap || im.alt;
+  }, 140);
+})();
 </script>
 </body>
 </html>

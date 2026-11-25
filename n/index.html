@@ -335,6 +335,46 @@ input,textarea,select{font:inherit;color:inherit;user-select:text;-webkit-user-s
 .note b{display:block;font-size:13px;color:#fff}
 .note span{font-size:12.5px;color:#c7c7d2}
 
+/* ---------------- personality: Photos (arc carousel) + desk stickers ---------------- */
+@property --pc{syntax:'<color>';inherits:true;initial-value:#0a84ff}
+.phst{position:relative;width:76px;height:62px}
+.phst img{position:absolute;width:54px;height:42px;object-fit:cover;border:2.5px solid #f4f4f7;border-radius:2px;box-shadow:0 6px 14px -4px rgba(0,0,0,.7)}
+.phst img:nth-child(1){left:2px;top:12px;transform:rotate(-10deg)}
+.phst img:nth-child(2){left:20px;top:4px;transform:rotate(7deg)}
+.phst img:nth-child(3){left:12px;top:16px;transform:rotate(-1deg)}
+.ph{position:relative;transition:--pc .6s ease;background:radial-gradient(80% 70% at 50% 108%,color-mix(in srgb,var(--pc) 42%,transparent),transparent 72%)}
+.ph [data-jm=arc]{height:clamp(300px,40vh,360px);margin-top:4px}
+.ph .jm-arc-item img{border-radius:10px;box-shadow:0 0 0 1px rgba(255,255,255,.14),0 26px 34px -16px rgba(0,0,0,.9)}
+.ph .jm-arc-item .jm-cap{color:#e9e9f1;font:600 10.5px/1.3 var(--font);letter-spacing:.1em}
+.ph .jm-arc-item.ctr img{box-shadow:0 0 0 2px var(--pc),0 0 34px -4px var(--pc),0 26px 34px -16px rgba(0,0,0,.9)}
+.ph-b{display:flex;align-items:center;gap:12px;padding:12px 16px 14px 18px;border-top:1px solid var(--line)}
+.ph-b i{flex:none;width:9px;height:9px;border-radius:50%;background:var(--pc);box-shadow:0 0 12px var(--pc)}
+.ph-b div{flex:1;min-width:0}
+.ph-b b{display:block;color:#fff;font-size:14px;font-weight:700}
+.ph-b span{display:block;color:var(--mut);font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ph-hint{position:absolute;top:10px;left:0;right:0;text-align:center;font-size:11.5px;color:rgba(255,255,255,.5);pointer-events:none;z-index:200}
+/* laptop stickers stuck on the night desktop — peel one off, re-stick it anywhere (double-click puts it back) */
+.stk{position:absolute;inset:0;pointer-events:none}
+.stk [data-jm=peel]{position:absolute;pointer-events:auto;z-index:1;transform:rotate(var(--r,0deg));filter:drop-shadow(0 10px 14px rgba(0,0,0,.55)) drop-shadow(0 1px 1px rgba(0,0,0,.4))}
+.stk [data-jm=peel].jm-drag{z-index:60}
+.sk{display:block;border:3px solid #f4f4f7;border-radius:14px;user-select:none;font-family:var(--font)}
+.sk-holo{padding:9px 14px;border-radius:999px;color:#1b1630;font-weight:800;font-size:13px;letter-spacing:.02em;
+  background:linear-gradient(115deg,rgba(255,255,255,.55),transparent 40%),conic-gradient(from 200deg,#c7f0ff,#f6d7f0,#ffe9c4,#c9f7d9,#c9d3f2,#f4c9ec,#c7f0ff)}
+.sk-holo b{color:#6a3df0}
+.sk-px{width:96px;height:96px;border-radius:50%;background:radial-gradient(circle at 50% 110%,#2fd08a,#0f5a44 55%,#0b1e24);overflow:hidden;position:relative}
+.sk-px img{position:absolute;width:150%;max-width:none;left:-14%;top:2%;pointer-events:none}
+.sk-moon{padding:10px 14px 9px;background:linear-gradient(180deg,#17204d,#0b0f26);color:#e9ecff;font-weight:800;font-size:12px;letter-spacing:.14em;text-align:center;line-height:1.25}
+.sk-moon em{display:block;font:italic 400 22px/1 Newsreader,Georgia,serif;letter-spacing:0;color:#ffd86b}
+.sk-jam{padding:8px 13px;background:#ffcc33;color:#1a1408;font:700 21px/1 Caveat,cursive;border-radius:10px}
+.sk-cd{width:84px;height:84px;border-radius:50%;padding:0;border-width:3px;background:radial-gradient(circle,#0b0b10 0 9%,#d9dbe4 9.5% 13%,rgba(255,255,255,.35) 13.5% 31%,transparent 31.5%),conic-gradient(from 20deg,#e9eef7,#b7c3e0,#f6d7f0,#c7f0ff,#e2e6ef,#ffe9c4,#c9d3f2,#f4c9ec,#e9eef7);display:grid;place-items:center}
+.sk-cd span{margin-top:48px;font:800 8px/1 var(--font);letter-spacing:.14em;color:#2a2440}
+body.mob .stk{position:relative;inset:auto;display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:16px 18px;margin:26px 0 0;pointer-events:auto}
+body.mob .win.sheet .ph{min-height:100%;display:flex;flex-direction:column}
+body.mob .ph [data-jm=arc]{height:46vh;margin-top:22px}
+body.mob .ph-b{margin-top:auto}
+body.mob .ph-hint{top:6px}
+body.mob .stk [data-jm=peel]{position:relative;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important}
+
 /* ---------------- mobile ---------------- */
 body.mob #desk{position:relative;inset:auto;min-height:100vh;padding:calc(var(--mb) + 14px) 14px 130px}
 body.mob #icons{position:relative;inset:auto;display:grid;grid-template-columns:repeat(4,1fr);gap:14px 2px;margin:18px 0 4px}
@@ -447,8 +487,28 @@ body.mob .pj-info{grid-template-columns:1fr}
     <label><input type="checkbox"><span>740 steps up El Peñol (sunrise)</span></label>
     <small>drag me · tick things off</small>
   </div>
+  <div class="stk" id="stk" aria-label="Desk stickers — drag to peel one off">
+    <div data-jm="peel" style="left:40px;bottom:150px;--r:-6deg" title="Drag to peel"><span class="sk sk-holo">✦ 100% <b>imagination</b></span></div>
+    <div data-jm="peel" style="left:250px;bottom:64px;--r:8deg" title="Drag to peel"><span class="sk sk-px"><img src="../assets/3d/pixel.webp" alt="Pixel sticker" draggable="false"></span></div>
+    <div data-jm="peel" style="left:64px;bottom:44px;--r:4deg" title="Drag to peel"><span class="sk sk-moon"><em>740</em>STEPS · EL PEÑOL</span></div>
+    <div data-jm="peel" style="left:380px;bottom:150px;--r:-4deg" title="Drag to peel"><span class="sk sk-jam">JAM Studios ✎</span></div>
+    <div data-jm="peel" style="left:388px;bottom:42px;--r:10deg" title="Drag to peel"><span class="sk sk-cd"><span>NIGHT SHIFT</span></span></div>
+  </div>
   <div id="band"></div>
 </main>
+<!-- the Photos window's curved arc carousel lives here until the window opens (personality.js wires it up at load) -->
+<div id="arcHold" hidden>
+  <div data-jm="arc" id="photoArc">
+    <img src="../assets/img/pixel-chameleon.jpg" alt="Pixel the Chameleon" data-cap="Pixel">
+    <img src="../assets/img/playset-blueprint.jpg" alt="Playset blueprint" data-cap="Playset">
+    <img src="../assets/img/playset-agents.jpg" alt="Playset Agents" data-cap="Agents">
+    <img src="../assets/img/enterprise-workflow.jpg" alt="Enterprise Workflow" data-cap="Workflow">
+    <img src="../assets/img/aluzina-os.jpg" alt="Aluzina OS" data-cap="Aluzina OS">
+    <img src="../assets/img/las-palmas.jpg" alt="Las Palmas" data-cap="Las Palmas">
+    <img src="../assets/img/justin-guatape.jpg" alt="Guatapé" data-cap="Guatapé">
+    <img src="../assets/img/hero-sketch.jpg" alt="Pencil sketch" data-cap="Sketch">
+  </div>
+</div>
 
 <div id="wins"></div>
 <div id="preview" aria-hidden="true"><div class="pimg"><img alt=""></div><div class="pcap"><b></b><span><i></i><em></em></span></div></div>
@@ -505,7 +565,8 @@ const ICONS = [
   {id:'resume', group:0, label:'Résumé', art:docSVG()},
   {id:'mail', group:0, label:'Mail', art:mailSVG()},
   {id:'listen', group:0, label:'Listen', art:'<div class="cd" id="cdIcon"></div>'},
-  {id:'pixelapp', group:0, label:'Pixel.app', art:`<div class="app"><img src="${D3}pixel-peek.webp" alt=""></div>`}
+  {id:'pixelapp', group:0, label:'Pixel.app', art:`<div class="app"><img src="${D3}pixel-peek.webp" alt=""></div>`},
+  {id:'photos', group:0, label:'Photos', art:`<div class="phst"><img src="${IMG}las-palmas.jpg" alt=""><img src="${IMG}aluzina-os.jpg" alt=""><img src="${IMG}justin-guatape.jpg" alt=""></div>`}
 ];
 
 const iconsEl = $('#icons'), desk = $('#desk');
@@ -521,7 +582,7 @@ const iconById = id => ICONS.find(d => d.id === id)?.el;
 function layoutIcons(animate) {
   if (mob) return;
   const W = innerWidth, H = innerHeight, top = 44, bottom = H - 86;
-  const cellW = 112, cellH = Math.max(92, Math.min(112, (bottom - top) / 7));
+  const cellW = 112, cellH = Math.max(92, Math.min(112, (bottom - top) / 8)); // 8 system icons (Photos added) fit one column
   const rows = Math.max(1, Math.floor((bottom - top) / cellH));
   let col = 0, row = 0;
   [0, 1].forEach(g => {
@@ -1086,13 +1147,43 @@ function drawViz(el) {
   loop();
 }
 
+/* ---------------- Photos: curved arc carousel (personality.js data-jm="arc") ---------------- */
+// the arc is built once at load inside #arcHold; we move it into the window while it's open and back out after
+const ARC_META = [...PROJ.map((p, i) => ({t:p.title, s:p.type + ' — ' + p.line, c:p.dot, proj:i})), {t:'Sketch it in pencil', s:'Where every world starts — the napkin, the notebook, the wall.', c:'#ffcc33', sketch:1}];
+let arcBack = 0;
+function openPhotos(src) {
+  const arc = $('#photoArc'); if (!arc) return;
+  openWin('photos', {
+    title:'Photos — Worlds', w:760, src,
+    html:`<div class="ph"><div class="ph-hint">drag, flick or scroll sideways</div><div class="ph-host"></div>
+      <div class="ph-b"><i></i><div><b class="ph-t">Worlds</b><span class="ph-s">Seven worlds and a pencil sketch.</span></div><button class="btn pri sm" data-ph-open>Open</button></div></div>`,
+    onMount(el, s) {
+      clearTimeout(arcBack); $('.ph-host', el).appendChild(arc);
+      const ph = $('.ph', el), items = $$('.jm-arc-item', arc);
+      let cur = -1;
+      // reel-style: the window glows in the colour of whichever world sits at the top of the arc
+      const loop = () => {
+        if (!WINS.photos) return;
+        const R = arc.getBoundingClientRect(), mid = R.left + R.width / 2; let best = 0, bd = 1e9;
+        items.forEach((it, i) => { const r = it.getBoundingClientRect(); const d = Math.abs(r.left + r.width / 2 - mid) + (it.style.opacity === '0' ? 1e6 : 0); if (d < bd) { bd = d; best = i; } });
+        if (best !== cur) { cur = best; const m = ARC_META[best % ARC_META.length]; items.forEach((it, i) => it.classList.toggle('ctr', i === best));
+          ph.style.setProperty('--pc', m.c); $('.ph-t', el).textContent = m.t; $('.ph-s', el).textContent = m.s; s.cur = m; }
+        s.raf = requestAnimationFrame(loop);
+      };
+      s.raf = requestAnimationFrame(loop);
+      el.addEventListener('click', e => { if (!e.target.closest('[data-ph-open]') || !s.cur) return; s.cur.sketch ? openSketch(e.target) : openProject(s.cur.proj, e.target); });
+    },
+    onClose(s) { cancelAnimationFrame(s.raf); arcBack = setTimeout(() => $('#arcHold').appendChild(arc), 400); }
+  });
+}
+
 /* ---------------- routing ---------------- */
 function openIcon(id, src) {
   const d = ICONS.find(x => x.id === id);
   if (d && d.proj != null) return openProject(d.proj, src);
   ({
     about:() => openAbout(src), worlds:() => openFinder('worlds', src), academy:() => openFinder('academy', src),
-    resume:() => openResume(src), mail:() => openMail(src), listen:() => openPlayer(src, true), pixelapp:() => openPixel(src)
+    resume:() => openResume(src), mail:() => openMail(src), listen:() => openPlayer(src, true), pixelapp:() => openPixel(src), photos:() => openPhotos(src)
   })[id]?.();
 }
 function act(a, src) {
@@ -1279,5 +1370,6 @@ order.forEach((d, i) => setTimeout(() => d.el.classList.remove('pre'), reduced ?
 const st = $('#sticky'); if (!reduced) { st.style.opacity = 0; setTimeout(() => st.style.opacity = '', 900); }
 })();
 </script>
+<script src="../personality.js?v=2" data-root="../"></script>
 </body>
 </html>

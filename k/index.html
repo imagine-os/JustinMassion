@@ -388,7 +388,36 @@ button.tag.on{background:var(--ink);color:#fff;border-style:solid;border-color:v
   .case-next img{width:84px;height:60px}
   .cv-head h2{font-size:28px}
 }
+/* ---------- personality: honeycomb keyboard tile, peelable avatar, press-key pills ---------- */
+@property --hcol{syntax:'<color>';inherits:true;initial-value:#ff5fd2}
+.t-hex{--hcol:#ff5fd2;background:#131116;cursor:default;transition:transform .6s var(--ease),box-shadow .6s var(--ease),--hcol .9s var(--ease)}
+.t-hex::before{content:"";position:absolute;inset:0;z-index:0;pointer-events:none;background:radial-gradient(55% 75% at 50% 112%,color-mix(in srgb,var(--hcol) 42%,transparent),transparent 72%),radial-gradient(30% 50% at 0% 0%,color-mix(in srgb,var(--hcol) 16%,transparent),transparent 70%)}
+.t-hex .lab{color:color-mix(in srgb,var(--hcol),#fff 45%)}
+.t-hex .hex-now{position:absolute;right:12px;top:10px;z-index:4;display:inline-flex;align-items:center;gap:8px;height:30px;padding:0 12px 0 10px;border-radius:99px;background:rgba(255,255,255,.08);color:#fff;font-size:12.5px;font-weight:600;transition:background .3s}
+.t-hex .hex-now:hover{background:rgba(255,255,255,.16)}
+.t-hex .hex-now i{width:9px;height:9px;border-radius:50%;background:var(--hcol);box-shadow:0 0 10px var(--hcol)}
+.t-hex .hex-now svg{width:13px;height:13px;opacity:.7}
+.t-hex [data-jm=hex]{position:absolute;left:0;right:0;top:40px;bottom:0;padding-top:6px;--s:clamp(44px,4.2vw,62px);--jm-hex-a:color-mix(in srgb,var(--hcol),#fff 35%);--jm-hex-b:var(--hcol);--jm-hex-key:#221d29;--jm-hex-ink:#8d8796;
+  -webkit-mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
+.t-hex .jm-key{background:linear-gradient(180deg,#2a2431,#1b1720)}
+.t-hex .jm-key span{font-family:"Inter Tight",system-ui,sans-serif}
+.t-hex .jm-hex-label{background:var(--hcol);color:var(--ink);font-weight:700;font-size:12.5px}
+.av-peel{z-index:40;filter:drop-shadow(0 8px 12px rgba(20,10,30,.18))}
+.av-peel .jm-peel-in{padding:5px;background:#fff;border-radius:19px}
+.av-peel .avatar{cursor:inherit}
+.view.on>.profile:has(.av-peel.jm-drag),.view.on>.profile.peeled{clip-path:none}
+.pill[data-jm=press]{--jm-key:var(--row);--jm-key-ink:var(--ink);--jm-d:4px;height:34px;min-width:0;padding:0 9px 0 14px;gap:7px;font-size:17px;font-weight:500;letter-spacing:-.01em;line-height:1;transform:translateY(-2px);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--jm-key),#fff 55%),var(--jm-key));
+  box-shadow:0 var(--jm-d) 0 color-mix(in srgb,var(--jm-key),#000 20%),0 calc(var(--jm-d) + 6px) 12px -6px rgba(20,10,30,.35),inset 0 1px 0 rgba(255,255,255,.85)}
+.pill.on[data-jm=press]{--jm-key:var(--pink)}
+.pill[data-jm=press].jm-down,.pill[data-jm=press]:active{transform:translateY(calc(var(--jm-d) - 3px));box-shadow:0 1px 0 color-mix(in srgb,var(--jm-key),#000 20%),0 2px 6px -4px rgba(20,10,30,.4),inset 0 1px 0 rgba(255,255,255,.6)}
+.btn-pink[data-jm=press]{--jm-key:var(--pink);--jm-key-ink:var(--ink);--jm-d:5px;height:38px;min-width:0;padding:0 16px;gap:8px;font-size:15px;font-weight:600;
+  box-shadow:0 var(--jm-d) 0 #c3389a,0 calc(var(--jm-d) + 8px) 16px -8px rgba(255,47,191,.55),inset 0 2px 0 rgba(255,255,255,.55)}
+.btn-pink[data-jm=press].jm-down,.btn-pink[data-jm=press]:active{transform:translateY(4px);box-shadow:0 1px 0 #c3389a,0 3px 8px -5px rgba(255,47,191,.5),inset 0 2px 0 rgba(255,255,255,.4)}
+@media (max-width:900px){.t-hex{aspect-ratio:var(--ma)}.t-hex [data-jm=hex]{--s:44px}.t-hex .lab{max-width:46%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.t-hex .hex-now{max-width:50%}.t-hex .hex-now span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}}
+
 @media (prefers-reduced-motion:reduce){
+  .t-hex{transition:none}
   .strip-track,.t-mq .mtrack{animation-duration:120s}
   .r3d img,.t-badge svg.ring,.avatar .sparkle{animation:none}
   .t{transform:none!important}
@@ -407,8 +436,8 @@ button.tag.on{background:var(--ink);color:#fff;border-style:solid;border-color:v
       <span>Justin Massion <small>/ Imagineer</small></span>
     </div>
     <nav class="pills">
-      <button class="pill on" id="pInfo" data-view="info"><span class="tx" data-i18n="info">Info</span><span class="ic"></span></button>
-      <button class="pill" id="pContact" data-view="contact"><span class="tx" data-i18n="contact">Contact</span><span class="ic"></span></button>
+      <button class="pill on" id="pInfo" data-view="info" data-jm="press"><span class="tx" data-i18n="info">Info</span><span class="ic"></span></button>
+      <button class="pill" id="pContact" data-view="contact" data-jm="press"><span class="tx" data-i18n="contact">Contact</span><span class="ic"></span></button>
     </nav>
   </header>
 
@@ -417,11 +446,11 @@ button.tag.on{background:var(--ink);color:#fff;border-style:solid;border-color:v
     <div class="view view-info on" id="viewInfo">
       <article class="panel profile" id="profile">
         <div class="prof-top">
-          <div class="avatar" id="avatar" title="Justin, posterised">
+          <div class="av-peel" data-jm="peel" title="A sticker — peel it off and stick it anywhere (double-click to put it back)"><div class="avatar" id="avatar">
             <canvas id="avc" aria-label="Illustrated portrait of Justin Massion"></canvas>
             <img class="orig" src="../assets/img/justin-sticker.png" alt="" style="inset:auto;width:109.2%;height:auto;max-width:none;left:-5%;top:-1.3%;object-fit:initial;background:#ffd6f3">
             <svg class="sparkle" viewBox="0 0 24 24"><path d="M12 0c.8 6.4 4.8 10.6 12 12-7.2 1.4-11.2 5.6-12 12-.8-6.4-4.8-10.6-12-12C7.2 10.6 11.2 6.4 12 0z" fill="#fff"/></svg>
-          </div>
+          </div></div>
           <div>
             <div class="lang" role="group" aria-label="Language">
               <button class="on" data-lang="en">EN</button><button data-lang="es">ES</button>
@@ -455,7 +484,7 @@ button.tag.on{background:var(--ink);color:#fff;border-style:solid;border-color:v
         <div class="sent" data-i18n="sent">✦ Thanks! (Demo form — nothing was sent.)</div>
         <div class="row">
           <span class="demo-note" data-i18n="demo">Demo form, nothing is sent.</span>
-          <button class="btn-pink" type="submit"><span data-i18n="send">Send</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h11M9 4l4 4-4 4"/></svg></button>
+          <button class="btn-pink" type="submit" data-jm="press"><span data-i18n="send">Send</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M2 8h11M9 4l4 4-4 4"/></svg></button>
         </div>
       </form>
       <div class="panel cv-socials">
@@ -572,7 +601,7 @@ const T = {
   chips:['Sketch it in pencil','Blueprint the magic','Prototype with AI','Ship to the cloud','Theme-park storytelling','Spatial computing','Character design','JAM Academy'],
   mq:'Imagineering is <i>20% blueprint,</i> 80% magic ✦ ', acadSub:'The art of learning anything — reading list', wait:'Join waitlist',
   stats:['cities','worlds','books'],badge:'BOOKING WORLDS ✦ 2027 ✦ BOOKING WORLDS ✦ 2027 ✦ ',genTxt:'Live: contour lines of El Peñol, drawn in code. Move your cursor.',
-  islandB:'Home base',islandS:'Under El Peñol — 740 steps above the lake.',pencil:'Sketch it in pencil.',pencilS:'Step 01',blob:'Prototype<br>with AI',plane:'Ship to<br>the cloud',route:'Route',cta:'Got a world in your head? <span>Let’s build it.</span>',rock:'in Guatapé right now',arcade:'Mood: arcade nights',guatape:'Guatapé · Home base'},
+  islandB:'Home base',islandS:'Under El Peñol — 740 steps above the lake.',pencil:'Sketch it in pencil.',pencilS:'Step 01',blob:'Prototype<br>with AI',plane:'Ship to<br>the cloud',route:'Route',cta:'Got a world in your head? <span>Let’s build it.</span>',rock:'in Guatapé right now',arcade:'Mood: arcade nights',guatape:'Guatapé · Home base',hexLab:'⌗ World keyboard — tap a key',hexTap:'Tap a world key'},
  es:{info:'Info',contact:'Contacto',role:'Imagineer · JAM Studios',
   bio:'Justin Massion es un <em>Imagineer</em>: diseñador de experiencias donde la narrativa de parques temáticos se cruza con la IA y la computación espacial. Desde JAM Studios construye mundos que parecen soñados en la trastienda de un parque temático y luego enviados a la nube. Los Ángeles · Orlando · Guatapé.',
   playground:'Playground',hint:'Pasa el cursor por un mundo: encuentra su tarjeta.',back:'Playground',
@@ -584,7 +613,7 @@ const T = {
   chips:['Bocetar a lápiz','Planear la magia','Prototipar con IA','Enviar a la nube','Narrativa de parques','Computación espacial','Diseño de personajes','JAM Academy'],
   mq:'Imagineering es <i>20% plano,</i> 80% magia ✦ ', acadSub:'El arte de aprender cualquier cosa — lista de lectura', wait:'Lista de espera',
   stats:['ciudades','mundos','libros'],badge:'AGENDANDO MUNDOS ✦ 2027 ✦ AGENDANDO MUNDOS ✦ 2027 ✦ ',genTxt:'En vivo: curvas de nivel de El Peñol, dibujadas en código. Mueve el cursor.',
-  islandB:'Hogar',islandS:'Bajo El Peñol: 740 escalones sobre el lago.',pencil:'Bocétalo a lápiz.',pencilS:'Paso 01',blob:'Prototipar<br>con IA',plane:'Enviar a<br>la nube',route:'Ruta',cta:'¿Tienes un mundo en la cabeza? <span>Construyámoslo.</span>',rock:'en Guatapé ahora mismo',arcade:'Mood: noches de arcade',guatape:'Guatapé · Hogar'}
+  islandB:'Hogar',islandS:'Bajo El Peñol: 740 escalones sobre el lago.',pencil:'Bocétalo a lápiz.',pencilS:'Paso 01',blob:'Prototipar<br>con IA',plane:'Enviar a<br>la nube',route:'Ruta',cta:'¿Tienes un mundo en la cabeza? <span>Construyámoslo.</span>',rock:'en Guatapé ahora mismo',arcade:'Mood: noches de arcade',guatape:'Guatapé · Hogar',hexLab:'⌗ Teclado de mundos — toca una tecla',hexTap:'Toca un mundo'}
 };
 let lang = 'en';
 const t = k => T[lang][k];
@@ -613,6 +642,7 @@ const TILES = [
  {c:2,h:2,m:1,ma:1,p:4,cls:'t-aluz',html:()=>`<img class="bg" src="${S('clouds',700)}" alt="" style="opacity:.75"><span class="huge">Aluzina</span>`},
  {c:2,h:2,m:1,ma:1,cls:'t-photo t-dark',act:'none',html:()=>`<img class="bg" src="${S('arcade',700)}" alt="Neon arcade row"><div class="shade"></div><div class="txt"><span data-i18n="arcade">${t('arcade')}</span></div>`},
  {c:6,h:5,m:2,ma:1.1,p:4,primary:1,cls:'t-wide',html:()=>`<img class="bg" src="${S('cloudSea',1800)}" alt="Sea of clouds"><span class="lab kick" style="color:#fff">05 — Interface</span>${frame(4,'min(62%,620px)','-1.5deg')}${open}${cap(4)}`},
+ {c:6,h:4,m:2,ma:1.45,cls:'t-hex',act:'none',html:()=>`<span class="lab kick" data-i18n="hexLab">${t('hexLab')}</span><button class="hex-now" id="hexNow" type="button"><i></i><span id="hexNowT">${t('hexTap')}</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 12L12 4M5.5 4H12v6.5"/></svg></button><div data-jm="hex" id="kHex" data-rows="4" data-cols="${innerWidth<900?8:13}" data-items="Pixel the Chameleon,Playset,Playset Agents,Enterprise Workflow,Aluzina OS,Las Palmas,Guatapé,Sketch it in pencil,Blueprint the magic,Prototype with AI,Ship to the cloud,JAM Academy" data-glyphs="◉,⌗,✦,⚙,○,☼,▲,✎,◇,✺,➚,❖"></div>`},
  {c:3,h:4,m:2,ma:1.2,p:5,primary:1,cls:'t-palms',html:()=>`<img class="bg" src="${S('palms',1000)}" alt="Palms at sunset"><span class="lab kick" style="color:#fff">06 — Dashboard</span>${frame(5,'74%','2deg')}${open}${cap(5)}`},
  {c:3,h:4,m:2,ma:1.2,cls:'t-plane',act:'none',html:()=>`<img class="bg" src="${S('clouds',1000)}" alt="Pastel clouds"><div class="txt" data-i18n="plane">${t('plane')}</div><div class="r3d"><img src="${R3D}paper-plane.webp" alt="Paper plane render"></div>`},
  {c:4,h:5,m:2,ma:1.2,p:0,cls:'t-lime',html:()=>`<span class="lab kick">01 — Turnarounds</span>${frame(0,'76%','-1.5deg')}${open}${cap(0)}`},
@@ -938,6 +968,25 @@ tpill.addEventListener('click',()=>showToast(true));
 $('#toastForm').addEventListener('submit',e=>{ e.preventDefault(); toast.classList.add('done'); const r=e.target.getBoundingClientRect(); window.funBurst&&funBurst(r.right-40,r.top,36); setTimeout(()=>{ closeToast(); setTimeout(()=>{toast.classList.remove('done'); e.target.reset();},600); },2600); });
 setTimeout(()=>{ if(toastState!=='hidden' || caseIdx!=null) return; if(MQ.matches){ toastState='closed'; tpill.classList.add('show'); } else showToast(false); }, MQ.matches?3000:2200);
 
+/* honeycomb world keyboard: a world key recolours the tile to that world and lights up its tile + row */
+let hexP=null, hexL=null, hexT;
+addEventListener('jm:tap',e=>{
+  const k=e.detail&&e.detail.el; if(!k||!k.closest('#kHex')) return;
+  const tile=k.closest('.t-hex'), lbl=e.detail.label, p=P.findIndex(x=>x.title===lbl);
+  hexP=p>=0?p:null; hexL=lbl;
+  tile.style.setProperty('--hcol', p>=0 ? P[p].col : (lbl==='JAM Academy' ? '#ffe14a' : '#ff5fd2'));
+  $('#hexNowT').textContent=lbl;
+  clearTimeout(hexT); $$('.t.linked',grid).forEach(x=>x.classList.remove('linked')); $$('.wrow.hot').forEach(x=>x.classList.remove('hot'));
+  if(p>=0){ const el=primaryTile(p), row=$(`.wrow[data-p="${p}"]`); el&&el.classList.add('linked'); row&&row.classList.add('hot');
+    hexT=setTimeout(()=>{ el&&el.classList.remove('linked'); row&&row.classList.remove('hot'); },1600); }
+});
+$('#hexNow').addEventListener('click',e=>{ e.stopPropagation(); if(hexP!=null) openCase(hexP,primaryTile(hexP)); else if(hexL==='JAM Academy') showToast(true); });
+
+/* peelable avatar: once it has been moved off its spot, let it escape the profile card's clip */
+const avp=$('.av-peel');
+if(avp){ const chk=()=>setTimeout(()=>{ const tr=(avp.style.translate||'').trim(); $('#profile').classList.toggle('peeled', !!tr && !/^0(px)? 0(px)?$/.test(tr) && tr!=='0px'); },30);
+  avp.addEventListener('pointerup',chk); avp.addEventListener('dblclick',chk); }
+
 /* mobile: active pill follows scroll */
 addEventListener('scroll',()=>{
   if(!MQ.matches) return; const c=$('#viewContact').getBoundingClientRect().top < innerHeight*.5;
@@ -945,5 +994,6 @@ addEventListener('scroll',()=>{
 },{passive:true});
 })();
 </script>
+<script src="../personality.js?v=2" data-root="../"></script>
 </body>
 </html>

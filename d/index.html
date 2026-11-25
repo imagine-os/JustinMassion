@@ -196,7 +196,39 @@ footer .book{position:relative;left:auto;bottom:auto;transform:none;margin-top:7
   .fc{width:150px}.fan{height:300px}
   .ovcards{top:30vh;gap:14px}.cd{width:46vw}
 }
-</style>
+/* ===== personality: world accent recolour (reel 1) + press keys + hanging luggage tags ===== */
+@property --teal{syntax:'<color>';inherits:true;initial-value:#14c4c1}
+:root{transition:--teal 1s ease}
+.bf .ic{background:color-mix(in srgb,var(--teal) 16%,transparent);color:color-mix(in srgb,var(--teal),#000 32%)}
+.dd button:hover,.dd button.on{background:color-mix(in srgb,var(--teal) 16%,transparent)}
+.logo b{color:color-mix(in srgb,var(--teal),#fff 45%)}
+.choose{box-shadow:inset 0 0 0 1.5px color-mix(in srgb,var(--teal) 70%,transparent)}
+.book .go[data-jm=press]{--jm-key:#0c1116;--jm-key-ink:#fff;--jm-d:6px;border-radius:16px;padding:0 22px 0 26px;font:700 14px var(--sans);min-height:52px}
+.book .go[data-jm=press]:hover{--jm-key:#1b232b;background:linear-gradient(180deg,color-mix(in srgb,var(--jm-key),#fff 22%),var(--jm-key))}
+.book .go[data-jm=press] span{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;background:var(--teal);color:var(--ink);font-size:13px}
+footer .book .go[data-jm=press]{--jm-key:var(--teal);--jm-key-ink:var(--ink)}
+footer .book .go[data-jm=press]:hover{--jm-key:var(--teal)}
+footer .book .go[data-jm=press] span{background:var(--ink);color:var(--teal)}
+.tagwall{margin-top:9vh}
+.tagwall .kick{color:var(--teal);opacity:.85}
+.tagwall .tags{--jm-cord:var(--teal);--jm-frame-w:clamp(118px,11vw,160px);margin-top:26px;justify-content:flex-start;padding-left:2vw}
+.tagwall .tags::before{left:0!important;right:0!important;height:4px!important;opacity:.9!important;box-shadow:0 2px 0 rgba(0,0,0,.35)}
+.tagwall .jm-cord{width:3px;border-radius:2px}
+.tagwall .jm-pin{width:12px;height:12px;margin-left:-6px;top:-5px;background:#e9edf0}
+.tagwall .jm-frame{padding:0;background:none;border:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+.tagwall .jm-frame::before,.tagwall .jm-frame::after{display:none}
+.ltag{position:relative;padding:20px 10px 12px!important;border-radius:12px 12px 14px 14px!important;background:#fbfaf6;color:var(--ink);box-shadow:0 26px 30px -16px rgba(0,0,0,.75);cursor:pointer;transition:outline-color .3s}
+.ltag::before{content:"";position:absolute;left:50%;top:7px;width:10px;height:10px;margin-left:-5px;border-radius:50%;background:var(--ink);box-shadow:inset 0 0 0 2px #cfd5da}
+.ltag img{width:100%;aspect-ratio:1.15;object-fit:cover;border-radius:7px}
+.ltag b{display:block;margin-top:9px;font:900 italic 26px/1 var(--disp);letter-spacing:-.01em;color:var(--c)}
+.ltag small{display:block;margin-top:3px;font:700 9.5px var(--sans);letter-spacing:.16em;text-transform:uppercase;opacity:.6}
+.ltag i{position:absolute;right:10px;bottom:12px;font:700 9px var(--sans);font-style:normal;letter-spacing:.1em;opacity:.45}
+.ltag.on{outline:3px solid var(--c);outline-offset:3px}
+@media (max-width:900px){
+  .tagwall .tags{--jm-frame-w:20vw;gap:3vw;padding-left:0;justify-content:center}
+  .tagwall .jm-hanger:nth-child(n+5){display:none}
+  .ltag{padding:16px 6px 8px!important}.ltag b{font-size:17px}.ltag small{font-size:7px;letter-spacing:.08em}.ltag i{display:none}
+}</style>
 </head>
 <body>
 
@@ -215,7 +247,7 @@ footer .book{position:relative;left:auto;bottom:auto;transform:none;margin-top:7
     <div class="bf to" id="toField"><span class="ic">◎</span><div style="min-width:0"><small>To world ⌄</small><b id="toName">Guatapé</b></div><div class="dd glass" id="dd"></div></div>
     <div class="bf hide-m"><span class="ic">▦</span><div><small>When</small><b>Whenever it's ready</b></div></div>
     <div class="bf hide-m"><span class="ic">☺</span><div><small>Travellers</small><div class="stp"><button id="tMinus" aria-label="Fewer">−</button><b id="tCount">1</b><button id="tPlus" aria-label="More">+</button></div></div></div>
-    <button class="go" id="explore">Explore world <span>→</span></button>
+    <button class="go" id="explore" data-jm="press" aria-label="Explore world">Explore world <span>→</span></button>
     <div class="buddy" id="buddy"><span class="bub" id="bub">Psst. Guatapé first — that's where I was sketched.</span><img src="../assets/3d/pixel-peek.webp" alt="Pixel the chameleon peeking over the booking bar"></div>
   </div>
 </section>
@@ -266,9 +298,19 @@ footer .book{position:relative;left:auto;bottom:auto;transform:none;margin-top:7
   <div class="book glass" id="book2">
     <div class="bf"><span class="ic">✉</span><div style="flex:1;min-width:0"><small>Your email</small><input id="mail" type="email" placeholder="you@studio.com" aria-label="Your email" style="border:0;background:transparent;font:700 15px var(--sans);outline:none;width:100%"></div></div>
     <div class="bf"><span class="ic">◎</span><div><small>Idea</small><b>A park, a product, a platform</b></div></div>
-    <button class="go" id="send">Get in touch <span>→</span></button>
+    <button class="go" id="send" data-jm="press" aria-label="Get in touch">Get in touch <span>→</span></button>
   </div>
   <p id="sent" style="display:none;margin-top:16px;font:600 14px var(--sans);color:var(--teal)">Thanks — demo form, nothing is sent.</p>
+  <div class="tagwall"><div class="kick">Or grab a luggage tag — it picks the world</div>
+    <div class="tags" data-jm="hang" id="tags">
+      <div class="ltag" data-i="0" style="--c:#14c4c1"><img src="../assets/img/justin-guatape.jpg" alt=""><b>GUA</b><small>Guatapé</small><i>01</i></div>
+      <div class="ltag" data-i="1" style="--c:#4f7bff"><img src="../assets/img/playset-blueprint.jpg" alt=""><b>PLY</b><small>Playset</small><i>02</i></div>
+      <div class="ltag" data-i="2" style="--c:#3fbf3a"><img src="../assets/img/pixel-chameleon.jpg" alt=""><b>PXL</b><small>Pixel</small><i>03</i></div>
+      <div class="ltag" data-i="3" style="--c:#8b8cff"><img src="../assets/img/aluzina-os.jpg" alt=""><b>ALZ</b><small>Aluzina</small><i>04</i></div>
+      <div class="ltag" data-i="4" style="--c:#ff9a3c"><img src="../assets/img/las-palmas.jpg" alt=""><b>LPA</b><small>Las Palmas</small><i>05</i></div>
+      <div class="ltag" data-i="5" style="--c:#b06bff"><img src="../assets/img/playset-agents.jpg" alt=""><b>AGT</b><small>Agents</small><i>06</i></div>
+    </div>
+  </div>
   <div class="fl"><span>JAM Studios · Los Angeles · Orlando · Guatapé</span><span>© 2026 Justin Massion</span><span>Concept D · work images from the Loom · atmosphere photos: Unsplash</span></div>
 </footer>
 
@@ -290,12 +332,12 @@ const IMG='../assets/img/',pad=n=>String(n+1).padStart(2,'0'),clamp=(v,a,b)=>Mat
 // bg = shared Unsplash atmosphere photo (stock.js); k = Justin's own project image; '@key' in cards = stock photo
 const S=window.STOCK,pic=(k,w=700)=>k[0]==='@'?S.url(k.slice(1),w):IMG+k+'.jpg';
 const W=[
- {t:'Guatapé',k:'justin-guatape',bg:'guatape',key:'01 · Home base',d:'Where the worlds get sketched first — under El Peñol, 740 steps above the lake.',cards:[['@guatapeRock','El Peñol','Place'],['@guatapeStreet','Zócalos','Town'],['hero-sketch','The first sketch','Pencil'],['justin-guatape','Home base','Portrait']]},
- {t:'Playset',k:'playset-blueprint',bg:'arcade2',key:'02 · Studio',d:'Arcade cabinets, AI agents and enterprise workflows — all drawn like a ride before they get built.',cards:[['playset-blueprint','Cabinet blueprint','Blueprint'],['playset-agents','Select your agent','Game UI'],['enterprise-workflow','10-station workflow','Enterprise'],['pixel-chameleon','Pixel','Character']]},
- {t:'Pixel',k:'pixel-chameleon',bg:'chameleon',key:'03 · Character',d:'A high-end 3D chameleon: turnarounds, expressions, action poses and colour variations.',cards:[['pixel-chameleon','Character sheet','Turnaround'],['playset-agents','In the game','Game UI'],['hero-sketch','From pencil','Sketch'],['aluzina-os','In the cloud','Concept']]},
- {t:'Aluzina',k:'aluzina-os',bg:'clouds',key:'04 · Interface',d:'An OS concept in its "after" state: cards of state machines and creators floating in the sky.',cards:[['aluzina-os','After state','Interface'],['las-palmas','Morning mode','Dashboard'],['enterprise-workflow','Systems','Workflow'],['playset-agents','Agents','Game UI']]},
- {t:'Las Palmas',k:'las-palmas',bg:'palms',key:'05 · Place',d:'A dashboard for a place to stay — sunrise first, then the plan for the day.',cards:[['las-palmas','Buenos días','Dashboard'],['justin-guatape','The view','Place'],['aluzina-os','Smart stay','Concept'],['hero-photo','Host','Portrait']]},
- {t:'Agents',k:'playset-agents',bg:'neon',key:'06 · Game UI',d:'AI agents presented like characters on a game select screen — each one has a job and a glow.',cards:[['playset-agents','Select your agent','Game UI'],['enterprise-workflow','Their workplace','Workflow'],['pixel-chameleon','Mascot','Character'],['playset-blueprint','Cabinet','Blueprint']]}];
+ {t:'Guatapé',c:'#14c4c1',k:'justin-guatape',bg:'guatape',key:'01 · Home base',d:'Where the worlds get sketched first — under El Peñol, 740 steps above the lake.',cards:[['@guatapeRock','El Peñol','Place'],['@guatapeStreet','Zócalos','Town'],['hero-sketch','The first sketch','Pencil'],['justin-guatape','Home base','Portrait']]},
+ {t:'Playset',c:'#4f7bff',k:'playset-blueprint',bg:'arcade2',key:'02 · Studio',d:'Arcade cabinets, AI agents and enterprise workflows — all drawn like a ride before they get built.',cards:[['playset-blueprint','Cabinet blueprint','Blueprint'],['playset-agents','Select your agent','Game UI'],['enterprise-workflow','10-station workflow','Enterprise'],['pixel-chameleon','Pixel','Character']]},
+ {t:'Pixel',c:'#3fbf3a',k:'pixel-chameleon',bg:'chameleon',key:'03 · Character',d:'A high-end 3D chameleon: turnarounds, expressions, action poses and colour variations.',cards:[['pixel-chameleon','Character sheet','Turnaround'],['playset-agents','In the game','Game UI'],['hero-sketch','From pencil','Sketch'],['aluzina-os','In the cloud','Concept']]},
+ {t:'Aluzina',c:'#8b8cff',k:'aluzina-os',bg:'clouds',key:'04 · Interface',d:'An OS concept in its "after" state: cards of state machines and creators floating in the sky.',cards:[['aluzina-os','After state','Interface'],['las-palmas','Morning mode','Dashboard'],['enterprise-workflow','Systems','Workflow'],['playset-agents','Agents','Game UI']]},
+ {t:'Las Palmas',c:'#ff9a3c',k:'las-palmas',bg:'palms',key:'05 · Place',d:'A dashboard for a place to stay — sunrise first, then the plan for the day.',cards:[['las-palmas','Buenos días','Dashboard'],['justin-guatape','The view','Place'],['aluzina-os','Smart stay','Concept'],['hero-photo','Host','Portrait']]},
+ {t:'Agents',c:'#b06bff',k:'playset-agents',bg:'neon',key:'06 · Game UI',d:'AI agents presented like characters on a game select screen — each one has a job and a glow.',cards:[['playset-agents','Select your agent','Game UI'],['enterprise-workflow','Their workplace','Workflow'],['pixel-chameleon','Mascot','Character'],['playset-blueprint','Cabinet','Blueprint']]}];
 const N=W.length,G=window.gsap;
 // Pixel's running commentary, one line per world
 const QUIPS=["Psst. Guatapé first — that's where I was sketched.","Playset! I have my own arcade cabinet there.","Hey, that's me. Left side is my good side.","Aluzina is in the clouds. I get dizzy up there.","Las Palmas does a great breakfast. Ask for mangoes.","The agents glow. I glow too, if you ask nicely."];
@@ -315,6 +357,7 @@ function placeNames(idx,anim){const el=names[idx],x=innerWidth/2-(el.offsetLeft+
   G?G.to('#names',{x,duration:anim?1.2:0,ease:'expo.inOut'}):($('#names').style.transform=`translate(${x}px,-50%)`)}
 function go(i,dir){if(busy)return;i=(i+N)%N;if(i===cur)return;busy=true;dir=dir||(i>cur?1:-1);
   const a=sls[cur],b=sls[i];nameIdx+=dir*(((i-cur)*dir+N)%N);if(nameIdx<N||nameIdx>=2*N){/* recentre silently */}
+  document.documentElement.style.setProperty('--teal',W[i].c);$$('.ltag').forEach(l=>l.classList.toggle('on',+l.dataset.i===i));
   placeNames(nameIdx,true);quip(i);$('#toName').textContent=W[i].t;$('#hN').textContent=pad(i);hdots.forEach((d,k)=>d.classList.toggle('on',k===i));$$('#dd button').forEach((d,k)=>d.classList.toggle('on',k===i));
   if(!G){a.classList.remove('on');b.classList.add('on');cur=i;busy=false;return}
   b.style.zIndex=1;a.style.zIndex=0;G.set(b,{clipPath:dir>0?'inset(0 0 0 100%)':'inset(0 100% 0 0)'});b.classList.add('on');
@@ -358,7 +401,9 @@ function closeW(){if(ovBusy||!ovOpen||!G)return;ovBusy=true;G.killTweensOf('#ovg
    .to('#ovcopy',{opacity:0,duration:.3},0).to('#ovgiant',{y:'110%',duration:.6,ease:'power3.in'},.1)
    .to('#ovtab',{clipPath:'inset(0 0 100% 0)',duration:.4},.1)
    .to('#ovdim',{opacity:0,duration:.6},.4).to('#ovbg',{opacity:0,duration:.6},.6)}
-$('#explore').addEventListener('click',openW);$('#ovx').addEventListener('click',closeW);
+$('#explore').addEventListener('click',openW);
+// luggage tags in the footer pick the world (the hero slide follows, the boarding pass prints it)
+window.__jmGo=i=>go(i);$('#ovx').addEventListener('click',closeW);
 // sending the form prints a boarding pass to whichever world is selected up top
 $('#send').addEventListener('click',()=>{$('#sent').style.display='block';const old=$('#pass');old&&old.remove();
   const who=(($('#mail').value||'').split('@')[0]||'Dreamer').replace(/[^\w .-]/g,'').slice(0,18)||'Dreamer',w=W[cur],seat=(7+Math.floor(Math.random()*20))+'ABCDEF'[Math.floor(Math.random()*6)];
@@ -432,6 +477,11 @@ G.from('.fc',{y:200,opacity:0,stagger:.08,duration:1.2,ease:'expo.out',scrollTri
 G.from('footer h2',{y:80,opacity:0,duration:1.2,ease:'power4.out',scrollTrigger:{trigger:'footer',start:'top 80%'}});
 ScrollTrigger.sort();ScrollTrigger.refresh();
 })();
+</script>
+<script src="../personality.js?v=2" data-root="../"></script>
+<script>
+(()=>{const t=document.getElementById('tags');if(!t)return;const first=t.querySelector('.ltag[data-i="0"]');first&&first.classList.add('on');
+  t.addEventListener('click',e=>{const l=e.target.closest('.jm-hanger');const g=l&&l.querySelector('.ltag');if(g&&window.__jmGo){window.__jmGo(+g.dataset.i);window.JM&&JM.tick(1.2,.12,'pop')}})})();
 </script>
 </body>
 </html>
