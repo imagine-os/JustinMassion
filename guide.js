@@ -69,7 +69,7 @@
 
   // two AI-rendered poses of Justin (cape, fox tail, his cap): hovering upright and flying
   const jg = document.createElement('div'); jg.className = 'jg'; jg.setAttribute('aria-hidden', 'true');
-  jg.innerHTML = `<div class="jg-fig" title="Justin — click for a tour"><div class="jg-bob"><img class="jg-img jg-hov" src="${root}assets/img/justin-hover.webp" alt="" draggable="false"><img class="jg-img jg-flyimg" src="${root}assets/img/justin-fly.webp" alt="" draggable="false"></div></div>`;
+  jg.innerHTML = `<div class="jg-fig" title="Justin — click for a tour"><div class="jg-bob"><img class="jg-img jg-hov" src="${root}assets/img/justin-hover.webp?v=2" alt="" draggable="false"><img class="jg-img jg-flyimg" src="${root}assets/img/justin-fly.webp?v=2" alt="" draggable="false"></div></div>`;
   const say = document.createElement('div'); say.className = 'jg-say'; say.setAttribute('role', 'dialog'); say.setAttribute('aria-live', 'polite');
   const mount = () => { document.body.appendChild(jg); document.body.appendChild(say) };
   document.body ? mount() : addEventListener('DOMContentLoaded', mount);
